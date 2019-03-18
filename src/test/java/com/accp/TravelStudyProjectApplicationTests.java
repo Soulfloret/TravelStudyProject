@@ -1,4 +1,4 @@
-package com.accp.Java23;
+package com.accp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
