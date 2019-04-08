@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.menubindMapper" >
+  <resultMap id="BaseResultMap" type="domain.menubind" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="BindId" property="bindid" jdbcType="INTEGER" />
+    <result column="menuId" property="menuid" jdbcType="INTEGER" />
+    <result column="name1" property="name1" jdbcType="VARCHAR" />
+    <result column="name2" property="name2" jdbcType="VARCHAR" />
+    <result column="name3" property="name3" jdbcType="VARCHAR" />
+    <result column="name4" property="name4" jdbcType="VARCHAR" />
+    <result column="name5" property="name5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, BindId, menuId, name1, name2, name3, name4, name5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.menubindExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menubind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from menubind
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from menubind
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="domain.menubindExample" >
+    delete from menubind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="domain.menubind" >
+    insert into menubind (id, BindId, menuId, 
+      name1, name2, name3, 
+      name4, name5)
+    values (#{id,jdbcType=INTEGER}, #{bindid,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, 
+      #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
+      #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="domain.menubind" >
+    insert into menubind
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bindid != null" >
+        BindId,
+      </if>
+      <if test="menuid != null" >
+        menuId,
+      </if>
+      <if test="name1 != null" >
+        name1,
+      </if>
+      <if test="name2 != null" >
+        name2,
+      </if>
+      <if test="name3 != null" >
+        name3,
+      </if>
+      <if test="name4 != null" >
+        name4,
+      </if>
+      <if test="name5 != null" >
+        name5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bindid != null" >
+        #{bindid,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="name1 != null" >
+        #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        #{name5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="domain.menubindExample" resultType="java.lang.Integer" >
+    select count(*) from menubind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update menubind
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bindid != null" >
+        BindId = #{record.bindid,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuid != null" >
+        menuId = #{record.menuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name1 != null" >
+        name1 = #{record.name1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name2 != null" >
+        name2 = #{record.name2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name3 != null" >
+        name3 = #{record.name3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name4 != null" >
+        name4 = #{record.name4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name5 != null" >
+        name5 = #{record.name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update menubind
+    set id = #{record.id,jdbcType=INTEGER},
+      BindId = #{record.bindid,jdbcType=INTEGER},
+      menuId = #{record.menuid,jdbcType=INTEGER},
+      name1 = #{record.name1,jdbcType=VARCHAR},
+      name2 = #{record.name2,jdbcType=VARCHAR},
+      name3 = #{record.name3,jdbcType=VARCHAR},
+      name4 = #{record.name4,jdbcType=VARCHAR},
+      name5 = #{record.name5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="domain.menubind" >
+    update menubind
+    <set >
+      <if test="bindid != null" >
+        BindId = #{bindid,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null" >
+        menuId = #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="name1 != null" >
+        name1 = #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        name2 = #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        name3 = #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        name4 = #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        name5 = #{name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="domain.menubind" >
+    update menubind
+    set BindId = #{bindid,jdbcType=INTEGER},
+      menuId = #{menuid,jdbcType=INTEGER},
+      name1 = #{name1,jdbcType=VARCHAR},
+      name2 = #{name2,jdbcType=VARCHAR},
+      name3 = #{name3,jdbcType=VARCHAR},
+      name4 = #{name4,jdbcType=VARCHAR},
+      name5 = #{name5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
