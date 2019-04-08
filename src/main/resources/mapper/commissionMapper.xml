@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.commissionMapper" >
-  <resultMap id="BaseResultMap" type="domain.commission" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.commission" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="productId" property="productid" jdbcType="INTEGER" />
     <result column="PostionId" property="postionid" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
     id, productId, PostionId, royaltyAmount, conditions, name1, name2, name3, name4, 
     name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.commissionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.commissionExample" >
     select
     <if test="distinct" >
       distinct
@@ -99,13 +99,13 @@
     delete from commission
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.commissionExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.commissionExample" >
     delete from commission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.commission" >
+  <insert id="insert" parameterType="com.accp.domain.commission" >
     insert into commission (id, productId, PostionId, 
       royaltyAmount, conditions, name1, 
       name2, name3, name4, 
@@ -115,7 +115,7 @@
       #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
       #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="domain.commission" >
+  <insert id="insertSelective" parameterType="com.accp.domain.commission" >
     insert into commission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.commissionExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.commissionExample" resultType="java.lang.Integer" >
     select count(*) from commission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.commission" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.commission" >
     update commission
     <set >
       <if test="productid != null" >
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.commission" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.commission" >
     update commission
     set productId = #{productid,jdbcType=INTEGER},
       PostionId = #{postionid,jdbcType=INTEGER},

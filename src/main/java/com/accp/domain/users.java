@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+
 public class users {
     private Integer id;
 
@@ -11,16 +12,21 @@ public class users {
 
     private String phone;
 
-    private String address;
+	private String address;
 
     private Double height;
 
     private Double width;
 
     private Integer typeid;
-
+    
+    //用户类型对象 
+    private usertype usetype;
+    
+    //性别列  
     private String name1;
 
+    //头像
     private String name2;
 
     private String name3;
@@ -140,4 +146,11 @@ public class users {
     public void setName5(String name5) {
         this.name5 = name5;
     }
+    public usertype getUsetype() {
+		return usetype;
+	}
+
+	public void setUsetype(usertype usetype) {
+		this.usetype = usetype;
+	}
 }
