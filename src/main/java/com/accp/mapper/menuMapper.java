@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menuMapper {
+	
+	List<menu> QueryMenu(menu me);
+	
     int countByExample(menuExample example);
 
     int deleteByExample(menuExample example);

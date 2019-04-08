@@ -30,8 +30,21 @@ public class menu {
     private String name4;
 
     private String name5;
+    
+    private images image;
+    
+    
+    
 
-    public Integer getId() {
+    public images getImages() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public Integer getId() {
         return id;
     }
 

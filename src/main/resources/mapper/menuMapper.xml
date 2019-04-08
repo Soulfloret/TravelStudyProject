@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.menuMapper" >
-  <resultMap id="BaseResultMap" type="domain.menu" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.menu" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
     <result column="intorduce" property="intorduce" jdbcType="VARCHAR" />
@@ -17,6 +17,23 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="BaseResultMap1" type="com.accp.domain.menu" extends="BaseResultMap" >
+	  	<association property="image"   javaType="com.accp.domain.images">
+	  		<id column="iiid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  	</association>
+  </resultMap>
+  
+  
+  <select id="QueryMenu" resultMap="BaseResultMap1">
+  		SELECT m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` 
+		FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -79,7 +96,7 @@
     id, mname, intorduce, price, stock, state, menutypeId, putawayTime, likecount, name1, 
     name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.menuExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.menuExample" >
     select
     <if test="distinct" >
       distinct
@@ -103,13 +120,13 @@
     delete from menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.menuExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.menuExample" >
     delete from menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.menu" >
+  <insert id="insert" parameterType="com.accp.domain.menu" >
     insert into menu (id, mname, intorduce, 
       price, stock, state, 
       menutypeId, putawayTime, likecount, 
@@ -121,7 +138,7 @@
       #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
       #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="domain.menu" >
+  <insert id="insertSelective" parameterType="com.accp.domain.menu" >
     insert into menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -212,7 +229,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.menuExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.menuExample" resultType="java.lang.Integer" >
     select count(*) from menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -288,7 +305,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.menu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.menu" >
     update menu
     <set >
       <if test="mname != null" >
@@ -333,7 +350,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.menu" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.menu" >
     update menu
     set mname = #{mname,jdbcType=VARCHAR},
       intorduce = #{intorduce,jdbcType=VARCHAR},

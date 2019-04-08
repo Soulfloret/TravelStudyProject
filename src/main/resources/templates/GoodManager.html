@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8" />
@@ -40,12 +40,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
+									<tr th:each="item,state : ${list}">
+										<th scope="row"><input type="checkbox" th:value="${item.id}" /></th>
+										<td><img th:src="@{item.image.url}" width="65px" height="65px" /></td>
+										<td class="tm-product-name" th:text="${item.mname}"></td>
+										<td th:text="${item.price}"></td>
+										<td th:text="${item.stock}"></td>
 										<td>上架</td>
 										<td>
 											<a href="#" class="tm-product-delete-link">
@@ -53,45 +53,7 @@
 											</a>
 										</td>
 									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
+									
 								</tbody>
 							</table>
 						</div>
