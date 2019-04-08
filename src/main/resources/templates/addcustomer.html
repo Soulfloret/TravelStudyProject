@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>添加客户</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+
+	</head>
+	<style>
+		#shuxing .form-group {
+			padding-bottom: 10px;
+		}
+		
+		.form-group p select {}
+		
+		.form-group p {
+			color: white;
+			margin-right: 10px;
+		}
+		
+		.form-group select {
+			padding: 5px 5px 5px 5px;
+		}
+		
+		.form-group [type='radio']+span {
+			color: white;
+		}
+	</style>
+
+	<body id="reportsPage">
+			<div class="" id="home">
+				<div class="row">
+					<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+							<div class="row">
+								<div class="col-12">
+									<h2 class="tm-block-title d-inline-block">添加客户</h2>
+								</div>
+							</div>
+	
+							<div class="row" id="shuxing">
+								<form class="form-inline" class="col-md-12" method="post">
+									<div class="form-group col-md-6">
+										<label for="cname" class="col-md-5">客户名称:</label>
+										<input type="text" id="cname" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="email" class="col-md-5">E-Mail:</label>
+										<input type="text" id="email" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">电话:</label>
+										<input type="text" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">性别:</label>
+										<input type="radio" checked name="sex"><span>男</span>
+										<input type="radio" name="sex" style="margin-left: 10px;"><span>女</span>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">身高(cm):</label>
+										<input type="text" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">体重(Kg):</label>
+										<input type="text" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">居住地址:</label>
+										<input type="text" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">爱好:</label>
+										<input type="text" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-12" style="margin-left: 15px;">
+										<label for="" class="col-md-2">身份证号:</label>
+										<input type="text" class="form-control col-md-8">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="" class="col-md-3">选择报名方式:</label>
+										<input type="radio" checked name="team" value="individual"><span>个人</span>
+										<input type="radio" name="team" id="team" value="team" style="margin-left: 10px;"><span>团队</span>
+									</div>
+									<div class="form-group col-md-12" style="display: none;">
+										<label for="" class="col-md-3">导入团员信息:</label>
+										<a style="color: white;margin-right: 20px;">下载导入模板</a>
+										<input type="file" class="form-control" style="padding: 10px;">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="" class="col-md-2" style="margin-left: 15px;">出生日期:</label>
+										<p>
+											<span>年</span>
+											<select name="year" id="brithday" class="form-control">
+												<option>1999</option>
+											</select>
+										</p>
+										<p>
+											<span>月</span>
+											<select name="month" class="form-control">
+												<option>1999</option>
+												<option>1998</option>
+											</select>
+										</p>
+										<p>
+											<span>日</span>
+											<select name="day" class="form-control">
+												<option>1999</option>
+											</select>
+										</p>
+									</div>
+	
+									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info" />
+								</form>
+							</div>
+	
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script src="js/jquery-3.3.1.min.js"></script>
+			<!-- https://jquery.com/download/ -->
+			<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+			<!-- https://jqueryui.com/download/ -->
+			<script src="js/bootstrap.min.js"></script>
+			<!-- https://getbootstrap.com/ -->
+			<script>
+				//选中团队 即出现Excel导入 	
+				$("[name='team']").click(function() {
+					if($(this).val() == "individual") {
+						$(this).parent().next().hide();
+					} else {
+						$(this).parent().next().show();
+					}
+				})
+			</script>
+	</body>
+
+</html>

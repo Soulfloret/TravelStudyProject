@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>个人薪资详情</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+		<!-- https://fonts.google.com/specimen/Roboto -->
+		<link rel="stylesheet" href="css/fontawesome.min.css" />
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<style>
+			th {
+				text-align: center;
+			}
+			
+			td {
+				text-align: center;
+			}
+			table td{
+				overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+			}
+	</style>
+		</style>
+	</head>
+
+	<body id="reportsPage">
+			<div class="container">
+			<div class="row tm-content-row">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 20px;">
+						<div class="tm-product-table-container">
+							<p class="text-white ">打卡记录</p>
+							<table class="table table-hover tm-table-small tm-product-table">
+								<thead>
+									<tr>
+										<th scope="col">打卡时间</th>
+										<th scope="col">月份天数</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">2019-1-5</th>
+										<td class="tm-product-name">1</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="float: right;margin-top: 30px;margin-right: 30px; color: white;">
+									<b>总打卡天数:</b>
+									<b>15</b>
+							</div>
+							<p class="text-white"  style="margin-top: 30px;">奖金记录</p>
+							<table class="table table-hover tm-table-small tm-product-table" id="pj" style="table-layout: fixed;">
+								<thead>
+									<tr>
+										<th scope="col">奖金原因</th>
+										<th scope="col">奖金金额</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row">
+											教科书的妇女可能房间内瑟夫看见你问客服
+											
+										</td>
+										<td scope="row">300</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="float: right;margin-top: 30px;margin-right: 30px; color: white;">
+									<b>奖金金额:</b>
+									<b>300</b>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<!-- https://jquery.com/download/ -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- https://getbootstrap.com/ -->
+		<script>
+			$(function() {
+				$(".tm-product-name").on("click", function() {
+					window.location.href = "edit-product.html";
+				});
+			});
+			$("#pj").on("click","tr td:nth-of-type(1)",function(){
+	    		$(this).css("overflow","initial")
+	    		$(this).css("white-space","initial");
+	    		$(this).css("text-overflow","initial");
+    		})
+		</script>
+	</body>
+
+</html>

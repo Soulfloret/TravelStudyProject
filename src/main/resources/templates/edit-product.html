@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>活动设置</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+		<!-- https://fonts.google.com/specimen/Roboto -->
+		<link rel="stylesheet" href="css/fontawesome.min.css" />
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+		<!-- http://api.jqueryui.com/datepicker/ -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" href="css/templatemo-style.css">
+
+		<style>
+			#hide_ry span,
+			#hide_dd span {
+				display: inline-block;
+				width: 160px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="row">
+			<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+				<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+					<div class="row">
+						<div class="col-12">
+							<h2 class="tm-block-title d-inline-block">活动</h2>
+						</div>
+					</div>
+					<div class="row tm-edit-product-row">
+						<div class="col-xl-6 col-lg-6 col-md-12">
+							<form action="" method="post" class="tm-edit-product-form">
+								<div class="form-group mb-3">
+									<label for="name">活动名称
+                    </label>
+									<input id="name" name="name" type="text" value="我爱劳动" class="form-control validate" />
+								</div>
+								<div class="form-group mb-3">
+									<label for="description">活动内容</label
+                    >
+                    <textarea                    
+                      class="form-control validate tm-small"
+                      rows="5"
+                      required
+                    >强身健体
+                    </textarea>
+                 </div>
+                  <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+								</div>
+								<div class="form-group mb-3 col-xs-12 col-sm-6">
+									
+								</div>
+
+						</div>
+
+					</div>
+					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+						<div class="tm-product-img-edit mx-auto">
+							<img src="img/product-image.jpg" alt="Product image" class="img-fluid d-block mx-auto">
+							<i class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById(" fileInput ').click();"
+                  ></i>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+                  <input id="fileInput" type="file" style="display:none;" />
+                </div>
+              </div>
+              <div id="show_xm" class="col-12">
+				              <h5 style="color: white;">
+				              	已选项目
+				              </h5>
+				              <table class="table table-hover tm-table-small tm-product-table">
+                <thead>
+                  <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">项目名称</th>
+                    <th scope="col">建成金额</th>
+                    <th scope="col">创建时间</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"></th>
+                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>开放</td>
+                    <!--<td>
+                      <a href="#" class="tm-product-delete-link">
+                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                      </a>
+                    </td>-->
+                  </tr>
+                 	<tr>
+                    <th scope="row"></th>
+                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>开放</td>
+                    <!--<td>
+                      <a href="#" class="tm-product-delete-link">
+                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                      </a>
+                    </td>-->
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>开放</td>
+                    <!--<td>
+                      <a href="#" class="tm-product-delete-link">
+                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                      </a>
+                    </td>-->
+                  </tr>
+               
+                </tbody>
+              </table>
+			      </div>
+			      
+			      <div id="show_ry" class="col-12" style="margin-top:30px;">
+				              <h5 style="color: white;">
+				              	参与人员
+				              </h5>
+				             
+				              <table class="table table-hover tm-table-small tm-product-table">
+                <thead>
+                  <tr>
+                    <th scope="col">&nbsp;</th>
+                    
+                    <th scope="col">参与价格</th>
+                    <th scope="col">参与时间</th>
+                    <th scope="col">类型</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"></th>
+                    
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>团队</td>
+                    <td>
+                      <a href="CustomerCare.html" class="tm-product-delete-link">
+                        <i class="fa fa-info"></i>
+                      </a>
+                    </td>
+                  </tr>
+                 	<tr>
+                    <th scope="row"></th>
+                    
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>团队</td>
+                    <td>
+                      <a href="CustomerCare.html" class="tm-product-delete-link">
+                        <i class="fa fa-info"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    
+                    <td>1,450</td>
+                    <td>28 March 2019</td>
+                    <td>个人</td>
+                    <td>
+                      <a href="CustomerCare.html" class="tm-product-delete-link">
+                        <i class="fa fa-info"></i>
+                      </a>
+                    </td>
+                  </tr>
+               
+                </tbody>
+              </table>
+
+			      </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

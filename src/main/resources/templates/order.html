@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>主页管理</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<style>
+			.box .status {
+				margin-left: 15px;
+			}
+			.box .sum {
+				margin-left: 5px;
+			}
+			.box .time {
+				margin-left: 15px;
+			}
+			.content {
+				margin: 10px;
+				color: white;
+				padding: 10px 20px 10px 10px;
+			}
+			
+			.dingdanhao {
+				margin-left: 5px;
+			}
+			
+			.box {
+				width: 100%;
+				padding: 0px 25px;
+				margin: 10px;
+			}
+			
+			.box .dingdanhead {
+				margin-bottom: 10px;
+				margin-top: 10px;
+				height: 40px;
+				padding: 0px 15px;
+				border: 1px solid rgb(225,225,225);
+			}
+			
+			.step {
+				margin: 4px 5px 0px 0px;
+				display: inline-block;
+				border: 1px solid rgb(227, 227, 227);
+				background-color: rgba(242, 242, 242, 0.2);
+				border-radius: 50%;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				width: 30px;
+			}
+			
+			.box .dingdanhead h4 a {
+				color: white;
+			}
+			
+			.box .dingdanhead:hover {
+				background-color:#34CE57;
+			}
+			
+			.box .dingdanhead h4 {
+				height: 100%;
+				line-height: 100%;
+				color: white;
+				font-size: 16px;
+				margin-bottom: 0px;
+			}
+			
+			#shuxing .form-group {
+				padding-bottom: 10px;
+			}
+			
+			.form-group p {
+				color: white;
+				margin-right: 10px;
+			}
+			
+			.form-group [type='radio']+span {
+				color: white;
+			}
+			
+			.tm-block {
+				padding: 40px;
+				width: 975px;
+				-webkit-box-shadow: 1px 1px 5px 0 #455c71;
+				-moz-box-shadow: 1px 1px 5px 0 #455c71;
+				box-shadow: 1px 1px 5px 0 #455c71;
+				height: 100%;
+			}
+			.panel-collapse in {
+				display: block;
+			}
+			.collapsed {
+				display: none;
+			}
+			.team{
+				color: #99ff99;
+				margin-left: 10px;
+			}
+			#xz_ry .modal-body span{
+				display: inline-block;
+				width: 150px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body id="reportsPage">
+		<div class="" id="home">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="text-white mt-5 mb-5"></p>
+					</div>
+				</div>
+				<div class="row tm-content-row">
+					<div class="col-12 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll" style="width: 100%;">
+							<h2 class="tm-block-title">订单列表</h2>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">订单号</th>
+										<th scope="col">订单状态</th>
+										<th scope="col">订单生成时间</th>
+										<th scope="col">客户类型</th>
+										<th scope="col">下单人</th>
+										<th scope="col">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row"><b>#122349</b></th>
+										<td>
+											<div class="tm-status-circle moving">
+											</div>Moving
+										</td>
+										<td><b>2018-5-5</b></td>
+										<td><b>London, UK</b></td>
+										<td><b>485 km</b></td>
+										<td>
+											<a href="" data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link "></a>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><b>#122349</b></th>
+										<td>
+											<div class="tm-status-circle moving">
+											</div>Moving
+										</td>
+										<td><b>2019-5-5</b></td>
+										<td><b>London, UK</b></td>
+										<td><b>485 km</b></td>
+										<td>
+											<a href="" data-target="#orderInfo1" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link "></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<input type="button" class="btn btn-primary btn-block text-uppercase"
+		              	 data-toggle="modal" data-target="#xz_ry" style="margin-top: 20px;"
+		              	 value="新增订单"/>
+              
+				</div>
+				<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
+						<div class="modal-content" style="background-color: #435c70;color: white;">
+							<div id="" class="modal-header">
+								订单详情
+							</div>
+							<div id="" class="modal-body">
+								<div class="box">
+									<div class="dingdanhead">
+										<h4>
+				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
+				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
+				        					<span class="status">订单状态：</span><span>已完成</span>
+				        					<span class="sum">订单总价:</span><span>￥2002</span>
+				        					<span class="team">团队订单</span>
+				        				</h4>
+									</div>
+									<div class="content col-md-12 collapsed" id="checkout-collapse4">
+										<div class="dingdanhead">
+											<h4>
+												<a data-toggle="collase"  href="#checkout-collapse5" ><span class="step">01</span><span>负责人订单</span></a>
+	        								</h4>
+										</div>
+										<div class="content col-md-12 collapsed" id="checkout-collapse5">
+											<div class="content col-md-11" id="checkout-collapse7">
+												<table class="table">
+													<thead>
+														<th scope="col">项目名称</th>
+														<th scope="col">项目地点</th>
+														<th scope="col">项目时间</th>
+														<th scope="col">项目价格</th>
+														<th scope="col">项目负责人</th>
+														<th scope="col">项目状态</th>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+															<td>
+																<b>三区一</b>
+															</td>
+															<td>
+																<b>2018-5-5 10:00</b>
+															</td>
+															<td>
+																<b>188</b>
+															</td>
+															<td>
+																张三
+															</td>
+															<td>已进行</td>
+														</tr>
+														<tr>
+															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+															<td>
+																<b>三区一</b>
+															</td>
+															<td>
+																<b>2018-5-5 10:00</b>
+															</td>
+															<td>
+																<b>188</b>
+															</td>
+															<td>
+																张三
+															</td>
+															<td>已进行</td>
+														</tr>
+														<tr>
+															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+															<td>
+																<b>三区一</b>
+															</td>
+															<td>
+																<b>2018-5-5 10:00</b>
+															</td>
+															<td>
+																<b>188</b>
+															</td>
+															<td>
+																张三
+															</td>
+															<td>已进行</td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+											<div class="content col-md-11" id="checkout-collapse8">
+												<table class="table">
+													<thead>
+														<th scope="col">菜品名称</th>
+														<th scope="col">菜品价格</th>
+														<th scope="col">菜品数据</th>
+														<th scope="col">菜品总价</th>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+															<td>
+																<b>122</b>
+															</td>
+															<td>
+																<b>2</b>
+															</td>
+															<td><b>244</b></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="content col-md-11" id="checkout-collapse9">
+											<table class="table">
+												<thead>
+													<th scope="col">房间名称</th>
+													<th scope="col">房间价格</th>
+													<th scope="col">房间类型</th>
+													<th scope="col">房间状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>总统套房</b>
+														</td>
+														<td><b>正在入住</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										</div>
+										<p>团员订单管理</p>
+										<div class="dingdanhead">
+											<h4>
+												<a data-toggle="collase"  href="#checkout-collapse10" ><span class="step">01</span><span>队员一</span></a>
+	        								</h4>
+										</div>
+										<div class="content col-md-12 collapsed" id="checkout-collapse10">
+										<div class="content col-md-11" id="checkout-collapse5">
+											<table class="table">
+												<thead>
+													<th scope="col">项目名称</th>
+													<th scope="col">项目价格</th>
+													<th scope="col">项目负责人</th>
+													<th scope="col">项目状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="content col-md-11" id="checkout-collapse6">
+											<table class="table">
+												<thead>
+													<th scope="col">菜品名称</th>
+													<th scope="col">菜品价格</th>
+													<th scope="col">菜品数据</th>
+													<th scope="col">菜品总价</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>2</b>
+														</td>
+														<td><b>244</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="content col-md-11" id="checkout-collapse7">
+											<table class="table">
+												<thead>
+													<th scope="col">房间名称</th>
+													<th scope="col">房间价格</th>
+													<th scope="col">房间类型</th>
+													<th scope="col">房间状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>总统套房</b>
+														</td>
+														<td><b>正在入住</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									</div>
+								</div>	
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn btn-dark">提交</a>
+								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade bs-example-modal-lg" id="orderInfo1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
+						<div class="modal-content" style="background-color: #435c70;color: white;">
+							<div id="" class="modal-header">
+								订单详情
+							</div>
+							<div id="" class="modal-body">
+								<div class="box">
+									<div class="dingdanhead">
+										<h4>
+				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
+				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
+				        					<span class="status">订单状态：</span><span>已完成</span>
+				        					<span class="sum">订单总价:</span><span>￥2002</span>
+				        					<span class="team">个人订单</span>
+				        				</h4>
+									</div>
+									<div class="content col-md-12 collapsed" id="checkout-collapse4">
+										<div class="content col-md-11" id="checkout-collapse5">
+											<table class="table">
+												<thead>
+													<th scope="col">项目名称</th>
+													<th scope="col">项目价格</th>
+													<th scope="col">项目负责人</th>
+													<th scope="col">项目状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="content col-md-11" id="checkout-collapse6">
+											<table class="table">
+												<thead>
+													<th scope="col">菜品名称</th>
+													<th scope="col">菜品价格</th>
+													<th scope="col">菜品数据</th>
+													<th scope="col">菜品总价</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>2</b>
+														</td>
+														<td><b>244</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="content col-md-11" id="checkout-collapse7">
+											<table class="table">
+												<thead>
+													<th scope="col">房间名称</th>
+													<th scope="col">房间价格</th>
+													<th scope="col">房间类型</th>
+													<th scope="col">房间状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>总统套房</b>
+														</td>
+														<td><b>正在入住</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>	
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn btn-dark">提交</a>
+								<a class="btn  btn-primary" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="xz_ry" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
+				<div class="modal-content" style="background: #435c70;color: white;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="myModalLabel">填写团队人员</h5>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+							<div>
+								<span style="margin-left: 50px;margin-bottom:30px">选择活动</span>
+								<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;">选择项目</span>
+								<input type="radio" name="productOrProject" style="width: 15px;height: 15px; " />
+								<div name="hiddens"  hidden="hidden">
+								<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="活动名称"/>
+								<input type="button"  style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
+								<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin:30px auto;">
+					                <thead>
+					                  <tr>
+					                    <th scope="col">&nbsp;</th>
+					                    <th scope="col">活动名称</th>
+					                    <th scope="col">活动人数</th>
+					                    <th scope="col">创建时间</th>
+					                    <th scope="col">状态</th>
+					                    <th scope="col">&nbsp;</th>
+					                  </tr>
+					                </thead>
+					                <tbody class="proucttable">
+					                  <tr>
+					                    <th scope="row"><input type="checkbox" /></th>
+					                    <td class="tm-product-name">活动名称</td>
+					                    <td>1,450</td>
+					                    <td>28 March 2019</td>
+					                    <td>开放</td>
+					                    <td>
+					                      <a href="#" class="tm-product-delete-link">
+					                        <i class="fa fa-info"></i>
+					                      </a>
+					                    </td>
+					                  </tr>
+					                  <tr hidden="hidden">
+					                  </tr>
+					        		</tbody>
+					             </table>									
+								</div>
+								<div name="hiddens"  hidden="hidden">
+									<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="项目名称"/>
+									<input type="button" style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
+									<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin: 30px auto;">
+					                <thead>
+					                  <tr>
+					                    <th scope="col">&nbsp;</th>
+					                    <th scope="col">项目名称</th>
+					                    <th scope="col">描述</th>
+					                    <th scope="col">状态</th>
+					                  </tr>
+					                </thead>
+					                <tbody class="proucttable">
+					                  <tr>
+					                    <th scope="row"><input type="checkbox" /></th>
+					                    <td class="tm-product-name">项目名称</td>
+					                    <td>项目描述</td>
+					                    <td>开放</td>
+					        		</tbody>
+					              </table>
+								</div>								
+							</div>
+							<div style="margin: 30px auto;" hidden="hidden" class="infoss">
+								<span style="margin-left: 50px;">团队</span>
+								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;">个人</span>
+								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+							</div>
+							<div id="hide_dd" style="display: none;">
+								<span style="margin-top: 20px;">请输入负责人</span>
+								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
+								<br>
+								<span style="margin-top: 20px;">负责人身份证号</span>
+								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
+								<br>
+								<span style="margin-top: 20px;">负责人手机号</span>
+								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" /><br>
+								<br>
+								<span>请输入人数</span>
+								<input  class="input-group-sm" style="width: 30%;margin-left: 20px;" /><br>
+								<br>
+								<button class="btn btn-primary"  data-toggle="modal" data-target="#xz_ddry" 
+									style="margin-top: 20px;border-radius: 30px;">填写团队人员</button>
+								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+									排班
+								</button>
+							</div>
+							<div id="hide_ry" style="display: none;margin-top: 30px;">
+								<div style="margin-top: 30px;">
+								<span>请输入姓名</span>
+								<input  class="input-group-sm" style="width: 30%;"/><br>
+								<br>
+								<span>请输入身份证号</span>
+								<input  class="input-group-sm" style="width: 30%;" /><br>
+								<br>
+								<span>请输入手机号</span>
+								<input  class="input-group-sm" style="width: 30%;" /><br>
+								
+								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+									排班
+								</button>
+								</div>
+							</div>
+					</div>
+					<div id="hide_cc" style="display: none;">
+						<table class="table table-hover tm-table-smal	l tm-product-table" style="margin-top: 20px;">
+			                <thead>
+			                  <tr>
+			                  	<th>
+			                  		项目名称
+			                  	</th>
+			                  	<th>所属活动</th>
+			                  	<th>状态</th>	
+			                  	<th></th>
+			                  	<th></th>
+			                  </tr>	
+			                  <tr>
+			                    <td scope="col">骑马</td>
+			                    <td scope="col">所属活动</td>
+			                    <td scope="col">正常</td>
+			                    <td scope="col">
+			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
+			                      	border: 1px solid orange;background: orange;text-align: center;">
+			                      	<a style="color: white;" class="show_jd" pid="1">+</a>
+			                      </div>
+			                    </td>
+			                     <td></td>
+			                 </tr>
+			                  <tr>
+			                    <td scope="col">射箭</td>
+			                    <td scope="col">所属活动</td>
+			                    <td scope="col">正常</td>
+			                    <td scope="col">
+			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
+			                      	border: 1px solid orange;background: orange;text-align: center;">
+			                      	<a style="color: white;" class="show_jd" pid="2">+</a>
+			                      </div>
+			                    </td>
+			                    <td></td>
+			                  </tr>
+			                </thead>
+			               
+		             </table>
+					</div>
+					
+					<div id="hide_jd" style="margin-top: 50px;display: none;display: none;">
+						<div class="col-lg-6">
+							<h4>选择基地</h4>
+							<input type="text" class="form-control-sm" placeholder="基地名称"/>
+							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+							<table class="table" style="margin-top: 20px;">
+								<thead>
+									<tr>
+										<th>基地名称</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>一区五号</td>
+										<td scope="col">
+					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
+					                      	border: 1px solid orange;background: orange;text-align: center;">
+					                      	<a style="color: white;" class="show_project_time">+</a>
+					                      </div>
+					                    </td>
+									</tr>
+									<tr>
+										<td>一区六号</td>
+										<td scope="col">
+					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
+					                      	border: 1px solid orange;background: orange;text-align: center;">
+					                      	<a style="color: white;" class="show_project_time">+</a>
+					                      </div>
+					                    </td>
+									</tr>
+									<tr>
+										<td>一区七号</td>
+										<td scope="col">
+					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
+					                      	border: 1px solid orange;background: orange;text-align: center;">
+					                      	<a style="color: white;" class="show_project_time">+</a>
+					                      </div>
+					                    </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-lg-6">
+							<h4>安排人员</h4>
+							<select class="form-control-sm" style="width: 186px;">
+								<option>
+									教练
+								</option>
+								<option>
+									助理
+								</option>
+							</select>
+							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+							<table class="table" style="margin-top: 20px;">
+								<thead>
+									<tr>
+										<th>人员名称</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>张三</td>
+										<td scope="col">
+					                    	 <input type="checkbox" name="ck_ry"/>
+					                    </td>
+									</tr>
+									<tr>
+										<td>李四</td>
+										<td scope="col">
+					                    	  <input type="checkbox" name="ck_ry"/>
+					                    </td>
+									</tr>
+									<tr>
+										<td>王五</td>
+										<td scope="col">
+					                    	  <input type="checkbox" name="ck_ry"/>
+					                    </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<div id="hide_project_time" style="display: none;margin-top: 50px;">
+						<span style="margin-left: 100px;">筛选时间</span>
+						<input type="datetime-local" placeholder="开始时间" style="margin-left: 20px;"/>
+			        	<span style="color: white;margin-left: 20px;">~</span>
+			        	<input type="datetime-local" placeholder="结束时间" style="margin-left: 20px;"/>
+			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+						<table class="table" style="margin-top: 20px;width: 80%;margin-left: 10%;">
+							<thead>
+								<tr>
+									<th>开始时间</th>
+									<th>结束时间</th>
+									<th>空位</th>
+									<th>人数</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr tid="1">
+									<td>2019-03-28 9:30</td>
+									<td>2019-03-28 10:30</td>
+									<td>30</td>
+									<td>
+										<input type="text" placeholder="输入人数" value=""/>
+									</td>
+									<td><input type="checkbox" name="lr_time_ck"></td>
+								</tr>
+								<tr tid="2">
+									<td>2019-03-28 9:30</td>
+									<td>2019-03-28 10:30</td>
+									<td>30</td>
+									<td>
+										<input type="text" placeholder="输入人数" value=""/>
+									</td>
+									<td><input type="checkbox" name="lr_time_ck"></td>
+								</tr>
+								<tr tid="3">
+									<td>2019-03-28 9:30</td>
+									<td>2019-03-28 10:30</td>
+									<td>30</td>
+									<td>
+										<input type="text" placeholder="输入人数" value=""/>
+									</td>
+									<td><input type="checkbox" name="lr_time_ck"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="show_time_yy">
+						<table>
+							
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">提交</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+    	<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+		<script type="text/javascript">
+			$("[name='productOrProject']").click(function(){
+				var index=$("[name='productOrProject']").index($(this));
+				$("[name='hiddens']").attr("hidden","hidden");
+				$("[name='hiddens'] input[type='checkbox']").prop("checked",false);
+				$("[name='hiddens']:eq("+index+")").removeAttr("hidden");
+			})
+			$("[name='hiddens'] tr input").change(function(){
+				if(this.checked){
+					$(".infoss").removeAttr("hidden");					
+				}else{
+					$(".infoss").attr("hidden","hidden");										
+				}
+			})
+			$(".proucttable tr:even td:last-child").click(function(){
+				
+			})
+			//判断 是否已显示 如果显示 则取消显示      .panel-collapse in  显示
+			$(document).on("click", "[data-toggle='collase']", function() {
+				var href = $(this).attr("href");
+				href = href.substring(1, href.length);
+				if($("[id='" + href + "']").hasClass("panel-collapse in")) {
+					$("[id=" + href + "]").removeClass("panel-collapse in");
+					$("[id=" + href + "]").addClass("collapsed");
+					return;
+				} else {
+					$("[id=" + href + "]").removeClass("collapsed");
+					$("[id=" + href + "]").addClass("panel-collapse in");
+				}
+			})
+		</script>
+		<script>
+      $(function() {
+      	var pid;
+      	var ry_dt;
+      	var jd_name;
+        $("#expire_date").datepicker({
+          defaultDate: "10/22/2020"
+        });
+        $("[type=submit]").click(function(){
+			location.href="orders.html";
+		})
+		$("#tj").click(function(){
+			var new_sj=$(this).parents("tr").clone(true);
+			new_sj.find("[type=text]").val("");
+			$("#ry_tb_body").append(new_sj);
+		})
+		$("#yc").click(function(){
+			var tr_length=$(".ry_tb_body_tr").length;
+			if(tr_length==1){
+				alert("已经是最后一个了,不能删除");
+			}else{
+				$(this).parents("tr").remove();
+			}
+		});
+		$("[data=dd_radio]").click(function(){
+			if(true){
+				$("#hide_dd").css("display","block");
+			}
+			$("#hide_ry").css("display","none");
+		});
+		$("[data=gr_radio]").click(function(){
+			if(true){
+				$("#hide_ry").css("display","block");
+			}
+			$("#hide_dd").css("display","none");
+		});
+		$("#show_pb").click(function(){
+			$("#hide_cc").css("display","block");
+		})
+		$(".show_jd").click(function(){
+			$("#hide_jd").css("display","flex");
+			pid=$(this).attr("pid");
+			$(this).html("-");
+		})
+		
+		$(".show_project_time").click(function(){
+			
+			jd_name=$(this).parents("tr").find("td:eq(0)").html();
+			
+			$("#hide_project_time").css("display","block");
+			$(this).html("-");
+			
+		})
+		
+		$("[name=ck_ry]").click(function(){
+			if (this.checked) {
+				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
+				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
+				if(document.querySelector("tr[pid='"+pid+"x']")==null){
+					ry_dt=$("<tr></tr>");
+					ry_dt.attr("pid",pid+"x");
+					ry_dt.append("<td>"+ry_name+"</td>");
+					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
+				}else{
+					ry_dt=$("[pid='"+pid+"x']");
+					var td=$("<td>"+ry_name+"</td>");
+					ry_dt.append(td);
+				}
+			}else{
+				
+			}
+			
+		})
+		
+		$("[name=lr_time_ck]").click(function(){
+			var tid=$(this).parents("tr").attr("tid");
+			var thead=$("[pid='"+pid+"']").parents("thead"); 
+			var jia_tr=$(thead).find("tr[tid='"+tid+"']").html();
+			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
+			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
+			var kw=$(this).parents("tr").find("td:eq(2)").html();
+			var kw1=kw-rs;
+			if($(this).parent("td").prev("td").find("input").val()==""){
+				alert("您还没有输入人数");
+				this.checked=false;
+			}else if(jia_tr==null){
+				if(kw1<0){
+					alert("人数不能大于空位");
+					this.checked=false;
+				}else{
+					if(this.checked){
+						$(this).parents("tr").find("td:eq(2)").html(kw1);
+						var dt=$("<tr tid='"+tid+"'>"+
+								"<td style='color: orange;'>"+jd_name+"</td>"+
+			                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
+			                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
+			                	"<td>"+kw1+"</td>"+
+			                	"<td>"+rs+"</td>"+
+			                "</tr>");
+			       		if(document.querySelector("[pid='"+pid+"y']")==null){
+							var ry_dt1=$("<tr></tr>");
+							ry_dt1.attr("pid",pid+"y");
+							$("[pid='"+pid+"x']").after(ry_dt1);
+							$(ry_dt1).after(dt);
+						}else{
+							
+							var ry_dt1=$("[pid='"+pid+"y']");
+							$(ry_dt1).after(dt);
+						}
+			       	}
+				}
+			}else{
+				
+			       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
+			       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
+			       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
+			       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
+			       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
+			       		$(thead).find("tr[tid='"+tid+"']").remove();
+			}
+		})
+     });
+    </script>
+
+	</body>
+
+</html>

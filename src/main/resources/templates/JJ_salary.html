@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>员工薪资管理</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<link rel="stylesheet" href="css/JJ_yuangong.css" />
+	</head>
+
+	<body id="reportsPage">
+		
+		
+		<div class="modal fade bs-example-modal-lg" id="JJ_xztan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div id="" class="modal-header JJ_shang">
+								<span class="closeModal">
+							<label>姓名</label>&nbsp;&nbsp;&nbsp;<span>张三</span>
+						</span>
+								<span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<div id="" class="modal-body">
+								<table class="table tables">
+									
+									<tr>
+										<td>部门</td>
+										<td>职位</td>
+										<td>打卡次数</td>
+									</tr>
+									<tr>
+										<td>销售部</td>
+										<td>销售经理</td>
+										<td>28</td>
+									</tr>
+								</table>
+								<h2>请假次数:<span style="color: red;">12</span></h2>
+								<table class="table tables">
+									<tr>
+										<td>第几次</td>
+										<td>请假原因</td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td>感冒</td>
+									</tr>
+								</table>
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn">提交</a>
+								<a class="btn" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		<div class="" id="home">
+		<div class="container">
+				<div class="modal fade bs-example-modal-lg" id="JJ_jbgz" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div id="" class="modal-header JJ_shang">
+								<span class="closeModal">
+							<h3>基本工资</h3>
+						</span>
+								<span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<div id="" class="modal-body">
+								<h4>餐饮工资</h4>
+								<table class="table tables">
+									<tr>
+										<td>部门</td>
+										<td>职位</td>
+										<td>底薪</td>
+									</tr>
+									<tr>
+										<td>餐饮</td>
+										<td>餐饮员工</td>
+										<td class="JJ_gz">2000</td>
+									</tr>
+									<tr>
+										<td>餐饮</td>
+										<td>餐饮管理员</td>
+										<td class="JJ_gz">3000</td>
+									</tr>
+								</table>
+								<h4 style="margin-top: 10px;">酒店工资</h4>
+								<table class="table tables">
+									<tr>
+										<td>部门</td>
+										<td>职位</td>
+										<td>底薪</td>
+									</tr>
+									<tr>
+										<td>酒店</td>
+										<td>酒店员工</td>
+										<td class="JJ_gz">2200</td>
+									</tr>
+									<tr>
+										<td>酒店</td>
+										<td>酒店管理员</td>
+										<td class="JJ_gz">3100</td>
+									</tr>
+								</table>
+								<table class="table tables">
+									<h4 style="margin-top: 10px;">项目与活动工资</h4>
+									<tr>
+										<td>部门</td>
+										<td>职位</td>
+										<td>底薪</td>
+									</tr>
+									<tr>
+										<td>项目</td>
+										<td>项目员工</td>
+										<td class="JJ_gz">2000</td>
+									</tr>
+									<tr>
+										<td>项目</td>
+										<td>项目管理员</td>
+										<td class="JJ_gz">3500</td>
+									</tr>
+									<tr>
+										<td>活动</td>
+										<td>活动员工</td>
+										<td class="JJ_gz">2000</td>
+									</tr>
+									<tr>
+										<td>活动</td>
+										<td>活动管理员</td>
+										<td class="JJ_gz">3500</td>
+									</tr>
+									<tr>
+										<td>活动</td>
+										<td>活动教官</td>
+										<td class="JJ_gz">2500</td>
+									</tr>
+									<tr>
+										<td>活动</td>
+										<td>领队</td>
+										<td class="JJ_gz">2500</td>
+									</tr>
+								</table>
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn">提交</a>
+								<a class="btn" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+					<h2 class="tm-block-title">薪资列表</h2>
+					<div class="JJ_feileiselect">
+						<label>部门</label>&nbsp;
+						<select>
+							<option>销售部</option>
+							<option>餐饮部</option>
+							<option></option>
+						</select>
+						<label>职位</label>&nbsp;
+						<select>
+							<option>经理</option>
+							<option>主管</option>
+							<option>员工</option>
+						</select>
+						<label>员工姓名</label>&nbsp;
+						<input type="text" style="width: 100px;" placeholder="" />
+						<label>工资范围</label>
+						<input type="text" style="width: 100px;" placeholder="" /> ~
+						<input type="text" style="width: 100px;" placeholder="" />
+						<button class="JJ_mohua">查找</button>
+
+						<a href="#" data-target="#JJ_jbgz" data-toggle="modal" href="javascript:void(0)" style="margin-left: 170px; color: red;">基本工资</a>
+					</div>
+
+					<table class="table" JJ_tables>
+						<thead>
+							<tr>
+								<th scope="col">员工ID</th>
+								<th scope="col">员工姓名</th>
+								<th scope="col">员工类型</th>
+								<th scope="col">打卡次数</th>
+								<th scope="col">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row"><b>1</b></th>
+								<td>
+									<b>张三</b>
+								</td>
+								<td>
+									<div class="tm-status-circle moving">
+									</div>
+									<!--普通员工--><b>普通员工</b>
+								</td>
+								<td><b>12</b></td>
+								<td><b>
+                                    	<a data-target="#JJ_xztan" data-toggle="modal" href="javascript:void(0)" class="tm-product-delete-link JJ_delete">
+					                        <i class="fa fa-info"></i>
+					                   </a></b>
+								</td>
+							</tr>
+							<tr id="tr">
+								<th scope="row"><b>2</b></th>
+								<td>
+									<b>李四</b>
+								</td>
+								<td>
+									<div class="tm-status-circle pending">
+									</div>
+									<b>项目负责人</b>
+								</td>
+								<td><b>11</b></td>
+
+								<td><b>
+					                   <a href="javascript:void(0)" class="tm-product-delete-link JJ_delete">
+					                        <i class="fa fa-info"></i>
+					                   </a></b>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<!-- https://jquery.com/download/ -->
+		<script src="js/moment.min.js"></script>
+		<!-- https://momentjs.com/ -->
+		<script src="js/Chart.min.js"></script>
+		<!-- http://www.chartjs.org/docs/latest/ -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- https://getbootstrap.com/ -->
+		<script src="js/tooplate-scripts.js"></script>
+	</body>
+
+</html>

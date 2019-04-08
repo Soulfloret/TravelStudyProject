@@ -1,0 +1,35 @@
+@charset "gb2312";
+
+html{ overflow-y: auto;}
+/*marquee插件的样式
+ *left和right共用一个
+[[*/
+.plus-mar-left{overflow:hidden; word-break:keep-all; white-space:nowrap;}
+.plus-mar-left ul{list-style:none; margin:0; padding:0; display:inline-block; *display:inline; zoom:1;}
+.plus-mar-left li{display:inline-block; *display:inline; zoom:1; text-indent:15px;}
+
+.plus-mar-top{overflow:hidden; word-break:keep-all; white-space:nowrap;}
+.plus-mar-top ul{list-style:none; margin:0; padding:0;  line-height:40px;}
+.plus-mar-top li{ padding-right:10px;}
+
+.plus-mar-bottom{overflow:hidden; word-break:keep-all; white-space:nowrap; position:relative;}
+.plus-mar-bottom ul{list-style:none; margin:0; padding:0;  line-height:40px; position:relative;}
+.plus-mar-bottom li{ padding-right:10px;}
+
+.plus-mar-up{overflow:hidden;}
+.plus-mar-up ul{list-style:none; margin:0; padding:0;  line-height:40px;}
+
+.plus-mar-down{overflow:hidden; position:relative;}
+.plus-mar-down ul{list-style:none; margin:0; padding:0; position:relative;}
+/*]]marquee插件的样式*/
+/* 活动弹框统一样式[[ */
+.tips-title{height:53px; line-height:53px;margin-left:20px; padding-top:4px; font-size:18px; font-weight:bold;font-family:"微软雅黑";}
+.tips-cont{padding:0 0 20px 20px;clear:left; font-size:12px; line-height:23px;font-family:"微软雅黑";}
+.box .party-box .box-ft{ text-align:left; margin:0 0 0 20px;}
+
+body .box .box-content .box-ico { margin:0 15px 0 0; display: inline; }
+body .box .box-content .tools .btn-box-ok span,body .box .box-ft .box-btn-bt .btn-box-ok span{_width:60px;}
+
+/*活动充值弹窗*/
+.box .box-noCharge .box-noCharge-content .box-ft{ text-align: center;}
+/* ]]活动弹框统一样式 *//*  |xGv00|9a980ded16370967d3c2a37945b344c5 */

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>员工管理</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<link rel="stylesheet" href="css/JJ_yuangong.css" />
+	</head>
+
+	<body id="reportsPage">
+		<div class="" id="home">
+			<div class="container">
+				<div class="modal fade bs-example-modal-lg" id="JJ_tan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div id="" class="modal-header JJ_shang">
+								<span class="closeModal">
+							<label>部门</label>&nbsp;&nbsp;&nbsp;<input type="text" />
+							<label>职位</label>&nbsp;&nbsp;&nbsp;<input type="text" />
+						</span>
+								<span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<div id="" class="modal-body">
+								<table class="table tables">
+									<tr>
+										<td>姓名</td>
+										<td><input type="text" name="name" /></td>
+										<td>性别</td>
+										<td><input type="text" name="sex" /></td>
+										<td>出生日期</td>
+										<td><input type="date" name="date" /></td>
+									</tr>
+									<tr>
+										<td>家庭地址</td>
+										<td colspan="3"><input type="text" name="address1" /></td>
+										<td>民族</td>
+										<td><input type="text" name="nation" /></td>
+									</tr>
+									<tr>
+										<td>现住地址</td>
+										<td colspan="3"><input type="text" name="address2" /></td>
+										<td>生日</td>
+										<td><input type="text" name="sr" /></td>
+									</tr>
+									<tr>
+										<td>身份证号</td>
+										<td colspan="3"><input type="text" /></td>
+										<td>婚姻状况</td>
+										<td><input type="text" name="hy" /></td>
+									</tr>
+									<tr>
+										<td>入职时间</td>
+										<td colspan="2"><input type="date" /></td>
+										<td>离职时间</td>
+										<td colspan="2"><input type="date" name="lz" /></td>
+									</tr>
+								</table>
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn">提交</a>
+								<a class="btn" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade bs-example-modal-lg" id="JJ_addygtan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<form action="#" method="post">
+								<div id="" class="modal-header JJ_shang">
+									<span class="closeModal">
+								<h2>录入员工</h2>
+							<label>部门</label>
+							<select>
+									<option>销售部</option>
+									<option>餐饮部</option>
+									<option>宿舍部</option>
+							</select>
+							<label>职位</label>
+							<select>
+									<option>经理</option>
+									<option>主管</option>
+									<option>员工</option>
+								</select>
+						</span>
+									<span class="close" data-dismiss="modal">&times;</span>
+								</div>
+								<div id="" class="modal-body">
+									<table class="table tables">
+
+										<tr>
+											<td>姓名</td>
+											<td><input type="text" name="name" /></td>
+											<td>性别</td>
+											<td><input type="text" name="sex" /></td>
+											<td>出生日期</td>
+											<td><input type="date" name="date" /></td>
+										</tr>
+										<tr>
+											<td>家庭地址</td>
+											<td colspan="3"><input type="text" name="address1" /></td>
+											<td>民族</td>
+											<td><input type="text" name="nation" /></td>
+										</tr>
+										<tr>
+											<td>现住地址</td>
+											<td colspan="3"><input type="text" name="address2" /></td>
+											<td>生日</td>
+											<td><input type="text" name="sr" /></td>
+										</tr>
+										<tr>
+											<td>身份证号</td>
+											<td colspan="3"><input type="text" /></td>
+											<td>婚姻状况</td>
+											<td><input type="text" name="hy" /></td>
+										</tr>
+										<tr>
+										</tr>
+									</table>
+								</div>
+								<div id="" class="modal-footer">
+									<input class="btn" type="reset" />
+									<a class="btn">录入</a>
+									<a class="btn" data-dismiss="modal">关闭</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row tm-content-row">
+					<div class="col-12 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+							<h2 class="tm-block-title">员工列表</h2>
+							<div class="JJ_feileiselect">
+								<label>部门</label>&nbsp;
+								<select>
+									<option>销售部</option>
+									<option>餐饮部</option>
+									<option></option>
+								</select>
+								<label>职位</label>&nbsp;
+								<select>
+									<option>经理</option>
+									<option>主管</option>
+									<option>员工</option>
+								</select>
+								<label>员工姓名</label>&nbsp;
+								<input type="text" placeholder="" />
+								<button class="JJ_mohua">查找</button>
+							</div>
+
+							<table class="table" JJ_tables>
+								<thead>
+									<tr>
+										<th scope="col">员工ID</th>
+										<th scope="col">员工姓名</th>
+										<th scope="col">员工类型</th>
+										<th scope="col">员工性别</th>
+										<th scope="col">打卡次数</th>
+										<th scope="col">详情</th>
+										<th scope="col">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row"><b>1</b></th>
+										<td>
+											<b>张三</b>
+										</td>
+										<td>
+											<div class="tm-status-circle moving">
+											</div>
+											<!--普通员工--><b>普通员工</b>
+										</td>
+										<td><b>男</b></td>
+										<td><b>12</b></td>
+										<td><b>
+	                                    	<a href="#" data-target="#JJ_tan" data-toggle="modal" class="tm-product-delete-link JJ_xiang">
+	                                    		<i class="fa fa-info"></i>
+	                                    	</a>
+                                    	
+                                    </b></td>
+										<td><b>
+                                    	<a href="javascript:void(0)" class="tm-product-delete-link JJ_delete">
+					                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+					                   </a></b>
+										</td>
+									</tr>
+									<tr id="tr">
+										<th scope="row"><b>2</b></th>
+										<td>
+											<b>李四</b>
+										</td>
+										<td>
+											<div class="tm-status-circle pending">
+											</div>
+											<b>项目负责人</b>
+										</td>
+										<td><b>男</b></td>
+										<td><b>11</b></td>
+										<td><b>
+                                    	<a href="#" data-target="#JJ_tan" data-toggle="modal" class="tm-product-delete-link JJ_xiang">
+                                    		<i class="fa fa-info"></i>
+                                    	</a>
+                                    	
+                                    </b></td>
+										<td><b>
+					                   <a href="javascript:void(0)" class="tm-product-delete-link JJ_delete">
+					                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+					                   </a></b>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button class="btn JJ_addyg " data-target="#JJ_addygtan" data-toggle="modal">录入员工</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/tooplate-scripts.js"></script>
+		<script>
+		</script>
+	</body>
+
+</html>

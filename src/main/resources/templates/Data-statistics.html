@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Product Admin - Dashboard HTML Template</title>
+		<link type="text/css" href="css/move_css.css" rel="stylesheet" />
+		<!-- https://fonts.google.com/specimen/Roboto -->
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<style type="text/css">
+			#move_ul>li {
+				position: relative;
+			}
+			
+			#mar1 {
+				height: 420px;
+				
+				margin-top: 20px;
+				margin-left: 20px;
+				color: #FFF;
+			}
+		</style>
+	</head>
+
+	<body id="reportsPage">
+		<div class="" id="home">
+			<h2 class="tm-block-title" style="margin-left: 20px;padding-top: 30px;">通知清单</h2>
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col plus-mar-top" style="margin-top:50px">
+				<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+
+					<div id="mar1" style="margin:0;padding-bottom: 20px;">
+						<ul id="move_ul" style="list-style: none;">
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三1已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三2已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三3已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三4已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三5已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="media tm-notification-item">
+									<div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+									<div class="media-body">
+										<p class="mb-2">张三6已完成下单</p>
+										<span class="tm-small tm-text-color-secondary">时间</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="text-white mt-5 mb-5">活动管理数据统计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<!--<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="添加数据" />-->
+						</p>
+					</div>
+				</div>
+
+				<!-- row -->
+				<div class="row tm-content-row">
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">活动客户流量</h2>
+							<canvas id="lineChart"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">活动收入统计</h2>
+							<canvas id="barChart"></canvas>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">项目客户流量</h2>
+							<canvas id="lineChartxm"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">项目收入统计</h2>
+							<canvas id="barChartxm"></canvas>
+						</div>
+					</div>
+					<!--<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title">Storage Information</h2>
+                        <div id="pieChartContainer">
+                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                        </div>                        
+                    </div>
+                </div>-->
+
+					<div class="tlinks">
+						<a href="http://www.cssmoban.com/" title="网站模板">网站模板</a>
+					</div>
+					<div class="col-12 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+							<h2 class="tm-block-title">订单清单</h2>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">订单号</th>
+										<th scope="col">状态</th>
+										<th scope="col">类型</th>
+										<th scope="col">总付</th>
+										<th scope="col">下单时间</th>
+										<th scope="col">客户负责人/客户</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row"><b>#122349</b></th>
+										<td>
+											<div class="tm-status-circle moving">
+											</div>已下单
+										</td>
+										<td><b>团队</b></td>
+										<td><b>2500</b></td>
+										<td><b>16:00, 12 NOV 2018</b></td>
+										<td>张三</td>
+										<td></td>
+									</tr>
+									<tr>
+										<th scope="row"><b>#123456</b></th>
+										<td>
+											<div class="tm-status-circle pending">
+											</div>待提交
+										</td>
+										<td><b>个人</b></td>
+										<td><b>500</b></td>
+										<td><b>16:00, 12 NOV 2018</b></td>
+										<td>李四</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<!-- https://jquery.com/download/ -->
+		<script src="js/moment.min.js"></script>
+		<!-- https://momentjs.com/ -->
+		<script src="js/Chart.min.js"></script>
+		<!-- http://www.chartjs.org/docs/latest/ -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- https://getbootstrap.com/ -->
+		<script src="js/tooplate-scripts-cy.js"></script>
+		<script type="text/javascript">
+			Chart.defaults.global.defaultFontColor = 'white';
+
+			//活动客户流量
+			var newlinetitle = "月份统计"
+			var newlinelables = [
+				"1月",
+				"2月",
+				"3月",
+				"4月",
+				"5月",
+				"6月",
+				"7月",
+				"8月",
+				"9月",
+				"10月",
+				"11月",
+				"12月",
+			];
+			var newlinedatasets = [{
+				label: "活动一",
+				data: [80, 70, 90, 1000, 50, 40, 10, 20, 750, 600, 750, 800],
+				fill: false,
+				borderColor: "rgb(75, 192, 192)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}, {
+				label: "活动二",
+				data: [50, 150, 900, 1000, 500, 400, 100, 1000, 2500, 600, 70, 500],
+				fill: false,
+				borderColor: "rgb(0,0,0)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}, {
+				label: "活动三",
+				data: [150, 150, 900, 969, 752, 787, 786, 250, 8633, 786, 770, 500],
+				fill: false,
+				borderColor: "rgb(12,342,123)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}];
+
+			//活动收入统计		        
+			var newbarlables = ["","活动一", "活动二", "活动三", "活动四", "活动五", "活动六", "活动七"];
+			var newbardatasets = [{
+				label: "项目收入统计",
+				data: [0,100, 200, 150, 120, 130, 140, 150],
+				backgroundColor: [
+					"#f760dd",
+					"#F7604D",
+					"#4ED6B8",
+					"#A8D582",
+					"#D7D768",
+					"#9D66CC",
+					"#DB9C3F",
+					"#3889FC"
+				],
+				borderWidth: 0
+			}];
+
+			//项目客户流量
+			var newlinetitle_xm = "月份统计"
+			var newlinelables_xm = [
+				"1月",
+				"2月",
+				"3月",
+				"4月",
+				"5月",
+				"6月",
+				"7月",
+				"8月",
+				"9月",
+				"10月",
+				"11月",
+				"12月",
+			];
+			var newlinedatasets_xm = [{
+				label: "项目一",
+				data: [80, 70, 90, 1000, 50, 40, 10, 20, 750, 600, 750, 800],
+				fill: false,
+				borderColor: "rgb(75, 192, 192)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}, {
+				label: "项目二",
+				data: [50, 150, 900, 1000, 500, 400, 100, 1000, 2500, 600, 70, 500],
+				fill: false,
+				borderColor: "rgb(0,0,0)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}, {
+				label: "项目三",
+				data: [150, 150, 900, 969, 752, 787, 786, 250, 8633, 786, 770, 500],
+				fill: false,
+				borderColor: "rgb(12,342,123)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}];
+
+			//项目收入统计
+			var newbarlables_xm = ["","项目一", "项目二", "项目三", "项目四", "项目五", "项目六", "项目七"];
+			var newbardatasets_xm = [{
+				label: "项目收入统计",
+				data: [0,100, 200, 150, 120, 130, 140, 150],
+				backgroundColor: [
+					"#f760dd",
+					"#F7604D",
+					"#4ED6B8",
+					"#A8D582",
+					"#D7D768",
+					"#9D66CC",
+					"#DB9C3F",
+					"#3889FC"
+				],
+				borderWidth: 0
+			}];
+
+			let ctxLine,
+				ctxBar,
+				ctxPie,
+				optionsLine,
+				optionsBar,
+				optionsPie,
+				configLine,
+				configBar,
+				configPie,
+				lineChart;
+			barChart;
+
+			$(function() {
+				var linename = "lineChart";
+				var barname = "barChart";
+				var linename_xm = "lineChartxm";
+				var barname_xm = "barChartxm";
+				drawLineChart(newlinetitle, newlinelables, newlinedatasets, linename); // 活动客户流量
+				drawBarChart("活动收入统计图",newbarlables, newbardatasets, barname); // 活动收入统计
+				drawLineChart(newlinetitle_xm, newlinelables_xm, newlinedatasets_xm, linename_xm); // 项目客户流量
+				drawBarChart("项目收入统计图",newbarlables_xm, newbardatasets_xm, barname_xm); // 项目收入统计
+				/* drawPieChart(newpielable,newpiedatasets,piechart,piecontainer);*/ // Pie Chart
+				$(window).resize(function() {
+					updateLineChart();
+					updateBarChart();
+				});
+
+			})
+		</script>
+		<script>
+			//垂直向下滚动
+			(function(jQuery) {
+				jQuery.fn.extend({
+					/**
+					 *@description 无缝滚动 支持匀速上下左右和垂直翻滚上下
+					 *@param {
+					 *      direction:string,//滚动方向 值域：top|left|bottom|right|up|down
+					 *      speed:string//滚动速度（垂直翻滚时为停留时间）
+					 * } o
+					 *@example
+					 *HTML结构
+					 *<div id="mar">
+					 *    <ul>
+					 *        <li>内容1</li>
+					 *        <li>内容2</li>
+					 *        <li>内容3</li>
+					 *    </ul>
+					 *</div>
+					 *mar样式应该包含height,width,background等 注意不要覆盖了插件附加上去的样式
+					 *调用：
+					 *jQuery("#mar").marquee({
+					 *    direction:"top",
+					 *    speed:30
+					 *})
+					 *
+					 */
+					marquee: function(o) {
+						var it = this,
+							d = o.direction || 'left', //滚动方向 默认向左
+							s = o.speed || 30, //速度 默认30毫秒
+							mar = jQuery(it),
+							mp1 = jQuery(it).children(0).attr({
+								id: "mp1"
+							}),
+							marqueeFunc = getMarquee(d),
+							marRun = marqueeFunc ? setInterval(marqueeFunc, s) : function() {
+								return false;
+							}; //开始滚动
+						//鼠标悬停事件
+						jQuery(it).hover(function() {
+							clearInterval(marRun);
+						}, function() {
+							marRun = setInterval(marqueeFunc, s);
+						})
+						/*生成滚动函数
+						 *1.判断方向 *2.装载CSS *3.判断需不需要滚动 *4.构造函数
+						 */
+						function getMarquee(d) {
+							var marqueeFunc;
+							switch(d) {
+								//水平向左
+								case "left":
+									mar.addClass("plus-mar-left");
+									var liHeight = mar[0].offsetHeight;
+									mar.css({
+										"line-height": liHeight + "px"
+									});
+									if(mp1[0].offsetWidth < mar[0].offsetWidth) return false;
+									mp1.clone().attr({
+										id: "mp2"
+									}).appendTo(mar);
+									marqueeFunc = function() {
+										if(mar[0].scrollLeft >= mp1[0].scrollWidth) {
+											mar[0].scrollLeft = 0;
+										} else {
+											mar[0].scrollLeft++;
+										}
+									}
+									break;
+									//水平向上
+								case "top":
+									mar.addClass("col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col plus-mar-top");
+									if(mp1.outerHeight() <= mar.outerHeight()) return false;
+									var mp2 = mp1.clone().attr({
+										id: "mp2"
+									}).appendTo(mar);
+									marqueeFunc = function() {
+										var scrollTop = mar[0].scrollTop;
+										if(mp1[0].offsetHeight > scrollTop) {
+											mar[0].scrollTop = scrollTop + 1;
+										} else {
+											mar[0].scrollTop = 0;
+										}
+									}
+									break;
+									//水平向右
+								case "right":
+									mar.addClass("plus-mar-left");
+									var liHeight = mar[0].offsetHeight;
+									mar.css({
+										"line-height": liHeight + "px"
+									});
+									if(mp1[0].offsetWidth <= mar[0].offsetWidth) return false;
+									var mp2 = mp1.clone().attr({
+										id: "mp2"
+									}).appendTo(mar);
+									marqueeFunc = function() {
+										if(mar[0].scrollLeft <= 0) {
+											mar[0].scrollLeft += mp2[0].offsetWidth;
+										} else {
+											mar[0].scrollLeft--;
+										}
+									}
+									break;
+									//水平向下
+								case "bottom":
+									mar.addClass("plus-mar-bottom");
+									if(mp1[0].offsetHeight <= mar[0].offsetHeight) return false;
+									var mp2 = mp1.clone().attr({
+										id: "mp2"
+									}).appendTo(mar);
+									mar[0].scrollTop = mar[0].scrollHeight;
+									marqueeFunc = function() {
+										if(mp1[0].offsetTop >= mar[0].scrollTop) {
+											mar[0].scrollTop += mp1[0].offsetHeight;
+										} else {
+											mar[0].scrollTop--;
+
+										}
+									}
+									break;
+									//垂直翻滚 向上
+								case "up":
+									mar.addClass("plus-mar-up");
+									var liHeight = mar[0].offsetHeight;
+									mp1.css({
+										"line-height": liHeight + "px"
+									});
+									marqueeFunc = function() {
+										var currLi = it.eq(0).find("ul:first");
+										currLi.animate({
+											marginTop: -liHeight
+										}, 500, function() {
+											currLi.find("li:first").appendTo(currLi);
+											currLi.css({
+												marginTop: 0
+											});
+										})
+									}
+									break;
+									//垂直翻滚 向下
+								case "down":
+									mar.addClass("plus-mar-down");
+									var liHeight = mar[0].offsetHeight,
+										liLength = mp1.children().length,
+										topInit = -(liLength - 1) * liHeight + "px";
+									mp1.css({
+										"top": topInit,
+										"line-height": liHeight + "px"
+									});
+									marqueeFunc = function() {
+										var currLi = it.eq(0).find("ul:last");
+										currLi.animate({
+											marginTop: liHeight
+										}, 500, function() {
+											currLi.find("li:last").prependTo(currLi);
+											currLi.css({
+												marginTop: 0
+											});
+										})
+									}
+									break;
+								default:
+									{
+										marqueeFunc = null;
+										alert("滚动插件：传入的参数{direction}有误！");
+									}
+							}
+							return marqueeFunc;
+						}
+					}
+				})
+			})(jQuery);
+
+			$("#mar1").marquee({
+				direction: "top",
+				speed: 10
+			});
+		</script>
+	</body>
+
+</html>

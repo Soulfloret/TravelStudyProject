@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>客房管理</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+		<!-- https://fonts.google.com/specimen/Roboto -->
+		<link rel="stylesheet" href="css/fontawesome.min.css" />
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" href="css/templatemo-style.css">
+
+	</head>
+
+	<body id="reportsPage">
+		<div class="container mt-5">
+			<div class="row tm-content-row">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+					<input type="text" placeholder="" class="input-group-sm" />
+					<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
+						<div class="tm-product-table-container">
+							<table class="table table-hover tm-table-small tm-product-table">
+								<thead>
+									<tr>
+										<th scope="col">房屋样式</th>
+										<th scope="col">
+											描述
+										</th>
+										<th scope="col">价格</th>
+										<th scope="col">类型</th>
+										<th scope="col">大小</th>
+										<th scope="col">状态</th>
+										<th scope="col">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
+										<td class="tm-product-name">太平洋海岸27523</td>
+										<td>$388</td>
+										<td>公寓</td>
+										<td>750米<sup>2</sup></td>
+										<td>可租</td>
+										<td>
+											<a href="#" class="tm-product-delete-link">
+												<i class="far fa-trash-alt tm-product-delete-icon"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- table container -->
+						<a href="HotelAdd.html" class="btn btn-primary btn-block text-uppercase mb-3">新增商品</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<!-- https://jquery.com/download/ -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- https://getbootstrap.com/ -->
+		<script>
+			$(function() {
+				$(".tm-product-name").on("click", function() {
+					window.location.href = "HotelUpdate.html";
+				});
+			});
+		</script>
+	</body>
+
+</html>

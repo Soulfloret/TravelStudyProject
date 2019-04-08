@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>客户详情</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+	</head>
+	<style>
+		.box .status {
+			margin-left: 15px;
+		}
+		
+		.box .sum {
+			margin-left: 5px;
+		}
+		
+		.box .time {
+			margin-left: 15px;
+		}
+		
+		.content {
+			margin: 10px;
+			color: white;
+			padding: 10px 20px 10px 10px;
+		}
+		
+		.dingdanhao {
+			margin-left: 5px;
+		}
+		
+		.box {
+			width: 100%;
+			max-height: 350px;
+			overflow-y: auto;
+			padding: 0px 25px;
+			margin: 10px;
+		}
+		
+		.box .dingdanhead {
+			margin-bottom: 10px;
+			margin-top: 10px;
+			height: 40px;
+			padding: 0px 15px;
+			border: 1px solid rgb(225,225,225);
+		}
+		
+		.step {
+			margin: 4px 5px 0px 0px;
+			display: inline-block;
+			border: 1px solid rgb(227, 227, 227);
+			background-color: rgba(242, 242, 242, 0.2);
+			border-radius: 50%;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			width: 30px;
+		}
+		
+		.box .dingdanhead h4 a {
+			color: white;
+		}
+		
+		.box .dingdanhead:hover {
+			background-color:#34CE57;
+		}
+		
+		.box .dingdanhead h4 {
+			height: 100%;
+			line-height: 100%;
+			color: white;
+			font-size: 16px;
+			margin-bottom: 0px;
+		}
+		
+		#shuxing .form-group {
+			padding-bottom: 10px;
+		}
+		
+		.form-group p {
+			color: white;
+			margin-right: 10px;
+		}
+		
+		.form-group [type='radio']+span {
+			color: white;
+		}
+		
+		.tm-block {
+			padding: 40px;
+			width: 975px;
+			-webkit-box-shadow: 1px 1px 5px 0 #455c71;
+			-moz-box-shadow: 1px 1px 5px 0 #455c71;
+			box-shadow: 1px 1px 5px 0 #455c71;
+			height: 100%;
+		}
+		.panel-collapse in {
+			display: block;
+		}
+		.collapsed {
+			display: none;
+		}
+		.team{
+			color: #99ff99;
+			margin-left: 10px;
+		}
+	</style>
+	<body id="reportsPage">
+		<div class="" id="home">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 mx-auto">
+						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+							<div class="row">
+								<div class="col-12">
+									<h2 class="tm-block-title d-inline-block">客户信息</h2>
+								</div>
+							</div>
+							<div class="row">
+								<form class="form-inline">
+									<div class="form-group  col-md-6">
+										<label for="inputFirstname" class="col-md-4  col-lg-4 control-label ">账号:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>128232312</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputLastname" class="col-md-4 col-lg-4 control-label ">姓名:</label>
+										<div class="col-md-8 col-lg-8 ">
+											<p>128232312</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputLastname" class="col-md-4 col-lg-4 control-label ">年龄:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>18</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputAddress1" class="col-md-4 col-lg-4 control-label required">账户密码:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>123456</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputPhone" class="col-md-4 col-lg-4 control-label required">电话:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>1282323112</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputFax" class="col-md-4 col-lg-4 control-label">性别:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>男 </p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputCompany" class="col-md-4 col-lg-4 control-label">身高:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>160</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputPostcode" class="col-md-4 col-lg-4 control-label ">爱好:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>是是是</p>
+										</div>
+									</div>
+									<div class="form-group  col-md-6">
+										<label for="inputAddress2" class="col-md-4 col-lg-4 control-label">体重:</label>
+										<div class="col-md-8 col-lg-8">
+											<p>40kg</p>
+										</div>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="inputCity" class="col-sm-4 col-lg-4 control-label ">出生日期:</label>
+										<div class="col-sm-8 col-lg-8">
+											<p>1998年12月12日</p>
+										</div>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="inputCity" class="col-sm-2 col-lg-2 control-label ">居住地址:</label>
+										<div class="col-sm-10 col-lg-10">
+											<p>湖南 株洲市 XX区 XX街道 XXXXX XXX XXX</p>
+										</div>
+									</div>
+									<div class="space20 clearfix"></div>
+								</form>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<h2 class="tm-block-title d-inline-block">客户订单</h2>
+								</div>
+							</div>
+							<div class="row" style="margin-bottom: 20px;">
+								<div class="box">
+									<div class="dingdanhead">
+										<h4>
+				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
+				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
+				        					<span class="status">订单状态：</span><span>已完成</span>
+				        					<span class="sum">订单总价:</span><span>￥2002</span>
+				        					<span class="team">团队订单</span>
+				        				</h4>
+									</div>
+									<div class="content col-md-12 collapsed" id="checkout-collapse4">
+										<div class="dingdanhead">
+											<h4><a data-toggle="collase"  href="#checkout-collapse5" ><span class="step">01</span><span>负责人订单:</span><span class="dingdanhao">SS222121</span></a><span class="time">订单时间:</span><span>2019-12-2 22:22:22</span><span class="status">订单状态：</span><span>已完成</span><span class="sum"> 订单总价:</span><span>￥2002</span><span class="team">我的订单</span></h4>
+										</div>
+										<div class="content col-md-11 collapsed" id="checkout-collapse5">
+											<table class="table">
+												<thead>	
+													<th scope="col">项目名称</th>
+													<th scope="col">项目价格</th>
+													<th scope="col">项目负责人</th>
+													<th scope="col">项目状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+														<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+														<td>
+															<b>188</b>
+														</td>
+														<td>
+															张三
+														</td>
+														<td>已进行</td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="table">
+												<thead>
+													<th scope="col">菜品名称</th>
+													<th scope="col">菜品价格</th>
+													<th scope="col">菜品数据</th>
+													<th scope="col">菜品总价</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>2</b>
+														</td>
+														<td><b>244</b></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="table">
+												<thead>
+													<th scope="col">房间名称</th>
+													<th scope="col">房间价格</th>
+													<th scope="col">房间类型</th>
+													<th scope="col">房间状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>总统套房</b>
+														</td>
+														<td><b>正在入住</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<p>团员订单管理</p>
+										<div class="dingdanhead">
+											<h4>
+												<a data-toggle="collase"  href="#checkout-collapse10" ><span class="step">01</span><span>队员一</span></a>
+	        								</h4>
+										</div>
+										<div class="content col-md-12 collapsed" id="checkout-collapse10">
+											<table class="table">
+												<thead>
+													<th scope="col">房间名称</th>
+													<th scope="col">房间价格</th>
+													<th scope="col">房间类型</th>
+													<th scope="col">房间状态</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>总统套房</b>
+														</td>
+														<td><b>正在入住</b></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										
+										</div>
+									<div class="dingdanhead ">
+										<h4>
+				        					<a data-toggle="collase"  href="#checkout-collapse8" ><span class="step">02</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
+				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
+				        					<span class="status">订单状态：</span><span>已完成</span>
+				        					<span class="sum">订单总价:</span><span>￥2002</span>
+				        					<span class="team">个人订单</span>
+				        				</h4>
+									</div>
+									<div class="content col-md-11 collapsed" id="checkout-collapse8">
+											<table class="table">
+												<thead>
+													<th scope="col">菜品名称</th>
+													<th scope="col">菜品价格</th>
+													<th scope="col">菜品数据</th>
+													<th scope="col">菜品总价</th>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+														<td>
+															<b>122</b>
+														</td>
+														<td>
+															<b>2</b>
+														</td>
+														<td><b>244</b></td>
+													</tr>
+												</tbody>
+											</table>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<h2 class="tm-block-title d-inline-block">客户关怀</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<form class="form-inline">
+										<div class="col-md-6 form-group">
+											<label for="inputPostcode" class="col-md-3 col-lg-4 control-label ">发送信息:</label>
+											<div class="col-md-9 col-lg-8">
+												<input type="text" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-6 form-group">
+											<input type="button" value="发送" class="btn btn-info" />
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+		<script type="text/javascript">
+			//判断 是否已显示 如果显示 则取消显示      .panel-collapse in  显示
+			$(document).on("click", "[data-toggle='collase']", function() {
+				var href = $(this).attr("href");
+				href = href.substring(1, href.length);
+				if($("[id='" + href + "']").hasClass("panel-collapse in")) {
+					$("[id=" + href + "]").removeClass("panel-collapse in");
+					$("[id=" + href + "]").addClass("collapsed");
+					return;
+				} else {
+					$("[id=" + href + "]").removeClass("collapsed");
+					$("[id=" + href + "]").addClass("panel-collapse in");
+				}
+			})
+		</script>
+
+		<!--<script src="js/jquery-3.3.1.min.js"></script>-->
+		<!-- https://jquery.com/download/ -->
+		<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+		<!-- https://jqueryui.com/download/ -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- https://getbootstrap.com/ -->
+
+	</body>
+
+</html>

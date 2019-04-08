@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>主页管理</title>
+		<link rel="stylesheet" href="css/fontawesome.min.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/templatemo-style.css">
+	</head>
+	<body id="reportsPage">
+		<div class="" id="home">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
+					</div>
+				</div>
+				<!-- row -->
+				<div class="row tm-content-row">
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">项目客流量图</h2>
+							<canvas id="lineChart"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">项目收入图</h2>
+							<canvas id="barChart"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-taller">
+							<h2 class="tm-block-title">项目选购图</h2>
+							<div id="pieChartContainer">
+								<canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">餐饮收入图</h2>
+							<canvas id="Food1"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-taller">
+							<h2 class="tm-block-title">餐饮选购图</h2>
+							<div id="pieChartContainer1">
+								<canvas id="pieChart1" class="chartjs-render-monitor" width="200" height="200"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block">
+							<h2 class="tm-block-title">酒店收入图</h2>
+							<canvas id="Hotel"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-taller">
+							<h2 class="tm-block-title">酒店选购图</h2>
+							<div id="pieChartContainer2">
+								<canvas id="pieChart2" class="chartjs-render-monitor" width="200" height="200"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="height: 240px;">
+				
+			</div>
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/tooplate-scripts-cy.js"></script>
+		<script>
+			Chart.defaults.global.defaultFontColor = 'white';
+			var newlinetitle = "客流量统计图"
+			var newlinelables = [
+				"8:00",
+				"9:00",
+				"10:00",
+				"11:00",
+				"12:00",
+				"13:00",
+				"14:00",
+				"15:00",
+				"16:00",
+				"17:00",
+				"18:00",
+			];
+			var newlinedatasets = [{
+				label: "项目一",
+				data: [80, 70, 90, 10, 50, 40, 10, 500, 750, 600, 750],
+				fill: false,
+				borderColor: "rgb(75, 192, 192)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}, {
+				label: "项目二",
+				data: [50, 150, 900, 10, 500, 400, 100, 20, 150, 600, 70],
+				fill: false,
+				borderColor: "rgb(0,0,0)",
+				cubicInterpolationMode: "monotone",
+				pointRadius: 0
+			}];
+			var bartitle="项目收入统计图"
+			var newbarlables = ["项目一", "项目二", "项目三", "项目四", "项目五", "项目六", "项目七"];
+			var newbardatasets = [{
+				label: "项目收入统计",
+				data: [100, 140, 150, 120, 130, 140, 150],
+				backgroundColor: [
+					"#F7604D",
+					"#4ED6B8",
+					"#A8D582",
+					"#D7D768",
+					"#9D66CC",
+					"#DB9C3F",
+					"#3889FC",
+				],
+				borderWidth: 0
+			}];
+			var bartitle1="餐饮收入统计图"
+			var newbarlables1 = ["餐饮一", "餐饮二", "餐饮三", "餐饮四", "餐饮五", "餐饮六", "餐饮七"];
+			var newbardatasets1 = [{
+				label: "餐饮收入统计",
+				data: [100, 140, 150, 120, 130, 140, 150],
+				backgroundColor: [
+					"#F7604D",
+					"#4ED6B8",
+					"#A8D582",
+					"#D7D768",
+					"#9D66CC",
+					"#DB9C3F",
+					"#3889FC",
+				],
+				borderWidth: 0
+			}];
+			var bartitle2="酒店收入统计图"
+			var newbarlables2 = ["房间一", "房间二", "房间三", "房间四", "房间五", "房间六", "房间七"];
+			var newbardatasets2 = [{
+				label: "酒店收入统计",
+				data: [100, 140, 150, 120, 130, 140, 150],
+				backgroundColor: [
+					"#F7604D",
+					"#4ED6B8",
+					"#A8D582",
+					"#D7D768",
+					"#9D66CC",
+					"#DB9C3F",
+					"#3889FC",
+				],
+				borderWidth: 0
+			}];
+			var newpielable = [
+				"项目一 (100)",
+				"项目二 (200)",
+				"项目三 (300)",
+				"项目四 (200)",
+				"项目五 (400)",
+				"项目六 (600)",
+				"项目七 (700)",
+				"项目八 (200)",
+				"项目九 (100)",
+				"项目十 (300)"
+				
+			];
+			var newpiedatasets = [{
+				data: [100, 200, 300,200,400,600,700,200,100,300],
+				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
+				label: "Storage"
+			}];
+			var newpielable1 = [
+				"餐饮一 (100)",
+				"餐饮二 (200)",
+				"餐饮三 (300)",
+				"餐饮四 (200)",
+				"餐饮五 (400)",
+				"餐饮六 (600)",
+				"餐饮七 (700)",
+				"餐饮八 (200)",
+				"餐饮九 (100)",
+				"餐饮十 (300)"
+				
+			];
+			var newpiedatasets1 = [{
+				data: [100, 200, 300,200,400,600,700,200,100,300],
+				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
+				label: "Storage"
+			}];
+			var newpielable2 = [
+				"酒店一 (100)",
+				"酒店二 (200)",
+				"酒店三 (300)",
+				"酒店四 (200)",
+				"酒店五 (400)",
+				"酒店六 (600)",
+				"酒店七 (700)",
+				"酒店八 (200)",
+				"酒店九 (100)",
+				"酒店十 (300)"
+				
+			];
+			var newpiedatasets2 = [{
+				data: [100, 200, 300,200,400,600,700,200,100,300],
+				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
+				label: "Storage"
+			}];
+			
+			let ctxLine,
+				ctxBar,
+				ctxPie,
+				optionsLine,
+				optionsBar,
+				optionsPie,
+				newLine,
+				configBar,
+				configPie,
+				lineChart;
+			barChart, pieChart;
+			// DOM is ready
+			$(function() {
+				var linename = "lineChart";
+				var barname = "barChart";
+				var barname1="Food1";
+				var barname2="Hotel";			
+				var piechart = "pieChart";
+				var piechart1="pieChart1"
+				var piechart2="pieChart2";
+				var piecontainer = "pieChartContainer";
+				var piecontainer1="pieChartContainer1";
+				var piecontainer2="pieChartContainer2";
+				drawLineChart(newlinetitle, newlinelables, newlinedatasets, linename); // Line Chart
+				drawBarChart(bartitle,newbarlables, newbardatasets, barname); // Bar Chart
+				drawPieChart(newpielable, newpiedatasets, piechart, piecontainer); // Pie Chart
+				drawBarChart(bartitle1,newbarlables1,newbardatasets1,barname1);
+				drawPieChart(newpielable1,newpiedatasets1,piechart1,piecontainer1);
+				drawBarChart(bartitle2,newbarlables2,newbardatasets2,barname2)
+				drawPieChart(newpielable2,newpiedatasets2,piechart2,piecontainer2);
+				$(window).resize(function() {
+					updateLineChart();
+					updateBarChart();
+				});
+			})
+		</script>
+	</body>
+</html>

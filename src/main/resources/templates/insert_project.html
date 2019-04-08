@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>新增项目</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <!-- http://api.jqueryui.com/datepicker/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <style>
+    	#ty_tc_top span{
+    		margin-left: 50px;
+    		margin-top: 50px;
+    	}
+    	#ty_tc_top input{
+    		width: 15px;
+    		height: 15px;
+    		margin-left: 10px;
+    	}
+    	#xm_tc span{
+    		margin-left: 20px;
+    	}
+    	#yc_xm_top span{
+    		
+    	}
+    </style>
+  </head>
+
+  <body>
+   <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">添加项目</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+                <form action="" class="tm-edit-product-form">
+                  <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >项目名称
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for=""
+                      >所属类型</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      id=""
+                    >
+                      <option selected>请选择</option>
+                      <option value="1">劳动</option>
+                      <option value="2">运动</option>
+                      <option value="2">踏青</option>
+                      <option value="2">学习</option>
+                    </select>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="description"
+                      >项目内容</label
+                    >
+                    <textarea
+                      class="form-control validate"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="description"
+                      >项目注意事项</label
+                    >
+                    <textarea
+                      class="form-control validate"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                 <div class="form-group mb-3">
+                    <label
+                      for=""
+                      >请输入负责人</label
+                    >
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  
+                  <div class="row">
+                  	
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >安全时间
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="expire_date"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >一个过程所需时间
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="expire_date"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="stock"
+                            >项目容纳人数
+                          </label>
+                          <input
+                            id="stock"
+                            name="stock"
+                            type="text"
+                            class="form-control validate"
+                            required
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >一个过程所需成本
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="expire_date"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        
+                        
+                  </div>
+                  <div hidden id="show_jd" class="form-group mb-3">
+													<h5 style="color: white;">已选基地</h5>
+													<table class="table" id="show_jd_table">
+														<tr>
+															<th>基地名称</th>
+															<th></th>
+														</tr>
+													</table>
+											</div>
+											<div class="custom-file mt-3 mb-3">
+
+													<input type="button" class="btn btn-primary btn-block mx-auto" value="选择基地" id="xz_jd_button" />
+												</div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                <div class="tm-product-img-dummy mx-auto">
+                  <i
+                    class="fas fa-cloud-upload-alt tm-upload-icon"
+                    onclick="document.getElementById('fileInput').click();"
+                  ></i>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+                  <input id="fileInput" type="file" style="display:none;" />
+                  <input
+                    type="button"
+                    class="btn btn-primary btn-block mx-auto"
+                    value="上传图片"
+                    onclick="document.getElementById('fileInput').click();"
+                  />
+                </div>
+              </div>
+              <div class="col-12" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">新增项目</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+	<div id="jd_tc" style="width: 358px;height: 208px;border: 1px solid #466675;;background: white;
+				 filter:alpha(opacity:80); opacity:0.9;  -moz-opacity:0.2;-khtml-opacity: 0.5;
+				 position: relative;bottom: 320px;left: 800px;overflow-y:scroll; overflow-x:scroll;display: none;">
+					<div style="background: #466675;text-align: center;">
+						
+						<table class="table">
+							<thead>
+								<tr>
+									<th>基地位置</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td xmid="1">一区2号</td>
+									<th><input type="checkbox" name="ck_jd" /></th>
+								</tr>
+								<tr>
+									<td xmid="2">一区5号</td>
+									<th><input type="checkbox" name="ck_jd" /></th>
+								</tr>
+								<tr>
+									<td xmid="3">二区2号</td>
+									<th><input type="checkbox" name="ck_jd" /></th>
+								</tr>
+							</tbody>
+						</table>
+						<input type="button" class=" btn-primary btn-block mx-auto" value="确定" style="width: 50px;height: 20px;text-align: center;
+						    margin-top: 20px;border-radius: 30px 30px 30px 30px;
+						    height: 30px;width: 80px;" onclick="hide_jd(this)" />
+					</div>
+				</div>
+   </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <!-- https://jqueryui.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+      $(function() {
+        $("#expire_date").datepicker();
+        
+        $("#xz_jd_button").click(function() {
+					$("#jd_tc").css("display", "block");
+				})
+				$("[name=ck_jd]").click(function() {
+					if(this.checked) {
+						var xm = $(this).parents("tr").clone();
+						xm.find("input").remove();
+						var remove_xm = $("<td><a href='javascript:void(0)' style='color: red;' id='yc_ry_a' onclick='yc_xm(this)'>移除</a></td>");
+						$(xm).append(remove_xm);
+						$("#show_jd").removeAttr("hidden");
+						$("#show_jd_table").append(xm);
+					}
+				})
+				
+				
+      });
+
+		
+			function yc_xm(th) {
+				var show_xm_length = $("#show_xm_table").find("tr").length;
+				if(show_xm_length == 2) {
+					$("#show_xm").hide();
+				}
+				$(th).parents("tr").remove();
+				var xm_sz = [];
+				var xm_id = $(th).parents("tr").find("td:eq(0)").attr("xmid");
+				var xm_id2;
+				var id;
+				$("#jd_tc").each(function() {
+					id = $(this).find("td:nth-of-type(1)");
+					$.each(id, function(i, obj) {
+						xm_id2 = $(obj).attr("xmid");
+						xm_sz.push(xm_id2);
+					});
+				})
+				for(var i = 0; i < xm_sz.length; i++) {
+					console.log(xm_sz[i]);
+					if(xm_id == xm_sz[i]) {
+						var xmtd = $("#jd_tc").find("[xmid='" + xm_id + "']");
+						xmtd.next().find("input").prop("checked", false);
+					}
+				}
+			}
+
+			function hide_jd(th) {
+				$("#jd_tc").css("display", "none");
+				var show_jd_length = $("#show_jd_table").find("tr").length;
+				if(show_jd_length == 1) {
+					$("#show_jd").hide();
+				}
+			}
+    </script>
+  </body>
+</html>

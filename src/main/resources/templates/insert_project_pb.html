@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Edit Product - Dashboard Admin Template</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+		<!-- https://fonts.google.com/specimen/Roboto -->
+		<link rel="stylesheet" href="css/fontawesome.min.css" />
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+		<!-- http://api.jqueryui.com/datepicker/ -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" href="css/templatemo-style.css">
+		<style>
+			.modal-dialog {
+				max-width: 80%;
+				margin: 1.75rem auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container tm-mt-big tm-mb-big">
+			<div class="row">
+				<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+					<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+						<div class="row">
+							<div class="col-12">
+								<h2 class="tm-block-title d-inline-block">项目</h2>
+							</div>
+						</div>
+						<div class="row tm-edit-product-row">
+							<div class="col-xl-12 col-lg-12 col-md-12">
+								<form action="" method="post" class="tm-edit-product-form">
+									<div class="form-group mb-3" style="display: block;" id="show_activit_div">
+										<input id="name" data-toggle="modal" data-target="#show_activit" name="name" type="button" value="选择活动" class="btn btn-primary btn-block text-uppercase" />
+									</div>
+									
+									
+									
+									<div class="form-group mb-3" style="display: none;" id="hide_activit_div">
+										<label for="name">
+											已选活动
+                    					</label>
+                    					<div style="display: flex;">
+                    						<input id="name" name="activit_name" type="text" value="" class="form-control validate"/>
+											<input id="name" data-toggle="modal" data-target="#show_activit" name="" type="button" value="重新选择" class="btn btn-primary btn-block text-uppercase" />
+                    					</div>
+									</div>
+									
+									
+									<div class="form-group mb-3" style="display: block;" id="show_project_div">
+										<input id="name" data-toggle="modal" data-target="#show_project" name="name" type="button" value="选择项目" class="btn btn-primary btn-block text-uppercase" />
+									</div>
+									
+									<div class="form-group mb-3" style="display: none;" id="hide_project_div">
+										<label for="name">
+											已选项目
+                    					</label>
+                    					<div style="display: flex;">
+                    						<input id="name" name="project_name" type="text" value="" class="form-control validate"/>
+											<input id="name" data-toggle="modal" data-target="#show_activit" name="" type="button" value="重新选择" class="btn btn-primary btn-block text-uppercase" />
+                    					</div>
+									</div>
+									
+									
+									<div class="form-group mb-3">
+										<label for="name">
+											开始时间
+                    					</label>
+										<input id="name" name="name" type="datetime-local" value="" class="form-control validate" />
+									</div>
+									<div class="form-group mb-3">
+										<label for="name">
+											结束时间
+                    					</label>
+										<input id="name" name="name" type="datetime-local" value="" class="form-control validate" />
+									</div>
+
+									<div class="form-group mb-3">
+										<label for="name">
+											空位
+                    					</label>
+										<input id="name" name="name" type="text" value="" class="form-control validate" />
+									</div>
+
+							</div>
+
+							<div class="col-12">
+								<input id="name" name="" type="submit" value="提交" class="btn btn-primary btn-block text-uppercase" />
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="show_activit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h4 class="modal-title" id="myModalLabel">选择活动</h4>
+					</div>
+
+					<div class="modal-body">
+						<table id="activit_table" class="table">
+							<thead>
+								<tr>
+									<th>活动名称</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>阿斯达是</td>
+									<td><input name="activit_raido" data="activit_data" type="radio"></td>
+								</tr>
+								<tr>
+									<td>请问</td>
+									<td><input name="activit_raido" data="activit_data" type="radio"></td>
+								</tr>
+								<tr>
+									<td>vfdf</td>
+									<td><input name="activit_raido" data="activit_data" type="radio"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" style="border-radius: 30px 30px 30px 30px;">关闭</button>
+						
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		<div class="modal fade" id="show_project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 80%;">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h4 class="modal-title" id="myModalLabel">选择项目</h4>
+					</div>
+
+					<div class="modal-body">
+						<h4>以安排项目</h4>
+						<input type="text" placeholder="项目名称"/>
+			        	<input type="text" placeholder="开始时间"/>
+			        	<span style="color: black;">~</span>
+			        	<input type="text" placeholder="结束时间"/>
+			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+						<table class="table table-hover tm-table-smal	l tm-product-table" style="margin-top: 20px;">
+							
+							<thead>
+								<tr>
+
+									<th scope="col">项目名称</th>
+									<th scope="col">开始时间</th>
+									<th scope="col">结束时间</th>
+									<th scope="col">所属活动</th>
+									<th scope="col">空位</th>
+									<th scope="col">状态</th>
+									<th scope="col">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+
+									<td class="">
+										<a href="edit_project_pb.html" style="color: white;">项目名称</a>
+									</td>
+									<td>28 March 2019 10:00:00</td>
+									<td>28 March 2019 11:00:00</td>
+									<td>活动名称</td>
+									<td>20</td>
+									<td>正常</td>
+									<td>
+										
+									</td>
+
+								</tr>
+								<tr>
+
+									<td class="">
+										<a href="edit_project_pb.html" style="color: white;">项目名称</a>
+									</td>
+									<td>28 March 2019 10:00:00</td>
+									<td>28 March 2019 11:00:00</td>
+									<td>活动名称</td>
+									<td>20</td>
+									<td>正常</td>
+									<td>
+										
+									</td>
+
+								</tr>
+								<tr>
+
+									<td class="">
+										<a href="edit_project_pb.html" style="color: white;">项目名称</a>
+									</td>
+									<td>28 March 2019 10:00:00</td>
+									<td>28 March 2019 11:00:00</td>
+									<td>活动名称</td>
+									<td>20</td>
+									<td>正常</td>
+									<td>
+										
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+						<h4 style="margin-top: 50px;">选择项目</h4>
+						<input type="text" placeholder="项目名称"/>
+						<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+						 <table class="table table-hover tm-table-small tm-product-table" style="margin-top: 20px;">
+			                <thead>
+			                  <tr>
+			                   
+			                    <th scope="col">项目名称</th>
+			                    <th scope="col">建成金额</th>
+			                    <th scope="col">创建时间</th>
+			                    <th scope="col">状态</th>
+			                    <th scope="col">&nbsp;</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+			                  <tr>
+			                    <td class="">活动名称</td>
+			                    <td>1,450</td>
+			                    <td>28 March 2019</td>
+			                    <td>开放</td>
+			                    <td>
+			                      <div style="border: 1px solid orange;width: 30px;height: 30px;border-radius: 50%;
+											text-align: center;background: orange;line-height: 30px;">
+											<a id="project_a">+</a>
+										</div>
+			                    </td>
+			                  </tr>
+			                 <tr>
+			                    <td class="">活动名称</td>
+			                    <td>1,450</td>
+			                    <td>28 March 2019</td>
+			                    <td>开放</td>
+			                    <td>
+			                      <div style="border: 1px solid orange;width: 30px;height: 30px;border-radius: 50%;
+											text-align: center;background: orange;line-height: 30px;">
+											<a id="project_a">+</a>
+										</div>
+			                    </td>
+			                  </tr>
+			                  <tr>
+			                    <td class="">活动名称</td>
+			                    <td>1,450</td>
+			                    <td>28 March 2019</td>
+			                    <td>开放</td>
+			                    <td>
+			                      <div style="border: 1px solid orange;width: 30px;height: 30px;border-radius: 50%;
+											text-align: center;background: orange;line-height: 30px;">
+											<a id="project_a">+</a>
+										</div>
+			                    </td>
+			                  </tr>
+			                </tbody>
+			              </table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" style="border-radius: 30px 30px 30px 30px;">关闭</button>
+						<button id="activit_btn" type="button" class="btn btn-primary" style="border-radius: 30px 30px 30px 30px;">提交</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<!-- https://jquery.com/download/ -->
+		<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+		<!-- https://jqueryui.com/download/ -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- https://getbootstrap.com/ -->
+		<script>
+			$(function() {
+				$("[name=activit_raido]").click(function(){
+					var activit_name=$(this).parent("td").prev("td").html();
+					$("[name=activit_name]").val(activit_name);
+					$("#show_activit_div").css("display","none");
+					$("#hide_activit_div").css("display","block");
+					
+				})
+				$("#project_a").click(function(){
+					var project_name=$(this).parents("td").parent("tr").find("td:eq(0)").html();
+					$("[name=project_name]").val(project_name);
+					$("#show_project_div").css("display","none");
+					$("#hide_project_div").css("display","block");
+				})
+			});
+		</script>
+	</body>
+
+</html>
