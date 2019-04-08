@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.usersMapper" >
+  <resultMap id="BaseResultMap" type="domain.users" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uName" property="uname" jdbcType="VARCHAR" />
+    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
+    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
+    <result column="name1" property="name1" jdbcType="VARCHAR" />
+    <result column="name2" property="name2" jdbcType="VARCHAR" />
+    <result column="name3" property="name3" jdbcType="VARCHAR" />
+    <result column="name4" property="name4" jdbcType="VARCHAR" />
+    <result column="name5" property="name5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, uName, uPassword, idCardNo, phone, address, height, width, TypeId, name1, name2, 
+    name3, name4, name5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.usersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="domain.usersExample" >
+    delete from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="domain.users" >
+    insert into users (id, uName, uPassword, 
+      idCardNo, phone, address, 
+      height, width, TypeId, 
+      name1, name2, name3, 
+      name4, name5)
+    values (#{id,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{upassword,jdbcType=VARCHAR}, 
+      #{idcardno,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{height,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, #{typeid,jdbcType=INTEGER}, 
+      #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
+      #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="domain.users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uname != null" >
+        uName,
+      </if>
+      <if test="upassword != null" >
+        uPassword,
+      </if>
+      <if test="idcardno != null" >
+        idCardNo,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="typeid != null" >
+        TypeId,
+      </if>
+      <if test="name1 != null" >
+        name1,
+      </if>
+      <if test="name2 != null" >
+        name2,
+      </if>
+      <if test="name3 != null" >
+        name3,
+      </if>
+      <if test="name4 != null" >
+        name4,
+      </if>
+      <if test="name5 != null" >
+        name5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null" >
+        #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="name1 != null" >
+        #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        #{name5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="domain.usersExample" resultType="java.lang.Integer" >
+    select count(*) from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update users
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uname != null" >
+        uName = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upassword != null" >
+        uPassword = #{record.upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardno != null" >
+        idCardNo = #{record.idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DOUBLE},
+      </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=DOUBLE},
+      </if>
+      <if test="record.typeid != null" >
+        TypeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name1 != null" >
+        name1 = #{record.name1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name2 != null" >
+        name2 = #{record.name2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name3 != null" >
+        name3 = #{record.name3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name4 != null" >
+        name4 = #{record.name4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name5 != null" >
+        name5 = #{record.name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update users
+    set id = #{record.id,jdbcType=INTEGER},
+      uName = #{record.uname,jdbcType=VARCHAR},
+      uPassword = #{record.upassword,jdbcType=VARCHAR},
+      idCardNo = #{record.idcardno,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=DOUBLE},
+      width = #{record.width,jdbcType=DOUBLE},
+      TypeId = #{record.typeid,jdbcType=INTEGER},
+      name1 = #{record.name1,jdbcType=VARCHAR},
+      name2 = #{record.name2,jdbcType=VARCHAR},
+      name3 = #{record.name3,jdbcType=VARCHAR},
+      name4 = #{record.name4,jdbcType=VARCHAR},
+      name5 = #{record.name5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="domain.users" >
+    update users
+    <set >
+      <if test="uname != null" >
+        uName = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null" >
+        uPassword = #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        idCardNo = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="typeid != null" >
+        TypeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="name1 != null" >
+        name1 = #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        name2 = #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        name3 = #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        name4 = #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        name5 = #{name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="domain.users" >
+    update users
+    set uName = #{uname,jdbcType=VARCHAR},
+      uPassword = #{upassword,jdbcType=VARCHAR},
+      idCardNo = #{idcardno,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      height = #{height,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      TypeId = #{typeid,jdbcType=INTEGER},
+      name1 = #{name1,jdbcType=VARCHAR},
+      name2 = #{name2,jdbcType=VARCHAR},
+      name3 = #{name3,jdbcType=VARCHAR},
+      name4 = #{name4,jdbcType=VARCHAR},
+      name5 = #{name5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
