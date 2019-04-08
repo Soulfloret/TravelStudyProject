@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.roomorderMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.roomorder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="name1" property="name1" jdbcType="VARCHAR" />
+    <result column="name2" property="name2" jdbcType="VARCHAR" />
+    <result column="name3" property="name3" jdbcType="VARCHAR" />
+    <result column="name4" property="name4" jdbcType="VARCHAR" />
+    <result column="name5" property="name5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ordernumber, userId, price, state, name1, name2, name3, name4, name5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.roomorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from roomorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from roomorder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from roomorder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.roomorderExample" >
+    delete from roomorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.roomorder" >
+    insert into roomorder (id, ordernumber, userId, 
+      price, state, name1, 
+      name2, name3, name4, 
+      name5)
+    values (#{id,jdbcType=INTEGER}, #{ordernumber,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{state,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR}, 
+      #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
+      #{name5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.roomorder" >
+    insert into roomorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="name1 != null" >
+        name1,
+      </if>
+      <if test="name2 != null" >
+        name2,
+      </if>
+      <if test="name3 != null" >
+        name3,
+      </if>
+      <if test="name4 != null" >
+        name4,
+      </if>
+      <if test="name5 != null" >
+        name5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="name1 != null" >
+        #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        #{name5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.roomorderExample" resultType="java.lang.Integer" >
+    select count(*) from roomorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update roomorder
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernumber != null" >
+        ordernumber = #{record.ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name1 != null" >
+        name1 = #{record.name1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name2 != null" >
+        name2 = #{record.name2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name3 != null" >
+        name3 = #{record.name3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name4 != null" >
+        name4 = #{record.name4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name5 != null" >
+        name5 = #{record.name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update roomorder
+    set id = #{record.id,jdbcType=INTEGER},
+      ordernumber = #{record.ordernumber,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE},
+      state = #{record.state,jdbcType=VARCHAR},
+      name1 = #{record.name1,jdbcType=VARCHAR},
+      name2 = #{record.name2,jdbcType=VARCHAR},
+      name3 = #{record.name3,jdbcType=VARCHAR},
+      name4 = #{record.name4,jdbcType=VARCHAR},
+      name5 = #{record.name5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.roomorder" >
+    update roomorder
+    <set >
+      <if test="ordernumber != null" >
+        ordernumber = #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="name1 != null" >
+        name1 = #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        name2 = #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        name3 = #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        name4 = #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        name5 = #{name5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.roomorder" >
+    update roomorder
+    set ordernumber = #{ordernumber,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      state = #{state,jdbcType=VARCHAR},
+      name1 = #{name1,jdbcType=VARCHAR},
+      name2 = #{name2,jdbcType=VARCHAR},
+      name3 = #{name3,jdbcType=VARCHAR},
+      name4 = #{name4,jdbcType=VARCHAR},
+      name5 = #{name5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
