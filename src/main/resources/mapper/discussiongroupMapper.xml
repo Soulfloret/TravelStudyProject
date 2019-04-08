@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.discussiongroupMapper" >
-  <resultMap id="BaseResultMap" type="domain.discussiongroup" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.discussiongroup" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="groupName" property="groupname" jdbcType="VARCHAR" />
     <result column="groupSize" property="groupsize" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
     id, groupName, groupSize, groupDescribe, groupMainId, name1, name2, name3, name4, 
     name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.discussiongroupExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.discussiongroupExample" >
     select
     <if test="distinct" >
       distinct
@@ -99,13 +99,13 @@
     delete from discussiongroup
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.discussiongroupExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.discussiongroupExample" >
     delete from discussiongroup
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.discussiongroup" >
+  <insert id="insert" parameterType="com.accp.domain.discussiongroup" >
     insert into discussiongroup (id, groupName, groupSize, 
       groupDescribe, groupMainId, name1, 
       name2, name3, name4, 
@@ -115,7 +115,7 @@
       #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
       #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="domain.discussiongroup" >
+  <insert id="insertSelective" parameterType="com.accp.domain.discussiongroup" >
     insert into discussiongroup
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.discussiongroupExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.discussiongroupExample" resultType="java.lang.Integer" >
     select count(*) from discussiongroup
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.discussiongroup" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.discussiongroup" >
     update discussiongroup
     <set >
       <if test="groupname != null" >
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.discussiongroup" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.discussiongroup" >
     update discussiongroup
     set groupName = #{groupname,jdbcType=VARCHAR},
       groupSize = #{groupsize,jdbcType=INTEGER},

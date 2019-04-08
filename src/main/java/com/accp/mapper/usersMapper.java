@@ -27,4 +27,7 @@ public interface usersMapper {
     int updateByPrimaryKeySelective(users record);
 
     int updateByPrimaryKey(users record);
+    
+    users query(@Param("id")Integer id);
+    
 }

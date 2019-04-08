@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class dynamics {
     private Integer id;
@@ -20,8 +21,39 @@ public class dynamics {
     private String name4;
 
     private String name5;
+    
+    private List<images> img;
+    
+    private users user;
+    
+    private List<comments> comment;
+    
 
-    public Integer getId() {
+	public List<comments> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<comments> comment) {
+		this.comment = comment;
+	}
+
+	public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+    public List<images> getImg() {
+		return img;
+	}
+
+	public void setImg(List<images> img) {
+		this.img = img;
+	}
+
+	public Integer getId() {
         return id;
     }
 
