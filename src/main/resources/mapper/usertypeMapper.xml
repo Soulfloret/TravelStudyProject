@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.usertypeMapper" >
-  <resultMap id="BaseResultMap" type="domain.usertype" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.usertype" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="tName" property="tname" jdbcType="VARCHAR" />
     <result column="name1" property="name1" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, tName, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.usertypeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.usertypeExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from usertype
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.usertypeExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.usertypeExample" >
     delete from usertype
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.usertype" >
+  <insert id="insert" parameterType="com.accp.domain.usertype" >
     insert into usertype (id, tName, name1, 
       name2, name3, name4, 
       name5)
@@ -109,7 +109,7 @@
       #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
       #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="domain.usertype" >
+  <insert id="insertSelective" parameterType="com.accp.domain.usertype" >
     insert into usertype
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.usertypeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.usertypeExample" resultType="java.lang.Integer" >
     select count(*) from usertype
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.usertype" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.usertype" >
     update usertype
     <set >
       <if test="tname != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.usertype" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.usertype" >
     update usertype
     set tName = #{tname,jdbcType=VARCHAR},
       name1 = #{name1,jdbcType=VARCHAR},

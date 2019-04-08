@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.rolemoduleMapper" >
-  <resultMap id="BaseResultMap" type="domain.rolemodule" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.rolemodule" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="roleId" property="roleid" jdbcType="INTEGER" />
     <result column="moduleId" property="moduleid" jdbcType="INTEGER" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     id, roleId, moduleId
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.rolemoduleExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.rolemoduleExample" >
     select
     <if test="distinct" >
       distinct
@@ -91,19 +91,19 @@
     delete from rolemodule
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.rolemoduleExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.rolemoduleExample" >
     delete from rolemodule
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.rolemodule" >
+  <insert id="insert" parameterType="com.accp.domain.rolemodule" >
     insert into rolemodule (id, roleId, moduleId
       )
     values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{moduleid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="domain.rolemodule" >
+  <insert id="insertSelective" parameterType="com.accp.domain.rolemodule" >
     insert into rolemodule
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -128,7 +128,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.rolemoduleExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.rolemoduleExample" resultType="java.lang.Integer" >
     select count(*) from rolemodule
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -160,7 +160,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.rolemodule" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.rolemodule" >
     update rolemodule
     <set >
       <if test="roleid != null" >
@@ -172,7 +172,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.rolemodule" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.rolemodule" >
     update rolemodule
     set roleId = #{roleid,jdbcType=INTEGER},
       moduleId = #{moduleid,jdbcType=INTEGER}

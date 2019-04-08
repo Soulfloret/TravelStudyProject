@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.sendrequestMapper" >
-  <resultMap id="BaseResultMap" type="domain.sendrequest" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.sendrequest" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="did" property="did" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
   <sql id="Base_Column_List" >
     id, uid, did, typeId, sstatus, content, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.sendrequestExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.sendrequestExample" >
     select
     <if test="distinct" >
       distinct
@@ -99,13 +99,13 @@
     delete from sendrequest
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.sendrequestExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.sendrequestExample" >
     delete from sendrequest
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.sendrequest" >
+  <insert id="insert" parameterType="com.accp.domain.sendrequest" >
     insert into sendrequest (id, uid, did, 
       typeId, sstatus, content, 
       name1, name2, name3, 
@@ -115,7 +115,7 @@
       #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
       #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="domain.sendrequest" >
+  <insert id="insertSelective" parameterType="com.accp.domain.sendrequest" >
     insert into sendrequest
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -188,7 +188,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.sendrequestExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.sendrequestExample" resultType="java.lang.Integer" >
     select count(*) from sendrequest
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -252,7 +252,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.sendrequest" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.sendrequest" >
     update sendrequest
     <set >
       <if test="uid != null" >
@@ -288,7 +288,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.sendrequest" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.sendrequest" >
     update sendrequest
     set uid = #{uid,jdbcType=INTEGER},
       did = #{did,jdbcType=INTEGER},

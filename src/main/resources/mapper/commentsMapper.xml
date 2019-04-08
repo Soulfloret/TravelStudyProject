@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.accp.mapper.commentsMapper" >
-  <resultMap id="BaseResultMap" type="domain.comments" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.comments" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="shareTIme" property="sharetime" jdbcType="TIMESTAMP" />
@@ -74,7 +74,7 @@
   <sql id="Base_Column_List" >
     id, content, shareTIme, did, uid, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="domain.commentsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.commentsExample" >
     select
     <if test="distinct" >
       distinct
@@ -98,13 +98,13 @@
     delete from comments
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="domain.commentsExample" >
+  <delete id="deleteByExample" parameterType="com.accp.domain.commentsExample" >
     delete from comments
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="domain.comments" >
+  <insert id="insert" parameterType="com.accp.domain.comments" >
     insert into comments (id, content, shareTIme, 
       did, uid, name1, name2, 
       name3, name4, name5
@@ -114,7 +114,7 @@
       #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="domain.comments" >
+  <insert id="insertSelective" parameterType="com.accp.domain.comments" >
     insert into comments
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -181,7 +181,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="domain.commentsExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.accp.domain.commentsExample" resultType="java.lang.Integer" >
     select count(*) from comments
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -241,7 +241,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="domain.comments" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.comments" >
     update comments
     <set >
       <if test="content != null" >
@@ -274,7 +274,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="domain.comments" >
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.comments" >
     update comments
     set content = #{content,jdbcType=VARCHAR},
       shareTIme = #{sharetime,jdbcType=TIMESTAMP},
