@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class module {
     private Integer id;
 
@@ -20,8 +22,19 @@ public class module {
     private String name4;
 
     private String name5;
+    
+    private List<module> mlist;
+    
 
-    public Integer getId() {
+    public List<module> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<module> mlist) {
+		this.mlist = mlist;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -13,6 +13,14 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.accp.domain.module" id="BaseResultMap1" extends="BaseResultMap">
+  	<collection property="mlist"  column="{id=pid,uid=uid}" ofType="BaseResultMap1" select="queryModuleByUid"></collection>
+  </resultMap>
+    <select id="queryModuleByUid" resultMap="BaseResultMap1">
+	  	select m.*,ur.uid from module as m,roleModule as rm,
+	  	userrole as ur where ur.roleId=rm.roleId and
+	  	rm.moduleId=m.id and ur.uid=#{uid} and m.parentId=#{id}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
