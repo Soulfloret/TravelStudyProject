@@ -22,8 +22,13 @@
   		SELECT * FROM `users` WHERE `id`=#{id}
   </select>
   
+  <!-- 登陆接口 -->
+  <select id="queryByName" resultType="com.accp.domain.users">
+  		SELECT * FROM `users` WHERE `uName`=#{uname} and `uPassword`=#{upassword}
+  </select>
   
   <sql id="Example_Where_Clause" >
+  
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
