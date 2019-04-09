@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.moduleMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.module" >
+<mapper namespace="com.accp.mapper.InterestedprojectMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Interestedproject" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="mName" property="mname" jdbcType="VARCHAR" />
-    <result column="parentId" property="parentid" jdbcType="INTEGER" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="eName" property="ename" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="iid" property="iid" jdbcType="INTEGER" />
     <result column="name1" property="name1" jdbcType="VARCHAR" />
     <result column="name2" property="name2" jdbcType="VARCHAR" />
     <result column="name3" property="name3" jdbcType="VARCHAR" />
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap type="com.accp.domain.module" id="BaseResultMap1" extends="BaseResultMap">
-  	<collection property="mlist"  column="{id=pid,uid=uid}" ofType="BaseResultMap1" select="queryModuleByUid"></collection>
-  </resultMap>
-    <select id="queryModuleByUid" resultMap="BaseResultMap1">
-	  	select m.*,ur.uid from module as m,roleModule as rm,
-	  	userrole as ur where ur.roleId=rm.roleId and
-	  	rm.moduleId=m.id and ur.uid=#{uid} and m.parentId=#{id}
-  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -80,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, mName, parentId, url, eName, name1, name2, name3, name4, name5
+    id, pid, iid, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.moduleExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.InterestedprojectExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from module
+    from interestedproject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,46 +89,38 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from module
+    from interestedproject
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from module
+    delete from interestedproject
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.moduleExample" >
-    delete from module
+  <delete id="deleteByExample" parameterType="com.accp.domain.InterestedprojectExample" >
+    delete from interestedproject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.module" >
-    insert into module (id, mName, parentId, 
-      url, eName, name1, 
-      name2, name3, name4, 
-      name5)
-    values (#{id,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
-      #{url,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR}, 
-      #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
-      #{name5,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.accp.domain.Interestedproject" >
+    insert into interestedproject (id, pid, iid, 
+      name1, name2, name3, 
+      name4, name5)
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{iid,jdbcType=INTEGER}, 
+      #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
+      #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.module" >
-    insert into module
+  <insert id="insertSelective" parameterType="com.accp.domain.Interestedproject" >
+    insert into interestedproject
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="mname != null" >
-        mName,
+      <if test="pid != null" >
+        pid,
       </if>
-      <if test="parentid != null" >
-        parentId,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="ename != null" >
-        eName,
+      <if test="iid != null" >
+        iid,
       </if>
       <if test="name1 != null" >
         name1,
@@ -160,17 +142,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="mname != null" >
-        #{mname,jdbcType=VARCHAR},
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
       </if>
-      <if test="parentid != null" >
-        #{parentid,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="ename != null" >
-        #{ename,jdbcType=VARCHAR},
+      <if test="iid != null" >
+        #{iid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         #{name1,jdbcType=VARCHAR},
@@ -189,29 +165,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.moduleExample" resultType="java.lang.Integer" >
-    select count(*) from module
+  <select id="countByExample" parameterType="com.accp.domain.InterestedprojectExample" resultType="java.lang.Integer" >
+    select count(*) from interestedproject
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update module
+    update interestedproject
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.mname != null" >
-        mName = #{record.mname,jdbcType=VARCHAR},
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
       </if>
-      <if test="record.parentid != null" >
-        parentId = #{record.parentid,jdbcType=INTEGER},
-      </if>
-      <if test="record.url != null" >
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ename != null" >
-        eName = #{record.ename,jdbcType=VARCHAR},
+      <if test="record.iid != null" >
+        iid = #{record.iid,jdbcType=INTEGER},
       </if>
       <if test="record.name1 != null" >
         name1 = #{record.name1,jdbcType=VARCHAR},
@@ -234,12 +204,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update module
+    update interestedproject
     set id = #{record.id,jdbcType=INTEGER},
-      mName = #{record.mname,jdbcType=VARCHAR},
-      parentId = #{record.parentid,jdbcType=INTEGER},
-      url = #{record.url,jdbcType=VARCHAR},
-      eName = #{record.ename,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=INTEGER},
+      iid = #{record.iid,jdbcType=INTEGER},
       name1 = #{record.name1,jdbcType=VARCHAR},
       name2 = #{record.name2,jdbcType=VARCHAR},
       name3 = #{record.name3,jdbcType=VARCHAR},
@@ -249,20 +217,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.module" >
-    update module
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Interestedproject" >
+    update interestedproject
     <set >
-      <if test="mname != null" >
-        mName = #{mname,jdbcType=VARCHAR},
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="parentid != null" >
-        parentId = #{parentid,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="ename != null" >
-        eName = #{ename,jdbcType=VARCHAR},
+      <if test="iid != null" >
+        iid = #{iid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         name1 = #{name1,jdbcType=VARCHAR},
@@ -282,12 +244,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.module" >
-    update module
-    set mName = #{mname,jdbcType=VARCHAR},
-      parentId = #{parentid,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR},
-      eName = #{ename,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Interestedproject" >
+    update interestedproject
+    set pid = #{pid,jdbcType=INTEGER},
+      iid = #{iid,jdbcType=INTEGER},
       name1 = #{name1,jdbcType=VARCHAR},
       name2 = #{name2,jdbcType=VARCHAR},
       name3 = #{name3,jdbcType=VARCHAR},

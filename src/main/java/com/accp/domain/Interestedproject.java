@@ -1,17 +1,11 @@
 package com.accp.domain;
 
-import java.util.List;
-
-public class module {
+public class Interestedproject {
     private Integer id;
 
-    private String mname;
+    private Integer pid;
 
-    private Integer parentid;
-
-    private String url;
-
-    private String ename;
+    private Integer iid;
 
     private String name1;
 
@@ -22,19 +16,8 @@ public class module {
     private String name4;
 
     private String name5;
-    
-    private List<module> mlist;
-    
 
-    public List<module> getMlist() {
-		return mlist;
-	}
-
-	public void setMlist(List<module> mlist) {
-		this.mlist = mlist;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -42,36 +25,20 @@ public class module {
         this.id = id;
     }
 
-    public String getMname() {
-        return mname;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setMname(String mname) {
-        this.mname = mname;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
-    public Integer getParentid() {
-        return parentid;
+    public Integer getIid() {
+        return iid;
     }
 
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getEname() {
-        return ename;
-    }
-
-    public void setEname(String ename) {
-        this.ename = ename;
+    public void setIid(Integer iid) {
+        this.iid = iid;
     }
 
     public String getName1() {

@@ -1,16 +1,15 @@
-package com.accp.mapper;
-
-import com.accp.domain.module;
-import com.accp.domain.moduleExample;
+package com.accp.chenyong.service;
 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
-public interface moduleMapper {
-    int deleteByPrimaryKey(Integer id);
+import com.accp.domain.module;
+import com.accp.domain.moduleExample;
+
+public interface ModuleService {
+	int deleteByPrimaryKey(Integer id);
 
     int insert(module record);
 
@@ -22,6 +21,6 @@ public interface moduleMapper {
 
     int updateByPrimaryKey(module record);
     
-    @MapKey("url")
     Map<String,module> queryMapByUid(@Param("uid")Integer uid);
+
 }
