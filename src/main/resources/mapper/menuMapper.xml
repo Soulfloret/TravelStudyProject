@@ -31,6 +31,14 @@
   <select id="QueryMenu" resultMap="BaseResultMap1">
   		SELECT m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` 
 		FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
+		<where>
+			<if test="mname!=null and mname!=''">
+				m.mname like CONCAT('%',#{mname},'%')
+			</if>
+			<if test="menutypeid!=null and menutypeid!=0">
+				and	m.menutypeid=#{menutypeid}
+			</if>
+		</where>
   </select>
   
   

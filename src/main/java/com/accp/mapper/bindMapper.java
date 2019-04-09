@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface bindMapper {
+	
+	List<bind> querybind(bind bi);
+	
     int countByExample(bindExample example);
 
     int deleteByExample(bindExample example);
