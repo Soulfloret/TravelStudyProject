@@ -8,7 +8,25 @@ public class users {
 
     private String upassword;
 
-    private String idcardno;
+    public users() {
+		super();
+	}
+
+	public users(String uname, String idcardno, String phone, String address, Double height, Double width,
+			Integer typeid, String name1,String upassword1) {
+		super();
+		this.uname = uname;
+		this.idcardno = idcardno;
+		this.phone = phone;
+		this.address = address;
+		this.height = height;
+		this.width = width;
+		this.typeid = typeid;
+		this.name1 = name1;
+		this.upassword=upassword1;
+	}
+
+	private String idcardno;
 
     private String phone;
 
@@ -33,7 +51,17 @@ public class users {
 
     private String name4;
 
-    private String name5;
+	private String name5;
+    //年
+	private Integer year;
+	//月
+	private Integer month;
+	//日
+	private Integer day;
+	//年龄
+	private Integer age;
+    //账号
+    private String name6;
 
     public Integer getId() {
         return id;
@@ -153,4 +181,44 @@ public class users {
 	public void setUsetype(usertype usetype) {
 		this.usetype = usetype;
 	}
+    public String getName6() {
+		return name6;
+	}
+
+	public void setName6(String name6) {
+		this.name6 = name6;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public Integer getDay() {
+		return day;
+	}
+
+	public void setDay(Integer day) {
+		this.day = day;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	
 }

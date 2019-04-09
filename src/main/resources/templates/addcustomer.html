@@ -45,7 +45,7 @@
 							</div>
 	
 							<div class="row" id="shuxing">
-								<form class="form-inline col-md-12" method="post" th:action="@{/customer/addCustomer}">
+								<form class="form-inline col-md-12" method="post" enctype="multipart/form-data" th:action="@{/customer/addCustomer}">
 									<div class="form-group col-md-6">
 										<label for="uname" class="col-md-5">客户名称:</label>
 										<input type="text" name="uname" id="uname" class="form-control col-md-7">
@@ -85,7 +85,7 @@
 									<div class="form-group col-md-12" style="display: none;">
 										<label for="" class="col-md-3">导入团员信息:</label>
 										<a style="color: white;margin-right: 20px;" th:href="@{/customer/downloadTemple}">下载导入模板</a>
-										<input type="file" name="file" class="form-control" style="padding: 10px;">
+										<input type="file"  name="file" class="form-control" style="padding: 10px;">
 									</div>
 									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info" />
 								</form> 
