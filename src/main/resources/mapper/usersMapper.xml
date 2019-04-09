@@ -17,10 +17,7 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
-  <select id="query" resultType="com.accp.domain.users">
-  		SELECT * FROM `users` WHERE `id`=#{id}
-  </select>
+
   
   <!-- 登陆接口 -->
   <select id="queryByName" resultType="com.accp.domain.users">
