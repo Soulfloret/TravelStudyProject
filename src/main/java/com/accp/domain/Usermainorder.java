@@ -1,17 +1,17 @@
 package com.accp.domain;
 
-import java.util.List;
+import java.util.Date;
 
-public class module {
+public class Usermainorder {
     private Integer id;
 
-    private String mname;
+    private String orderno;
 
-    private Integer parentid;
+    private Date ordertime;
 
-    private String url;
+    private Integer orderuser;
 
-    private String ename;
+    private Integer ordercustomer;
 
     private String name1;
 
@@ -22,19 +22,8 @@ public class module {
     private String name4;
 
     private String name5;
-    
-    private List<module> mlist;
-    
 
-    public List<module> getMlist() {
-		return mlist;
-	}
-
-	public void setMlist(List<module> mlist) {
-		this.mlist = mlist;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -42,36 +31,36 @@ public class module {
         this.id = id;
     }
 
-    public String getMname() {
-        return mname;
+    public String getOrderno() {
+        return orderno;
     }
 
-    public void setMname(String mname) {
-        this.mname = mname;
+    public void setOrderno(String orderno) {
+        this.orderno = orderno;
     }
 
-    public Integer getParentid() {
-        return parentid;
+    public Date getOrdertime() {
+        return ordertime;
     }
 
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
     }
 
-    public String getUrl() {
-        return url;
+    public Integer getOrderuser() {
+        return orderuser;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setOrderuser(Integer orderuser) {
+        this.orderuser = orderuser;
     }
 
-    public String getEname() {
-        return ename;
+    public Integer getOrdercustomer() {
+        return ordercustomer;
     }
 
-    public void setEname(String ename) {
-        this.ename = ename;
+    public void setOrdercustomer(Integer ordercustomer) {
+        this.ordercustomer = ordercustomer;
     }
 
     public String getName1() {
