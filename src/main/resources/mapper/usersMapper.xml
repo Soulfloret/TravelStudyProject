@@ -18,26 +18,13 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
-   <resultMap id="MapOne" type="com.accp.domain.users" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="uName" property="uname" jdbcType="VARCHAR" />
-    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
-    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="height" property="height" jdbcType="DOUBLE" />
-    <result column="width" property="width" jdbcType="DOUBLE" />
-    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
-    <result column="name1" property="name1" jdbcType="VARCHAR" />
-    <result column="name2" property="name2" jdbcType="VARCHAR" />
-    <result column="name3" property="name3" jdbcType="VARCHAR" />
-    <result column="name4" property="name4" jdbcType="VARCHAR" />
-    <result column="name5" property="name5" jdbcType="VARCHAR" />
+   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
     <association property="usetype" javaType="com.accp.domain.usertype" >
-     <id property="id" column="TypeId"/>
-     <result property="tname" column="tName"/>
+	     <id property="id" column="TypeId"/>
+    	 <result property="tname" column="tName"/>
     </association>
   </resultMap>
+  <!--  根据客户名称 以及客户类别查询-->
   <select id="selectAllUsers"  resultMap="MapOne" >
 	SELECT s.*,ut.tName FROM users  AS s INNER JOIN usertype AS ut
 	ON s.TypeId=ut.id

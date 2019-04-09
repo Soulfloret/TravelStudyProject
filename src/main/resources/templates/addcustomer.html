@@ -45,52 +45,49 @@
 							</div>
 	
 							<div class="row" id="shuxing">
-								<form class="form-inline col-md-12" method="post">
+								<form class="form-inline col-md-12" method="post" th:action="@{/customer/addCustomer}">
 									<div class="form-group col-md-6">
-										<label for="cname" class="col-md-5">客户名称:</label>
-										<input type="text" id="cname" class="form-control col-md-7">
+										<label for="uname" class="col-md-5">客户名称:</label>
+										<input type="text" name="uname" id="uname" class="form-control col-md-7">
 									</div>
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">电话:</label>
-										<input type="text" class="form-control col-md-7">
+										<input type="text" class="form-control col-md-7" name="phone">
 									</div>
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">性别:</label>
-										<input type="radio" checked name="sex"><span>男</span>
-										<input type="radio" name="sex" style="margin-left: 10px;"><span>女</span>
+										<input type="radio" checked name="name1" value="男"><span>男</span>
+										<input type="radio" name="name1" style="margin-left: 10px;" value="女"><span>女</span>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">身高(cm):</label>
-										<input type="text" class="form-control col-md-7">
+										<input type="text" name="height" class="form-control col-md-7">
 									</div>
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">体重:</label>
-										<input type="text" class="form-control col-md-7">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="" class="col-md-5">居住地址:</label>
-										<input type="text" class="form-control col-md-7">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="" class="col-md-5">爱好:</label>
-										<input type="text" class="form-control col-md-7">
+										<input type="text" name="width" class="form-control col-md-7">
 									</div>
 									<div class="form-group col-md-6" >
 										<label for="" class="col-md-5">身份证号:</label>
-										<input type="text" class="form-control col-md-7">
+										<input type="text" name="idcardno" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="" class="col-md-3">居住地址:</label>
+										<input type="text" name="address" class="form-control col-md-7">
 									</div>
 									<div class="form-group col-md-12">
 										<label for="" class="col-md-3">选择报名方式:</label>
-										<input type="radio" checked name="team" value="individual"><span>个人</span>
+										<input type="radio" name='team' >
+										<input type="radio" checked name="team" value="individual"><span>普通客户</span>
 										<input type="radio" name="team" id="team" value="team" style="margin-left: 10px;"><span>团队</span>
 									</div>
 									<div class="form-group col-md-12" style="display: none;">
 										<label for="" class="col-md-3">导入团员信息:</label>
 										<a style="color: white;margin-right: 20px;" th:href="@{/customer/downloadTemple}">下载导入模板</a>
-										<input type="file" class="form-control" style="padding: 10px;">
+										<input type="file" name="file" class="form-control" style="padding: 10px;">
 									</div>
 									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info" />
-								</form>
+								</form> 
 							</div>
 	
 						</div>
@@ -105,6 +102,7 @@
 			<script th:src="@{/js/bootstrap.min.js}"></script>
 			<!-- https://getbootstrap.com/ -->
 			<script>
+				
 				//选中团队 即出现Excel导入 	
 				$("[name='team']").click(function() {
 					if($(this).val() == "individual") {

@@ -59,16 +59,27 @@ public class CustomerController {
 	
 	/**
 	 * 
-	 * @return 客户新增页面
+	 * @return 去客户新增页面 并查询出可以选择的客户类型
 	 */
 	@RequestMapping("toadd")
-	public String toadd() {
-		System.out.println("a");
+	public String toadd(Model model) {
+		model.addAttribute("list",UsersType.selectByExample(null));
 		return "addcustomer";
 	}
 	
+	/**
+	 * 客户新增
+	 */
+	@RequestMapping("addCustomer")
+	public String addCustomer(users user,MultipartFile file,String team) {
+		System.out.println(team);
+		if(team.equals("individual")) {
+			user.setTypeid(1);
+		}
+		
+		return "redirect:/customer/toCustomer";
+	}
 	
-
 	/**
 	 * 导入模版
 	 * @return
@@ -78,7 +89,7 @@ public class CustomerController {
 		
 		try {
 			//模版位置
-			FileInputStream fis=new FileInputStream("C:/Users/Administrator/Downloads/导出的学生列表数据.xlsx");
+			FileInputStream fis=new FileInputStream("C:/Users/Administrator/Downloads/客户导入.xlsx");
 			byte [] bytes=new byte[fis.available()];
 			fis.read(bytes);
 			HttpHeaders headers= new HttpHeaders();
