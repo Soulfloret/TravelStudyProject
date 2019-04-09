@@ -77,9 +77,10 @@
 									</div>
 									<div class="form-group col-md-12">
 										<label for="" class="col-md-3">选择报名方式:</label>
-										<input type="radio" name='team' >
-										<input type="radio" checked name="team" value="individual"><span>普通客户</span>
-										<input type="radio" name="team" id="team" value="team" style="margin-left: 10px;"><span>团队</span>
+										<div th:each="item,status : ${list}" style="margin-left:10px;">
+											<input type="radio" name='team' th:checked="${item.id}==1"  th:value="${item.id}"  >
+											<span th:text="${item.tname}"></span>
+										</div>
 									</div>
 									<div class="form-group col-md-12" style="display: none;">
 										<label for="" class="col-md-3">导入团员信息:</label>
@@ -105,10 +106,10 @@
 				
 				//选中团队 即出现Excel导入 	
 				$("[name='team']").click(function() {
-					if($(this).val() == "individual") {
-						$(this).parent().next().hide();
+					if($(this).val()=="1") {
+						$(this).parent().parent().next().hide();
 					} else {
-						$(this).parent().next().show();
+						$(this).parent().parent().next().show();
 					}
 				})
 			</script>

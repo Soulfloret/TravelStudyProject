@@ -72,9 +72,12 @@ public class CustomerController {
 	 */
 	@RequestMapping("addCustomer")
 	public String addCustomer(users user,MultipartFile file,String team) {
-		System.out.println(team);
-		if(team.equals("individual")) {
-			user.setTypeid(1);
+		if(team.equals("1")) {
+			user.setTypeid(Integer.parseInt(team));
+			String id= user.getIdcardno();
+			id=id.substring(14, id.length());
+			user.setUpassword(id+"yx");
+			Use.insert(user);
 		}
 		
 		return "redirect:/customer/toCustomer";
