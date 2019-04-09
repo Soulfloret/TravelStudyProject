@@ -15,10 +15,11 @@ import com.alibaba.fastjson.JSON;
 
 @Controller
 
-@RequestMapping("/xjb_project")
+@RequestMapping("/xjb_areasController")
 public class areasController {
 	
 	@Autowired
+	
 	areasService areas;   
 	
 	@RequestMapping("/query")
