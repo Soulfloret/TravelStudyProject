@@ -15,7 +15,7 @@ public interface UsersService {
     
     List<users> selectByExample(usersExample example);
 
-    users queryById(Integer id);
+    users query(Integer id);
     
     int updateByPrimaryKey(users record);
 

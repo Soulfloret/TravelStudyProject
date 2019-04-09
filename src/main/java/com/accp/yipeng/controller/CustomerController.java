@@ -119,6 +119,6 @@ public class CustomerController {
 			e.printStackTrace();
 			return "001";
 		}
-		return "redirect:/stu/query";
+		return "redirect:/customer/toadd";
 	}
 }

@@ -43,7 +43,7 @@ public class UserServiceImpl implements UsersService {
 	}
 
 	@Override
-	public users queryById(Integer id) {
+	public users query(Integer id) {
 		// TODO Auto-generated method stub
 		return mapper.selectByPrimaryKey(id);
 	}
