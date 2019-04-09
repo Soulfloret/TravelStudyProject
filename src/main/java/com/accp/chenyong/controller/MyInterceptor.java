@@ -7,15 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.accp.chenyong.service.ModuleService;
 import com.accp.domain.module;
 import com.accp.domain.users;
-import com.accp.mapper.moduleMapper;
-
-
+@Configuration
 public class MyInterceptor implements HandlerInterceptor {
 	@Autowired
 	ModuleService service;
