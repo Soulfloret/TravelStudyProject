@@ -9,8 +9,8 @@
 			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
 			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
 		</commentGenerator>
-		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/student?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMutilQueries=true"
-			driverClass="com.mysql.jdbc.cj.Driver" password="chen" userId="root" />
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/TravelStudy?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMutilQueries=true"
+			driverClass="com.mysql.jdbc.Driver" password="chen" userId="root" />
 		<!-- 实体生成位置 -->
 		<javaModelGenerator targetPackage="com.accp.domain"
 			targetProject="src/main/java" />
@@ -20,7 +20,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.accp.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
-		<table schema="User" tableName="users">
+		<table schema="UserMainOrder" tableName="userMainOrder">
 
 		</table>
 	</context>
