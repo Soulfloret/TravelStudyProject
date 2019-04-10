@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+
 public class users {
     private Integer id;
 
@@ -7,20 +8,43 @@ public class users {
 
     private String upassword;
 
-    private String idcardno;
+    public users() {
+		super();
+	}
+
+	public users(String uname, String idcardno, String phone, String address, Double height, Double width,
+			Integer typeid, String name1,String upassword1) {
+		super();
+		this.uname = uname;
+		this.idcardno = idcardno;
+		this.phone = phone;
+		this.address = address;
+		this.height = height;
+		this.width = width;
+		this.typeid = typeid;
+		this.name1 = name1;
+		this.upassword=upassword1;
+	}
+
+	private String idcardno;
 
     private String phone;
 
-    private String address;
+	private String address;
 
     private Double height;
 
     private Double width;
 
     private Integer typeid;
-
+    
+    //鐢ㄦ埛绫诲瀷瀵硅薄 
+    private usertype usetype;
+    
+    //鎬у埆鍒�  
     private String name1;
 
+    //澶村儚
     private String name2;
 
     private String name3;
@@ -28,8 +52,17 @@ public class users {
     private String name4;
 
     private String name5;
-    
-    
+
+    //骞�
+	private Integer year;
+	//鏈�
+	private Integer month;
+	//鏃�
+	private Integer day;
+	//骞撮緞
+	private Integer age;
+    //璐﹀彿
+    private String name6;
 
 	public Integer getId() {
         return id;
@@ -142,4 +175,51 @@ public class users {
     public void setName5(String name5) {
         this.name5 = name5;
     }
+    public usertype getUsetype() {
+		return usetype;
+	}
+
+	public void setUsetype(usertype usetype) {
+		this.usetype = usetype;
+	}
+    public String getName6() {
+		return name6;
+	}
+
+	public void setName6(String name6) {
+		this.name6 = name6;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public Integer getDay() {
+		return day;
+	}
+
+	public void setDay(Integer day) {
+		this.day = day;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	
 }

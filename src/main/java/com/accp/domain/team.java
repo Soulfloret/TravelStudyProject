@@ -5,9 +5,17 @@ public class team {
 
     private Integer mainiuserid;
 
-    private String name1;
+    public team( Integer mainiuserid) {
+		this.mainiuserid = mainiuserid;
+	}
 
-    private String name2;
+	private String name1;
+
+    public team() {
+		super();
+	}
+
+	private String name2;
 
     private String name3;
 
