@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www/thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>主页管理</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-		<link rel="stylesheet" href="css/fontawesome.min.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/templatemo-style.css">
+		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 		<style>
 			.box .status {
 				margin-left: 15px;
@@ -128,36 +127,23 @@
 										<th scope="col">订单号</th>
 										<th scope="col">订单状态</th>
 										<th scope="col">订单生成时间</th>
-										<th scope="col">客户类型</th>
+										<th scope="col">客户姓名</th>
 										<th scope="col">下单人</th>
 										<th scope="col">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><b>#122349</b></th>
-										<td>
+									<tr th:each="item:${list}">
+										<th scope="row"><b th:text="${item.orderno}"></b></th>
+										<td  th:text="${item.name1}">
 											<div class="tm-status-circle moving">
-											</div>Moving
+											</div>
 										</td>
-										<td><b>2018-5-5</b></td>
-										<td><b>London, UK</b></td>
-										<td><b>485 km</b></td>
+										<td><b th:text="${item.ordertime}"></b></td>
+										<td><b th:text="${item.user.uname}"></b></td>
+										<td><b th:text="${item.staff.user.uname}"></b></td>
 										<td>
 											<a href="" data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link "></a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><b>#122349</b></th>
-										<td>
-											<div class="tm-status-circle moving">
-											</div>Moving
-										</td>
-										<td><b>2019-5-5</b></td>
-										<td><b>London, UK</b></td>
-										<td><b>485 km</b></td>
-										<td>
-											<a href="" data-target="#orderInfo1" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link "></a>
 										</td>
 									</tr>
 								</tbody>
@@ -167,7 +153,6 @@
 					<input type="button" class="btn btn-primary btn-block text-uppercase"
 		              	 data-toggle="modal" data-target="#xz_ry" style="margin-top: 20px;"
 		              	 value="新增订单"/>
-              
 				</div>
 				<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
@@ -252,7 +237,6 @@
 															</td>
 															<td>已进行</td>
 														</tr>
-
 													</tbody>
 												</table>
 											</div>
@@ -814,13 +798,12 @@
 			</div>
 				</div>
 			</div>
-
 		</div>
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/moment.min.js"></script>
-		<script src="js/Chart.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-    	<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/moment.min.js}"></script>
+		<script th:src="@{/js/Chart.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+    	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
 		<script type="text/javascript">
 			$("[name='productOrProject']").click(function(){
 				var index=$("[name='productOrProject']").index($(this));

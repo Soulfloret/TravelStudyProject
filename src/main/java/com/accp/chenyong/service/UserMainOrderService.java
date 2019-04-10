@@ -1,12 +1,12 @@
-package com.accp.mapper;
+package com.accp.chenyong.service;
+
+import java.util.List;
 
 import com.accp.domain.Usermainorder;
 import com.accp.domain.UsermainorderExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface UsermainorderMapper {
-    int countByExample(UsermainorderExample example);
+public interface UserMainOrderService {
+	int countByExample(UsermainorderExample example);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -19,4 +19,5 @@ public interface UsermainorderMapper {
     Usermainorder selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(Usermainorder record);
+	
 }

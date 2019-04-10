@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class bind {
     private Integer id;
@@ -26,8 +27,30 @@ public class bind {
     private String name4;
 
     private String name5;
+    
+    private images image;
+    
+    private List<menu> list;
+    
+    
 
-    public Integer getId() {
+    public List<menu> getList() {
+		return list;
+	}
+
+	public void setList(List<menu> list) {
+		this.list = list;
+	}
+
+	public images getImage() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public Integer getId() {
         return id;
     }
 
