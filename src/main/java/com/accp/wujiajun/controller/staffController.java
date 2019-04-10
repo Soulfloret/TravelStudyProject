@@ -28,7 +28,7 @@ public class staffController {
 		return "JJ_customer";
 	}
 	
-	@RequestMapping("/queryByid")
+	@RequestMapping("/queryById")
 	public String queryById(Integer id,Model model) {
 		staff lists=service.queryById(id);
 		model.addAttribute(lists);
