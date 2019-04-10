@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8" />
@@ -20,14 +20,20 @@
 		<div class="container mt-5">
 			<div class="row tm-content-row">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-					<input type="text" placeholder="" class="input-group-sm" />
-					<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+					<form th:action="@{/toquerymenu}">
+					<span style="color: white;">名称：</span><input name="mname" th:value="${menus.mname}" type="text" placeholder="" class="input-group-sm"  style="padding:3px 0px;"/>
+					<span style="color: white;">类型：</span>
+					<select class="input-group-sm" name="menutypeid" style="width: 150px;height: 33px;">
+						<option value="0" th:selected="${menus.menutypeid==0 || menus.menutypeid=='' }" >请选择</option>
+						<option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" th:selected="${menus.menutypeid==itemtype.id }" ></option>
+					</<select>
+					<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+					</form>
 					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top:30px ;">
 						<div class="tm-product-table-container">
-							<table class="table table-hover tm-table-small tm-product-table">
+							<table class="table table-hover tm-table-small tm-product-table" style="text-align: center;">
 								<thead>
 									<tr>
-										<th scope="col">&nbsp;</th>
 										<th scope="col">商品样式</th>
 										<th scope="col">
 
@@ -36,70 +42,33 @@
 										<th scope="col">商品价格</th>
 										<th scope="col">商品库存</th>
 										<th scope="col">状态</th>
+										<th scope="col">点赞总数</th>
 										<th scope="col">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
+									<tr th:each="item,state : ${list}">
+										
+										<td><img th:if="${item.images!=null}" th:src="${item.images.url}" width="65px" height="65px" /></td>
+										<td class="tm-product-name" th:text="${item.mname}"></td>
+										<td th:text="${item.price}"></td>
+										<td th:text="${item.stock}"></td>
+										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="上架" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="下架" style="color: red;"></a></td>
+										<td style="display: none;" th:text="${item.id}"></td>
+										<td th:text="${item.likecount}"></td>
 										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
+											<a href="javascript:void(0)" class="tm-product-delete-link">
+												<input type="hidden" th:value="${item.id}">
+												<i class="sc far fa-trash-alt tm-product-delete-icon"></i>
 											</a>
 										</td>
 									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td><img src="img/notification-03.jpg" width="65px" height="65px" /></td>
-										<td class="tm-product-name">活动名称</td>
-										<td>$1,450</td>
-										<td>28</td>
-										<td>上架</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
+									
 								</tbody>
 							</table>
 						</div>
 						<!-- table container -->
-						<a href="GoodAdd.html" class="btn btn-primary btn-block text-uppercase mb-3">新增商品</a>
-						<button class="btn btn-primary btn-block text-uppercase">
-            	删除活动
-            </button>
+						<a th:href="@{/tomenuadd}" class="btn btn-primary btn-block text-uppercase mb-3">新增商品</a>
 					</div>
 				</div>
 			</div>
@@ -114,6 +83,68 @@
 				$(".tm-product-name").on("click", function() {
 					window.location.href = "GoodUpdate.html";
 				});
+				
+				
+				$(".sc").on("click",function(){
+					var id=$(this).prev().val();
+					var res = confirm("确定删除该商品吗？");
+					if(res==true){
+						$.ajax({
+							url:"/delmenu",
+							data:{"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+				})
+				
+				
+				
+				$(".sj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					var res = confirm("确定要下架该商品吗？");
+					if(res==true){
+						$.ajax({
+							url:"/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+				
+				$(".xj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					var res = confirm("确定要上架该商品吗？");
+					if(res==true){
+						$.ajax({
+							url:"/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+				
 			});
 		</script>
 	</body>

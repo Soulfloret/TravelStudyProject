@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.commentsMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.comments" >
+<mapper namespace="com.accp.mapper.UsermainorderMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Usermainorder" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="shareTIme" property="sharetime" jdbcType="TIMESTAMP" />
-    <result column="did" property="did" jdbcType="INTEGER" />
-    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="orderNo" property="orderno" jdbcType="VARCHAR" />
+    <result column="orderTime" property="ordertime" jdbcType="TIMESTAMP" />
+    <result column="orderUser" property="orderuser" jdbcType="INTEGER" />
+    <result column="orderCustomer" property="ordercustomer" jdbcType="INTEGER" />
     <result column="name1" property="name1" jdbcType="VARCHAR" />
     <result column="name2" property="name2" jdbcType="VARCHAR" />
     <result column="name3" property="name3" jdbcType="VARCHAR" />
@@ -14,15 +14,57 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap type="com.accp.domain.comments" id="resultMap" extends="BaseResultMap">
-  		<association property="user" column="uid" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.query"></association>
-  		<collection property="reply" column="id" ofType="com.accp.domain.reply" select="com.accp.mapper.replyMapper.query"></collection>
+  <resultMap type="com.accp.domain.Usermainorder" id="BaseResultMap1" extends="BaseResultMap">
+  	<association property="user" column="orderCustomer" javaType="com.accp.domain.users">
+  		<id column="id" property="uid" jdbcType="INTEGER" />
+	    <result column="uName" property="uname" jdbcType="VARCHAR" />
+	    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
+	    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
+	    <result column="phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="height" property="height" jdbcType="DOUBLE" />
+	    <result column="width" property="width" jdbcType="DOUBLE" />
+	    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
+	    <result column="name1" property="uname1" jdbcType="VARCHAR" />
+	    <result column="name2" property="uname2" jdbcType="VARCHAR" />
+	    <result column="name3" property="uname3" jdbcType="VARCHAR" />
+	    <result column="name4" property="uname4" jdbcType="VARCHAR" />
+	    <result column="name5" property="uname5" jdbcType="VARCHAR" />
+  	</association>
+  	<association property="staff" column="orderUser" javaType="com.accp.domain.staff">
+  		<id column="id" property="sid" jdbcType="INTEGER" />
+	    <result column="userId" property="userid" jdbcType="INTEGER" />
+	    <result column="entryTime" property="entrytime" jdbcType="TIMESTAMP" />
+	    <result column="departureTime" property="departuretime" jdbcType="TIMESTAMP" />
+	    <result column="DepartMentId" property="departmentid" jdbcType="INTEGER" />
+	    <result column="PostionId" property="postionid" jdbcType="INTEGER" />
+	    <result column="state" property="state" jdbcType="INTEGER" />
+	    <result column="name1" property="sname1" jdbcType="VARCHAR" />
+	    <result column="name2" property="sname2" jdbcType="VARCHAR" />
+	    <result column="name3" property="sname3" jdbcType="VARCHAR" />
+	    <result column="name4" property="sname4" jdbcType="VARCHAR" />
+	    <result column="name5" property="sname5" jdbcType="VARCHAR" />
+	    <association property="user" column="userId" javaType="com.accp.domain.users">
+	    	<id column="id" property="suid" jdbcType="INTEGER" />
+		    <result column="uName" property="suname" jdbcType="VARCHAR" />
+		    <result column="uPassword" property="supassword" jdbcType="VARCHAR" />
+		    <result column="idCardNo" property="suidcardno" jdbcType="VARCHAR" />
+		    <result column="phone" property="suphone" jdbcType="VARCHAR" />
+		    <result column="address" property="suaddress" jdbcType="VARCHAR" />
+		    <result column="height" property="suheight" jdbcType="DOUBLE" />
+		    <result column="width" property="suwidth" jdbcType="DOUBLE" />
+		    <result column="TypeId" property="sutypeid" jdbcType="INTEGER" />
+		    <result column="name1" property="suname1" jdbcType="VARCHAR" />
+		    <result column="name2" property="suname2" jdbcType="VARCHAR" />
+		    <result column="name3" property="suname3" jdbcType="VARCHAR" />
+		    <result column="name4" property="suname4" jdbcType="VARCHAR" />
+		    <result column="name5" property="suname5" jdbcType="VARCHAR" />
+	    </association>
+  	</association>
   </resultMap>
-  
-  <select id="query" resultMap="resultMap">
-  		SELECT * FROM `comments` WHERE `did`=#{did}
+  <select id="QueryOrder" resultMap="BaseResultMap1">
+  	select * from usermainorder as umo,staff as s,users as u 
   </select>
-  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -82,15 +124,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, content, shareTIme, did, uid, name1, name2, name3, name4, name5
+    id, orderNo, orderTime, orderUser, orderCustomer, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.commentsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.UsermainorderExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from comments
+    from usermainorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,46 +143,46 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from comments
+    from usermainorder
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from comments
+    delete from usermainorder
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.commentsExample" >
-    delete from comments
+  <delete id="deleteByExample" parameterType="com.accp.domain.UsermainorderExample" >
+    delete from usermainorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.comments" >
-    insert into comments (id, content, shareTIme, 
-      did, uid, name1, name2, 
-      name3, name4, name5
-      )
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{sharetime,jdbcType=TIMESTAMP}, 
-      #{did,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, 
-      #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.accp.domain.Usermainorder" >
+    insert into usermainorder (id, orderNo, orderTime, 
+      orderUser, orderCustomer, name1, 
+      name2, name3, name4, 
+      name5)
+    values (#{id,jdbcType=INTEGER}, #{orderno,jdbcType=VARCHAR}, #{ordertime,jdbcType=TIMESTAMP}, 
+      #{orderuser,jdbcType=INTEGER}, #{ordercustomer,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, 
+      #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
+      #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.comments" >
-    insert into comments
+  <insert id="insertSelective" parameterType="com.accp.domain.Usermainorder" >
+    insert into usermainorder
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="content != null" >
-        content,
+      <if test="orderno != null" >
+        orderNo,
       </if>
-      <if test="sharetime != null" >
-        shareTIme,
+      <if test="ordertime != null" >
+        orderTime,
       </if>
-      <if test="did != null" >
-        did,
+      <if test="orderuser != null" >
+        orderUser,
       </if>
-      <if test="uid != null" >
-        uid,
+      <if test="ordercustomer != null" >
+        orderCustomer,
       </if>
       <if test="name1 != null" >
         name1,
@@ -162,17 +204,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
+      <if test="orderno != null" >
+        #{orderno,jdbcType=VARCHAR},
       </if>
-      <if test="sharetime != null" >
-        #{sharetime,jdbcType=TIMESTAMP},
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="did != null" >
-        #{did,jdbcType=INTEGER},
+      <if test="orderuser != null" >
+        #{orderuser,jdbcType=INTEGER},
       </if>
-      <if test="uid != null" >
-        #{uid,jdbcType=INTEGER},
+      <if test="ordercustomer != null" >
+        #{ordercustomer,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         #{name1,jdbcType=VARCHAR},
@@ -191,29 +233,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.commentsExample" resultType="java.lang.Integer" >
-    select count(*) from comments
+  <select id="countByExample" parameterType="com.accp.domain.UsermainorderExample" resultType="java.lang.Integer" >
+    select count(*) from usermainorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update comments
+    update usermainorder
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.orderno != null" >
+        orderNo = #{record.orderno,jdbcType=VARCHAR},
       </if>
-      <if test="record.sharetime != null" >
-        shareTIme = #{record.sharetime,jdbcType=TIMESTAMP},
+      <if test="record.ordertime != null" >
+        orderTime = #{record.ordertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.did != null" >
-        did = #{record.did,jdbcType=INTEGER},
+      <if test="record.orderuser != null" >
+        orderUser = #{record.orderuser,jdbcType=INTEGER},
       </if>
-      <if test="record.uid != null" >
-        uid = #{record.uid,jdbcType=INTEGER},
+      <if test="record.ordercustomer != null" >
+        orderCustomer = #{record.ordercustomer,jdbcType=INTEGER},
       </if>
       <if test="record.name1 != null" >
         name1 = #{record.name1,jdbcType=VARCHAR},
@@ -236,12 +278,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update comments
+    update usermainorder
     set id = #{record.id,jdbcType=INTEGER},
-      content = #{record.content,jdbcType=VARCHAR},
-      shareTIme = #{record.sharetime,jdbcType=TIMESTAMP},
-      did = #{record.did,jdbcType=INTEGER},
-      uid = #{record.uid,jdbcType=INTEGER},
+      orderNo = #{record.orderno,jdbcType=VARCHAR},
+      orderTime = #{record.ordertime,jdbcType=TIMESTAMP},
+      orderUser = #{record.orderuser,jdbcType=INTEGER},
+      orderCustomer = #{record.ordercustomer,jdbcType=INTEGER},
       name1 = #{record.name1,jdbcType=VARCHAR},
       name2 = #{record.name2,jdbcType=VARCHAR},
       name3 = #{record.name3,jdbcType=VARCHAR},
@@ -251,20 +293,20 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.comments" >
-    update comments
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Usermainorder" >
+    update usermainorder
     <set >
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
+      <if test="orderno != null" >
+        orderNo = #{orderno,jdbcType=VARCHAR},
       </if>
-      <if test="sharetime != null" >
-        shareTIme = #{sharetime,jdbcType=TIMESTAMP},
+      <if test="ordertime != null" >
+        orderTime = #{ordertime,jdbcType=TIMESTAMP},
       </if>
-      <if test="did != null" >
-        did = #{did,jdbcType=INTEGER},
+      <if test="orderuser != null" >
+        orderUser = #{orderuser,jdbcType=INTEGER},
       </if>
-      <if test="uid != null" >
-        uid = #{uid,jdbcType=INTEGER},
+      <if test="ordercustomer != null" >
+        orderCustomer = #{ordercustomer,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         name1 = #{name1,jdbcType=VARCHAR},
@@ -284,12 +326,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.comments" >
-    update comments
-    set content = #{content,jdbcType=VARCHAR},
-      shareTIme = #{sharetime,jdbcType=TIMESTAMP},
-      did = #{did,jdbcType=INTEGER},
-      uid = #{uid,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Usermainorder" >
+    update usermainorder
+    set orderNo = #{orderno,jdbcType=VARCHAR},
+      orderTime = #{ordertime,jdbcType=TIMESTAMP},
+      orderUser = #{orderuser,jdbcType=INTEGER},
+      orderCustomer = #{ordercustomer,jdbcType=INTEGER},
       name1 = #{name1,jdbcType=VARCHAR},
       name2 = #{name2,jdbcType=VARCHAR},
       name3 = #{name3,jdbcType=VARCHAR},

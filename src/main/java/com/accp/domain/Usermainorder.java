@@ -2,16 +2,16 @@ package com.accp.domain;
 
 import java.util.Date;
 
-public class reply {
+public class Usermainorder {
     private Integer id;
 
-    private String content;
+    private String orderno;
 
-    private Date sharetime;
+    private Date ordertime;
 
-    private Integer cid;
+    private Integer orderuser;
 
-    private Integer uid;
+    private Integer ordercustomer;
 
     private String name1;
 
@@ -25,6 +25,8 @@ public class reply {
     
     private users user;
     
+    private staff staff;
+    
 
     public users getUser() {
 		return user;
@@ -32,6 +34,14 @@ public class reply {
 
 	public void setUser(users user) {
 		this.user = user;
+	}
+
+	public staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(staff staff) {
+		this.staff = staff;
 	}
 
 	public Integer getId() {
@@ -42,36 +52,36 @@ public class reply {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getOrderno() {
+        return orderno;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setOrderno(String orderno) {
+        this.orderno = orderno;
     }
 
-    public Date getSharetime() {
-        return sharetime;
+    public Date getOrdertime() {
+        return ordertime;
     }
 
-    public void setSharetime(Date sharetime) {
-        this.sharetime = sharetime;
+    public void setOrdertime(Date ordertime) {
+        this.ordertime = ordertime;
     }
 
-    public Integer getCid() {
-        return cid;
+    public Integer getOrderuser() {
+        return orderuser;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setOrderuser(Integer orderuser) {
+        this.orderuser = orderuser;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getOrdercustomer() {
+        return ordercustomer;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setOrdercustomer(Integer ordercustomer) {
+        this.ordercustomer = ordercustomer;
     }
 
     public String getName1() {

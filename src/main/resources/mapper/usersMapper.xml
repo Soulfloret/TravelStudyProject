@@ -17,13 +17,16 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
-   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
+  <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
     <association property="usetype" javaType="com.accp.domain.usertype" >
 	     <id property="id" column="TypeId"/>
     	 <result property="tname" column="tName"/>
     </association>
   </resultMap>
+  <!-- 登陆接口 -->
+  <select id="queryByName" resultType="com.accp.domain.users">
+  		SELECT * FROM `users` WHERE `uName`=#{uname} and `uPassword`=#{upassword} 
+  </select> 
   <!--  根据客户名称 以及客户类别查询-->
   <select id="selectAllUsers"  resultMap="MapOne" >
 	SELECT s.*,ut.tName FROM users  AS s INNER JOIN usertype AS ut
@@ -40,6 +43,7 @@
   </select>
   
   <sql id="Example_Where_Clause" >
+  
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >

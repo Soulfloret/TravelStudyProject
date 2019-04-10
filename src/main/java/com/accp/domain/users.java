@@ -38,32 +38,33 @@ public class users {
 
     private Integer typeid;
     
-    //用户类型对象 
+    //鐢ㄦ埛绫诲瀷瀵硅薄 
     private usertype usetype;
     
-    //性别列  
+    //鎬у埆鍒�  
     private String name1;
 
-    //头像
+    //澶村儚
     private String name2;
 
     private String name3;
 
     private String name4;
 
-	private String name5;
-    //年
+    private String name5;
+
+    //骞�
 	private Integer year;
-	//月
+	//鏈�
 	private Integer month;
-	//日
+	//鏃�
 	private Integer day;
-	//年龄
+	//骞撮緞
 	private Integer age;
-    //账号
+    //璐﹀彿
     private String name6;
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 

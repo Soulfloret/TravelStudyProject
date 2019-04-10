@@ -32,4 +32,9 @@ public interface usersMapper {
     int updateByPrimaryKeySelective(users record);
 
     int updateByPrimaryKey(users record);
+    
+    users query(@Param("id")Integer id);
+    
+    users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
+    
 }
