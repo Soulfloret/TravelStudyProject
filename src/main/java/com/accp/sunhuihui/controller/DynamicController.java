@@ -27,15 +27,15 @@ public class DynamicController {
 		DynamicService service;
 		
 		@RequestMapping("query")
-		public PageInfo<dynamics> query(Integer currentPage,Integer pageSize){
-			PageInfo<dynamics> page=service.query(1, 3,3);
+		public PageInfo<dynamics> query(Integer uid){
+			PageInfo<dynamics> page=service.query(1, 3,3,uid);
 			String json=JSON.toJSONString(page);
 			return page;
 		}
 		
 		@RequestMapping("queryByid")
-		public dynamics queryByid(Integer id) {
-			dynamics d=service.queryByid(id);
+		public dynamics queryByid(Integer id,Integer uidd) {
+			dynamics d=service.queryByid(id,uidd);
 			return d;
 		}
 		
@@ -53,15 +53,15 @@ public class DynamicController {
 			return i;
 		}
 		
-		
+		@RequestMapping("stopfcommentadd")
 		public int stopfcommentadd(stopfcomment stop) {
 			int i=service.stopfcommentadd(stop);
-			return 0;
+			return i;
 		}
 		
-		
+		@RequestMapping("dynamicstopfadd")
 		public int dynamicstopfadd(dynamicstopf dy) {
 			int i=service.dynamicstopfadd(dy);
-			return 0;
+			return i;
 		}
 }

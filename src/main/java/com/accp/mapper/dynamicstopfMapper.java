@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.dynamicstopf;
 import com.accp.domain.dynamicstopfExample;
+import com.accp.domain.stopfcomment;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,8 @@ public interface dynamicstopfMapper {
     int updateByPrimaryKeySelective(dynamicstopf record);
 
     int updateByPrimaryKey(dynamicstopf record);
+    
+    int dzcountdt(@Param("rid")Integer rid,@Param("uid")Integer uid);
+    
+    dynamicstopf queryByRid(@Param("rid")Integer rid,@Param("uid")Integer uid);
 }

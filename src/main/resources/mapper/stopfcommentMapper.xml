@@ -11,6 +11,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 查询这个评论有没有被点赞过 -->
+  <select id="queryByCid" resultType="com.accp.domain.stopfcomment">
+  		SELECT * FROM `stopfcomment` WHERE cid=#{cid} and uidd=#{uidd}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

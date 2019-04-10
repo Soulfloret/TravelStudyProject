@@ -28,6 +28,15 @@ public class dynamics {
     
     private List<comments> comment;
     
+    private Integer dzcountdt;
+
+	public Integer getDzcountdt() {
+		return dzcountdt;
+	}
+
+	public void setDzcountdt(Integer dzcountdt) {
+		this.dzcountdt = dzcountdt;
+	}
 
 	public List<comments> getComment() {
 		return comment;

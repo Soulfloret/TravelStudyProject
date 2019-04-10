@@ -19,6 +19,7 @@ import com.accp.mapper.imagesMapper;
 import com.accp.mapper.replyMapper;
 import com.accp.mapper.stopfcommentMapper;
 import com.accp.mapper.usersMapper;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -47,13 +48,14 @@ public class DynamicService {
 		 * @param typeid
 		 * @return
 		 */
-		public PageInfo<dynamics> query(Integer currentPage,Integer pageSize,Integer typeid){
-			PageHelper.startPage(currentPage, pageSize, true);
+		public PageInfo<dynamics> query(Integer currentPage,Integer pageSize,Integer typeid,Integer uid){
+			//PageHelper.startPage(currentPage, pageSize, true);
 				List<dynamics> list=mapper.selectByExample(null);
 				PageInfo<dynamics> page=new PageInfo<dynamics>(list);
 				for (dynamics d : list) {
 					List<images> img=imapper.queryimg(d.getId(), typeid);
-					users u=umapper.query(d.getUid());
+					users u=umapper.selectByPrimaryKey(d.getUid());
+					d.setDzcountdt(stmapper.dzcountdt(d.getId(),uid));
 					d.setUser(u);
 					d.setImg(img);
 				}
@@ -64,11 +66,15 @@ public class DynamicService {
 		 * @param id
 		 * @return
 		 */
-		public dynamics queryByid(Integer id){
+		public dynamics queryByid(Integer id,Integer uidd){
 			dynamics dynamic=mapper.queryByid(id);
-			List<comments> comme=cmapper.query(dynamic.getId());
+			List<comments> comme=cmapper.query(dynamic.getId(),uidd);
+			for (comments c : comme) {
+				c.setDzcount(cmapper.dzcounts(c.getId(),uidd));
+			}
 			dynamic.setImg(imapper.queryimg(dynamic.getId(),3));
-			users u=umapper.query(dynamic.getUid());
+			users u=umapper.selectByPrimaryKey(dynamic.getUid());	
+			dynamic.setDzcountdt(stmapper.dzcountdt(id, uidd));
 			dynamic.setComment(comme);
 			dynamic.setUser(u);
 			return dynamic;
@@ -78,7 +84,6 @@ public class DynamicService {
 		 *新增评论
 		 */
 		public int commentadd(comments comm) {
-			
 			return cmapper.insertSelective(comm);
 		}
 		
@@ -88,7 +93,14 @@ public class DynamicService {
 		 * @return
 		 */
 		public int dynamicstopfadd(dynamicstopf dy) {
-			return stmapper.insertSelective(dy);
+			dynamicstopf s=stmapper.queryByRid(dy.getRid(), dy.getUid());
+			if(s!=null) {
+				int i=stmapper.deleteByPrimaryKey(s.getId());
+				return 0;
+			}else {
+				int i=stmapper.insertSelective(dy);
+				return i;
+			}
 		}
 		
 		/**
@@ -97,7 +109,15 @@ public class DynamicService {
 		 * @return
 		 */
 		public int stopfcommentadd(stopfcomment stop) {
-			return stcmapper.insertSelective(stop);
+			stopfcomment s=stcmapper.queryByCid(stop.getCid(), stop.getUidd());
+			if(s!=null) {
+				int i=stcmapper.deleteByPrimaryKey(s.getId());
+				return 0;
+			}else {
+				int i=stcmapper.insertSelective(stop);
+				return i;
+			}
+			
 		}
 		
 		/**

@@ -28,5 +28,7 @@ public interface commentsMapper {
 
     int updateByPrimaryKey(comments record);
     
-    List<comments> query(Integer did);
+    List<comments> query(@Param("did")Integer did,@Param("uidd")Integer uid);
+    
+    int dzcounts(@Param("cid")Integer cid,@Param("uidd")Integer uidd);
 }

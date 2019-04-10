@@ -27,4 +27,6 @@ public interface actionimagesMapper {
     int updateByPrimaryKeySelective(actionimages record);
 
     int updateByPrimaryKey(actionimages record);
+    
+    List<actionimages> query();
 }
