@@ -18,6 +18,8 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
 
+
+	
   
   <!-- 登陆接口 -->
   <select id="queryByName" resultType="com.accp.domain.users">

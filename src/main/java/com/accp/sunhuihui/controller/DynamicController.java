@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.comments;
 import com.accp.domain.dynamics;
+import com.accp.domain.dynamicstopf;
 import com.accp.domain.reply;
+import com.accp.domain.stopfcomment;
 import com.accp.sunhuihui.service.DynamicService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
@@ -49,5 +51,17 @@ public class DynamicController {
 			reply.setSharetime(new Date());
 			int i=service.replyadd(reply);
 			return i;
+		}
+		
+		
+		public int stopfcommentadd(stopfcomment stop) {
+			int i=service.stopfcommentadd(stop);
+			return 0;
+		}
+		
+		
+		public int dynamicstopfadd(dynamicstopf dy) {
+			int i=service.dynamicstopfadd(dy);
+			return 0;
 		}
 }
