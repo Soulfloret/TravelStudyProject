@@ -50,7 +50,7 @@
 									<tr th:each="item,state : ${list}">
 										
 										<td><img th:if="${item.images!=null}" th:src="${item.images.url}" width="65px" height="65px" /></td>
-										<td class="tm-product-name" th:text="${item.mname}"></td>
+										<td class="tm-product-name"><a style="color: white;" th:href="@{/toupdatemenu(id=${item.id})}" th:text="${item.mname}"></a></td>
 										<td th:text="${item.price}"></td>
 										<td th:text="${item.stock}"></td>
 										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="上架" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="下架" style="color: red;"></a></td>
@@ -80,9 +80,6 @@
 		<!-- https://getbootstrap.com/ -->
 		<script>
 			$(function() {
-				$(".tm-product-name").on("click", function() {
-					window.location.href = "GoodUpdate.html";
-				});
 				
 				
 				$(".sc").on("click",function(){
