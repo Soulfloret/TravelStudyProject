@@ -22,8 +22,29 @@ public class Usermainorder {
     private String name4;
 
     private String name5;
+    
+    private users user;
+    
+    private staff staff;
+    
 
-    public Integer getId() {
+    public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(staff staff) {
+		this.staff = staff;
+	}
+
+	public Integer getId() {
         return id;
     }
 
