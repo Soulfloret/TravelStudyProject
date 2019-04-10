@@ -26,6 +26,46 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.project" id="queryAll_result" extends="BaseResultMap">
+  	<collection property="sta" column="id" ofType="com.accp.domain.staff">
+  		<id property="id"  column="id"/>
+  		<result property="userid" column="userid"/>
+  		<result property="entrytime" column="entrytime"/>
+  		<result property="departuretime" column="departuretime"/>
+  		<result property="departmentid" column="departmentid"/>
+  		<result property="postionid" column="postionid"/>
+  		<result property="state" column="state"/>
+  	</collection>
+  	<collection property="use" column="id" ofType="com.accp.domain.users">
+  		<id property="id"  column="id"/>
+  		<result property="uname" column="uname"/>
+  		<result property="upassword" column="upassword"/>
+  		<result property="idcardno" column="idcardno"/>
+  		<result property="phone" column="phone"/>
+  		<result property="address" column="address"/>
+  		<result property="height" column="height"/>
+  		<result property="width" column="width"/>
+  		<result property="typeid" column="typeid"/>
+  	</collection>
+  </resultMap>
+  
+  <select id="queryAll" resultMap="queryAll_result">
+  	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
+	INNER JOIN `staff` AS `sta`
+	ON `pro`.`leadingoffcial`=`sta`.`userId`
+	INNER JOIN `users` AS `user`
+	ON `sta`.`userId`=`user`.`id`
+	<where>
+		<if test="pname!= null">
+			or `pname`=#{pname}
+		</if>
+		<!-- <if test="uname!=null">
+			or `user`.`uName`=#{uname}
+		</if> -->
+	</where>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -119,7 +159,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.project" >
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.project" >
     insert into project (id, pName, description, 
       createTime, safeTime, pstatus, 
       mincrowd, maxcrowd, minheight, 

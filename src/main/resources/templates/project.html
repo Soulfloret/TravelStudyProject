@@ -33,19 +33,21 @@
                   <tr>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">项目名称</th>
-                    <th scope="col">建成金额</th>
+                    <th scope="col">负责人</th>
                     <th scope="col">创建时间</th>
                     <th scope="col">状态</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr th:each="item : ${list}">
                     <th scope="row"><input type="checkbox" /></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
+                    <td class=""><a th:href="@{toproject_xq}" style="color: white;" th:text="${item.pname}"></a></td>
+                    <td th:text="${item.use.uname}"></td>
+                    <td th:text="${item.createtime}"></td>
+                    <td th:switch="${item.pstatus==0}">
+                    	<td>开放</td>
+                    </td>
                     <td>
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
