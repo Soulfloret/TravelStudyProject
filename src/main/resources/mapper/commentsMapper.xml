@@ -13,6 +13,16 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.comments" id="resultMap" extends="BaseResultMap">
+  		<association property="user" column="uid" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.query"></association>
+  		<collection property="reply" column="id" ofType="com.accp.domain.reply" select="com.accp.mapper.replyMapper.query"></collection>
+  </resultMap>
+  
+  <select id="query" resultMap="resultMap">
+  		SELECT * FROM `comments` WHERE `did`=#{did}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

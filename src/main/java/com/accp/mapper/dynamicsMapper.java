@@ -27,4 +27,6 @@ public interface dynamicsMapper {
     int updateByPrimaryKeySelective(dynamics record);
 
     int updateByPrimaryKey(dynamics record);
+    
+    dynamics queryByid(@Param("id")Integer id);
 }

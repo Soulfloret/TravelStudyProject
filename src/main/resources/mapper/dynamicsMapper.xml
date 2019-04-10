@@ -12,6 +12,11 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="queryByid" resultType="com.accp.domain.dynamics">
+  		SELECT * FROM `dynamics` WHERE `id`=#{id}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

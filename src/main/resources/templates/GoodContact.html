@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,16 +22,17 @@
     <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-        	<input type="text" placeholder="" class="input-group-sm"/>
-        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
+        	<form th:action="@{/toQuerybind}">
+        	<span style="color: white;">套餐名称：</span><input type="text" name="mname" th:value="${binds.mname}" placeholder="" class="input-group-sm"/>
+        	<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
+          	</form>
           <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
             <div class="tm-product-table-container">
-              <table class="table table-hover tm-table-small tm-product-table">
+              <table class="table table-hover tm-table-small tm-product-table" style="text-align: center;">
                 <thead>
                   <tr>
                     <th scope="col">套餐样式</th>
                     <th scope="col">
-                    	
                     	套餐名称
                     </th>
                     <th scope="col">套餐价格</th>
@@ -39,20 +40,26 @@
                     <th scope="col">套餐详情</th>
                    
                     <th scope="col">状态</th>
+                    <th scope="col">点赞</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                    <td>28</td>
-                     <td>三明治+汉堡+可乐</td>
-                    <td>上架</td>
+                  <tr th:each="item,state : ${list}">
+                    <td><img th:if="${item.image!=null}" th:src="${item.image.url}" width="65px" height="65px"/></td>
+                    <td class="tm-product-name" th:text="${item.mname}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.stock}"></td>
                     <td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                    	<p th:each="items,state1 : ${item.list}" th:text="${items.mname}"></p>
+                    </td>
+                    <td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="上架" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="下架" style="color: red;"></a></td>
+                    <td style="display: none;" th:text="${item.id}"></td>
+                    <td th:text="${item.likecount}"></td>
+                    <td>
+                      <a href="JavaScript:void(0)" class="tm-product-delete-link">
+                      	<input type="hidden" th:value="${item.id}">
+                        <i class="sc far fa-trash-alt tm-product-delete-icon"></i>
                       </a>
                     </td>
                   </tr>
@@ -79,6 +86,69 @@
         $(".tm-product-name").on("click", function() {
           window.location.href = "GoodContactUpdate.html";
         });
+        
+        $(".sc").on("click",function(){
+			var id=$(this).prev().val();
+			var res = confirm("确定删除该套餐吗？");
+			if(res==true){
+				/* $.ajax({
+					url:"/delbind",
+					data:{"id":id},
+					type:"post",
+					success:function(result){
+						alert(result);
+						window.location.reload();
+					}
+				}) */
+			}else{
+				return false;
+			}
+		})
+        
+        
+        
+        $(".sj").on("click",function(){
+			var type=$(this).text();
+			var id=$(this).parent().next().text();
+			var res = confirm("确定要下架该商品吗？");
+			if(res==true){
+				$.ajax({
+					url:"/tcsjxj",
+					data:{"type":type,"id":id},
+					type:"post",
+					success:function(result){
+						alert(result);
+						window.location.reload();
+					}
+				})
+			}else{
+				return false;
+			}
+			
+		})
+		
+		
+		$(".xj").on("click",function(){
+			var type=$(this).text();
+			var id=$(this).parent().next().text();
+			var res = confirm("确定要上架该商品吗？");
+			if(res==true){
+				$.ajax({
+					url:"/tcsjxj",
+					data:{"type":type,"id":id},
+					type:"post",
+					success:function(result){
+						alert(result);
+						window.location.reload();
+					}
+				})
+			}else{
+				return false;
+			}
+			
+		})
+        
+        
       });
     </script>
   </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -16,7 +16,9 @@
 	<body id="reportsPage">
 		<div class="" id="home">
 			<div class="container tm-mt-big tm-mb-big">
-				<div class="row">
+			<form action="" class="tm-edit-product-form">
+				<div class="row" th:each="item,state : ${list}">
+				
 					<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
 						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 							<div class="row">
@@ -24,13 +26,12 @@
 									<h2 class="tm-block-title d-inline-block">添加商品</h2>
 								</div>
 							</div>
-							<div class="row tm-edit-product-row">
+							<div class="row tm-edit-product-row" >
 								<div class="col-xl-6 col-lg-6 col-md-12">
-									<form action="" class="tm-edit-product-form">
 										<div class="form-group mb-3">
 											<label for="name">商品名称
                     </label>
-											<input id="name" name="name" type="text" class="form-control validate" required />
+											<input id="name" name="name"th:value="${item.mname}" type="text" class="form-control validate" required />
 										</div>
 										<div class="form-group mb-3">
 											<label for="description">商品介绍</label
@@ -39,6 +40,7 @@
                       class="form-control validate"
                       rows="3"
                       required
+                      th:text="${item.name1}"
                     ></textarea>
                   </div>
                  <div class="form-group mb-3">
@@ -51,10 +53,7 @@
                       id="hd_xz_ry"
                       onchange="xsry()"
                     >
-                      <option selected>请选择</option>
-                      <option value="1">肉食类</option>
-                      <option value="2">饮料类</option>
-                      <option value="3">其他类</option>
+                       <option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}"></option>
                     </select>
                   </div>
                   
@@ -64,12 +63,12 @@
                             for="expire_date"
                             >商品价格
                           </label>
-											<input id="expire_date" name="expire_date" type="text" class="form-control validate" data-large-mode="true" />
+											<input id="expire_date" th:value="${item.price}" name="expire_date" type="text" class="form-control validate" data-large-mode="true" />
 										</div>
 										<div class="form-group mb-3 col-xs-12 col-sm-6">
 											<label for="stock">商品库存
                           </label>
-											<input id="stock" name="stock" type="text" class="form-control validate" required />
+											<input id="stock" th:value="${item.stock}" name="stock" type="text" class="form-control validate" required />
 										</div>
 								</div>
 								<div class="form-group mb-3">

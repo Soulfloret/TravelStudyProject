@@ -27,4 +27,6 @@ public interface imagesMapper {
     int updateByPrimaryKeySelective(images record);
 
     int updateByPrimaryKey(images record);
+    
+   List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
 }
