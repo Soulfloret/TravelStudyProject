@@ -1,29 +1,30 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class staff {
-    private Integer id;
+	private Integer id;
 
-    private Integer userid;
+	private Integer userid;
 
-    private Date entrytime;
+	private Date entrytime;
 
-    private Date departuretime;
+	private Date departuretime;
 
-    private Integer departmentid;
+	private Integer departmentid;
 
-    private Integer postionid;
+	private Integer postionid;
 
-    private Integer state;
+	private Integer state;
 
-    private String name1;
+	private String name1;
 
-    private String name2;
+	private String name2;
 
-    private String name3;
+	private String name3;
 
-    private String name4;
+	private String name4;
 
     private String name5;
     
@@ -38,99 +39,130 @@ public class staff {
 		this.user = user;
 	}
 
+	private users ulist;
+	
+	private positions plist;
+	
+	private signin slist;
+	
+	
+	public signin getSlist() {
+		return slist;
+	}
+
+	public void setSlist(signin slist) {
+		this.slist = slist;
+	}
+
+	public positions getPlist() {
+		return plist;
+	}
+
+	public void setPlist(positions plist) {
+		this.plist = plist;
+	}
+
+	public users getUlist() {
+		return ulist;
+	}
+
+	public void setUlist(users ulist) {
+		this.ulist = ulist;
+	}
+
 	public Integer getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public Integer getUserid() {
+		return userid;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
 
-    public Date getEntrytime() {
-        return entrytime;
-    }
+	public Date getEntrytime() {
+		return entrytime;
+	}
 
-    public void setEntrytime(Date entrytime) {
-        this.entrytime = entrytime;
-    }
+	public void setEntrytime(Date entrytime) {
+		this.entrytime = entrytime;
+	}
 
-    public Date getDeparturetime() {
-        return departuretime;
-    }
+	public Date getDeparturetime() {
+		return departuretime;
+	}
 
-    public void setDeparturetime(Date departuretime) {
-        this.departuretime = departuretime;
-    }
+	public void setDeparturetime(Date departuretime) {
+		this.departuretime = departuretime;
+	}
 
-    public Integer getDepartmentid() {
-        return departmentid;
-    }
+	public Integer getDepartmentid() {
+		return departmentid;
+	}
 
-    public void setDepartmentid(Integer departmentid) {
-        this.departmentid = departmentid;
-    }
+	public void setDepartmentid(Integer departmentid) {
+		this.departmentid = departmentid;
+	}
 
-    public Integer getPostionid() {
-        return postionid;
-    }
+	public Integer getPostionid() {
+		return postionid;
+	}
 
-    public void setPostionid(Integer postionid) {
-        this.postionid = postionid;
-    }
+	public void setPostionid(Integer postionid) {
+		this.postionid = postionid;
+	}
 
-    public Integer getState() {
-        return state;
-    }
+	public Integer getState() {
+		return state;
+	}
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
-    public String getName1() {
-        return name1;
-    }
+	public String getName1() {
+		return name1;
+	}
 
-    public void setName1(String name1) {
-        this.name1 = name1;
-    }
+	public void setName1(String name1) {
+		this.name1 = name1;
+	}
 
-    public String getName2() {
-        return name2;
-    }
+	public String getName2() {
+		return name2;
+	}
 
-    public void setName2(String name2) {
-        this.name2 = name2;
-    }
+	public void setName2(String name2) {
+		this.name2 = name2;
+	}
 
-    public String getName3() {
-        return name3;
-    }
+	public String getName3() {
+		return name3;
+	}
 
-    public void setName3(String name3) {
-        this.name3 = name3;
-    }
+	public void setName3(String name3) {
+		this.name3 = name3;
+	}
 
-    public String getName4() {
-        return name4;
-    }
+	public String getName4() {
+		return name4;
+	}
 
-    public void setName4(String name4) {
-        this.name4 = name4;
-    }
+	public void setName4(String name4) {
+		this.name4 = name4;
+	}
 
-    public String getName5() {
-        return name5;
-    }
+	public String getName5() {
+		return name5;
+	}
 
-    public void setName5(String name5) {
-        this.name5 = name5;
-    }
+	public void setName5(String name5) {
+		this.name5 = name5;
+	}
 }
