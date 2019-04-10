@@ -32,9 +32,19 @@ public class bind {
     
     private List<menu> list;
     
+    private List<menubind> blist;
+    
     
 
-    public List<menu> getList() {
+    public List<menubind> getBlist() {
+		return blist;
+	}
+
+	public void setBlist(List<menubind> blist) {
+		this.blist = blist;
+	}
+
+	public List<menu> getList() {
 		return list;
 	}
 
