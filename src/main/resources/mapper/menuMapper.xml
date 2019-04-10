@@ -38,6 +38,9 @@
 			<if test="menutypeid!=null and menutypeid!=0">
 				and	m.menutypeid=#{menutypeid}
 			</if>
+			<if test="id!=null and id!=''">
+				and m.id=#{id}
+			</if>
 		</where>
   </select>
   
