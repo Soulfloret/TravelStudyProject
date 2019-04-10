@@ -9,6 +9,10 @@ import com.accp.domain.usersExample;
 
 public interface usersMapper {
 	
+	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);
+	
+	public users queryByIdCard(String idCardNo);
+	
 	public List<users> selectAllUsers(@Param("uname") String uname, @Param("typeId") Integer typeId);
 	
     int countByExample(usersExample example);

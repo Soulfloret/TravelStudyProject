@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.team;
@@ -78,20 +81,37 @@ public class CustomerController {
 		return "addcustomer";
 	}
 	
+	@RequestMapping("queryByIdCard")
+	@ResponseBody
+	public users queryByIdCard(String IdCardNo) {
+		return Use.queryByIdCard(IdCardNo);
+	}
 	/**
 	 * 客户新增
 	 */
 	@RequestMapping("addCustomer")
-	public String addCustomer(users user,MultipartFile file,String team) {
+	public String addCustomer(users user,MultipartFile file,String team,HttpServletResponse resp) {
 		user.setTypeid(Integer.parseInt(team));
 		String id= user.getIdcardno();
-		id=id.substring(14, id.length());
-		user.setUpassword(id+"yx");
+		String idone=id.substring(14, id.length());
+		user.setUname(idone+"yx");
+		user.setUpassword(idone+"yx");
+		users us=Use.queryByIdCard(id);
 		if(team.equals("1")) {
-			Use.insert(user);
+			if(us!=null) {
+				return "redirect:/customer/toCustomer";
+			}else {
+				Use.insert(user);
+			}
 		}else if(team.equals("2")){
-			Use.insert(user);
-			team t=new team(user.getId());
+			team t=new team();
+			if(us!=null) {
+				Use.updateTypeIdById(us.getId(),Integer.parseInt(team));
+				t.setMainiuserid(us.getId());
+			}else {
+				Use.insert(user);
+				t.setMainiuserid(user.getId());
+			}
 			TeamService.insert(t);
 			try {
 				XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
@@ -101,25 +121,31 @@ public class CustomerController {
 				List<Integer> list=new ArrayList<Integer>();
 				for (int i = 1; i < rows; i++) {
 					Row row=sheet.getRow(i);
-					Cell id1=row.getCell(0);
-					String uname=id1.getStringCellValue();
-					Cell name=row.getCell(1);
+					Cell name=row.getCell(0);
 					name.setCellType(CellType.STRING);
 					String phone=name.getStringCellValue();
-					Cell sex=row.getCell(2);
+					Cell sex=row.getCell(1);
 					String sex1=sex.getStringCellValue();
-					Cell height=row.getCell(3);
+					Cell height=row.getCell(2);
 					Double height1=height.getNumericCellValue();
-					Cell width=row.getCell(4);
+					Cell width=row.getCell(3);
 					Double width1=width.getNumericCellValue();
-					Cell address=row.getCell(5);
+					Cell address=row.getCell(4);
 					String address1=address.getStringCellValue();
-					Cell idCard=row.getCell(6);
+					Cell idCard=row.getCell(5);
 					String idCard1=idCard.getStringCellValue();
 					String upassword=idCard1.substring(14, idCard1.length());
-					users u=new users(uname,idCard1,phone,address1,height1,width1,1,sex1,upassword+"yx");
-					Use.insert(u);
-					list.add(u.getId());
+					users  uses=Use.queryByIdCard(idCard1);
+					if(uses!=null) {
+						System.out.println("ExCel表示此用户已存在");
+						list.add(uses.getId());
+					}else {
+						users u=new users(upassword+"yx",idCard1,phone,address1,height1,width1,1,sex1,upassword+"yx");
+						Use.insert(u);
+						list.add(u.getId());
+					}
+					
+					
 				}
 				TeammberService.insertBylist(t.getId(), list);
 				
@@ -161,30 +187,22 @@ public class CustomerController {
 	@RequestMapping("toCustomerDetails")
 	public String toCustomerDetails(Integer id,Model model) {
 		users use=Use.query(id);
-		use.setName6(use.getIdcardno().substring(14, use.getIdcardno().length())+"yx");
 		int briday=Integer.parseInt(use.getIdcardno().substring(6, 10));
 		use.setYear(briday);
 		use.setMonth(Integer.parseInt(use.getIdcardno().substring(10, 12)));
 		use.setDay(Integer.parseInt(use.getIdcardno().substring(12, 14)));
 		Calendar cal = Calendar.getInstance();
-        
-		  if (cal.before(briday)) { //出生日期晚于当前时间，无法计算
+		if (cal.before(briday)) { //出生日期晚于当前时间，无法计算
 	            throw new IllegalArgumentException(
 	                    "The birthDay is before Now.It's unbelievable!");
-	     }
-		
+	    }
         int yearNow = cal.get(Calendar.YEAR);  
         int monthNow = cal.get(Calendar.MONTH)+1;  
         int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);  
-  
         int yearBirth =briday;
         int monthBirth =Integer.parseInt(use.getIdcardno().substring(10, 12));
         int dayOfMonthBirth =Integer.parseInt(use.getIdcardno().substring(12, 14));
-  
         int age = yearNow - yearBirth;  
-         
-         System.out.println(monthNow);
-         System.out.println(monthBirth);
         if (monthNow <= monthBirth) {  
             if (monthNow == monthBirth) {  
                 if (dayOfMonthNow < dayOfMonthBirth) {

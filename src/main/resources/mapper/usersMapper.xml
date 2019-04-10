@@ -23,6 +23,18 @@
     	 <result property="tname" column="tName"/>
     </association>
   </resultMap>
+  <!-- 根据id 修改用户的类别 -->
+  
+  <update id="updateTypeIdById">
+  	 UPDATE users SET TypeId=#{typeId} WHERE id=#{id}
+  </update>
+  
+  <!--根据身份证判断用户是否存在  -->
+  <select id="queryByIdCard" resultMap="BaseResultMap">
+  	select * from users where idCardNo=#{idCardNo}
+  </select>
+  
+  
   <!-- 登陆接口 -->
   <select id="queryByName" resultType="com.accp.domain.users">
   		SELECT * FROM `users` WHERE `uName`=#{uname} and `uPassword`=#{upassword} 
@@ -39,7 +51,7 @@
 			AND s.typeId=#{typeId}	
 		</if>
 	</where>
-	
+	ORDER BY id
   </select>
   
   <sql id="Example_Where_Clause" >
