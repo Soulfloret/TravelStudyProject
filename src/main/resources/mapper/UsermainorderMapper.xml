@@ -17,7 +17,7 @@
 		select * from usermainorder 
 		<where>
 		    <if test="id!=null">
-		  		and umo.id=#{id}
+		  		and id=#{id}
 		  	</if>	
 		</where>
   </select>
