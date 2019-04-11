@@ -97,16 +97,15 @@
 					<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 						<h2 class="tm-block-title">员工列表</h2>
 						<div class="JJ_feileiselect">
-							<label>部门</label>&nbsp; <select>
-								<option>销售部</option>
-								<option>餐饮部</option>
-								<option></option>
-							</select> <label>职位</label>&nbsp; <select>
-								<option>经理</option>
-								<option>主管</option>
-								<option>员工</option>
-							</select> <label>员工姓名</label>&nbsp; <input type="text" placeholder="" />
-							<button class="JJ_mohua">查找</button>
+						<form action="/staff/queryLike" method="post">
+						 <label>职位</label>&nbsp; 
+							<select name="id">
+								<option value="">请选择</option>
+								<option  th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
+							</select> 
+							<label>员工姓名</label>&nbsp; <input type="text" name="uname" placeholder="" />
+							<input type="submit" class="JJ_mohua" value="查找">
+							</form>
 						</div>
 
 						<table class="table JJ_tables">
@@ -159,56 +158,48 @@
 	<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
 	<script>
 		$(function() {
-			$(".JJ_xiang")
-					.click(
-							function() {
-								var h = $(this).parent().parent().parent()
-										.find(".uids").html();
-								alert(h);
-									$.ajax({
-											url : "queryById?id=" + h,
-											type : "POST",
-											dataType : "json",
-											contentType : "application/json;charset=utf-8",
-											success : function(data) {
-												var st = "<table class='table tables'>"
-														+ "<tr>"
-														+ "<td>姓名</td>"
-														+ "<td><input type='text' name='name'/></td>"
-														+ "<td>性别</td>"
-														+ "<td><input type='text' name='sex' /></td>"
-														+ "<td>出生日期</td>"
-														+ "<td><input type='date' name='date' /></td>"
-														+ "</tr>"
-														+ "<tr>"
-														+ "<td>家庭地址</td>"
-														+ "<td colspan='3'><input type='text' name='address1' /></td>"
-														+ "<td>民族</td>"
-														+ "<td><input type='text' name='nation' /></td>"
-														+ "</tr>"
-														+ "<tr>"
-														+ "<td>现住地址</td>"
-														+ "<td colspan='3'><input type='text' name='address2' /></td>"
-														+ "<td>生日</td>"
-														+ "<td><input type='text' name='sr' /></td>"
-														+ "</tr>"
-														+ "<tr>"
-														+ "<td>身份证号</td>"
-														+ "<td colspan='3'><input type='text' /></td>"
-														+ "<td>婚姻状况</td>"
-														+ "<td><input type='text' name='hy' /></td>"
-														+ "</tr>"
-														+ "<tr>"
-														+ "<td>入职时间</td>"
-														+ "<td colspan='2'><input type='date' /></td>"
-														+ "<td>离职时间</td>"
-														+ "<td colspan='2'><input type='date' name='lz' /></td>"
-														+ "</tr>" + "</table>";
-												$(".appe").append(st);
-											}
-										})
-
+			$(".JJ_xiang").click(function() {
+			var h = $(this).parent().parent().parent().find(".uids").html();
+					alert(h);
+					$(".appe").html("");
+					$.ajax({
+						url : "/staff/queryById?id="+h,
+						type : "POST",
+						dataType : "json",
+						contentType : "application/json;charset=utf-8",
+						success : function(data) {
+							console.log(data);
+							var st = "<table class='table tables'>"
+								+ "<tr>"
+								+ "<td>姓名</td>"
+								+ "<td colspan=''><input type='text' name='name' value='"+data.ulist.uname+"'/></td>"
+								+ "<td>电话号码</td>"
+								+ "<td colspan='3'><input type='text' value='"+data.ulist.phone+"'/></td>"
+								+ "</tr>"
+								+ "<tr>"
+								+ "<td>住址</td>"
+								+ "<td colspan='3'><input type='text' name='address' value='"+data.ulist.address+"'/></td>"
+								+ "<td>体重</td>"
+								+ "<td><input type='text' name='hy' value='"+data.ulist.height+"'/></td>"
+								+ "</tr>"
+								+ "<tr>"
+								+ "<td>身份证号</td>"
+								+ "<td colspan='3'><input type='text' name='address2' value='"+data.ulist.idcardno+"'/></td>"
+								+ "<td>身高</td>"
+								+ "<td><input type='text' name='sr' value='"+data.ulist.width+"'/></td>"
+								+ "</tr>"
+								+ "<tr>"
+								+ "<td>入职时间</td>"
+								+ "<td colspan='2'><input type='date' val='"+data.entrytime+"'/></td>"
+								+ "<td>离职时间</td>"
+								+ "<td colspan='2'><input type='date' pattern='yyyy-MM-dd HH:mm:ss' name='lz' val='"+data.departuretime+"'/></td>"
+								+ "</tr>" + "</table>";
+							$(".appe").append(st);
+								}
 							})
+
+						})
+					
 		})
 	</script>
 
