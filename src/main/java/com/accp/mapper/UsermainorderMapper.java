@@ -20,5 +20,5 @@ public interface UsermainorderMapper {
 
     int updateByPrimaryKey(Usermainorder record);
     
-    List<Usermainorder> query(Integer id);
+    List<Usermainorder> query(@Param("id") Integer id);
 }

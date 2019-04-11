@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.dynamics;
 import com.accp.domain.images;
 import com.accp.domain.imagesExample;
 import com.accp.domain.project;
@@ -33,4 +34,6 @@ public interface imagesMapper {
    List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
    
    int insert_project(project pro);
+   
+   int insertimglist(dynamics dinameics);
 }
