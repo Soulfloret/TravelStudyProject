@@ -43,6 +43,7 @@
 	    </collection>
   	</collection>
   </resultMap>
+ <!-- 订单查询接口 -->
   <select id="queryByMainOrderId" resultMap="ResultMapChen">
 	 SELECT u.*,uo.`id` AS uoid,uo.`name1` AS uoname1,uo.`name2` AS uoname2,
 	 uo.`name3` AS uoname3,uo.`name4` AS  uoname4,uo.`name5` AS uoname5,uo.`orderCustomer`,
@@ -60,6 +61,7 @@
 	 	</if>
 	   </where>
   </select>
+
   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
     <association property="usetype" javaType="com.accp.domain.usertype" >
 	     <id property="id" column="TypeId"/>
@@ -116,7 +118,7 @@
     </where>
   </sql>
   <sql id="Update_By_Example_Where_Clause" >
-    <where >
+    <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >

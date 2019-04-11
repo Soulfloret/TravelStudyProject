@@ -28,8 +28,20 @@ public class comments {
     
     private List<reply> reply;
     
+    private Integer dzcount;
     
-    public List<reply> getReply() {
+    
+    
+    
+    public Integer getDzcount() {
+		return dzcount;
+	}
+
+	public void setDzcount(Integer dzcount) {
+		this.dzcount = dzcount;
+	}
+
+	public List<reply> getReply() {
 		return reply;
 	}
 

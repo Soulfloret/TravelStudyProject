@@ -11,6 +11,18 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <!-- 查询这个动态有没有被点赞过 -->
+  <select id="queryByRid" resultType="com.accp.domain.dynamicstopf">
+  		SELECT * FROM `dynamicstopf` WHERE rid=#{rid} and uid=#{uid}
+  		
+  </select>
+  
+  <select id="dzcountdt" resultType="int">
+  	SELECT COUNT(*) as dzcountdt FROM `dynamicstopf` WHERE `rid`=#{rid} AND `uid`=#{uid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

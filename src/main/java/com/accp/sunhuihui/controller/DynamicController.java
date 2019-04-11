@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.comments;
 import com.accp.domain.dynamics;
+import com.accp.domain.dynamicstopf;
 import com.accp.domain.reply;
+import com.accp.domain.stopfcomment;
 import com.accp.sunhuihui.service.DynamicService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
@@ -25,15 +27,15 @@ public class DynamicController {
 		DynamicService service;
 		
 		@RequestMapping("query")
-		public PageInfo<dynamics> query(Integer currentPage,Integer pageSize){
-			PageInfo<dynamics> page=service.query(1, 3,3);
+		public PageInfo<dynamics> query(Integer uid){
+			PageInfo<dynamics> page=service.query(1, 3,3,uid);
 			String json=JSON.toJSONString(page);
 			return page;
 		}
 		
 		@RequestMapping("queryByid")
-		public dynamics queryByid(Integer id) {
-			dynamics d=service.queryByid(id);
+		public dynamics queryByid(Integer id,Integer uidd) {
+			dynamics d=service.queryByid(id,uidd);
 			return d;
 		}
 		
@@ -48,6 +50,18 @@ public class DynamicController {
 		public int replyadd(reply reply) {
 			reply.setSharetime(new Date());
 			int i=service.replyadd(reply);
+			return i;
+		}
+		
+		@RequestMapping("stopfcommentadd")
+		public int stopfcommentadd(stopfcomment stop) {
+			int i=service.stopfcommentadd(stop);
+			return i;
+		}
+		
+		@RequestMapping("dynamicstopfadd")
+		public int dynamicstopfadd(dynamicstopf dy) {
+			int i=service.dynamicstopfadd(dy);
 			return i;
 		}
 }

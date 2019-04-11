@@ -15,7 +15,7 @@
   </resultMap>
   
   <resultMap type="com.accp.domain.reply" id="resultMap" extends="BaseResultMap">
-  		<association property="user" column="uid" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.query"></association>
+  		<association property="user" column="uid" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey"></association>
   </resultMap>
   
   <select id="query" resultMap="resultMap">

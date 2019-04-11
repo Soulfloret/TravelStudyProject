@@ -35,7 +35,7 @@ public interface usersMapper {
     int updateByPrimaryKey(users record);
     
     List<users> queryByMainOrderId(@Param("id")Integer id,@Param("uid")Integer uid);
-        
+
     users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
     
 }
