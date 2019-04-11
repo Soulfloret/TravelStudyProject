@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,11 +10,11 @@
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
     />
     <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}"/>
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
     
   </head>
 
@@ -33,19 +33,21 @@
                   <tr>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">项目名称</th>
-                    <th scope="col">建成金额</th>
+                    <th scope="col">负责人</th>
                     <th scope="col">创建时间</th>
                     <th scope="col">状态</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr th:each="item : ${list}">
                     <th scope="row"><input type="checkbox" /></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
+                    <td class=""><a th:href="@{toproject_xq}" style="color: white;" th:text="${item.pname}"></a></td>
+                    <td th:text="${item.use.uname}"></td>
+                    <td th:text="${item.createtime}"></td>
+                    <td th:switch="${item.pstatus==0}">
+                    	<td>开放</td>
+                    </td>
                     <td>
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
@@ -58,7 +60,7 @@
             </div>
             <!-- table container -->
             <a
-              href="insert_project.html"
+              th:href="@{toinsert}"
               class="btn btn-primary btn-block text-uppercase mb-3">新增项目</a>
             <button class="btn btn-primary btn-block text-uppercase">
             	删除项目
@@ -70,9 +72,9 @@
       </div>
 
 </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <!-- https://jquery.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
       $(function() {

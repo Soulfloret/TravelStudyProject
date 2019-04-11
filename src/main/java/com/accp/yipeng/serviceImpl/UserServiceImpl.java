@@ -53,5 +53,17 @@ public class UserServiceImpl implements UsersService {
 		// TODO Auto-generated method stub
 		return mapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public users queryByIdCard(String idCardNo) {
+		// TODO Auto-generated method stub
+		return mapper.queryByIdCard(idCardNo);
+	}
+
+	@Override
+	public int updateTypeIdById(Integer id, Integer typeId) {
+		// TODO Auto-generated method stub
+		return mapper.updateTypeIdById(id, typeId);
+	}
 	
 }

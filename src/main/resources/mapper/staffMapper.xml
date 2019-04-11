@@ -51,30 +51,51 @@
 		</association>
 
 	</resultMap>
-
-
-
-
-
+	<!-- 模糊查询员工 -->
+	<select id="queryLike" resultMap="Map">
+		SELECT
+		staff.`id`,`users`.`uName`,positions.`postion`,COUNT(signin.`staffId`)
+		AS stid,positions.`id` AS pid
+		FROM staff
+		JOIN positions ON
+		staff.`PostionId`=positions.`id`
+		JOIN
+		`users` ON
+		`users`.`id`=staff.`userId`
+		JOIN `signin` ON
+		`signin`.`staffId`=staff.`id` GROUP BY staff.`id`
+		<where>
+			<if test="id!=null and id!=''">
+				AND positions.`id`=#{pid}
+			</if>
+			<if test="ulist.uname!=null and ulist.uname!=''">
+				AND users.uName LIKE CONCAT('%',#{uname},'%')
+			</if>
+		</where>
+	</select>
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
 		SELECT users.id AS
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`
-		FROM users JOIN staff ON staff.`userId`=users.`id`
-		JOIN positions ON positions.`id`=staff.`PostionId`
+		FROM users JOIN staff
+		ON staff.`userId`=users.`id`
+		JOIN positions ON
+		positions.`id`=staff.`PostionId`
 		WHERE staff.`id`=#{id}
 	</select>
 	<!-- 查询员工列表 -->
 	<select id="query" resultMap="Map">
 		SELECT
 		staff.`id`,`users`.`uName`,positions.`postion`,COUNT(signin.`staffId`)
-		AS stid
+		AS stid,positions.`id` AS pid
 		FROM staff
-		JOIN positions ON staff.`PostionId`=positions.`id`
+		JOIN positions ON
+		staff.`PostionId`=positions.`id`
 		JOIN
-		`users` ON `users`.`id`=staff.`userId`
+		`users` ON
+		`users`.`id`=staff.`userId`
 		JOIN `signin` ON
 		`signin`.`staffId`=staff.`id` GROUP BY staff.`id`
 	</select>
@@ -428,4 +449,5 @@
 		#{name5,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import java.util.List;
 
 public class users {
     private Integer id;
@@ -63,6 +64,17 @@ public class users {
 	private Integer age;
     //璐﹀彿
     private String name6;
+    
+    private List<userorder> orders;
+    
+
+	public List<userorder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<userorder> orders) {
+		this.orders = orders;
+	}
 
 	public Integer getId() {
         return id;
@@ -181,13 +193,6 @@ public class users {
 
 	public void setUsetype(usertype usetype) {
 		this.usetype = usetype;
-	}
-    public String getName6() {
-		return name6;
-	}
-
-	public void setName6(String name6) {
-		this.name6 = name6;
 	}
 
 	public Integer getYear() {

@@ -30,5 +30,19 @@ public class bindserviceimpl implements bindservice{
 		// TODO Auto-generated method stub
 		return b.updateByPrimaryKeySelective(record);
 	}
+
+
+	@Override
+	public int insertmenubind(bind bi) {
+		// TODO Auto-generated method stub
+		return b.insertmenubind(bi);
+	}
+
+
+	@Override
+	public int insert(bind record) {
+		// TODO Auto-generated method stub
+		return b.insert(record);
+	}
 	
 }

@@ -102,7 +102,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.productproject" >
+  
+  <!-- 新增活动项目 -->
+  <insert id="insert_product">
+    insert into productproject (id, productId, ProjectId)
+    values 
+    <foreach collection="pplist" item="a" separator=",">
+     (#{id,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{a.projectid,jdbcType=INTEGER})
+    </foreach>
+   
+  </insert>
+    <insert id="insert" parameterType="com.accp.domain.productproject" >
     insert into productproject (id, productId, ProjectId, 
       name1, name2, name3, 
       name4, name5)

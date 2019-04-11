@@ -13,57 +13,13 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
-  <resultMap type="com.accp.domain.Usermainorder" id="BaseResultMap1" extends="BaseResultMap">
-  	<association property="user" column="orderCustomer" javaType="com.accp.domain.users">
-  		<id column="id" property="uid" jdbcType="INTEGER" />
-	    <result column="uName" property="uname" jdbcType="VARCHAR" />
-	    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
-	    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
-	    <result column="phone" property="phone" jdbcType="VARCHAR" />
-	    <result column="address" property="address" jdbcType="VARCHAR" />
-	    <result column="height" property="height" jdbcType="DOUBLE" />
-	    <result column="width" property="width" jdbcType="DOUBLE" />
-	    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
-	    <result column="name1" property="uname1" jdbcType="VARCHAR" />
-	    <result column="name2" property="uname2" jdbcType="VARCHAR" />
-	    <result column="name3" property="uname3" jdbcType="VARCHAR" />
-	    <result column="name4" property="uname4" jdbcType="VARCHAR" />
-	    <result column="name5" property="uname5" jdbcType="VARCHAR" />
-  	</association>
-  	<association property="staff" column="orderUser" javaType="com.accp.domain.staff">
-  		<id column="id" property="sid" jdbcType="INTEGER" />
-	    <result column="userId" property="userid" jdbcType="INTEGER" />
-	    <result column="entryTime" property="entrytime" jdbcType="TIMESTAMP" />
-	    <result column="departureTime" property="departuretime" jdbcType="TIMESTAMP" />
-	    <result column="DepartMentId" property="departmentid" jdbcType="INTEGER" />
-	    <result column="PostionId" property="postionid" jdbcType="INTEGER" />
-	    <result column="state" property="state" jdbcType="INTEGER" />
-	    <result column="name1" property="sname1" jdbcType="VARCHAR" />
-	    <result column="name2" property="sname2" jdbcType="VARCHAR" />
-	    <result column="name3" property="sname3" jdbcType="VARCHAR" />
-	    <result column="name4" property="sname4" jdbcType="VARCHAR" />
-	    <result column="name5" property="sname5" jdbcType="VARCHAR" />
-	    <association property="user" column="userId" javaType="com.accp.domain.users">
-	    	<id column="id" property="suid" jdbcType="INTEGER" />
-		    <result column="uName" property="suname" jdbcType="VARCHAR" />
-		    <result column="uPassword" property="supassword" jdbcType="VARCHAR" />
-		    <result column="idCardNo" property="suidcardno" jdbcType="VARCHAR" />
-		    <result column="phone" property="suphone" jdbcType="VARCHAR" />
-		    <result column="address" property="suaddress" jdbcType="VARCHAR" />
-		    <result column="height" property="suheight" jdbcType="DOUBLE" />
-		    <result column="width" property="suwidth" jdbcType="DOUBLE" />
-		    <result column="TypeId" property="sutypeid" jdbcType="INTEGER" />
-		    <result column="name1" property="suname1" jdbcType="VARCHAR" />
-		    <result column="name2" property="suname2" jdbcType="VARCHAR" />
-		    <result column="name3" property="suname3" jdbcType="VARCHAR" />
-		    <result column="name4" property="suname4" jdbcType="VARCHAR" />
-		    <result column="name5" property="suname5" jdbcType="VARCHAR" />
-	    </association>
-  	</association>
-  </resultMap>
-  <select id="QueryOrder" resultMap="BaseResultMap1">
-  	select * from usermainorder as umo,staff as s,users as u 
+  <select id="query" resultMap="BaseResultMap">
+		select * from usermainorder 
+		<where>
+		    <if test="id!=null">
+		  		and umo.id=#{id}
+		  	</if>	
+		</where>
   </select>
   <sql id="Example_Where_Clause" >
     <where >

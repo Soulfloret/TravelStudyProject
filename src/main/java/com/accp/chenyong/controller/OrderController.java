@@ -13,8 +13,8 @@ public class OrderController {
 	@Autowired
 	UserMainOrderService service;
 	@RequestMapping("query")
-	public String query(Model mo) {
-		mo.addAttribute("list",service.selectByExample(null));
+	public String query(Model mo,Integer id) {
+		mo.addAttribute("list",service.query(id));
 		return "order";
 	}
 }

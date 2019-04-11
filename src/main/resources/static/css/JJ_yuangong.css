@@ -1,143 +1,137 @@
+input {
+	outline: none;
+}
 
-			input {
-				outline: none;
-			}
-			
-			select {
-				outline: none;
-			}
-			
-			.JJ_xia {
-				background-color: #50697f;
-				border-color: #415a70;
-				border: none;
-				color: white;
-			}
-			
-			.JJ_c {
-				color: white;
-			}
-			
-			.modal-content {
-				background-color: #435c70;
-				color: white;
-			}
-			
-			.tables tr td {
-				border: 1px white solid;
-				width: 100px;
-			}
-			
-			.JJ_shang [type=text] {
-				background-color: #415A70;
-				border: none;
-			}
-			
-			.modal-header {
-				border-bottom: none;
-			}
-			
-			.modal-footer {
-				border-top: none;
-			}
-			
-			.tables [type=text] {
-				border: none;
-				background-color: #50697f;
-				color: red;
-			}
-			
-			.tables [name='name'] {
-				width: 45px;
-			}
-			
-			.tables [name='sex'] {
-				width: 45px;
-			}
-			
-			.tables [name=date],
-			[name=nation],
-			[name=sr],
-			[name=hy] {
-				width: 135px;
-			}
-			
-			.tables [name=lz] {
-				width: 200px;
-			}
-			
-			.JJ_addyg {
-				border-radius: 10px;
-				background-color: #435c70;
-				border: none;
-				color: white;
-			}
-			
-			.JJ_feileiselect {
-				color: white;
-			}
-			
-			.JJ_feileiselect [type=text] {
-				border: white 1px solid;
-				background: white;
-				color: red;
-			}
-			
-			.JJ_feileiselect select {
-				border: none;
-				background: #435c70;
-				color: #DFEFFC;
-			}
-			
-			.JJ_mohua {
-				border-radius: 10px;
-				height: 30px;
-				background-color: #20C997;
-				border: none;
-				width: 88px;
-				color: white;
-			}
-			
-			.tables [type=date] {
-				border: none;
-				background-color: #50697f;
-				color: white;
-			}
-			
-			[type=reset] {
-				border: none;
-				background-color: #435c70;
-				color: white;
-			}
-			
-			.closeModal [type=text] {
-				color: red;
-			}
-			
-			.JJ_tables td b {
-				text-align: center;
-			}
-			
-			.table thead th {
-				text-align: center;
-			}
-			
-			.table td,
-			.table th {
-				text-align: center;
-			}
-			
-			.closeModal select {
-				background: #435c70;
-				border: none;
-				color: red;
-			}
-			
-			.closemodel label,
-			select {
-				font-size: 20px;
-			}
-			
-			.JJ_gz{
-				color: red;
-			}
+select {
+	outline: none;
+}
+
+.JJ_xia {
+	background-color: #50697f;
+	border-color: #415a70;
+	border: none;
+	color: white;
+}
+
+.JJ_c {
+	color: white;
+}
+
+.modal-content {
+	background-color: #435c70;
+	color: white;
+}
+
+.tables tr td {
+	border: 1px white solid;
+	width: 100px;
+}
+
+.JJ_shang [type=text] {
+	background-color: #415A70;
+	border: none;
+}
+
+.modal-header {
+	border-bottom: none;
+}
+
+.modal-footer {
+	border-top: none;
+}
+
+.tables [type=text] {
+	border: none;
+	background-color: #50697f;
+	color: red;
+}
+
+.tables [name='name'] {
+	width: 70px;
+}
+
+.tables [name='sex'] {
+	width: 45px;
+}
+
+.tables [name=date], [name=nation], [name=sr], [name=hy] {
+	width: 135px;
+}
+
+.tables [name=lz] {
+	width: 200px;
+}
+
+.JJ_addyg {
+	border-radius: 10px;
+	background-color: #435c70;
+	border: none;
+	color: white;
+}
+
+.JJ_feileiselect {
+	color: white;
+}
+
+.JJ_feileiselect [type=text] {
+	border: white 1px solid;
+	background: white;
+	color: red;
+}
+
+.JJ_feileiselect select {
+	border: none;
+	background: #435c70;
+	color: #DFEFFC;
+}
+
+.JJ_mohua {
+	border-radius: 10px;
+	height: 30px;
+	background-color: #20C997;
+	border: none;
+	width: 88px;
+	color: white;
+}
+
+.tables [type=date] {
+	border: none;
+	background-color: #50697f;
+	color: white;
+}
+
+[type=reset] {
+	border: none;
+	background-color: #435c70;
+	color: white;
+}
+
+.closeModal [type=text] {
+	color: red;
+}
+
+.JJ_tables td b {
+	text-align: center;
+}
+
+.table thead th {
+	text-align: center;
+}
+
+.table td, .table th {
+	text-align: center;
+}
+
+.closeModal select {
+	background: #435c70;
+	border: none;
+	color: red;
+}
+
+.closemodel label, select {
+	font-size: 20px;
+}
+
+.JJ_gz {
+	color: red;
+}

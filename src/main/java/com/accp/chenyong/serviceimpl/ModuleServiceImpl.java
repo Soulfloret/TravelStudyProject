@@ -33,8 +33,9 @@ public class ModuleServiceImpl implements ModuleService{
 	}
 
 	public List<module> selectByExample(moduleExample example) {
-		// TODO Auto-generated method stub
+		
 		return mapper.selectByExample(example);
+
 	}
 
 	public module selectByPrimaryKey(Integer id) {

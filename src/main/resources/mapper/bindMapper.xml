@@ -32,12 +32,22 @@
 	  	</collection> 	
   </resultMap>
   
+  <insert id="insertmenubind">
+  	INSERT INTO `menubind`(`BindId`,`menuId`)VALUES
+  	<foreach collection="blist" item="li" separator=",">
+  		<if test="li.menuid!=null">
+  			(#{id},#{li.menuid})
+  		</if>
+  	</foreach>
+  </insert>
+  
+  
   <select id="querybind" resultMap="BaseResultMap1">
   		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice
 		FROM `bind` b LEFT JOIN `images` i 
 		ON b.id=i.`iid` AND i.`typeId`=4
 		LEFT JOIN `menubind` me ON b.id=me.`BindId`
-		INNER JOIN `menu` m ON me.`menuId`=m.`id`
+		inner JOIN `menu` m ON me.`menuId`=m.`id`
 		<where>
 			<if test="mname!=null and mname!=''">
 				b.`mName` like CONCAT('%',#{mname},'%')
@@ -138,7 +148,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.bind" >
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.bind" >
     insert into bind (id, mName, price, 
       stock, state, createTime, 
       likecount, name1, name2, 
