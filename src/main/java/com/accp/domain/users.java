@@ -194,13 +194,6 @@ public class users {
 	public void setUsetype(usertype usetype) {
 		this.usetype = usetype;
 	}
-    public String getName6() {
-		return name6;
-	}
-
-	public void setName6(String name6) {
-		this.name6 = name6;
-	}
 
 	public Integer getYear() {
 		return year;
