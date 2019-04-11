@@ -6,6 +6,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface staffMapper {
+	
+	List<staff> queryLike(staff sta);
+	
+	staff queryById(Integer id);
+	
+	List<staff> query(staff sta);
+	
     int countByExample(staffExample example);
 
     int deleteByExample(staffExample example);

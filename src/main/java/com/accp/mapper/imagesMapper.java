@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.images;
 import com.accp.domain.imagesExample;
+import com.accp.domain.project;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,8 @@ public interface imagesMapper {
     int updateByPrimaryKeySelective(images record);
 
     int updateByPrimaryKey(images record);
+    
+   List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
+   
+   int insert_project(project pro);
 }

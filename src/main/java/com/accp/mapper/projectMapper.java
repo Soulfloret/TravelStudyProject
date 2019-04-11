@@ -27,4 +27,6 @@ public interface projectMapper {
     int updateByPrimaryKeySelective(project record);
 
     int updateByPrimaryKey(project record);
+    
+    List<project> queryAll(project pro);
 }

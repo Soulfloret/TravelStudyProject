@@ -102,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.product" >
+  <insert id="insert" keyColumn="id" useGeneratedKeys="true" parameterType="com.accp.domain.product" >
     insert into product (id, pname, content, 
       name1, name2, name3, 
       name4, name5)

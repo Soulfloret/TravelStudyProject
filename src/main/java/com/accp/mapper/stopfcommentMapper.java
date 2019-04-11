@@ -27,4 +27,6 @@ public interface stopfcommentMapper {
     int updateByPrimaryKeySelective(stopfcomment record);
 
     int updateByPrimaryKey(stopfcomment record);
+    
+    stopfcomment queryByCid(@Param("cid")Integer cid,@Param("uidd")Integer uidd);
 }

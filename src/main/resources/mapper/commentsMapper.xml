@@ -13,8 +13,20 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.comments" id="resultMap" extends="BaseResultMap">
+  		<association property="user" column="uid" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey"></association>
+  		<collection property="reply" column="id" ofType="com.accp.domain.reply" select="com.accp.mapper.replyMapper.query"></collection>
+  </resultMap>
+  
+  <select id="query" resultMap="resultMap">
+  		SELECT *,COUNT(sf.id) FROM comments AS c LEFT JOIN stopfcomment AS sf ON c.id=sf.cid WHERE c.did=#{did}  GROUP BY c.id
+  </select>
+  <select id="dzcounts" resultType="int" >
+  	SELECT COUNT(*) as dzcount FROM `stopfcomment` WHERE `cid`=#{cid} and `uidd`=#{uidd}
+  </select>
   <sql id="Example_Where_Clause" >
-    <where >
+    <where>
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >

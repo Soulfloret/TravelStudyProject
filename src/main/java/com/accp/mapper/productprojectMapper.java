@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.product;
 import com.accp.domain.productproject;
 import com.accp.domain.productprojectExample;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface productprojectMapper {
     int updateByPrimaryKeySelective(productproject record);
 
     int updateByPrimaryKey(productproject record);
+    
+    int insert_product(product prod);
 }

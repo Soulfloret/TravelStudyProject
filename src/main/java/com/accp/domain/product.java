@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class product {
     private Integer id;
 
@@ -17,7 +19,19 @@ public class product {
 
     private String name5;
 
-    public Integer getId() {
+    private List<productproject> pplist;
+    
+    
+    
+    public List<productproject> getPplist() {
+		return pplist;
+	}
+
+	public void setPplist(List<productproject> pplist) {
+		this.pplist = pplist;
+	}
+
+	public Integer getId() {
         return id;
     }
 

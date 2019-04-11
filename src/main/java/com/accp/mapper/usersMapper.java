@@ -1,11 +1,21 @@
 package com.accp.mapper;
 
-import com.accp.domain.users;
-import com.accp.domain.usersExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.accp.domain.userorder;
+import com.accp.domain.users;
+import com.accp.domain.usersExample;
+
 public interface usersMapper {
+	
+	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);
+	
+	public users queryByIdCard(String idCardNo);
+	
+	public List<users> selectAllUsers(@Param("uname") String uname, @Param("typeId") Integer typeId);
+	
     int countByExample(usersExample example);
 
     int deleteByExample(usersExample example);
@@ -27,4 +37,9 @@ public interface usersMapper {
     int updateByPrimaryKeySelective(users record);
 
     int updateByPrimaryKey(users record);
+    
+    List<users> queryByMainOrderId(@Param("id")Integer id,@Param("uid")Integer uid);
+
+    users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
+    
 }

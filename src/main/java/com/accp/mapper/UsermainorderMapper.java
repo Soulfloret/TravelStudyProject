@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UsermainorderMapper {
     int countByExample(UsermainorderExample example);
 
-    int deleteByExample(UsermainorderExample example);
-
     int deleteByPrimaryKey(Integer id);
 
     int insert(Usermainorder record);
@@ -20,11 +18,7 @@ public interface UsermainorderMapper {
 
     Usermainorder selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") Usermainorder record, @Param("example") UsermainorderExample example);
-
-    int updateByExample(@Param("record") Usermainorder record, @Param("example") UsermainorderExample example);
-
-    int updateByPrimaryKeySelective(Usermainorder record);
-
     int updateByPrimaryKey(Usermainorder record);
+    
+    List<Usermainorder> query(Integer id);
 }

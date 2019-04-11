@@ -12,6 +12,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+	
+	<!-- 查询图片 -->
+  <select id="queryimg" resultType="com.accp.domain.images">
+  	SELECT * FROM `images` WHERE `iid`=#{iid} AND `typeId`=#{typeid}
+  </select>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -73,6 +79,21 @@
   <sql id="Base_Column_List" >
     id, url, iid, typeId, name1, name2, name3, name4, name5
   </sql>
+  
+  <insert id="insert_project">
+    insert into images (id, url, iid, 
+      typeId
+      )
+      
+    values 
+    <foreach collection="ilist" item="a" separator=",">
+	    (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{a.iid,jdbcType=INTEGER}, 
+	      #{typeid,jdbcType=INTEGER}
+	      )
+    </foreach>
+    
+  </insert>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
     select
     <if test="distinct" >

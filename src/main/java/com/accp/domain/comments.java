@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class comments {
     private Integer id;
@@ -23,7 +24,40 @@ public class comments {
 
     private String name5;
 
-    public Integer getId() {
+    private users user;
+    
+    private List<reply> reply;
+    
+    private Integer dzcount;
+    
+    
+    
+    
+    public Integer getDzcount() {
+		return dzcount;
+	}
+
+	public void setDzcount(Integer dzcount) {
+		this.dzcount = dzcount;
+	}
+
+	public List<reply> getReply() {
+		return reply;
+	}
+
+	public void setReply(List<reply> reply) {
+		this.reply = reply;
+	}
+
+	public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

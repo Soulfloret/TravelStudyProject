@@ -13,6 +13,14 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="query" resultMap="BaseResultMap">
+		select * from usermainorder 
+		<where>
+		    <if test="id!=null">
+		  		and umo.id=#{id}
+		  	</if>	
+		</where>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

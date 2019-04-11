@@ -16,7 +16,7 @@ public interface areasMapper {
 
     int insertSelective(areas record);
 
-    List<areas> selectByExample(areasExample example);
+    List<areas> selectByExample(areas example);
 
     areas selectByPrimaryKey(Integer id);
 
