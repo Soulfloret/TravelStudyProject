@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menubindMapper {
+	
+	int deleteBybindid(Integer id);
+	
     int countByExample(menubindExample example);
 
     int deleteByExample(menubindExample example);
