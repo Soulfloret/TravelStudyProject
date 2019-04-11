@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class project {
     private Integer id;
@@ -49,7 +50,39 @@ public class project {
 
     private String name5;
 
-    public Integer getId() {
+    private List<images> ilist;
+    
+    private staff sta;
+    
+    private users use;
+    
+    
+
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+    
+    public staff getSta() {
+		return sta;
+	}
+
+	public void setSta(staff sta) {
+		this.sta = sta;
+	}
+
+	public List<images> getIlist() {
+		return ilist;
+	}
+
+	public void setIlist(List<images> ilist) {
+		this.ilist = ilist;
+	}
+
+	public Integer getId() {
         return id;
     }
 

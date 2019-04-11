@@ -85,6 +85,18 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    select * from areas
+   	<where>
+	   	<if test="aname != null">
+	      or aname=#{aname}
+	    </if>
+	    
+	    <if test="pistion != null">
+	    or pistion=#{pistion}
+	    </if>
+   	</where>
+    
+>>>>>>> refs/remotes/origin/xiangjianbo
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

@@ -79,6 +79,22 @@
   <sql id="Base_Column_List" >
     id, url, iid, typeId, name1, name2, name3, name4, name5
   </sql>
+  
+  <insert id="insert_project">
+    insert into images (id, url, iid, 
+      typeId
+      )
+      
+    values 
+    <foreach collection="ilist" item="a" separator=",">
+	    (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{a.iid,jdbcType=INTEGER}, 
+	      #{typeid,jdbcType=INTEGER}
+	      )
+    </foreach>
+    
+  </insert>
+  
+>>>>>>> refs/remotes/origin/xiangjianbo
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
     select
     <if test="distinct" >
