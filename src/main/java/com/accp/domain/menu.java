@@ -33,10 +33,20 @@ public class menu {
     
     private images image;
     
+    private String mename;
+    
     
     
 
-    public images getImages() {
+    public String getMename() {
+		return mename;
+	}
+
+	public void setMename(String mename) {
+		this.mename = mename;
+	}
+
+	public images getImages() {
 		return image;
 	}
 

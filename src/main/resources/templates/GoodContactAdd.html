@@ -145,6 +145,7 @@
 		                  	<th scope="col">编号</th>
 		                    <th scope="col">名称</th>
 		                    <th scope="col">价格</th>
+		                    <th scope="col">数量</th>
 		                    <th scope="col">&nbsp;</th>
 		                  </tr>
 		                </thead>
@@ -160,6 +161,13 @@
 		                    </td>
 		                  </tr>-->
 		                </tbody>
+		                <tfoot>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col" id="jg">0</td>
+		                	<td scope="col" id="sl">&nbsp;</td>
+		                	<td scope="col" id="zj">&nbsp;</td>
+		                </tfoot>
 		              </table>
 		            </div>
                   </div>
@@ -217,44 +225,70 @@
             	})
         	}
         
-        	
+    		
+    		
+            function jisuan(jg){
+            	jg=parseFloat(jg);
+            	var zongjia=$("#jg").text();
+            	zongjia=parseFloat(zongjia);
+        	   	zongjia+=jg;
+        		$("#jg").html(zongjia);
+           }
+            
+            
            $("body").on("click","[type='checkbox']",function(){
+        	   var pd=false;
+        	   var num1=1;
             	if(this.checked){
             		$(this).prop("checked",false);
           			var len=$("#tbo tr").length;  		
             		var id=$(this).val();
             		var name=$(this).parent().next().next().html();
             		var price=$(this).parent().next().next().next().html();
-            		var tr=$("<tr>");
-            		var td0=$("<td style='display: none;'><input type='hidden' name='blist["+len+"].menuid'  value="+id+"></td>");
-            		var td=$("<td class='bh'>"+id+"</td>");
-            		var td2=$("<td>"+name+"</td>");
-            		var td3=$("<td>"+price+"</td>");
-            		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
-            		tr.append(td0);
-            		tr.append(td);
-            		tr.append(td2);
-            		tr.append(td3);
-            		tr.append(td4);
-            		$("#tbo").append(tr);
-            	}else{
-            		/* var id=$(this).val();
-            		$(".bh").each(function(){
-            			if($(this).text()==id){
-            				$(this).parent().remove();
-            			}
-            		}) */
-            	}        	
-            })
-            
-           	$("body").on("click",".del",function(){
-    				var id=$(this).prev().prev().prev().text();
-    				$(this).parent().remove();
-    				$.each($("[type='checkbox']"),function(i,obj){
-    					if($(obj).val()==id){
-    						$(obj).prop("checked",false);
+            		var num=1;
+            		$(".bh").each(function(i,obj){
+            			if($(obj).text()==id){
+            				var num=$(obj).next().next().next().find('span').text();
+            				num1=parseInt(num)+1;
+            				$(obj).next().next().next().find('span').text(num1);
+            				$(obj).next().next().next().find('input').val(num1);
+            				pd=true;
             			}
             		})
+            		if(pd==false){
+            			var tr=$("<tr>");
+                		var td0=$("<td style='display: none;'><input type='hidden' name='blist["+len+"].menuid'  value="+id+"></td>");
+                		var td=$("<td class='bh'>"+id+"</td>");
+                		var td2=$("<td>"+name+"</td>");
+                		var td3=$("<td class='jg'>"+price+"</td>");
+                		var td5=$("<td class='sl'><span>"+num+"</span><input type='hidden' name='blist["+len+"].name1'  value='1'></td>");
+                		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
+                		tr.append(td0);
+                		tr.append(td);
+                		tr.append(td2);
+                		tr.append(td3);
+                		tr.append(td5);
+                		tr.append(td4);
+                		$("#tbo").append(tr);
+            		}
+            		jisuan(price);
+            	}       	
+            })
+            
+     
+            
+            
+           	$("body").on("click",".del",function(){
+    				var id=$(this).prev().prev().prev().prev().text();
+    				var jg=$(this).prev().prev().text();
+    				var num=$(this).prev().find("span").text();
+    				jg=parseFloat(jg);
+    				num=parseInt(num);
+    				var zj=jg*num;
+    				zongjia=$("#jg").text();
+    				zongjia=parseFloat(zongjia);
+    				$("#jg").html(zongjia-zj);
+    				$(this).parent().remove();
     		})
             
             
