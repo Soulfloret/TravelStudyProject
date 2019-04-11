@@ -99,10 +99,7 @@
 								<div hidden id="show_xm" class="form-group mb-3">
 									<h5 style="color: white;">已选项目</h5>
 									<table class="table" id="show_xm_table">
-										<tr>
-											<th>项目名称</th>
-											<th></th>
-										</tr>
+										
 									</table>
 								</div>
 								<div class="custom-file mt-3 mb-3">
@@ -174,7 +171,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="item : ${list}">
-									<td th:id="${item.id}" th:text="${item.name}"></td>
+									<td th:id="${item.id}" th:text="${item.pname}"></td>
 									<th><input type="checkbox" name="ck_xm" /></th>
 								</tr>
 							</tbody>
@@ -242,14 +239,28 @@
 				
 				//新增活动
 				$("#xjhd").click(function(){
+					var plist=[];
+					$("#show_xm_table tr").each(function(){
+						var p={};
+						p.projectid=$(this).find("td:eq(0)").attr("id");
+						plist.push(p);
+					})
 					var pro={};
 					pro.pname=$("[name=pname]").val();
 					pro.content=$("[name=content]").val();
-					var plist=[];
-					$("#show_xm_table").each(function(){
-						var p={};
-						p.pid=$(this).find("pid");
-						p.push(plist);
+					pro.pplist=plist;
+					console.log(JSON.stringify(pro));
+					var pros=JSON.stringify(pro);
+					$.ajax({
+						url:"insert",
+						type:"post",
+						data:pros,
+						processData:false,
+						contentType:"application/json;charset=UTF-8",
+						/* dataType:"text",  */
+						success:function(result){
+							alert("新增成功");
+						}
 					})
 				})
 			});

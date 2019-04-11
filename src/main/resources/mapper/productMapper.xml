@@ -11,6 +11,21 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 查询活动 -->
+  <resultMap type="com.accp.domain.product" id="result_product" extends="BaseResultMap">
+  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" >
+  		<!-- <id column="id" property="id"/>
+  		 <result column="productId" property="productid"/>
+   		 <result column="ProjectId" property="projectid"/> -->
+  	</collection>
+  </resultMap>
+  
+  <select id="queryAll" resultMap="result_product">
+ 	 SELECT * FROM `product`
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -102,7 +117,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" useGeneratedKeys="true" parameterType="com.accp.domain.product" >
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.product" >
 
     insert into product (id, pname, content, 
       name1, name2, name3, 
