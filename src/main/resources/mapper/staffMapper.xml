@@ -449,5 +449,9 @@
 		#{name5,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+<<<<<<< HEAD
 
 </mapper>
+=======
+</mapper>
+>>>>>>> branch 'TestMaster' of https://github.com/Soulfloret/TravelStudyProject.git
