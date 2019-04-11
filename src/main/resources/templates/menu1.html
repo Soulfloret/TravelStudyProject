@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Menu</title>
+		<!--fonts-->
+		<link href="css1/bootstrap.css" rel="stylesheet">
+		<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Favorites Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+		Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<script type="text/javascript" src="js1/jquery.min.js"></script>
+		<script src="js1/simpleCart.min.js">
+		</script>
+		<script type="text/javascript" src="js1/move-top.js"></script>
+		<script type="text/javascript" src="js1/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop: $(this.hash).offset().top
+					}, 1000);
+				});
+				$(".our-menu-grids span").click(function() {
+					if($(this).next().css("display") == "none") {
+						$(this).siblings().slideDown(1000);
+					} else {
+						$(this).siblings().slideUp(1000);
+					}
+				})
+			});
+		</script>
+		<link rel="icon" href="img1/favicon/favicon.html" type="image/x-icon" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img1/favicon/apple-touch-icon-144x144-precomposed.html">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img1/favicon/apple-touch-icon-72x72-precomposed.html">
+		<link rel="apple-touch-icon-precomposed" href="img1/favicon/apple-touch-icon-precomposed.html">
+		<link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css1/minified.css">
+		<script>
+			window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');
+		</script>
+		<script src="js1/modernizr.min.js"></script>
+		<link rel="stylesheet" href="css1/owl.carousel.css">
+		<link rel="stylesheet" href="css1/owl.theme.css">
+		<link href="css1/flexslider.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css1/responsive.css">
+		<style>
+			#main-content .section {
+				padding-bottom: 30px;
+			}
+			
+			.input-icon>i,
+			.input-icon .icon {
+				position: absolute;
+				display: block;
+				margin: -5px 8px 10px 10px;
+				color: #999;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="site-header" role="banner">
+			<!-- HEADER TOP -->
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-7">
+							<!-- CONTACT INFO -->
+							<div class="contact-info">
+								<i class="iconfont-headphones round-icon"></i>
+								<strong>+444 (100) 1234</strong>
+								<span>(周一- 周五: 09.00 - 21.00)</span>
+							</div>
+							<!-- // CONTACT INFO -->
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-5">
+							<ul class="actions unstyled clearfix">
+								<li>
+									<!-- SEARCH BOX -->
+									<div class="search-box">
+										<form action="#" method="post">
+											<div class="input-iconed prepend">
+												<button class="input-icon"><i class="iconfont-search"></i></button>
+												<label for="input-search" class="placeholder">在这里搜索</label>
+												<input type="text" name="q" id="input-search" class="round-input full-width" required />
+											</div>
+										</form>
+									</div>
+									<!-- // SEARCH BOX -->
+								</li>
+								<li data-toggle="sub-header" data-target="#sub-social">
+									<!-- SOCIAL ICONS -->
+									<a href="javascript:void(0);" id="social-icons">
+										<i class="iconfont-share round-icon"></i>
+									</a>
+
+									<div id="sub-social" class="sub-header">
+										<ul class="social-list unstyled text-center">
+											<li>
+												<a href="#"><i class="iconfont-facebook round-icon"></i></a>
+											</li>
+											<li>
+												<a href="#"><i class="iconfont-twitter round-icon"></i></a>
+											</li>
+											<li>
+												<a href="#"><i class="iconfont-google-plus round-icon"></i></a>
+											</li>
+											<li>
+												<a href="#"><i class="iconfont-pinterest round-icon"></i></a>
+											</li>
+											<li>
+												<a href="#"><i class="iconfont-rss round-icon"></i></a>
+											</li>
+										</ul>
+									</div>
+									<!-- // SOCIAL ICONS -->
+								</li>
+								<li data-toggle="sub-header" data-target="#sub-cart">
+									<!-- SHOPPING CART -->
+									<a href="javascript:void(0);" id="total-cart">
+										<i class="iconfont-shopping-cart round-icon"></i>
+									</a>
+
+									<div id="sub-cart" class="sub-header">
+										<div class="cart-header">
+											<span>你的购物车是空的</span>
+											<small><a href="cart.html">(See All)</a></small>
+										</div>
+										<ul class="cart-items product-medialist unstyled clearfix"></ul>
+										<div class="cart-footer">
+											<div class="cart-total clearfix">
+												<span class="pull-left uppercase">总计</span>
+												<span class="pull-right total">￥ 0</span>
+											</div>
+											<div class="text-right">
+												<a href="cart.html" class="btn btn-default btn-round view-cart">查看</a>
+											</div>
+										</div>
+									</div>
+									<!-- // SHOPPING CART -->
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- ADD TO CART MESSAGE -->
+				<div class="cart-notification">
+					<ul class="unstyled"></ul>
+				</div>
+				<!-- // ADD TO CART MESSAGE -->
+			</div>
+			<!-- // HEADER TOP -->
+			<!-- MAIN HEADER -->
+			<div class="main-header-wrapper">
+				<div class="container">
+					<div class="main-header">
+						<!-- CURRENCY / LANGUAGE / USER MENU -->
+						<div class="actions">
+							<div class="center-xs">
+								<!-- CURRENCY -->
+								<ul class="option-list unstyled">
+									<li class="active">
+										<a href="#" data-toggle="tooltip" title="人民币">￥</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="tooltip" title="GBP - British Pound">£</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="tooltip" title="EUR - Euro">€</a>
+									</li>
+								</ul>
+								<!-- // CURRENCY -->
+								<!-- LANGUAGES -->
+								<ul class="option-list unstyled">
+									<li class="active">
+										<a href="#" data-toggle="tooltip" title="中文">CH</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="tooltip" title="French">FR</a>
+									</li>
+									<li>
+										<a href="#" data-toggle="tooltip" title="Deutsch">DE</a>
+									</li>
+								</ul>
+								<!-- // LANGUAGES -->
+							</div>
+							<div class="clearfix"></div>
+							<!-- USER RELATED MENU -->
+							<nav id="tiny-menu" class="clearfix">
+								<ul class="user-menu">
+									<li>
+										<a href="Person.html">我的账户</a>
+									</li>
+									<li>
+										<a href="Person.html">查看</a>
+									</li>
+									<li>
+										<a href="login-page.html">登出</a>
+									</li>
+								</ul>
+							</nav>
+							<!-- // USER RELATED MENU -->
+						</div>
+						<!-- // CURRENCY / LANGUAGE / USER MENU -->
+						<!-- SITE LOGO -->
+						<div class="logo-wrapper">
+							<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
+								<img src="images/logo2.png" alt="Logo" />
+							</a>
+						</div>
+						<!-- // SITE LOGO -->
+						<!-- SITE NAVIGATION MENU -->
+						<nav id="site-menu" role="navigation">
+							<ul class="main-menu hidden-sm hidden-xs">
+								<li class="active">
+									<a href="pagehome.html">首页</a>
+								</li>
+								<li>
+									<a href="productList.htmll">活动</a>
+								</li>
+								<li>
+									<a href="menu1.html">餐饮</a>
+								</li>
+								<li>
+									<a href="hotel.html">住宿</a>
+								</li>
+
+								<li>
+									<a href="Person.html">个人中心</a>
+								</li>
+							</ul>
+
+						</nav>
+						<!-- // SITE NAVIGATION MENU -->
+					</div>
+				</div>
+			</div>
+			<!-- // MAIN HEADER -->
+		</header>
+		<div class="menu">
+			<div class="container">
+				<div class="menu-info">
+					<h3>CHECK OUT OUR MENU HERE</h3>
+					<div class="strip-line"></div>
+				</div>
+				<div class="our-menu-grids">
+					<span>类型一</span>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="single1.html"><img src="images/k1.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$5</h3>
+							<h4>Bread Crumbs Soup</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" >EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k2.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$6</h3>
+							<h4>Delicious Carrot Bread</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k3.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$8</h3>
+							<h4>Yummy Noodles</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k4.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$9</h3>
+							<h4>Vegetable Pasta</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k5.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$15</h3>
+							<h4>Mixed Veg Salad</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k6.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$11</h3>
+							<h4>BreakFast Special</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k7.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$2</h3>
+							<h4>Healthy Tomato Soup</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="our-menu-grids">
+					<span>类型二</span>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="single1.html"><img src="images/k1.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$5</h3>
+							<h4>Bread Crumbs Soup</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k2.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$6</h3>
+							<h4>Delicious Carrot Bread</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k3.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$8</h3>
+							<h4>Yummy Noodles</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k4.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$9</h3>
+							<h4>Vegetable Pasta</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k5.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$15</h3>
+							<h4>Mixed Veg Salad</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k6.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$11</h3>
+							<h4>BreakFast Special</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="order-top">
+						<li class="im-g">
+							<a href="#"><img src="images/k7.jpg" class="img-responsive" alt=""></a>
+						</li>
+						<li class="data">
+							<h3>$2</h3>
+							<h4>Healthy Tomato Soup</h4>
+							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*
+					var defaults = {
+					containerID: 'toTop', // fading element id
+					containerHoverID: 'toTopHover', // fading element hover id
+					scrollSpeed: 1200,
+					easingType: 'linear' 
+					};
+				*/
+				$().UItoTop({
+					easingType: 'easeOutQuart'
+				});
+			});
+		</script>
+		<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+		<!-- //smooth scrolling -->
+
+	</body>
+		<script src="js1/minified.js"></script>
+</html>
