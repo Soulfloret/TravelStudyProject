@@ -57,7 +57,7 @@
 	 		and uo.`orderMainId`=#{id}		
 	 	</if>
 	 	<if test="uid!=null">
-	 		and u.id=#{id}
+	 		and u.id=#{uid}
 	 	</if>
 	   </where>
   </select>

@@ -22,3 +22,4 @@ public interface UsermainorderMapper {
     
     List<Usermainorder> query(@Param("id")Integer id);
 }
+
