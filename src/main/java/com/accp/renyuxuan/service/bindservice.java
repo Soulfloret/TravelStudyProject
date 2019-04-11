@@ -12,4 +12,5 @@ public interface bindservice {
 	int insertmenubind(bind bi);
 	
 	int insert(bind record);
+	
 }

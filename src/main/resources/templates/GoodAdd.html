@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -7,16 +7,18 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>商品添加</title>
 				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-				<link rel="stylesheet" href="css/fontawesome.min.css">
-				<link rel="stylesheet" href="css/bootstrap.min.css">
-				<link rel="stylesheet" href="css/templatemo-style.css">
+						<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+						<!-- https://fontawesome.com/ -->
+						<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+						<!-- https://getbootstrap.com/ -->
+						<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 
 	</head>
 
 	<body id="reportsPage">
 		<div class="" id="home">
 			<div class="container tm-mt-big tm-mb-big">
-				<form th:action="@{/addmenu}" class="tm-edit-product-form">
+				<form th:action="@{/menu/addmenu}" class="tm-edit-product-form">
 				<div class="row">
 			
 					<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
@@ -115,12 +117,12 @@
     </div>
 
 		</div>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+    <script src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     <!-- https://jqueryui.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
     <script>
      	
     </script>

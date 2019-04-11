@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,25 +7,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Admin - Dashboard HTML Template</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/templatemo-style.css">
+     <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+						<!-- https://fontawesome.com/ -->
+						<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+						<!-- https://getbootstrap.com/ -->
+						<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+
 
 </head>
 <body id="reportsPage">
     <div class="" id="home">
- <div class="container tm-mt-big tm-mb-big">
-      <div class="row">
+  <div class="container tm-mt-big tm-mb-big" th:each="item,state :${list}">
+	<form th:action="@{/bing/updatebing}" class="tm-edit-product-form">
+      <input type="hidden" th:value="${item.id}" name="id">
+      <div class="row" >
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+         
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">添加套餐</h2>
+                <h2 class="tm-block-title d-inline-block">修改套餐</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="" class="tm-edit-product-form">
+               
                   <div class="form-group mb-3">
                     <label
                       for="name"
@@ -33,23 +39,14 @@
                     </label>
                     <input
                       id="name"
-                      name="name"
+                      name="mname"
                       type="text"
                       class="form-control validate"
                       required
+                      th:value="${item.mname}"
                     />
                   </div>
-                  <div class="form-group mb-3">
-                    <label
-                      for="description"
-                      >套餐介绍</label
-                    >
-                    <textarea
-                      class="form-control validate"
-                      rows="3"
-                      required
-                    ></textarea>
-                  </div>
+                  
                  <div class="form-group mb-3">
                     <label
                       for=""
@@ -58,12 +55,9 @@
                     <select
                       class="custom-select tm-select-accounts"
                       id="hd_xz_ry"
-                      onchange="xsry()"
                     >
-                      <option selected>请选择</option>
-                      <option value="1">肉食类</option>
-                      <option value="2">饮料类</option>
-                      <option value="3">其他类</option>
+                      <option value="0">请选择</option>
+                      <option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" ></option>
                     </select>
                      <div class="tm-product-table-container">
               <table class="table table-hover tm-table-small tm-product-table">
@@ -75,48 +69,12 @@
                     <th scope="col">价格</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="1"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="2"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="3"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="4"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="5"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" value="6"/></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>$1,450</td>
-                  </tr>
+                <tbody id="tbod">
+                  
                  
                 </tbody>
               </table>
             </div>
-            
             
             <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -126,10 +84,11 @@
                           </label>
                           <input
                             id="expire_date"
-                            name="expire_date"
+                            name="price"
                             type="text"
                             class="form-control validate"
                             data-large-mode="true"
+                            th:value="${item.price}"
                           />
                         </div>
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -143,6 +102,8 @@
                             type="text"
                             class="form-control validate"
                             required
+                            th:value="${item.stock}"
+                         
                           />
                         </div>
                   </div>
@@ -153,10 +114,10 @@
                     >
                     <select
                       class="custom-select tm-select-accounts"
+                      name="state"
                     >
-                      <option selected>请选择</option>
-                      <option value="1">是</option>
-                      <option value="2">否</option>
+                      <option value="1" th:selected="${item.state=='1'}">是</option>
+                      <option value="2" th:selected="${item.state=='2'}">否</option>
                     </select>
                   </div>
             
@@ -191,28 +152,38 @@
 		                  	<th scope="col">编号</th>
 		                    <th scope="col">名称</th>
 		                    <th scope="col">价格</th>
+		                    <th scope="col">数量</th>
 		                    <th scope="col">&nbsp;</th>
 		                  </tr>
 		                </thead>
 		                <tbody id="tbo">
-		                  <!--<tr>
-		                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-		                    <td class="tm-product-name">活动名称</td>
-		                    <td>$1,450</td>
-		                     <td>
-		                      <a href="#" class="tm-product-delete-link">
+		                  <tr th:each="items,state1 : ${item.list}">
+		                  	<td style="display: none;"><input type="hidden" th:name="blist[+${state1.index}+].menuid"  th:value="${items.id}"></td>
+		                    <td class="bh tm-product-name" th:text="${items.id}"></td>
+		                    <td th:text="${items.mname}"></td>
+		                    <td class='jg' th:text="${items.price}"></td>
+		                    <td class='sl'><span th:text="${items.mename}"></span><input type='hidden' th:name="blist[+${state1.index}+].name1"   th:value="${items.mename}"></td>
+		                     <td class='del'>
+		                      <a  href="javascript:void(0)" class=" tm-product-delete-link">
 		                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
 		                      </a>
 		                    </td>
-		                  </tr>-->
+		                  </tr>
 		                </tbody>
+		                <tfoot>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col" id="jg">0</td>
+		                	<td scope="col" id="sl">&nbsp;</td>
+		                	<td scope="col" id="zj">&nbsp;</td>
+		                </tfoot>
 		              </table>
 		            </div>
                   </div>
                 
               </div>
               <div class="col-12" style="margin-top: 20px;">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">新增套餐</button>
+                <input type="submit" value="修改" class="btn btn-primary btn-block text-uppercase">
               </div>
             </form>
             </div>
@@ -222,132 +193,133 @@
 			
     </div>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+    <script src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     <!-- https://jqueryui.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
     <script>
-        $("[type='checkbox']").click(function(){
-        	if(this.checked){
-        		var id=$(this).val();
-        		var name=$(this).parent().next().next().html();
-        		var price=$(this).parent().next().next().next().html();
-        		var tr=$("<tr>");
-        		var td=$("<td class='bh'>"+id+"</td>");
-        		var td2=$("<td>"+name+"</td>");
-        		var td3=$("<td>"+price+"</td>");
-        		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
-        		tr.append(td);
-        		tr.append(td2);
-        		tr.append(td3);
-        		tr.append(td4);
-        		$("#tbo").append(tr);
-        	}else{
-        		var id=$(this).val();
-        		$(".bh").each(function(){
-        			if($(this).text()==id){
-        				$(this).parent().remove();
-        			}
-        		})
-        	}        	
-        })
-        
-/*        		*/
-       	$("body").on("click",".del",function(){
-				var id=$(this).prev().prev().prev().text();
-				$(this).parent().remove();
-				$.each($("[type='checkbox']"),function(i,obj){
-					if($(obj).val()==id){
-						$(obj).prop("checked",false);
-        			}
-        		})
-		})
-        $("#xz_xm_button").click(function(){
-        	$("#xm_tc").removeAttr("hidden");
-        })
-        
-        //克隆人员信息
-        $("[name=ck_ry]").click(function(){
-        	if(this.checked){
-        		var ry=$(this).parents("tr").clone();
-	        	ry.find("input").remove();
-	        	var remove_ry=$("<td><a href='javascript:void(0)' style='color: red;' id='yc_ry_a' onclick='yc_ry(this)'>移除</a></td>");
-	        	$(ry).append(remove_ry);
-	        	$("#show_ry").removeAttr("hidden"); 
-	        	$("#show_ry_table").append(ry);
+    	
+    	$(function(){
+    			var zj=0;
+    			var zzj=0;
+    		$(".jg").each(function(){
+    			var jg=$(this).text();
+    			var sl=$(this).next().find("span").text();
+    			jg=parseFloat(jg);
+    			sl=parseInt(sl);
+    			zj=jg*sl;
+    			zzj+=zj;
+    			$("#jg").html(zzj);
+    		})
+    		
+    		
+    		query(0);
+    		 $("body").on("change","#hd_xz_ry",function(){
+    			 query( $(this).val());
+    		 })
+    		
+    		
+    		
+    		
+        	function query(id){
+        		$.ajax({
+            		url:"/bing/ajaxquerymenuByid",
+            		data:{"menutypeid":id},
+            		dataType:"json",
+            		type:"post",
+            		success:function(result){
+            			$("#tbod").html("");
+            			$.each(result,function(i,obj){
+            				var tr=$("<tr>");
+            				var td1=$("<td scope='row'><input type='checkbox'  value="+obj.id+"></td>");
+            				var td2=$("<td><img src="+obj.images.url+" width='65px' height='65px'/></td>")
+            				var td3=$("<td class='tm-product-name'>"+obj.mname+"</td>")
+            				var td4=$("<td class='tm-product-name'>"+obj.price+"</td>")
+            				tr.append(td1);
+            				tr.append(td2);
+            				tr.append(td3);
+            				tr.append(td4);
+            				$("#tbod").append(tr);
+            			})
+            		}
+            	})
         	}
-        });
         
-        //克隆项目信息
-        $("[name=ck_xm]").click(function(){
-        	if (this.checked) {
-        		var xm=$(this).parents("tr").clone();
-	        	xm.find("input").remove();
-	        	var remove_xm=$("<td><a href='javascript:void(0)' style='color: red;' id='yc_ry_a' onclick='yc_xm(this)'>移除</a></td>");
-	        	$(xm).append(remove_xm);
-	        	$("#show_xm").removeAttr("hidden"); 
-	        	$("#show_xm_table").append(xm);
-        	}
-        	
-        })
-      function xsry(){
-      	$("#ry_tc").removeAttr("hidden");
-      }
-      
-      //移除以克隆的人员信息与弹窗的checkbox
-     	function yc_ry(th){
-     		$(th).parents("tr").remove();   		
-     		var ry_sz=[];
-     		var ry_id=$(th).parents("tr").find("td:eq(0)").attr("ryid");
-     		var ry_id2;
-     		var id;
-     		$("#ry_tb").each(function(){
-     			id=$(this).find("td:nth-of-type(1)");
-     			$.each(id, function(i,obj) {
-     				ry_id2=$(obj).attr("ryid");
-     				ry_sz.push(ry_id2);
-     			});
-     		})
-     		for (var i=0;i<ry_sz.length;i++) {
-     				if(ry_id==ry_sz[i]){
-     					var rytd=$("#ry_tb").find("[ryid='"+ry_id+"']");
-     					rytd.next().find("input").prop("checked",false);
-     				}
-		   }
-     	}
-     	
-     	//移除项目信息与以克隆的项目信息
-     	function yc_xm(th){
-     		$(th).parents("tr").remove();   		
-     		var xm_sz=[];
-     		var xm_id=$(th).parents("tr").find("td:eq(0)").attr("xmid");
-     		var xm_id2;
-     		var id;
-     		$("#xm_tc").each(function(){
-     			id=$(this).find("td:nth-of-type(1)");
-     			$.each(id, function(i,obj) {
-     				xm_id2=$(obj).attr("xmid");
-     				xm_sz.push(xm_id2);
-     			});
-     		})
-     		for (var i=0;i<xm_sz.length;i++) {
-     			console.log(xm_sz[i]);
-     				if(xm_id==xm_sz[i]){
-     					var xmtd=$("#xm_tc").find("[xmid='"+xm_id+"']");
-     					xmtd.next().find("input").prop("checked",false);
-     				}
-		   }
-     	}
-     	
-     	
-     	function hidden_ry(th){
-     		$("#ry_tc").css("display","none");
-     	}
-     	function hide_xm(th){
-     		$("#xm_tc").css("display","none");
-     	}
+    		
+    		
+            function jisuan(jg){
+            	jg=parseFloat(jg);
+            	var zongjia=$("#jg").text();
+            	zongjia=parseFloat(zongjia);
+        	   	zongjia+=jg;
+        		$("#jg").html(zongjia);
+           }
+            
+            
+           $("body").on("click","[type='checkbox']",function(){
+        	   var pd=false;
+        	   var num1=1;
+            	if(this.checked){
+            		$(this).prop("checked",false);
+          			var len=$("#tbo tr").length;  		
+            		var id=$(this).val();
+            		var name=$(this).parent().next().next().html();
+            		var price=$(this).parent().next().next().next().html();
+            		var num=1;
+            		console.log(id)
+            		$(".bh").each(function(i,obj){
+            			if($(obj).text()==id){
+            				var num=$(obj).next().next().next().find('span').text();
+            				num1=parseInt(num)+1;
+            				$(obj).next().next().next().find('span').text(num1);
+            				$(obj).next().next().next().find('input').val(num1);
+            				pd=true;
+            			}
+            		})
+            		if(pd==false){
+            			var tr=$("<tr>");
+                		var td0=$("<td style='display: none;'><input type='hidden' name='blist["+len+"].menuid'  value="+id+"></td>");
+                		var td=$("<td class='bh'>"+id+"</td>");
+                		var td2=$("<td>"+name+"</td>");
+                		var td3=$("<td class='jg'>"+price+"</td>");
+                		var td5=$("<td class='sl'><span>"+num+"</span><input type='hidden' name='blist["+len+"].name1'  value='1'></td>");
+                		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
+                		tr.append(td0);
+                		tr.append(td);
+                		tr.append(td2);
+                		tr.append(td3);
+                		tr.append(td5);
+                		tr.append(td4);
+                		$("#tbo").append(tr);
+            		}
+            		jisuan(price);
+            	}       	
+            })
+            
+     
+            
+            
+           	$("body").on("click",".del",function(){
+    				var id=$(this).prev().prev().prev().prev().text();
+    				var jg=$(this).prev().prev().text();
+    				var num=$(this).prev().find("span").text();
+    				jg=parseFloat(jg);
+    				num=parseInt(num);
+    				var zj=jg*num;
+    				zongjia=$("#jg").text();
+    				zongjia=parseFloat(zongjia);
+    				$("#jg").html(zongjia-zj);
+    				$(this).parent().remove();
+    		})
+            
+            
+            
+          
+    	})
+    
+    	
     </script>
   </body>
 </html>

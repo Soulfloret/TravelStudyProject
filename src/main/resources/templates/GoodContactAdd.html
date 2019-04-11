@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Admin - Dashboard HTML Template</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/templatemo-style.css">
+   <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+						<!-- https://fontawesome.com/ -->
+						<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+						<!-- https://getbootstrap.com/ -->
+						<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 
 </head>
 <body id="reportsPage">
@@ -17,7 +19,7 @@
   <div class="container tm-mt-big tm-mb-big">
       <div class="row">
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-         <form th:action="@{/addbing}" class="tm-edit-product-form">
+         <form th:action="@{/bing/addbing}" class="tm-edit-product-form">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
@@ -108,7 +110,6 @@
                       class="custom-select tm-select-accounts"
                       name="state"
                     >
-                      <option selected>请选择</option>
                       <option value="1">是</option>
                       <option value="2">否</option>
                     </select>
@@ -145,6 +146,7 @@
 		                  	<th scope="col">编号</th>
 		                    <th scope="col">名称</th>
 		                    <th scope="col">价格</th>
+		                    <th scope="col">数量</th>
 		                    <th scope="col">&nbsp;</th>
 		                  </tr>
 		                </thead>
@@ -160,6 +162,13 @@
 		                    </td>
 		                  </tr>-->
 		                </tbody>
+		                <tfoot>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col" id="jg">0</td>
+		                	<td scope="col" id="sl">&nbsp;</td>
+		                	<td scope="col" id="zj">&nbsp;</td>
+		                </tfoot>
 		              </table>
 		            </div>
                   </div>
@@ -176,12 +185,12 @@
 			
     </div>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+    <script src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     <!-- https://jqueryui.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
     <script>
     	
     	$(function(){
@@ -195,7 +204,7 @@
     		
         	function query(id){
         		$.ajax({
-            		url:"/ajaxquerymenuByid",
+            		url:"/bing/ajaxquerymenuByid",
             		data:{"menutypeid":id},
             		dataType:"json",
             		type:"post",
@@ -217,44 +226,70 @@
             	})
         	}
         
-        	
+    		
+    		
+            function jisuan(jg){
+            	jg=parseFloat(jg);
+            	var zongjia=$("#jg").text();
+            	zongjia=parseFloat(zongjia);
+        	   	zongjia+=jg;
+        		$("#jg").html(zongjia);
+           }
+            
+            
            $("body").on("click","[type='checkbox']",function(){
+        	   var pd=false;
+        	   var num1=1;
             	if(this.checked){
             		$(this).prop("checked",false);
           			var len=$("#tbo tr").length;  		
             		var id=$(this).val();
             		var name=$(this).parent().next().next().html();
             		var price=$(this).parent().next().next().next().html();
-            		var tr=$("<tr>");
-            		var td0=$("<td style='display: none;'><input type='hidden' name='blist["+len+"].menuid'  value="+id+"></td>");
-            		var td=$("<td class='bh'>"+id+"</td>");
-            		var td2=$("<td>"+name+"</td>");
-            		var td3=$("<td>"+price+"</td>");
-            		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
-            		tr.append(td0);
-            		tr.append(td);
-            		tr.append(td2);
-            		tr.append(td3);
-            		tr.append(td4);
-            		$("#tbo").append(tr);
-            	}else{
-            		/* var id=$(this).val();
-            		$(".bh").each(function(){
-            			if($(this).text()==id){
-            				$(this).parent().remove();
-            			}
-            		}) */
-            	}        	
-            })
-            
-           	$("body").on("click",".del",function(){
-    				var id=$(this).prev().prev().prev().text();
-    				$(this).parent().remove();
-    				$.each($("[type='checkbox']"),function(i,obj){
-    					if($(obj).val()==id){
-    						$(obj).prop("checked",false);
+            		var num=1;
+            		$(".bh").each(function(i,obj){
+            			if($(obj).text()==id){
+            				var num=$(obj).next().next().next().find('span').text();
+            				num1=parseInt(num)+1;
+            				$(obj).next().next().next().find('span').text(num1);
+            				$(obj).next().next().next().find('input').val(num1);
+            				pd=true;
             			}
             		})
+            		if(pd==false){
+            			var tr=$("<tr>");
+                		var td0=$("<td style='display: none;'><input type='hidden' name='blist["+len+"].menuid'  value="+id+"></td>");
+                		var td=$("<td class='bh'>"+id+"</td>");
+                		var td2=$("<td>"+name+"</td>");
+                		var td3=$("<td class='jg'>"+price+"</td>");
+                		var td5=$("<td class='sl'><span>"+num+"</span><input type='hidden' name='blist["+len+"].name1'  value='1'></td>");
+                		var td4=$("<td class='del'><a href='javascript:void(0)' class='tm-product-delete-link'><i class='far fa-trash-alt tm-product-delete-icon'></i></a></td>")
+                		tr.append(td0);
+                		tr.append(td);
+                		tr.append(td2);
+                		tr.append(td3);
+                		tr.append(td5);
+                		tr.append(td4);
+                		$("#tbo").append(tr);
+            		}
+            		jisuan(price);
+            	}       	
+            })
+            
+     
+            
+            
+           	$("body").on("click",".del",function(){
+    				var id=$(this).prev().prev().prev().prev().text();
+    				var jg=$(this).prev().prev().text();
+    				var num=$(this).prev().find("span").text();
+    				jg=parseFloat(jg);
+    				num=parseInt(num);
+    				var zj=jg*num;
+    				zongjia=$("#jg").text();
+    				zongjia=parseFloat(zongjia);
+    				$("#jg").html(zongjia-zj);
+    				$(this).parent().remove();
     		})
             
             

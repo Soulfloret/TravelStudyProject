@@ -29,21 +29,22 @@
    			 <result column="mnames" property="mname" jdbcType="VARCHAR" />
    			 <result column="mprice" property="price" jdbcType="DOUBLE" />
    			 <result column="mname1" property="name1" jdbcType="VARCHAR" />
+   			 <result column="mename" property="mename" jdbcType="VARCHAR" />
 	  	</collection> 	
   </resultMap>
   
   <insert id="insertmenubind">
-  	INSERT INTO `menubind`(`BindId`,`menuId`)VALUES
+  	INSERT INTO `menubind`(`BindId`,`menuId`,`name1`)VALUES
   	<foreach collection="blist" item="li" separator=",">
-  		<if test="li.menuid!=null">
-  			(#{id},#{li.menuid})
+  		<if test="li.menuid!=null and li.name1!=null">
+  			(#{id},#{li.menuid},#{li.name1})
   		</if>
   	</foreach>
   </insert>
   
   
   <select id="querybind" resultMap="BaseResultMap1">
-  		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice
+  		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename
 		FROM `bind` b LEFT JOIN `images` i 
 		ON b.id=i.`iid` AND i.`typeId`=4
 		LEFT JOIN `menubind` me ON b.id=me.`BindId`
@@ -51,6 +52,9 @@
 		<where>
 			<if test="mname!=null and mname!=''">
 				b.`mName` like CONCAT('%',#{mname},'%')
+			</if>
+			<if test="id!=null and id !=''">
+				b.`id`=#{id}
 			</if>
 		</where>
   </select>
@@ -307,7 +311,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.bind" >
+  <update id="updateByPrimaryKeySelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.bind" >
     update bind
     <set >
       <if test="mname != null" >
