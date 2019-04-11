@@ -51,11 +51,6 @@
 		</association>
 
 	</resultMap>
-<<<<<<< HEAD
-=======
-
-
-
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT
@@ -78,7 +73,6 @@
 			</if>
 		</where>
 	</select>
->>>>>>> refs/remotes/origin/wujiajun
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
 		SELECT users.id AS
