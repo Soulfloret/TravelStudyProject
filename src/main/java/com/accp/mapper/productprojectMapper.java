@@ -12,7 +12,7 @@ public interface productprojectMapper {
     int deleteByExample(productprojectExample example);
 
     int deleteByPrimaryKey(Integer id);
-
+ 
     int insert(productproject record);
 
     int insertSelective(productproject record);

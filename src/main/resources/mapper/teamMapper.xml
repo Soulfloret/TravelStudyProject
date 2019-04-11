@@ -101,7 +101,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.team" >
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.accp.domain.team" >
     insert into team (id, mainiUserId, name1, 
       name2, name3, name4, 
       name5)

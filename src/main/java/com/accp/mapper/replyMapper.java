@@ -27,4 +27,6 @@ public interface replyMapper {
     int updateByPrimaryKeySelective(reply record);
 
     int updateByPrimaryKey(reply record);
+    
+    List<reply> query(@Param("cid")Integer cid);
 }

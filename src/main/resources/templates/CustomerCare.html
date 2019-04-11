@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -7,9 +7,9 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>客户详情</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-		<link rel="stylesheet" href="css/fontawesome.min.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/templatemo-style.css">
+		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}" >
 	</head>
 	<style>
 		.box .status {
@@ -126,67 +126,67 @@
 									<div class="form-group  col-md-6">
 										<label for="inputFirstname" class="col-md-4  col-lg-4 control-label ">账号:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>128232312</p>
+											<p th:text="${user.name6}"></p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputLastname" class="col-md-4 col-lg-4 control-label ">姓名:</label>
 										<div class="col-md-8 col-lg-8 ">
-											<p>128232312</p>
+											<p th:text="${user.uname}"></p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputLastname" class="col-md-4 col-lg-4 control-label ">年龄:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>18</p>
+											<p th:text="${user.age}">18</p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputAddress1" class="col-md-4 col-lg-4 control-label required">账户密码:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>123456</p>
+											<p th:text="${user.upassword}">123456</p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputPhone" class="col-md-4 col-lg-4 control-label required">电话:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>1282323112</p>
+											<p th:text="${user.phone}">1282323112</p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputFax" class="col-md-4 col-lg-4 control-label">性别:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>男 </p>
+											<p th:text="${user.name1}"></p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputCompany" class="col-md-4 col-lg-4 control-label">身高:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>160</p>
+											<p th:text="${user.height}"></p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputPostcode" class="col-md-4 col-lg-4 control-label ">爱好:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>是是是</p>
+											<p></p>
 										</div>
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputAddress2" class="col-md-4 col-lg-4 control-label">体重:</label>
 										<div class="col-md-8 col-lg-8">
-											<p>40kg</p>
+											<p th:text="${user.width}"></p>
 										</div>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="inputCity" class="col-sm-4 col-lg-4 control-label ">出生日期:</label>
 										<div class="col-sm-8 col-lg-8">
-											<p>1998年12月12日</p>
+											<p th:text="${user.year}+年+${user.month}+月+${user.day}+日">1998年12月12日</p>
 										</div>
 									</div>
 									<div class="form-group col-md-12">
 										<label for="inputCity" class="col-sm-2 col-lg-2 control-label ">居住地址:</label>
 										<div class="col-sm-10 col-lg-10">
-											<p>湖南 株洲市 XX区 XX街道 XXXXX XXX XXX</p>
+											<p th:text="${user.address}">湖南 株洲市 XX区 XX街道 XXXXX XXX XXX</p>
 										</div>
 									</div>
 									<div class="space20 clearfix"></div>
@@ -382,7 +382,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 
 		<script type="text/javascript">
 			//判断 是否已显示 如果显示 则取消显示      .panel-collapse in  显示
@@ -400,13 +400,8 @@
 			})
 		</script>
 
-		<!--<script src="js/jquery-3.3.1.min.js"></script>-->
-		<!-- https://jquery.com/download/ -->
-		<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-		<!-- https://jqueryui.com/download/ -->
-		<script src="js/bootstrap.min.js"></script>
-
-		<!-- https://getbootstrap.com/ -->
+		<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
 
 	</body>
 

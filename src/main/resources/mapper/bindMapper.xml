@@ -15,6 +15,37 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.bind" id="BaseResultMap1" extends="BaseResultMap">
+  		<association property="image"   javaType="com.accp.domain.images">
+	  		<id column="iiid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  	</association>
+	  	
+	  	<collection property="list" ofType="com.accp.domain.menu">
+	  		 <id column="mid" property="id" jdbcType="INTEGER" />
+   			 <result column="mnames" property="mname" jdbcType="VARCHAR" />
+   			 <result column="mprice" property="price" jdbcType="DOUBLE" />
+   			 <result column="mname1" property="name1" jdbcType="VARCHAR" />
+	  	</collection> 	
+  </resultMap>
+  
+  <select id="querybind" resultMap="BaseResultMap1">
+  		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice
+		FROM `bind` b LEFT JOIN `images` i 
+		ON b.id=i.`iid` AND i.`typeId`=4
+		LEFT JOIN `menubind` me ON b.id=me.`BindId`
+		INNER JOIN `menu` m ON me.`menuId`=m.`id`
+		<where>
+			<if test="mname!=null and mname!=''">
+				b.`mName` like CONCAT('%',#{mname},'%')
+			</if>
+		</where>
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

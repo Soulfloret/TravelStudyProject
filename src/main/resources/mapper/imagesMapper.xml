@@ -12,6 +12,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+	
+	<!-- 查询图片 -->
+  <select id="queryimg" resultType="com.accp.domain.images">
+  	SELECT * FROM `images` WHERE `iid`=#{iid} AND `typeId`=#{typeid}
+  </select>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -87,7 +93,6 @@
     </foreach>
     
   </insert>
-  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
     select
     <if test="distinct" >

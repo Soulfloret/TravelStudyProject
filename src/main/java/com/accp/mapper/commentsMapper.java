@@ -27,4 +27,6 @@ public interface commentsMapper {
     int updateByPrimaryKeySelective(comments record);
 
     int updateByPrimaryKey(comments record);
+    
+    List<comments> query(Integer did);
 }
