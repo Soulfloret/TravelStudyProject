@@ -94,7 +94,6 @@
     
   </insert>
   
->>>>>>> refs/remotes/origin/xiangjianbo
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
     select
     <if test="distinct" >

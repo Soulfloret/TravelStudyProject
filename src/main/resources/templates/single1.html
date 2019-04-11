@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Single</title>
+<meta charset="utf-8">
+<link href="css1/bootstrap.css" rel='stylesheet' type='text/css' />
+<script src="js1/jquery.min.js"></script>
+<script src="js1/bootstrap.min.js"></script>
+<script src="js1/jquery.min.js"></script>
+<link href="css1/style1.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</script>
+<style>
+</style>
+<link href='http://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+				<!-- Include the Etalage files -->
+					<link rel="stylesheet" href="css1/etalage.css">
+					<script src="js1/jquery.etalage.min.js"></script>
+				<!-- Include the Etalage files -->
+				<script>
+						jQuery(document).ready(function($){
+			
+							$('#etalage').etalage({
+								thumb_image_width: 300,
+								thumb_image_height: 400,
+								
+								show_hint: true,
+								click_callback: function(image_anchor, instance_id){
+									alert('Callback example:\nYou clicked on an image with the anchor: "'+image_anchor+'"\n(in Etalage instance: "'+instance_id+'")');
+								}
+							});
+							// This is for the dropdown list example:
+							$('.dropdownlist').change(function(){
+								etalage_show( $(this).find('option:selected').attr('class') );
+							});
+
+					});
+				</script>
+</head>
+<body>
+	
+	
+	
+	
+    <div class="main">
+		<div class="container">
+		  <div class="single">
+		   <div class="row content">
+		   	<div class="col-md-3">
+		   	   <ul class="product_reviews">
+		   	   	<h3><i class="arrow"> </i><span>销售排行榜</span></h3>
+		   	   	<li>
+		   	   		<ul class="review1">
+		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<div class="clearfix"> </div>
+		   	   		</ul>
+		   	   	</li>
+		   	   	<li>
+		   	   		<ul class="review1">
+		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<div class="clearfix"> </div>
+		   	   		</ul>
+		   	   	</li>
+		   	   	<li>
+		   	   		<ul class="review1">
+		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<div class="clearfix"> </div>
+		   	   		</ul>
+		   	   	</li>
+		   	   	<li>
+		   	   		<ul class="review1">
+		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<div class="clearfix"> </div>
+		   	   		</ul>
+		   	   	</li>
+		   	   	<li>
+		   	   		<ul class="review1">
+		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<div class="clearfix"> </div>
+		   	   		</ul>
+		   	   	</li>
+		   	   
+		   	   </ul>
+		   	   
+		   	</div>
+		   	<div class="col-md-9">
+		   	   <div class="single_image">
+					     <ul id="etalage">
+							<li>
+								<a href="optionallink.html">
+									<img class="etalage_thumb_image" src="images/s1.jpg" class="img-responsive" alt=""/>
+									<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+								</a>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
+							</li>
+							<li>
+								<img class="etalage_thumb_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+							</li>
+						</ul>
+					    </div>
+					    <div class="single_right">
+				        	<h3>美味汉堡 </h3>
+				        	<p class="m_5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
+				        	<div class="price_single">
+							  <span class="yj reducedfrom">$66.00</span>
+							  <span class="xj actual1">$12.00</span><a href="#">click for offer</a>
+							</div>
+				        	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
+							  <button type="button" class="jian btn btn-default">-</button>
+							  <button type="button" class="btn btn-default">1</button>
+							  <button type="button" class="jia btn btn-default">+</button>
+							</div>
+							<script>
+								$(function(){
+									var yj1=$(".yj").html();
+									var xj1=$(".xj").html();
+									$(".jia").click(function(){
+										var yj=yj1;
+										var xj=xj1;
+										var num=$(this).prev().html();
+										num=parseInt(num)+1;
+										$(this).prev().html(num);	
+										yj=yj.substring(1);
+										yj=parseFloat(yj)*num;
+										$(".yj").html("$"+yj.toFixed(2));
+										xj=xj.substring(1);
+										xj=parseFloat(xj)*num;
+										$(".xj").html("$"+xj.toFixed(2));
+									})
+									$(".jian").click(function(){
+										var yj=yj1;
+										var xj=xj1;
+										var num=$(this).next().html();
+										if(num>0){
+											num=parseInt(num)-1;
+											$(this).next().html(num);
+											yj=yj.substring(1);
+											yj=parseFloat(yj)*num;
+											$(".yj").html("$"+yj.toFixed(2));
+											xj=xj.substring(1);
+											xj=parseFloat(xj)*num;
+											$(".xj").html("$"+xj.toFixed(2));
+										}
+										
+									})
+								})
+								
+							</script>
+							<div class="btn_form">
+							   <form>
+								 <input type="submit" value="加入购物车" title="">
+							  </form>
+							</div>
+							<ul class="add-to-links">
+    			              <li><img src="images/wish.png" alt=""><a href="#">123位用户赞了</a></li>
+    			            </ul>
+							<div class="col-xs-12  col-sm-6  col-md-4">
+				              <div class="banners--small  banners--small--social">
+				                <a href="#" class="social"><i class="zocial-facebook"> </i>
+				                <span class="banners--small--text"> Share on<br>Facebook</span>
+				                <div class="clearfix"> </div>
+				                </a>
+				              </div>
+            				</div>
+                            <div class="col-xs-12  col-sm-6  col-md-4">
+				              <div class="banners--small  banners--small--social">
+				                <a href="#" class="social"><i class="zocial-twitter"> </i>
+				                <span class="banners--small--text"> Tweet it<br>Twitter</span>
+				                <div class="clearfix"> </div>
+				                </a>
+				              </div>
+            				</div>
+                            <div class="col-xs-12  col-sm-6  col-md-4">
+				              <div class="banners--small  banners--small--social">
+				                <a href="#" class="social"><i class="zocial-pin"> </i>
+				                <span class="banners--small--text">Pin on<br>Pinterest</span>
+				                <div class="clearfix"> </div>
+				                </a>
+				              </div>
+            			   </div>
+          </div> 
+          
+          	
+          
+          
+		</div>
+		<!--评论-->
+			
+	  </div>
+	 		<div class="row contact">
+	 			<div class="col-md-3"></div>
+	 			<div class="col-md-9">
+	 				<ul class="media-list">
+					  <li class="media">
+					    <div class="media-left">
+					      <a href="#">
+					        <img class="media-object" src="images/6.png" alt="...">
+					      </a>
+					    </div>
+					    <div class="media-body"  style="border: 1px solid #fff;">
+					      <h4 class="media-heading">Media heading</h4>
+					      	<p style="font-size: 16px;">很好啊实打实大师大师大师大dsfdsfsdfds第三方斯蒂芬第三方第三方师大师大师大师的第三方斯蒂芬第三方斯蒂芬第三方的所发生的</p>
+					    </div>
+					  </li>
+					  <li class="media">
+					    <div class="media-left">
+					      <a href="#">
+					        <img class="media-object" src="images/6.png" alt="...">
+					      </a>
+					    </div>
+					    <div class="media-body"  style="border: 1px solid #fff;">
+					      <h4 class="media-heading">Media heading</h4>
+					      	<p style="font-size: 16px;">很好啊实打实大师大师大师大dsfdsfsdfds第三方斯蒂芬第三方第三方师大师大师大师的第三方斯蒂芬第三方斯蒂芬第三方的所发生的</p>
+					    </div>
+					  </li>
+					</ul>
+	 			</div>
+	 		</div>
+		  </div>
+	</div>
+
+</body>
+</html>
+

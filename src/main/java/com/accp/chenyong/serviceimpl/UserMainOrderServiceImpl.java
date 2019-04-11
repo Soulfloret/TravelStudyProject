@@ -9,13 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.UsermainorderExample;
-import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.mapper.UsermainorderMapper;
 import com.accp.mapper.staffMapper;
 import com.accp.mapper.usersMapper;
-import com.alibaba.fastjson.JSON;
-
 @Service
 @Transactional
 public class UserMainOrderServiceImpl implements UserMainOrderService {
@@ -30,13 +27,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		// TODO Auto-generated method stub
 		return mapper.countByExample(example);
 	}
-
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		// TODO Auto-generated method stub
 		return mapper.deleteByPrimaryKey(id);
 	}
-
 	@Override
 	public int insert(Usermainorder record) {
 		// TODO Auto-generated method stub
