@@ -11,6 +11,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+	<!-- 查询所有好友 --> 
+  <select id="queryAllFriend" resultMap="BaseResultMap">
+  	SELECT  * FROM friend WHERE uid=#{id}  OR  fid=#{id}
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
