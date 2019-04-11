@@ -17,6 +17,49 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.accp.domain.users" id="ResultMapChen" extends="BaseResultMap">
+  	<collection property="orders" column="id" ofType="com.accp.domain.userorder">
+  		<id column="uoid" property="id" jdbcType="INTEGER" />
+	    <result column="orderNo" property="orderno" jdbcType="VARCHAR" />
+	    <result column="orderTime" property="ordertime" jdbcType="TIMESTAMP" />
+	    <result column="orderUser" property="orderuser" jdbcType="INTEGER" />
+	    <result column="orderCustomer" property="ordercustomer" jdbcType="INTEGER" />
+	    <result column="orderMainId" property="ordermainid" jdbcType="INTEGER" />
+	    <result column="orderStatus" property="orderstatus" jdbcType="VARCHAR" />
+	    <result column="uoname1" property="name1" jdbcType="VARCHAR" />
+	    <result column="uoname2" property="name2" jdbcType="VARCHAR" />
+	    <result column="uoname3" property="name3" jdbcType="VARCHAR" />
+	    <result column="uoname4" property="name4" jdbcType="VARCHAR" />
+	    <result column="uoname5" property="name5" jdbcType="VARCHAR" />
+	    <collection property="list" column="uoid" ofType="com.accp.domain.orderson">
+	    	<id column="osid" property="id" jdbcType="INTEGER" />
+		    <result column="osiid" property="iid" jdbcType="INTEGER" />
+		    <result column="ostypeId" property="typeid" jdbcType="INTEGER" />
+		    <result column="osname1" property="name1" jdbcType="VARCHAR" />
+		    <result column="osname2" property="name2" jdbcType="VARCHAR" />
+		    <result column="osname3" property="name3" jdbcType="VARCHAR" />
+		    <result column="osname4" property="name4" jdbcType="VARCHAR" />
+		    <result column="osname5" property="name5" jdbcType="VARCHAR" />
+	    </collection>
+  	</collection>
+  </resultMap>
+  <select id="queryByMainOrderId" resultMap="ResultMapChen">
+	 SELECT u.*,uo.`id` AS uoid,uo.`name1` AS uoname1,uo.`name2` AS uoname2,
+	 uo.`name3` AS uoname3,uo.`name4` AS  uoname4,uo.`name5` AS uoname5,uo.`orderCustomer`,
+	 uo.`orderMainId`,uo.`OrderNo`,uo.`orderStatus`,uo.`orderTime`,uo.`orderUser`,
+	 os.`id` AS osid,os.`iid` AS osiid,os.`name1` AS osname1,os.`name2` AS osname2,os.`name3` AS osname3,
+	 os.`name4` AS osname4,os.`name5` AS osname5,os.`typeId` AS ostypeId
+	 FROM users AS u INNER JOIN userorder AS uo ON u.`id`=uo.`orderCustomer`
+	 INNER JOIN orderson AS os ON os.`name1`=uo.`id`
+	 <where>
+	 	<if test="id!=null">
+	 		and uo.`orderMainId`=#{id}		
+	 	</if>
+	 	<if test="uid!=null">
+	 		and u.id=#{id}
+	 	</if>
+	   </where>
+  </select>
   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
     <association property="usetype" javaType="com.accp.domain.usertype" >
 	     <id property="id" column="TypeId"/>

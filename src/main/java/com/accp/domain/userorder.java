@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class userorder {
     private Integer id;
@@ -26,8 +27,38 @@ public class userorder {
     private String name4;
 
     private String name5;
+    
+    private staff staff;
+   
+    private users user;
+    
+    private List<orderson> list;
 
-    public Integer getId() {
+    public List<orderson> getList() {
+		return list;
+	}
+
+	public void setList(List<orderson> list) {
+		this.list = list;
+	}
+
+	public staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(staff staff) {
+		this.staff = staff;
+	}
+
+	public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

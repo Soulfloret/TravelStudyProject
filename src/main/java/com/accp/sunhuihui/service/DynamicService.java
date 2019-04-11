@@ -45,7 +45,7 @@ public class DynamicService {
 				PageInfo<dynamics> page=new PageInfo<dynamics>(list);
 				for (dynamics d : list) {
 					List<images> img=imapper.queryimg(d.getId(), typeid);
-					users u=umapper.query(d.getUid());
+					users u=umapper.selectByPrimaryKey(d.getUid());
 					d.setUser(u);
 					d.setImg(img);
 				}
@@ -60,7 +60,7 @@ public class DynamicService {
 			dynamics dynamic=mapper.queryByid(id);
 			List<comments> comme=cmapper.query(dynamic.getId());
 			dynamic.setImg(imapper.queryimg(dynamic.getId(),3));
-			users u=umapper.query(dynamic.getUid());
+			users u=umapper.selectByPrimaryKey(dynamic.getUid());
 			dynamic.setComment(comme);
 			dynamic.setUser(u);
 			return dynamic;

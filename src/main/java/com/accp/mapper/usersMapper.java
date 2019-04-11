@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.domain.usersExample;
 
@@ -33,8 +34,8 @@ public interface usersMapper {
 
     int updateByPrimaryKey(users record);
     
-    users query(@Param("id")Integer id);
-    
+    List<users> queryByMainOrderId(@Param("id")Integer id,@Param("uid")Integer uid);
+        
     users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
     
 }

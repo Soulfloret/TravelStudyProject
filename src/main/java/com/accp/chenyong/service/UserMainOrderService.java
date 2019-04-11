@@ -19,5 +19,8 @@ public interface UserMainOrderService {
     Usermainorder selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(Usermainorder record);
+    
+    List<Usermainorder> query(Integer id);
+
 	
 }

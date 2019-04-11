@@ -51,11 +51,6 @@
 		</association>
 
 	</resultMap>
-
-
-
-
-
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
 		SELECT users.id AS
