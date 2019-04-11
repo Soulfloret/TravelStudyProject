@@ -52,7 +52,10 @@
 
 	</resultMap>
 
-
+	<!-- 录入员工 -->
+	<insert id="" >
+		
+	</insert>
 
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
