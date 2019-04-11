@@ -12,4 +12,5 @@ public interface menuservice {
 	int deleteByPrimaryKey(Integer id);
 	
 	int insertSelective(menu record);
+	
 }

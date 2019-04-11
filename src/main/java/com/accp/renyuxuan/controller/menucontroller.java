@@ -91,6 +91,13 @@ public class menucontroller {
 		return "GoodUpdate";
 	}
 	
+	//菜单修改
+	@RequestMapping("/updatemenu")
+	public String updatemenu(menu menus) {
+		m.updateByPrimaryKeySelective(menus);
+		return "redirect:/toquerymenu";
+	}
+	
 	
 	
 	
