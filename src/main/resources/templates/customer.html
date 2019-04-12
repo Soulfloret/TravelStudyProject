@@ -71,12 +71,16 @@
 											<td>
 												<b th:text="${it.uname}"></b>
 											</td>	
-											 <td  th:if="${it.usetype.id==1}" >
+											<td  th:if="${it.usetype.id==1}" >
 												<div class="tm-status-circle  moving" ></div>
 												<span th:text="${it.usetype.tname}" ></span>
 											</td>
 											<td  th:if="${it.usetype.id==2}" >
 												<div class="tm-status-circle  pending" ></div>
+												<span th:text="${it.usetype.tname}" ></span>
+											</td>
+											<td  th:if="${it.usetype.id==3}" >
+												<div class="tm-status-circle  moving" ></div>
 												<span th:text="${it.usetype.tname}" ></span>
 											</td>
 											<td><b th:text=${it.name1}></b></td>

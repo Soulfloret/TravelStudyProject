@@ -73,8 +73,8 @@
 									</div>
 									<div class="form-group col-md-12">
 										<label for="" class="col-md-3">选择报名方式:</label>
-										<div th:each="item,status : ${list}" style="margin-left:10px;">
-											<input type="radio" name='team' th:checked="${item.id}==1"  th:value="${item.id}"  >
+										<div th:each="item,status : ${list}" th:if="${item.id!=3}" style="margin-left:10px;">
+											<input type="radio" name='team' th:checked="${item.id}==1"   th:value="${item.id}"  >
 											<span th:text="${item.tname}"></span>
 										</div>
 									</div>

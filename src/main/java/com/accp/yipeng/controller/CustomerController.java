@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -97,7 +96,7 @@ public class CustomerController {
 	 * 客户新增
 	 */
 	@RequestMapping("addCustomer")
-	public String addCustomer(users user,MultipartFile file,String team,HttpServletResponse resp) {
+	public String addCustomer(users user,MultipartFile file,String team) {
 		user.setTypeid(Integer.parseInt(team));
 		String id= user.getIdcardno();
 		String idone=id.substring(14, id.length());
