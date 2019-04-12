@@ -27,4 +27,7 @@ public interface productMapper {
     int updateByPrimaryKeySelective(product record);
 
     int updateByPrimaryKey(product record);
+    
+    /*查询所有*/
+    List<product> queryAll();
 }

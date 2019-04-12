@@ -57,7 +57,7 @@
 	 		and uo.`orderMainId`=#{id}		
 	 	</if>
 	 	<if test="uid!=null">
-	 		and u.id=#{id}
+	 		and u.id=#{uid}
 	 	</if>
 	   </where>
   </select>
@@ -192,8 +192,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.users" >
-
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.users" >
     insert into users (id, uName, uPassword, 
       idCardNo, phone, address, 
       height, width, TypeId, 

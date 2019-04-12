@@ -16,8 +16,19 @@ public class worduser {
     private String name4;
 
     private String name5;
+    
+    private staff staff;
+    
 
-    public Integer getId() {
+    public staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(staff staff) {
+		this.staff = staff;
+	}
+
+	public Integer getId() {
         return id;
     }
 

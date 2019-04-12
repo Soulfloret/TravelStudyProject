@@ -29,4 +29,6 @@ public interface projectMapper {
     int updateByPrimaryKey(project record);
     
     List<project> queryAll(project pro);
+    
+    List<project> queryByProjectId(Integer id);
 }

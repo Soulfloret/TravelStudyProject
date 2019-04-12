@@ -13,10 +13,12 @@ import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
+import com.accp.renyuxuan.service.impl.menubindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.alibaba.fastjson.JSON;
 
 @Controller
+@RequestMapping("bing")
 public class bindcontroller {
 	
 	//套餐
@@ -28,6 +30,9 @@ public class bindcontroller {
 	//菜单
 	@Autowired
 	menuserviceimpl m;
+	//套餐菜单中间表
+	@Autowired
+	menubindserviceimpl meb;
 		
 	//去套餐页面
 	@RequestMapping("/toQuerybind")
@@ -82,8 +87,26 @@ public class bindcontroller {
 		binds.setCreatetime(new Date());
 		b.insert(binds);
 		b.insertmenubind(binds);
-		return "redirect:/toQuerybind";
+		return "redirect:/bing/toQuerybind";
 	}
-		
+	
+	//去修改页面
+	@RequestMapping("/toupdatebing")
+	public String toupdatebind(Model model,bind binds) {
+		model.addAttribute("listtype",me.selectByExample(null));
+		List<bind> list=b.querybind(binds);
+		model.addAttribute("list",list);
+		return "GoodContactUpdate";
+	}
+	
+	//修改套餐
+	@RequestMapping("/updatebing")
+	public String updatebing(bind binds) {
+		meb.deleteBybindid(binds.getId());
+		binds.setLikecount(0);//修改之后点赞清0
+		b.updateByPrimaryKeySelective(binds);
+		b.insertmenubind(binds);
+		return "redirect:/bing/toQuerybind";
+	}
 		
 }

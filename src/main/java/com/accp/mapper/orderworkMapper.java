@@ -27,4 +27,6 @@ public interface orderworkMapper {
     int updateByPrimaryKeySelective(orderwork record);
 
     int updateByPrimaryKey(orderwork record);
+    
+    orderwork queryByOrderId(@Param("id")Integer id);
 }

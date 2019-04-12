@@ -10,8 +10,14 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 <link rel="stylesheet" th:href="@{/css/JJ_yuangong.css}" />
+<style type="text/css">
+	.tables tr td {
+	    height: 70px;
+	    border: 1px white solid;
+	    width: 120px;
+	}
+</style>
 </head>
-
 <body id="reportsPage">
 	<div class="" id="home">
 		<div class="container">
@@ -21,8 +27,6 @@
 					<div class="modal-content">
 						<div id="" class="modal-header JJ_shang">
 							<span class="closeModal">
-								<!--  <label>部门</label>&nbsp;&nbsp;&nbsp;<input
-								type="text" />  -->
 								<label>职位</label>&nbsp;&nbsp;&nbsp;<input type="text" />
 							</span> <span class="close" data-dismiss="modal">&times;</span>
 						</div>
@@ -40,14 +44,9 @@
 						<form action="#" method="post">
 							<div id="" class="modal-header JJ_shang">
 								<span class="closeModal">
-									<h2>录入员工</h2> <label>部门</label> <select>
-										<option>销售部</option>
-										<option>餐饮部</option>
-										<option>宿舍部</option>
-								</select> <label>职位</label> <select>
-										<option>经理</option>
-										<option>主管</option>
-										<option>员工</option>
+									<h2>录入员工</h2>
+									<label>职位</label> <select>
+										<option th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
 								</select>
 								</span> <span class="close" data-dismiss="modal">&times;</span>
 							</div>
@@ -56,36 +55,26 @@
 
 									<tr>
 										<td>姓名</td>
-										<td><input type="text" name="name" /></td>
-										<td>性别</td>
-										<td><input type="text" name="sex" /></td>
-										<td>出生日期</td>
-										<td><input type="date" name="date" /></td>
+										<td colspan=""><input type="text" name="name" /></td>
+										<td>电话号码</td>
+										<td colspan="3"><input type="text" name="phone" /></td>
 									</tr>
 									<tr>
-										<td>家庭地址</td>
-										<td colspan="3"><input type="text" name="address1" /></td>
-										<td>民族</td>
-										<td><input type="text" name="nation" /></td>
-									</tr>
-									<tr>
-										<td>现住地址</td>
-										<td colspan="3"><input type="text" name="address2" /></td>
-										<td>生日</td>
-										<td><input type="text" name="sr" /></td>
+										<td>住址</td>
+										<td colspan="3"><input type="text" name="address" /></td>
+										<td>体重</td>
+										<td><input type="text" name="height" /></td>
 									</tr>
 									<tr>
 										<td>身份证号</td>
-										<td colspan="3"><input type="text" /></td>
-										<td>婚姻状况</td>
-										<td><input type="text" name="hy" /></td>
-									</tr>
-									<tr>
+										<td colspan="3"><input type="text" name="idCardNo" /></td>
+										<td>身高</td>
+										<td><input type="text" name="width" /></td>
 									</tr>
 								</table>
 							</div>
 							<div id="" class="modal-footer">
-								<input class="btn" type="reset" /> <a class="btn">录入</a> <a
+								<input class="btn" type="reset" /> <a class="btn lr">录入</a> <a
 									class="btn" data-dismiss="modal">关闭</a>
 							</div>
 						</form>

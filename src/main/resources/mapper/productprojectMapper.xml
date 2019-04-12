@@ -11,6 +11,35 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.productproject" id="result_queryByProdId" extends="BaseResultMap">
+  	<collection property="pro" column="projectid" ofType="com.accp.domain.project" select="com.accp.mapper.projectMapper.queryByProjectId">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="pName" property="pname" jdbcType="VARCHAR" />
+	    <result column="description" property="description" jdbcType="VARCHAR" />
+	    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+	    <result column="safeTime" property="safetime" jdbcType="TIMESTAMP" />
+	    <result column="pstatus" property="pstatus" jdbcType="VARCHAR" />
+	    <result column="mincrowd" property="mincrowd" jdbcType="INTEGER" />
+	    <result column="maxcrowd" property="maxcrowd" jdbcType="INTEGER" />
+	    <result column="minheight" property="minheight" jdbcType="DOUBLE" />
+	    <result column="maxheight" property="maxheight" jdbcType="DOUBLE" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="price" property="price" jdbcType="DOUBLE" />
+	    <result column="tid" property="tid" jdbcType="INTEGER" />
+	    <result column="needTime" property="needtime" jdbcType="VARCHAR" />
+	    <result column="galleryful" property="galleryful" jdbcType="INTEGER" />
+	    <result column="cost" property="cost" jdbcType="DOUBLE" />
+	    <result column="leadingoffcial" property="leadingoffcial" jdbcType="INTEGER" />
+	    <result column="newPrice" property="newprice" jdbcType="DOUBLE" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 活动查询 项目id -->
+  <select id="queryByProdId" resultMap="result_queryByProdId">
+   SELECT * FROM `productproject` WHERE `productId`=#{productId}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -101,14 +130,14 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+
   </delete>
-  
   <!-- 新增活动项目 -->
   <insert id="insert_product">
-    insert into productproject (id, productId, ProjectId)
+    insert into productproject (productId, ProjectId)
     values 
-    <foreach collection="pplist" item="a" separator=",">
-     (#{id,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{a.projectid,jdbcType=INTEGER})
+    <foreach collection="pplist" item="as" separator=",">
+     (#{id,jdbcType=INTEGER}, #{as.projectid,jdbcType=INTEGER})
     </foreach>
    
   </insert>

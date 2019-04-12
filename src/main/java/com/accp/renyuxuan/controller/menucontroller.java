@@ -16,6 +16,7 @@ import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.alibaba.fastjson.JSON;
 
 @Controller
+@RequestMapping("menu")
 public class menucontroller {
 	
 	//菜单
@@ -79,7 +80,7 @@ public class menucontroller {
 		me.setLikecount(0);
 		me.setPutawaytime(new Date());
 		m.insertSelective(me);
-		return "redirect:/toquerymenu";
+		return "redirect:/menu/toquerymenu";
 	}
 	
 	//去菜单修改页面
@@ -95,9 +96,15 @@ public class menucontroller {
 	@RequestMapping("/updatemenu")
 	public String updatemenu(menu menus) {
 		m.updateByPrimaryKeySelective(menus);
-		return "redirect:/toquerymenu";
+		return "redirect:/menu/toquerymenu";
 	}
 	
+	
+	//去下订单页面
+	@RequestMapping("/tomenuorder")
+	public String tomenuorder() {
+		return "GoodOrderAdd";
+	}
 	
 	
 	

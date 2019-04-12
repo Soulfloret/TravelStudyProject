@@ -3,11 +3,17 @@ package com.accp.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class dynamics {
     private Integer id;
 
     private String content;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="MM-dd")
     private Date sharetime;
 
     private Integer uid;

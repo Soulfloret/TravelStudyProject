@@ -12,7 +12,7 @@ public interface productprojectMapper {
     int deleteByExample(productprojectExample example);
 
     int deleteByPrimaryKey(Integer id);
-
+ 
     int insert(productproject record);
 
     int insertSelective(productproject record);
@@ -30,4 +30,9 @@ public interface productprojectMapper {
     int updateByPrimaryKey(productproject record);
     
     int insert_product(product prod);
+    
+    /*活动查询项目id*/
+    List<productproject> queryByProdId(Integer productId);
+    
+    
 }

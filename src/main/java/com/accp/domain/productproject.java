@@ -16,8 +16,19 @@ public class productproject {
     private String name4;
 
     private String name5;
+    
+    private project pro;
+    
+    
+    public project getPro() {
+		return pro;
+	}
 
-    public Integer getId() {
+	public void setPro(project pro) {
+		this.pro = pro;
+	}
+
+	public Integer getId() {
         return id;
     }
 
