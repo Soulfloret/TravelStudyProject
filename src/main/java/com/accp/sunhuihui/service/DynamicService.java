@@ -128,4 +128,25 @@ public class DynamicService {
 		public int replyadd(reply reply) {
 			return rmapper.insertSelective(reply);
 		}
+		
+		/**
+		 * 新增动态图片表
+		 * @param dinameics
+		 * @return
+		 */
+		public int insertimglist(dynamics dinameics) {
+			int i=mapper.insertSelective(dinameics);
+			imapper.insertimglist(dinameics);
+			return 0;
+		}
+		
+		/**
+		 * 新增动态图片表
+		 * @param dinameics
+		 * @return
+		 */
+		public int insertimglist1(dynamics dinameics) {
+			int i=mapper.insertSelective(dinameics);
+			return i;
+		}
 }

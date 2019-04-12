@@ -2,11 +2,14 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class reply {
     private Integer id;
 
     private String content;
 
+    @JsonFormat(pattern="MM-dd")
     private Date sharetime;
 
     private Integer cid;

@@ -118,7 +118,7 @@
       #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.dynamics" >
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.dynamics" >
     insert into dynamics
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

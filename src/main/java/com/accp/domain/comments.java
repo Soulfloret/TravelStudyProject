@@ -3,11 +3,14 @@ package com.accp.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class comments {
     private Integer id;
 
     private String content;
-
+    
+    @JsonFormat(pattern="MM-dd")
     private Date sharetime;
 
     private Integer did;
