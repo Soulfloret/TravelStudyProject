@@ -16,8 +16,18 @@ public class friend {
     private String name4;
 
     private String name5;
+    private users use;
+    
 
-    public Integer getId() {
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+
+	public Integer getId() {
         return id;
     }
 

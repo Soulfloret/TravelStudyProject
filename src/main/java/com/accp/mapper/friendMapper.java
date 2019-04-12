@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface friendMapper {
+	public List<friend> queryAllFriend(Integer id);
+	
     int countByExample(friendExample example);
 
     int deleteByExample(friendExample example);

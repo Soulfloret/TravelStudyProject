@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.domain.Usermainorder;
 import com.accp.domain.team;
 import com.accp.domain.users;
 import com.accp.yipeng.service.TeamService;
@@ -48,7 +50,8 @@ public class CustomerController {
 	TeamService TeamService;
 	@Autowired
 	TeammemberService TeammberService;
-	
+	@Autowired
+	UserMainOrderService UmoService;
 	/**
 	 * 
 	 * @return 客户查询页面
@@ -80,7 +83,11 @@ public class CustomerController {
 		model.addAttribute("list",UsersType.selectByExample(null));
 		return "addcustomer";
 	}
-	
+	/**
+	 * 
+	 * @param IdCardNo  用来判断身份证是否存在
+	 * @return
+	 */
 	@RequestMapping("queryByIdCard")
 	@ResponseBody
 	public users queryByIdCard(String IdCardNo) {
@@ -211,9 +218,16 @@ public class CustomerController {
             }else{  
                 age--;  
             }  
-        }  
+        } 
         use.setAge(age);
 		model.addAttribute("user", use);
+		model.addAttribute("MainOrderlist",UmoService.query(1));
 		return "CustomerCare";
+	}
+	
+	@RequestMapping("query")
+	@ResponseBody
+	public  List<Usermainorder> query() {
+		return UmoService.query(1);
 	}
 }

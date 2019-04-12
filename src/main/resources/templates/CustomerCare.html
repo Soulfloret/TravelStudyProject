@@ -192,13 +192,16 @@
 								</div>
 							</div>
 							<div class="row" style="margin-bottom: 20px;">
-								<div class="box">
+								<div class="box" th:each="item,index : ${MainOrderlist}">
 									<div class="dingdanhead">
 										<h4>
-				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
-				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
-				        					<span class="status">订单状态：</span><span>已完成</span>
-				        					<span class="sum">订单总价:</span><span>￥2002</span>
+				        					<a data-toggle="collase"  href="#checkout-collapse4" >
+				        						<span class="step">01</span>
+				        						<span>订单:</span><span class="dingdanhao" th:text="${item.orderno}">SS222121</span>
+				        					</a>
+				        					<span class="time" >订单时间:</span><span th:text="${item.ordertime}">2019-12-2 12:22:22</span>
+				        					<span class="status">订单状态：</span><span th:text="${item.name1}">已完成</span>
+				        					<span class="sum">订单总价:</span><span >￥2002</span>
 				        					<span class="team">团队订单</span>
 				        				</h4>
 									</div>
