@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface roomMapper {
+	
+	List<room> queryByroom(room r);
+	
     int countByExample(roomExample example);
 
     int deleteByExample(roomExample example);

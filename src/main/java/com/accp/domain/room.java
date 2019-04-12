@@ -24,8 +24,18 @@ public class room {
     private String name4;
 
     private String name5;
+    
+    private images img;
 
-    public Integer getId() {
+    public images getImg() {
+		return img;
+	}
+
+	public void setImg(images img) {
+		this.img = img;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.alibaba.fastjson.JSON;
@@ -25,6 +27,9 @@ public class menucontroller {
 	//菜单类型
 	@Autowired
 	menuTypeserviceimpl me;
+	//套餐
+	@Autowired
+	bindserviceimpl b;
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
@@ -102,7 +107,13 @@ public class menucontroller {
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder() {
+	public String tomenuorder(Model model) {
+		/*menu menus=new menu();
+		List<menu> mlist=m.QueryMenu(menus);
+		bind binds=new bind();
+		List<bind> blist=b.querybind(binds);
+		model.addAttribute("mlist", mlist);
+		model.addAttribute("blist", blist);*/
 		return "GoodOrderAdd";
 	}
 	
