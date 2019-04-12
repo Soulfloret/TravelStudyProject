@@ -16,8 +16,20 @@ public class productarea {
     private String name4;
 
     private String name5;
+    
+    private areas  area;
+    
+    
 
-    public Integer getId() {
+    public areas getArea() {
+		return area;
+	}
+
+	public void setArea(areas area) {
+		this.area = area;
+	}
+
+	public Integer getId() {
         return id;
     }
 
