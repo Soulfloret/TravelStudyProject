@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,12 +109,10 @@ public class menucontroller {
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
 	public String tomenuorder(Model model) {
-		/*menu menus=new menu();
+		menu menus=new menu();
 		List<menu> mlist=m.QueryMenu(menus);
 		bind binds=new bind();
 		List<bind> blist=b.querybind(binds);
-		model.addAttribute("mlist", mlist);
-		model.addAttribute("blist", blist);*/
 		return "GoodOrderAdd";
 	}
 	

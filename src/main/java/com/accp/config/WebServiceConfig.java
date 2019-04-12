@@ -20,10 +20,10 @@ public class WebServiceConfig {
 	Bus bus;
 	@Autowired
 	ModuleService service;
-	@Bean
+	/*@Bean
 	public ServletRegistrationBean registrationBean() {
 		return new ServletRegistrationBean(new CXFServlet(),"/mywebservice/*");
-	}
+	}*/
 	@Bean
 	public Endpoint endpoint() {
 		EndpointImpl endpointimpl=new EndpointImpl(bus);

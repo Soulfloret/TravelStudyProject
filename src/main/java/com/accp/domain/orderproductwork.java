@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class orderproductwork {
     private Integer id;
@@ -22,8 +23,41 @@ public class orderproductwork {
     private String name4;
 
     private String name5;
+    
+    private project project;
+    
+    private List<worduser> list;
+    
+    private productarea area;
+    
 
-    public Integer getId() {
+    public project getProject() {
+		return project;
+	}
+
+	public void setProject(project project) {
+		this.project = project;
+	}
+
+	public List<worduser> getList() {
+		return list;
+	}
+
+	public void setList(List<worduser> list) {
+		this.list = list;
+	}
+
+	public productarea getArea() {
+		return area;
+	}
+
+	public void setArea(productarea area) {
+		this.area = area;
+	}
+
+
+
+	public Integer getId() {
         return id;
     }
 

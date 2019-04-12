@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product Page - Admin HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    
+  </head>
+
+  <body id="reportsPage">
+
+    <div class="container mt-5">
+      <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+        	<input type="date" placeholder="" name="ks" style="border-radius: 30px 30px 30px 30px;"/>
+        	<span style="color: white;">~</span>
+        	<input type="date" placeholder="" name="js" style="border-radius: 30px 30px 30px 30px;"/>
+        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+          <div class="tm-bg-primary-dark tm-block tm-block-products">
+            <div class="tm-product-table-container">
+              <table class="table table-hover tm-table-small tm-product-table">
+                <thead>
+                  <tr>
+                    <th scope="col">房屋样式</th>
+                    <th scope="col">
+                    	描述
+                    </th>
+                    <th scope="col">价格</th>
+                    <th scope="col">类型</th>
+                    <th scope="col">位置</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
+                    <td class="tm-product-name">太平洋海岸27523</td>
+                    <td>￥388</td>
+                    <td>公寓</td>
+                    <td>201</td>
+                    <td>可租</td>
+                    <td class="yd">
+                     	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
+                    <td class="tm-product-name">太平洋海岸27523</td>
+                    <td>￥188</td>
+                    <td>公寓</td>
+                    <td>201</td>
+                    <td>可租</td>
+                    <td class="yd">
+                     	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
+                    <td class="tm-product-name">太平洋海岸27523</td>
+                    <td>￥288</td>
+                    <td>公寓</td>
+                    <td>201</td>
+                    <td>可租</td>
+                    <td class="yd">
+                     	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- table container -->
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+      <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">
+          Copyright &copy; <b>2018</b> All rights reserved. 
+          
+          More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+        </p>
+      </div>
+    </footer>
+    
+    
+    <div class="modal fade" id="md" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						
+					</div>
+					<div class="modal-body">
+						<div>
+						<span class="data1"></span>到<span class="data2"></span> 
+						</div>
+						<div>
+						位置：<span  class="wz" style="color: red;"></span>
+						</div>
+						<div>
+					       价格：<span class="jg" style="color: red;"></span>
+	          </div>
+					 	<div class="input-group">
+					  	<input type="text" class="form-control" style="background-color: white; color: black;" placeholder="身份证号码：">
+					  </div><!-- /input-group -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">预订</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		
+		
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+    	$(function(){
+    		$(".yd").click(function(){
+    			var ksdata=$("[name='ks']").val();
+    			var jsdata=$("[name='js']").val();
+    			var wz=$(this).prev().prev().text();
+    			var jg=$(this).prev().prev().prev().prev().text();
+    			if(ksdata!="" && jsdata!=""){
+    				$(".data1").text(ksdata);
+	    			$(".data2").text(jsdata);
+	    			$(".wz").text(wz);
+	    			$(".jg").text(jg);
+    			}else{
+    				alert("请先选择日期！");
+    				return false;
+    				console.log()
+    				
+    			}
+    			
+    		})
+    	})
+    </script>
+    
+    <!-- https://jquery.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+  </body>
+</html>

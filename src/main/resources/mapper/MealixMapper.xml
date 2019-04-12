@@ -1,77 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.orderworkMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.orderwork" >
+<mapper namespace="com.accp.mapper.MealixMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Mealix" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+    <result column="iid" property="iid" jdbcType="INTEGER" />
     <result column="name1" property="name1" jdbcType="VARCHAR" />
     <result column="name2" property="name2" jdbcType="VARCHAR" />
     <result column="name3" property="name3" jdbcType="VARCHAR" />
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap type="com.accp.domain.orderwork" id="BaseResultMap1" extends="BaseResultMap">
-  	<collection property="list" ofType="com.accp.domain.orderproductwork" column="id">
-  		<id column="opwid" property="id" jdbcType="INTEGER" />
-	    <result column="opworderworkid" property="orderworkid" jdbcType="INTEGER" />
-	    <result column="opwiid" property="iid" jdbcType="INTEGER" />
-	    <result column="opwstarttime" property="starttime" jdbcType="TIMESTAMP" />
-	    <result column="opwendtime" property="endtime" jdbcType="TIMESTAMP" />
-	    <result column="opwname1" property="name1" jdbcType="VARCHAR" />
-	    <result column="opwname2" property="name2" jdbcType="VARCHAR" />
-	    <result column="opwname3" property="name3" jdbcType="VARCHAR" />
-	    <result column="opwname4" property="name4" jdbcType="VARCHAR" />
-	    <result column="opwname5" property="name5" jdbcType="VARCHAR" />
-  		<association property="area" javaType="com.accp.domain.productarea" column="opwname1">
-			<id column="paid" property="id" jdbcType="INTEGER" />
-		    <result column="paproducid" property="productid" jdbcType="INTEGER" />
-		    <result column="paAreaid" property="areaid" jdbcType="INTEGER" />
-		    <result column="paname1" property="name1" jdbcType="VARCHAR" />
-		    <result column="paname2" property="name2" jdbcType="VARCHAR" />
-		    <result column="paname3" property="name3" jdbcType="VARCHAR" />
-		    <result column="paname4" property="name4" jdbcType="VARCHAR" />
-		    <result column="paname5" property="name5" jdbcType="VARCHAR" />
-		    <association property="area" javaType="com.accp.domain.areas" column="paAreaId">
-		    	<id column="arsid" property="id" jdbcType="INTEGER" />
-			    <result column="arsaname" property="aname" jdbcType="VARCHAR" />
-			    <result column="arspistion" property="pistion" jdbcType="VARCHAR" />
-			    <result column="arsname1" property="name1" jdbcType="VARCHAR" />
-			    <result column="arsname2" property="name2" jdbcType="VARCHAR" />
-			    <result column="arsname3" property="name3" jdbcType="VARCHAR" />
-			    <result column="arsname4" property="name4" jdbcType="VARCHAR" />
-			    <result column="arsname5" property="name5" jdbcType="VARCHAR" />
-		    </association>
-  		</association>
-  		<collection property="list" ofType="com.accp.domain.worduser" column="opwid">
-  			<id column="wuid" property="id" jdbcType="INTEGER" />
-		    <result column="wuworkId" property="workid" jdbcType="INTEGER" />
-		    <result column="wuproductStaffId" property="productstaffid" jdbcType="INTEGER" />
-		    <result column="wuname1" property="name1" jdbcType="VARCHAR" />
-		    <result column="wuname2" property="name2" jdbcType="VARCHAR" />
-		    <result column="wuname3" property="name3" jdbcType="VARCHAR" />
-		    <result column="wuname4" property="name4" jdbcType="VARCHAR" />
-		    <result column="wuname5" property="name5" jdbcType="VARCHAR" />
-  		</collection>
-    </collection>
-  </resultMap>
-  
-  <select id="queryByOrderId" resultMap="BaseResultMap1">
-	SELECT ow.*,opw.`id` AS opwid,opw.`endTime` AS opwendtime,opw.`iid` AS opwiid,
-	opw.`name1` AS opwname1,opw.`name2` AS opwname2,opw.`name3` AS opwname3,opw.`name4` AS opwname4,
-	opw.`name5` AS opwname5,opw.`orderWorkId` AS opworderworkid,opw.`startTime` AS starttime,
-	wu.`id` AS wuid,wu.`name1` AS wuname1,wu.`name2` AS wuname2,wu.`name3` AS wuname3,wu.`name4` AS wuname4,
-	wu.`name5` AS wuname5,wu.`productStaffId` AS wuproductstaffid,wu.`workId` AS wuworkid,
-	pa.`AreaId` AS paareaid,pa.`id` AS paid,pa.`name1` AS paname1,pa.`name2` AS paname2,pa.`name3` AS paname3,
-	pa.`name4` AS paname4,pa.`name5` AS paname5,ars.`id` AS arsid,ars.`aName` AS arsaname,ars.`name1` AS name1,
-	ars.`name2` AS arsname2,ars.`name3` AS arsname2,ars.`name3` AS arsname3,ars.`name4` AS arsname4,ars.`name5` AS arsname5,
-	ars.`pistion` AS arspistion
-	FROM orderwork AS ow 
-	INNER JOIN OrderProductWork AS opw ON ow.`id`=opw.`orderWorkId` 
-	INNER JOIN worduser AS wu ON opw.`id`=wu.`workId`
-	INNER JOIN productarea AS pa ON pa.`id`=opw.`name1`
-	INNER JOIN areas AS ars ON ars.`id`=pa.`AreaId` 
-	WHERE ow.`orderId`=#{id}
-  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -131,15 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, orderId, name1, name2, name3, name4, name5
+    id, tid, typeId, iid, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.orderworkExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.MealixExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from orderwork
+    from mealix
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -150,35 +90,43 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from orderwork
+    from mealix
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from orderwork
+    delete from mealix
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.orderworkExample" >
-    delete from orderwork
+  <delete id="deleteByExample" parameterType="com.accp.domain.MealixExample" >
+    delete from mealix
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.orderwork" >
-    insert into orderwork (id, orderId, name1, 
-      name2, name3, name4, 
-      name5)
-    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, 
-      #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
-      #{name5,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.accp.domain.Mealix" >
+    insert into mealix (id, tid, typeId, 
+      iid, name1, name2, 
+      name3, name4, name5
+      )
+    values (#{id,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
+      #{iid,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, 
+      #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.orderwork" >
-    insert into orderwork
+  <insert id="insertSelective" parameterType="com.accp.domain.Mealix" >
+    insert into mealix
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="orderid != null" >
-        orderId,
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="iid != null" >
+        iid,
       </if>
       <if test="name1 != null" >
         name1,
@@ -200,8 +148,14 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderid != null" >
-        #{orderid,jdbcType=INTEGER},
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="iid != null" >
+        #{iid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         #{name1,jdbcType=VARCHAR},
@@ -220,20 +174,26 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.orderworkExample" resultType="java.lang.Integer" >
-    select count(*) from orderwork
+  <select id="countByExample" parameterType="com.accp.domain.MealixExample" resultType="java.lang.Integer" >
+    select count(*) from mealix
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update orderwork
+    update mealix
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderid != null" >
-        orderId = #{record.orderid,jdbcType=INTEGER},
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        typeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.iid != null" >
+        iid = #{record.iid,jdbcType=INTEGER},
       </if>
       <if test="record.name1 != null" >
         name1 = #{record.name1,jdbcType=VARCHAR},
@@ -256,9 +216,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update orderwork
+    update mealix
     set id = #{record.id,jdbcType=INTEGER},
-      orderId = #{record.orderid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      typeId = #{record.typeid,jdbcType=INTEGER},
+      iid = #{record.iid,jdbcType=INTEGER},
       name1 = #{record.name1,jdbcType=VARCHAR},
       name2 = #{record.name2,jdbcType=VARCHAR},
       name3 = #{record.name3,jdbcType=VARCHAR},
@@ -268,11 +230,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.orderwork" >
-    update orderwork
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Mealix" >
+    update mealix
     <set >
-      <if test="orderid != null" >
-        orderId = #{orderid,jdbcType=INTEGER},
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="iid != null" >
+        iid = #{iid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         name1 = #{name1,jdbcType=VARCHAR},
@@ -292,9 +260,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.orderwork" >
-    update orderwork
-    set orderId = #{orderid,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Mealix" >
+    update mealix
+    set tid = #{tid,jdbcType=INTEGER},
+      typeId = #{typeid,jdbcType=INTEGER},
+      iid = #{iid,jdbcType=INTEGER},
       name1 = #{name1,jdbcType=VARCHAR},
       name2 = #{name2,jdbcType=VARCHAR},
       name3 = #{name3,jdbcType=VARCHAR},

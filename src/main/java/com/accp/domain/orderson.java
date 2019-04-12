@@ -19,8 +19,17 @@ public class orderson {
     
     private Object ix;
     
+    
 
-    public Integer getId() {
+    public Object getIx() {
+		return ix;
+	}
+
+	public void setIx(Object ix) {
+		this.ix = ix;
+	}
+
+	public Integer getId() {
         return id;
     }
 
