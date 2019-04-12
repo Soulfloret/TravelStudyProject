@@ -24,8 +24,8 @@
 	 			<div class="row tm-content-row">
 	        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
 	        	<input type="text" placeholder="活动名称" class="form-control-sm"/>
-	        	<input type="text" placeholder="工作人员" class="form-control-sm" style="margin-left: 30px;margin-right: 30px;"/>
-	        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+	        	
+	        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left:20px;" class="btn-primary" value="查询" />
 	          <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
 	            <div class="tm-product-table-container">
 	              <table class="table table-hover tm-table-small tm-product-table">
@@ -33,98 +33,24 @@
 	                  <tr>
 	                    <th scope="col">&nbsp;</th>
 	                    <th scope="col">活动名称</th>
-	                    <th scope="col">活动人数</th>
-	                    <th scope="col">创建时间</th>
-	                    <th scope="col">状态</th>
+	                   
 	                    <th scope="col">&nbsp;</th>
+	                     <th scope="col">&nbsp;</th>
 	                  </tr>
 	                </thead>
 	                <tbody>
-	                  <tr>
+	                  <tr th:each="item : ${list}">
 	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
+	                    <td class="tm-product-name" th:id="${item.id}" th:text="${item.pname}"></td>
 	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                        
-	                      </a>
+	                    	<a href="javascript:void(0)" style="font-size: 20px" id="look_project">→</a>
 	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
-	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                        
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
 	                    <td>
 	                      <a href="#" class="tm-product-delete-link">
 	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
 	                      </a>
 	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
-	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
-	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
-	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name">活动名称</td>
-	                    <td>1,450</td>
-	                    <td>28 March 2019</td>
-	                    <td>开放</td>
-	                    <td>
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
+	                    
 	                  </tr>
 	                </tbody>
 	              </table>
@@ -152,31 +78,7 @@
 	                      </a>
 	                    </td>
 	                  </tr>
-	                  <tr>
-	                    <td class="tm-product-name">项目名称</td>
-	                    <td class="text-center">
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <td class="tm-product-name">项目名称</td>
-	                    <td class="text-center">
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  <tr>
-	                    <td class="tm-product-name">项目名称</td>
-	                    <td class="text-center">
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                  
+	                 
 	                </tbody>
 	              </table>
 	            </div>
@@ -195,6 +97,12 @@
         $(".tm-product-name").on("click", function() {
           window.location.href = "edit-product.html";
         });
+        
+        $("#look_project").lick(function(){
+        	alert("qwe");
+        	var productId=$(this).parents("tr").find("td:eq(1)").attr("id");
+        	alert(productId);
+        })
       });
     </script>
   </body>
