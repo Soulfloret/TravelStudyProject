@@ -11,5 +11,8 @@ public interface staffServiceImpl {
 	staff queryById(Integer id);
 	
 	List<staff> queryLike(staff sta);
+	
+	//先增加用户 在增加员工
+	int insert(staff sta);
 
 }

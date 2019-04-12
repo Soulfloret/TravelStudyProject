@@ -9,6 +9,7 @@ import com.accp.domain.staff;
 import com.accp.domain.staffExample;
 import com.accp.mapper.positionsMapper;
 import com.accp.mapper.staffMapper;
+import com.accp.mapper.usersMapper;
 import com.accp.wujiajun.service.impl.staffServiceImpl;
 
 @Service
@@ -17,6 +18,9 @@ public class staffService implements staffServiceImpl{
 	@Autowired
 	staffMapper mapper;
 
+	@Autowired
+	usersMapper umapper;
+	
 	
 	
 	
@@ -36,6 +40,15 @@ public class staffService implements staffServiceImpl{
 	public List<staff> queryLike(staff sta) {
 		// TODO Auto-generated method stub
 		return mapper.queryLike(sta);
+	}
+
+	@Override
+	public int insert(staff sta) {
+		// TODO Auto-generated method stub
+		int i=umapper.insert(sta.getUlist());
+		sta.setUserid(sta.getUlist().getId());
+		i+=mapper.insert(sta);
+		return i;
 	}
 	
 	

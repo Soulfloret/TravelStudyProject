@@ -18,7 +18,7 @@ public class staff {
 
 	private Integer state;
 
-	private String name1;
+	private String uname;
 
 	private String name2;
 
@@ -115,12 +115,12 @@ public class staff {
 		this.state = state;
 	}
 
-	public String getName1() {
-		return name1;
+	public String getUname() {
+		return uname;
 	}
 
-	public void setName1(String name1) {
-		this.name1 = name1;
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 
 	public String getName2() {

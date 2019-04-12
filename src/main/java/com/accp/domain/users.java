@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class users {
     private Integer id;
 
@@ -28,8 +30,18 @@ public class users {
     private String name4;
 
     private String name5;
+    
+    private List<users> ulists;
+    
+    public List<users> getUlists() {
+		return ulists;
+	}
 
-    public Integer getId() {
+	public void setUlists(List<users> ulists) {
+		this.ulists = ulists;
+	}
+
+	public Integer getId() {
         return id;
     }
 
