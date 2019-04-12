@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -223,6 +224,17 @@ public class CustomerController {
 		model.addAttribute("MainOrderlist",UmoService.query(1));
 		return "CustomerCare";
 	}
+	/**
+	 * 
+	 * @return 去个人中心
+	 */
+	@RequestMapping("toPerson")
+	public  String toPerson(Model model,HttpSession session) {
+		users use=(users)session.getAttribute("use");
+		model.addAttribute("users",Use.query(use.getId()));
+		return "Person";
+	}
+	
 	
 	@RequestMapping("query")
 	@ResponseBody
