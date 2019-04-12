@@ -1,11 +1,13 @@
 package com.accp.domain;
 
-import java.util.List;
-
-public class orderwork {
+public class Meal {
     private Integer id;
 
-    private Integer orderid;
+    private String name;
+
+    private Double price;
+
+    private Integer status;
 
     private String name1;
 
@@ -16,21 +18,8 @@ public class orderwork {
     private String name4;
 
     private String name5;
-    
-    private List<orderproductwork> list;
-    
 
-  
-
-	public List<orderproductwork> getList() {
-		return list;
-	}
-
-	public void setList(List<orderproductwork> list) {
-		this.list = list;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -38,12 +27,28 @@ public class orderwork {
         this.id = id;
     }
 
-    public Integer getOrderid() {
-        return orderid;
+    public String getName() {
+        return name;
     }
 
-    public void setOrderid(Integer orderid) {
-        this.orderid = orderid;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getName1() {
