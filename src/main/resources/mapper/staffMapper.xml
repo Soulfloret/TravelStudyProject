@@ -13,7 +13,7 @@
 		<result column="PostionId" property="postionid"
 			jdbcType="INTEGER" />
 		<result column="state" property="state" jdbcType="INTEGER" />
-		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="name1" property="name1" jdbcType="VARCHAR" />
 		<result column="name2" property="name2" jdbcType="VARCHAR" />
 		<result column="name3" property="name3" jdbcType="VARCHAR" />
 		<result column="name4" property="name4" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
 		<association property="ulist"
 			javaType="com.accp.domain.users">
 			<id column="uid" property="id" jdbcType="INTEGER" />
-			<result column="name" property="uname" jdbcType="VARCHAR" />
+			<result column="uname" property="uname" jdbcType="VARCHAR" />
 			<result column="uPassword" property="upassword"
 				jdbcType="VARCHAR" />
 			<result column="idCardNo" property="idcardno"
@@ -49,14 +49,50 @@
 			<id column="pid" property="id" jdbcType="INTEGER" />
 			<result column="postion" property="postion" jdbcType="VARCHAR" />
 		</association>
-
+		<association property="salist"
+			javaType="com.accp.domain.salary">
+			<id column="said" property="id" jdbcType="INTEGER" />
+			<result column="BaseSalary" property="basesalary"
+				jdbcType="INTEGER" />
+			<result column="pid" property="pid" jdbcType="INTEGER" />
+		</association>
 	</resultMap>
 
 
+	<!-- 根据usersid查询员工薪资 、打卡次数 -->
+	<select id="salaryQueryId" resultMap="Map">
+		SELECT
+		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS stid FROM
+		staff
+		JOIN signin ON signin.`staffId`=staff.`id`
+		JOIN users ON
+		users.`id`=staff.`userId`
+		JOIN positions ON
+		positions.`id`=staff.`PostionId`
+		WHERE signin.`staffId`=#{id}
+	</select>
+
+
+
+	<!-- 查询员工薪资列表 -->
+	<select id="salaryQuery" resultMap="Map">
+		SELECT
+		staff.*,users.*,positions.`postion`,COUNT(*) AS
+		stid,salary.`BaseSalary` FROM staff
+		JOIN
+		users ON
+		users.`id`=staff.`userId`
+		JOIN positions ON
+		positions.`id`=staff.`PostionId`
+		JOIN signin ON
+		signin.`staffId`=staff.`id`
+		JOIN salary ON salary.`pid`=positions.`id`
+		GROUP BY staff.`id`
+	</select>
 
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
-		SELECT users.id AS uid,users.`uName` AS name,users.`idCardNo`,
+		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`
 		FROM users JOIN staff
@@ -67,11 +103,9 @@
 			<if test="postionid!=null">
 				AND staff.`PostionId`=#{postionid}
 			</if>
-			<if test="uname!=null">
-				AND uname LIKE CONCAT('%',#{uname},'%')
-			</if>
+			<!-- <if test="name1!=null"> AND uname LIKE CONCAT('%',#{name1},'%') </if> -->
 		</where>
-		
+
 	</select>
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">

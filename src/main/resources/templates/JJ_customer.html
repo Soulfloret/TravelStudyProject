@@ -16,6 +16,12 @@
 	    border: 1px white solid;
 	    width: 120px;
 	}
+	a {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+	}
 </style>
 </head>
 <body id="reportsPage">
@@ -151,6 +157,7 @@
 			$(".JJ_xiang").click(function() {
 			var h = $(this).parent().parent().parent().find(".uids").html();
 					$(".appe").html("");
+					$(".zhiwei").html("");
 					$.ajax({
 						url : "/staff/queryById?id="+h,
 						type : "POST",

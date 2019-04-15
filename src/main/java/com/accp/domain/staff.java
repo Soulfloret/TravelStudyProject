@@ -18,7 +18,7 @@ public class staff {
 
 	private Integer state;
 
-	private String uname;
+	private String name1;
 
 	private String name2;
 
@@ -29,14 +29,23 @@ public class staff {
 	private String name5;
 
 	private users ulist;
-	
+
 	private positions plist;
-	
+
 	private signin slist;
-	
-	
+
+	private salary salist;
+
 	public signin getSlist() {
 		return slist;
+	}
+
+	public salary getSalist() {
+		return salist;
+	}
+
+	public void setSalist(salary salist) {
+		this.salist = salist;
 	}
 
 	public void setSlist(signin slist) {
@@ -115,12 +124,12 @@ public class staff {
 		this.state = state;
 	}
 
-	public String getUname() {
-		return uname;
+	public String getName1() {
+		return name1;
 	}
 
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setName1(String name1) {
+		this.name1 = name1;
 	}
 
 	public String getName2() {

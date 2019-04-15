@@ -34,7 +34,6 @@ public class staffController {
 		st.getUlist().setTypeid(3);
 		st.setDepartmentid(0);
 		st.setState(0);
-		System.out.println(st.getUlist().getIdcardno());
 		String account=st.getUlist().getIdcardno().substring(14, st.getUlist().getIdcardno().length());
 		st.getUlist().setUname(account+"yx");
 		st.getUlist().setUpassword(account+"yx");
@@ -45,7 +44,6 @@ public class staffController {
 	@RequestMapping("/queryLike")
 	public String queryLike(staff sta,Model model) {
 		List<staff> list=service.queryLike(sta);
-		System.out.println(sta.getPostionid());
 		List<positions> lists=positions.selectByExample(null);
 		model.addAttribute("list",list);
 		model.addAttribute("lists",lists);
