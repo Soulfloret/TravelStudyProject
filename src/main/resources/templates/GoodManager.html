@@ -39,6 +39,7 @@
 
 											商品名称
 										</th>
+										<th scope="col">所属类型</th>
 										<th scope="col">商品价格</th>
 										<th scope="col">商品库存</th>
 										<th scope="col">状态</th>
@@ -51,6 +52,7 @@
 										
 										<td><img th:if="${item.images!=null}" th:src="${item.images.url}" width="65px" height="65px" /></td>
 										<td class="tm-product-name"><a style="color: white;" th:href="@{/menu/toupdatemenu(id=${item.id})}" th:text="${item.mname}"></a></td>
+										<td th:text="${item.mtype.tname}"></td>
 										<td th:text="${item.price}"></td>
 										<td th:text="${item.stock}"></td>
 										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="上架" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="下架" style="color: red;"></a></td>

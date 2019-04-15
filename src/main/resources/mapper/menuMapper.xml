@@ -25,12 +25,17 @@
 		    <result column="iid" property="iid" jdbcType="INTEGER" />
 		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
 	  	</association>
+	  	<association property="mtype" javaType="com.accp.domain.menutype">
+	  		<id column="mid" property="id" jdbcType="INTEGER" />
+    		<result column="tname" property="tname" jdbcType="VARCHAR" />
+	  	</association>
   </resultMap>
   
   
   <select id="QueryMenu" resultMap="BaseResultMap1">
-  		SELECT m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` 
+  		SELECT m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` ,me.`id`AS `mid`,me.`tname`
 		FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
+		INNER JOIN `menutype` me ON m.`menutypeId` =me.`id`
 		<where>
 			<if test="mname!=null and mname!=''">
 				m.mname like CONCAT('%',#{mname},'%')

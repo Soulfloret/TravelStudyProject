@@ -20,8 +20,22 @@ public class roomorder {
     private String name4;
 
     private String name5;
+    
+    
 
-    public Integer getId() {
+    public roomorder(String ordernumber, Integer userid, Double price, String state) {
+		super();
+		this.ordernumber = ordernumber;
+		this.userid = userid;
+		this.price = price;
+		this.state = state;
+	}
+
+	public roomorder() {
+		super();
+	}
+
+	public Integer getId() {
         return id;
     }
 

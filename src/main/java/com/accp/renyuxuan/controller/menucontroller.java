@@ -37,6 +37,7 @@ public class menucontroller {
 	public String toquerymenu(Model model,menu men) {
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
+		System.out.println(JSON.toJSON(list));
 		model.addAttribute("listtype",me.selectByExample(null));
 		model.addAttribute("menus",men);
 		return "GoodManager";

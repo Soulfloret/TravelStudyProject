@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,12 +10,17 @@
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
     />
     <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="css/fontawesome.min.css" />
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
-    
+		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+		<!-- https://fontawesome.com/ -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<!-- https://getbootstrap.com/ -->
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+    <style type="text/css">
+    	input{
+    		border: 0px;
+    		background-color: white;
+    	}
+    </style>
   </head>
 
   <body id="reportsPage">
@@ -23,60 +28,41 @@
     <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-        	<input type="date" placeholder="" name="ks" style="border-radius: 30px 30px 30px 30px;"/>
+        	<form th:action="@{/room/roomorder}">
+        	<input type="date" placeholder="" th:value="${#dates.format(ro.begintime, 'yyyy-MM-dd')}" name="begintime" style="border-radius: 30px 30px 30px 30px;"/>
         	<span style="color: white;">~</span>
-        	<input type="date" placeholder="" name="js" style="border-radius: 30px 30px 30px 30px;"/>
-        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+        	<input type="date" placeholder="" th:value="${#dates.format(ro.endtime, 'yyyy-MM-dd')}" name="endtime" style="border-radius: 30px 30px 30px 30px;"/>
+        	<input type="submit" id="cx" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
+          	</form>
           <div class="tm-bg-primary-dark tm-block tm-block-products">
             <div class="tm-product-table-container">
-              <table class="table table-hover tm-table-small tm-product-table">
+              <table style="text-align: center;" class="table table-hover tm-table-small tm-product-table">
                 <thead>
                   <tr>
                     <th scope="col">房屋样式</th>
-                    <th scope="col">
-                    	描述
-                    </th>
-                    <th scope="col">价格</th>
-                    <th scope="col">类型</th>
-                    <th scope="col">位置</th>
-                    <th scope="col">状态</th>
-                    <th scope="col">&nbsp;</th>
+					<th scope="col">描述</th>
+					<th scope="col">位置</th>
+					<th scope="col">类型</th>
+					<th scope="col">价格</th>
+					<th scope="col">状态</th>
+					<th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">太平洋海岸27523</td>
-                    <td>￥388</td>
-                    <td>公寓</td>
-                    <td>201</td>
-                    <td>可租</td>
+                  <tr th:each="item,stack:${list}">
+                   	<td><img th:if="${item.img !=null }" th:src="${item.img.url}" width="65px" height="65px" /></td>
+					<td class="tm-product-name"><a th:text="${item.rname}" th:href="@{/room/toupdateroom(id=${item.id})}"></a></td>
+					<td th:text="${item.location}"></td>
+					<td><span th:if="${item.typeid==1}" th:text="单人间"></span><span th:if="${item.typeid==2}" th:text="双人间"></span><span th:if="${item.typeid==3}" th:text="总统套房"></span></td>
+					<td th:text="${item.price}"></td>
+					<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="可租" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="维修中" style="color: red;"></a></td>
+					
                     <td class="yd">
                      	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
                     </td>
+                    <td style="display: none;" th:text="${item.id}"></td>
                   </tr>
-                  <tr>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">太平洋海岸27523</td>
-                    <td>￥188</td>
-                    <td>公寓</td>
-                    <td>201</td>
-                    <td>可租</td>
-                    <td class="yd">
-                     	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">太平洋海岸27523</td>
-                    <td>￥288</td>
-                    <td>公寓</td>
-                    <td>201</td>
-                    <td>可租</td>
-                    <td class="yd">
-                     	<a href="javascript:void(0)" style="color: red;" data-target="#md" data-toggle="modal">预订</a>
-                    </td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>
@@ -104,24 +90,23 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						
 					</div>
+					<form th:action="@{/room/RoomDestineadd}" method="post">
 					<div class="modal-body">
 						<div>
-						<span class="data1"></span>到<span class="data2"></span> 
+						<input type="date" name="begintime" readonly="readonly" class="data1">到<input name="endtime" readonly="readonly" class="data2" type="date">
 						</div>
-						<div>
-						位置：<span  class="wz" style="color: red;"></span>
-						</div>
-						<div>
-					       价格：<span class="jg" style="color: red;"></span>
-	          </div>
-					 	<div class="input-group">
-					  	<input type="text" class="form-control" style="background-color: white; color: black;" placeholder="身份证号码：">
-					  </div><!-- /input-group -->
+						<div>位置：<input type="text" readonly="readonly" class="wz" style="color: red;"></div>
+					    <div> 价格：<input type="text" name="price"  readonly="readonly" class="jg" style="color: red;"></div>
+					    <div> 房号：<input type="text" readonly="readonly" class="fh" style="color: red;"></div>
+					    <div> 类型：<input type="text"readonly="readonly" class="lx" style="color: red;"></div>
+					    <div> 身份证号码：<input type="text" name="sfz" placeholder="请输入"></div>
+					     <input type="hidden" name="roomid" class="id">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">预订</button>
+						<input type="submit" class="btn btn-primary" value="预订">
 					</div>
+					</form>
 				</div>
 				<!-- /.modal-content -->
 			</div>
@@ -130,23 +115,93 @@
 		
 		
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- https://getbootstrap.com/ -->
     <script>
     	$(function(){
     		$(".yd").click(function(){
-    			var ksdata=$("[name='ks']").val();
-    			var jsdata=$("[name='js']").val();
-    			var wz=$(this).prev().prev().text();
-    			var jg=$(this).prev().prev().prev().prev().text();
+    			var ksdata=$("[name='begintime']").val();
+    			var jsdata=$("[name='endtime']").val();
+    			var jg=$(this).prev().prev().text();
+    			var wz=$(this).prev().prev().prev().prev().text();
+    			var fh=$(this).prev().prev().prev().prev().prev().text();
+    			var lx=$(this).prev().prev().prev().text();
+    			var id=$(this).next().text();
+    			var date1=new Date(jsdata);
+    	        var date2=new Date(ksdata);
+    	        var date0=(date1.getTime()-date2.getTime())/(1000*60*60*24);/*不用考虑闰年否*/
     			if(ksdata!="" && jsdata!=""){
-    				$(".data1").text(ksdata);
-	    			$(".data2").text(jsdata);
-	    			$(".wz").text(wz);
-	    			$(".jg").text(jg);
+    				if(ksdata==jsdata){
+    					alert("请至少选择一天时间");
+    					return false;
+    				}
+    				var date = new Date();
+    				var n=date.getFullYear();
+    				var y=date.getMonth();
+    				var r=date.getDate();
+    				var d=n+'-0'+(y+1)+'-'+r;
+    				if(ksdata<d){
+    					alert("开始时间必须大于当前日期");
+    					return false;
+    				}else{
+    					$(".data1").val(ksdata);
+    	    			$(".data2").val(jsdata);
+    	    			$(".wz").val(wz);
+    	    			$(".jg").val(jg*date0);
+    	    			$(".fh").val(fh);
+    	    			$(".lx").val(lx);
+    	    			$(".id").val(id);
+    				}
     			}else{
     				alert("请先选择日期！");
     				return false;
-    				console.log()
+    				
+    				
+    			}
+    			
+    		})
+    		
+		          
+    		
+    		
+    		$("#cx").click(function(){
+    			var ksdata=$("[name='begintime']").val();
+    			var jsdata=$("[name='endtime']").val();
+    			var jg=$(this).prev().prev().text();
+    			var wz=$(this).prev().prev().prev().prev().text();
+    			var fh=$(this).prev().prev().prev().prev().prev().text();
+    			var lx=$(this).prev().prev().prev().text();
+    			if(ksdata!="" && jsdata!=""){
+    				if(ksdata==jsdata){
+    					alert("请至少选择一天时间");
+    					return false;
+    				}
+    				if(ksdata<jsdata){
+    					alert("开始时间不能小于结束时间");
+    					return false;
+    				}
+    				var date = new Date();
+    				var n=date.getFullYear();
+    				var y=date.getMonth();
+    				var r=date.getDate();
+    				var d=n+'-0'+(y+1)+'-'+r;
+    				if(ksdata<d){
+    					alert("开始时间必须大于当前日期");
+    					return false;
+    				}else{
+    					$(".data1").text(ksdata);
+    	    			$(".data2").text(jsdata);
+    	    			$(".wz").text(wz);
+    	    			$(".jg").text(jg);
+    	    			$(".fh").text(fh);
+    	    			$(".lx").text(lx);
+    				}
+    			}else{
+    				alert("请先选择日期！");
+    				return false;
+    				
     				
     			}
     			
@@ -154,8 +209,6 @@
     	})
     </script>
     
-    <!-- https://jquery.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
+
   </body>
 </html>

@@ -37,6 +37,14 @@
   	</where>
   </select>
   
+   <select id="queryByroomData" resultMap="BaseResultMap1">
+  	SELECT r.*,i.`id` AS iid,i.`url` FROM room AS r  LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
+	WHERE r.`id` NOT IN 
+	(SELECT rd.`roomId` FROM roomdestine AS rd 
+		where	DATEDIFF(#{begintime},rd.`begintime`)=0  AND DATEDIFF(#{endtime},rd.`endTime`)=0
+	) 
+  	
+  </select>
   
   
   
