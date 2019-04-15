@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>团队管理</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}" >
+		
+		<style type="text/css">
+			#tab {
+				max-height: 465px;
+				margin-bottom: 15px;
+				overflow-y: auto;
+			}
+			
+			tbody tr td a {
+				color: white;
+			}
+			
+			tbody tr td a:hover {
+				color: #00FF66;
+			}
+		</style>
+	</head>
+
+	<body id="reportsPage">
+		<div class="" id="home">
+			<div class="container">
+				<div class="row tm-content-row">
+					<div class="col-12 tm-block-col">
+						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+							<h2 class="tm-block-title">客户列表</h2>
+							<div class="row">
+								<form class="form-inline col-md-11" style="margin-bottom: 10px;" th:action="@{/customer/toCustomer}">
+									<div class="form-group" style="margin:0px 10px 0px 0px;">
+										<label for="exampleInputName2">图队名称:</label>
+										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="客户姓名">
+									</div>
+									<div class="form-group" style="margin:0px 10px 0px 0px;">
+										<label>客户类别: </label>
+										<select name="typeId" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
+											<option value="-1">请选择</option>
+											<option
+											 th:each="item,state : ${listUserType}" th:value="${item.id}" th:selected="${item.id}==${typeId}" th:text="${item.tname}"   
+											></option>
+											
+										</select>
+									</div>
+									<input type="submit" class="btn btn-info" value="查询">
+								</form>
+								<a th:href="@{/customer/toadd}" style="color: white;line-height: 62px;" >新增客户</a>
+							</div>
+							<div id="tab">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">客户ID</th>
+											<th scope="col">客户姓名</th>
+											<th scope="col">客户类型</th>
+											<th scope="col">客户性别</th>
+											<th scope="col">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="it,indexs :${list}">
+											<th scope="row"><b th:text="${it.id}"></b></th>
+											<td>
+												<b th:text="${it.uname}"></b>
+											</td>	
+											<td  th:if="${it.usetype.id==1}" >
+												<div class="tm-status-circle  moving" ></div>
+												<span th:text="${it.usetype.tname}" ></span>
+											</td>
+											<td  th:if="${it.usetype.id==2}" >
+												<div class="tm-status-circle  pending" ></div>
+												<span th:text="${it.usetype.tname}" ></span>
+											</td>
+											<td  th:if="${it.usetype.id==3}" >
+												<div class="tm-status-circle  moving" ></div>
+												<span th:text="${it.usetype.tname}" ></span>
+											</td>
+											<td><b th:text=${it.name1}></b></td>
+											<td>
+												<a th:href="@{/customer/toCustomerDetails(id=${it.id})}">查看</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/moment.min.js}"></script>
+	<!-- https://momentjs.com/ -->
+	<script th:src="@{/js/Chart.min.js}"></script>
+	<!-- http://www.chartjs.org/docs/latest/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+	<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
+
+</html>

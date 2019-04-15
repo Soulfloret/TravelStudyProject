@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,7 @@ import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
+import com.accp.yipeng.util.AgeUtil;
 
 /**
  * 
@@ -98,71 +100,8 @@ public class CustomerController {
 	 */
 	@RequestMapping("addCustomer")
 	public String addCustomer(users user,MultipartFile file,String team) {
-		user.setTypeid(Integer.parseInt(team));
-		String id= user.getIdcardno();
-		String idone=id.substring(14, id.length());
-		user.setUname(idone+"yx");
-		user.setUpassword(idone+"yx");
-		users us=Use.queryByIdCard(id);
-		if(team.equals("1")) {
-			if(us!=null) {
-				return "redirect:/customer/toCustomer";
-			}else {
-				Use.insert(user);
-			}
-		}else if(team.equals("2")){
-			team t=new team();
-			if(us!=null) {
-				Use.updateTypeIdById(us.getId(),Integer.parseInt(team));
-				t.setMainiuserid(us.getId());
-			}else {
-				Use.insert(user);
-				t.setMainiuserid(user.getId());
-			}
-			TeamService.insert(t);
-			try {
-				XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
-				Sheet sheet=workbook.getSheetAt(0);
-				//获取所有行
-				int rows=sheet.getPhysicalNumberOfRows();
-				List<Integer> list=new ArrayList<Integer>();
-				for (int i = 1; i < rows; i++) {
-					Row row=sheet.getRow(i);
-					Cell name=row.getCell(0);
-					name.setCellType(CellType.STRING);
-					String phone=name.getStringCellValue();
-					Cell sex=row.getCell(1);
-					String sex1=sex.getStringCellValue();
-					Cell height=row.getCell(2);
-					Double height1=height.getNumericCellValue();
-					Cell width=row.getCell(3);
-					Double width1=width.getNumericCellValue();
-					Cell address=row.getCell(4);
-					String address1=address.getStringCellValue();
-					Cell idCard=row.getCell(5);
-					String idCard1=idCard.getStringCellValue();
-					String upassword=idCard1.substring(14, idCard1.length());
-					users  uses=Use.queryByIdCard(idCard1);
-					if(uses!=null) {
-						System.out.println("ExCel表示此用户已存在");
-						list.add(uses.getId());
-					}else {
-						users u=new users(upassword+"yx",idCard1,phone,address1,height1,width1,1,sex1,upassword+"yx");
-						Use.insert(u);
-						list.add(u.getId());
-					}
-					
-					
-				}
-				TeammberService.insertBylist(t.getId(), list);
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "001";
-			}
-		}
-		
-		return "redirect:/customer/toCustomer";
+		int num=Use.addcustomer(user, file, team);
+			return "redirect:/customer/toCustomer";
 	}
 	
 	/**
@@ -198,41 +137,73 @@ public class CustomerController {
 		use.setYear(briday);
 		use.setMonth(Integer.parseInt(use.getIdcardno().substring(10, 12)));
 		use.setDay(Integer.parseInt(use.getIdcardno().substring(12, 14)));
-		Calendar cal = Calendar.getInstance();
-		if (cal.before(briday)) { //出生日期晚于当前时间，无法计算
-	            throw new IllegalArgumentException(
-	                    "The birthDay is before Now.It's unbelievable!");
-	    }
-        int yearNow = cal.get(Calendar.YEAR);  
-        int monthNow = cal.get(Calendar.MONTH)+1;  
-        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);  
-        int yearBirth =briday;
-        int monthBirth =Integer.parseInt(use.getIdcardno().substring(10, 12));
-        int dayOfMonthBirth =Integer.parseInt(use.getIdcardno().substring(12, 14));
-        int age = yearNow - yearBirth;  
-        if (monthNow <= monthBirth) {  
-            if (monthNow == monthBirth) {  
-                if (dayOfMonthNow < dayOfMonthBirth) {
-                	age--;
-                }
-            }else{  
-                age--;  
-            }  
-        } 
-        use.setAge(age);
+		use.setAge(AgeUtil.getage(use));
 		model.addAttribute("user", use);
-		model.addAttribute("MainOrderlist",UmoService.query(1));
+		//model.addAttribute("MainOrderlist",UmoService.query(1));
 		return "CustomerCare";
 	}
+	
 	/**
 	 * 
 	 * @return 去个人中心
 	 */
 	@RequestMapping("toPerson")
-	public  String toPerson(Model model,HttpSession session) {
-		users use=(users)session.getAttribute("use");
-		model.addAttribute("users",Use.query(use.getId()));
+	public  String toPerson() {
 		return "Person";
+	}
+
+	/**
+	 * 
+	 * @return 首页
+	 */
+	@RequestMapping("topagehome")
+	public  String topagehome() {
+		return "pagehome";
+	}
+	
+	
+	
+	/**
+	 * 		个人信息详情查询  
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("toPersonDetails")
+	public  String toPersonDetails(Model model,HttpSession session) {
+		users uses=(users)session.getAttribute("use");
+		users use=Use.query(uses.getId());
+		int age=AgeUtil.getage(use);
+        use.setAge(age);
+		model.addAttribute("users",use);
+		return "info";
+	}
+	
+	/**
+	 * 		去修改个人信息详情  
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("updateinfo")
+	public  String updateinfo(Model model,HttpSession session) {
+		users uses=(users)session.getAttribute("use");
+		users use=Use.query(uses.getId());
+		int age=AgeUtil.getage(use);
+        use.setAge(age);
+		model.addAttribute("users",use);
+		return "updateinfo";
+	}
+	
+	/**
+	 * 	修改客户信息
+	 * @param users
+	 * @return
+	 */
+	@RequestMapping("updateUsers")
+	public  String updateUsers(users use) {
+		int num=Use.updateByPrimaryKey(use);
+		return "redirect:/customer/toPersonDetails";
 	}
 	
 	

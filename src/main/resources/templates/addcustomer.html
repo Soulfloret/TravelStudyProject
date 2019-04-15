@@ -65,7 +65,7 @@
 									</div>
 									<div class="form-group col-md-6" >
 										<label for="" class="col-md-5">身份证号:</label>
-										<input type="text" name="idcardno" id="idCardNo" class="form-control col-md-7">
+										<input type="text" required  name="idcardno" id="idCardNo" class="form-control col-md-7">
 									</div>
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">居住地址:</label>
@@ -101,12 +101,37 @@
 			<script>
 				$("#idCardNo").blur(function(){
 					var IdCardNo=$(this).val();
+					var reg=/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i ;
+      				if(!reg.test(IdCardNo)){
+						alert("你输入的身份证格式有误");
+						$("[type='submit']").attr("disabled",true);
+						return;
+      				}
+					var now=new Date();
+					var nowyear=now.getFullYear();
+					var nowmonth=now.getMonth()+1;
+					var nowday=now.getDate();
+					if(nowmonth<10){
+						nowmonth="0"+nowmonth;
+					}
+					if(nowday<10){
+						nowday+="0";
+					}
+					var s="";
+					s=s+nowyear+nowmonth+nowday;
+					var nows=parseInt(s);
+					var bri=parseInt(IdCardNo.substring(6,14));
+					if(nows<bri){
+						alert("你输入的时间超过当前时间");
+						$("[type='submit']").attr("disabled",true);
+					}else{
+						$("[type='submit']").attr("disabled",false);
+					}
 					$.ajax({
 						url:"/customer/queryByIdCard",
 						data:{"IdCardNo":IdCardNo},
 						type:"post",
 						success:function(data){
-							console.log(data);
 							if(data!=""){
 								alert("你已注册过了");
 							}

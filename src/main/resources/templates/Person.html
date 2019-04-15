@@ -7,7 +7,7 @@
 	<meta name="keywords" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	
-	<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
+		<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
 		<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
 		<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
@@ -180,8 +180,8 @@
 			<div class="container">
 				<div class="relative">
 					<ul class="bc unstyled clearfix">
-						<li><a href="pagehome.html">首页</a></li>
-						<li class="active">个人中心</li>
+						<li><a th:href="@{/customer/topagehome}">首页</a></li>
+						<li class="active" >个人中心</li>
 					</ul>
 				</div>
 			</div>
@@ -200,8 +200,8 @@
 							<section class="side-section">
 								<h3 class="uppercase text-bold"><span class="text-xs">个人中心</span></h3>
 								<ul class="nav nav-tabs nav-stacked">
-									<li><a href="info.html" target="ifr">个人信息</a></li>															
-									<li><a href="updateInfo.html" target="ifr">修改个人信息</a></li>															
+									<li><a th:href="@{/customer/toPersonDetails}" target="ifr">个人信息</a></li>															
+									<li><a th:href="@{/customer/updateinfo}" target="ifr">修改个人信息</a></li>															
 									<li><a href="MainOrder.html" target="ifr">订单管理</a></li>
 								</ul>
 							</section>
@@ -219,7 +219,7 @@
 							</div>
 							<!-- // PROMO -->
 						</aside>
-						<iframe name="ifr" class="col-xs-12 col-md-9" height="580" width="100%" src="info.html">
+						<iframe name="ifr" class="col-xs-12 col-md-9" height="580" width="100%" th:src="@{/customer/toPersonDetails}">
 							
 							
 						</iframe>

@@ -62,8 +62,6 @@ public class users {
 	private Integer day;
 	//骞撮緞
 	private Integer age;
-    //璐﹀彿
-    private String name6;
     
     private List<userorder> orders;
     
