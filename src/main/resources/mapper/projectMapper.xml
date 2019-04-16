@@ -66,9 +66,28 @@
 	</where>
   </select>
   
+  <!-- 查询前台项目 -->
+  <select id="queryprojectAll" resultType="com.accp.domain.project">
+  	SELECT * FROM `project` 
+  	<where>
+  	<if test="pname!=null and pname!=''">
+  		and `pname` concat ('%',#{pname},'%')
+  	</if>
+  	<if test="tid!=null and tid!=0">
+  		AND tid=#{tid}
+  	</if>
+  	</where>
+  </select>
+  
   <!-- 查询活动项目 -->
   <select id="queryByProjectId" resultType="com.accp.domain.project">
   	SELECT * FROM `project` WHERE `id`=#{id}
+  </select>
+  
+  
+  <!-- 推荐查询单个项目 -->
+  <select id="recommendByidproject" resultType="com.accp.domain.recommend">
+  	SELECT `pName` AS `name`,`description` as pname,`price`,id FROM `project` where id=#{id}
   </select>
   
   <sql id="Example_Where_Clause" >

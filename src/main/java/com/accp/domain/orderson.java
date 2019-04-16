@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class orderson {
     private Integer id;
 
@@ -19,8 +21,29 @@ public class orderson {
     
     private Object ix;
     
+    private Integer tjcount;
+    
+    private recommend recommend;
+    
+    
 
-    public Integer getId() {
+    public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public Integer getTjcount() {
+		return tjcount;
+	}
+
+	public void setTjcount(Integer tjcount) {
+		this.tjcount = tjcount;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -22,7 +22,7 @@
 	<insert id="insertimglist">
 		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
 		<foreach collection="img" item="im" separator=",">
-		(#{im.url},#{id},3)
+		(#{im.url},#{id},6)
 		</foreach>
 	</insert>
 
