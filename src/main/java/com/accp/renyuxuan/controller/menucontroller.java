@@ -109,12 +109,40 @@ public class menucontroller {
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder(Model model) {
-		menu menus=new menu();
-		List<menu> mlist=m.QueryMenu(menus);
-		bind binds=new bind();
-		List<bind> blist=b.querybind(binds);
-		return "GoodOrderAdd";
+	public String tomenuorder(Model model,String lx) {
+		if(lx==null || lx=="") {
+			lx="0";
+		}
+		if("0".equals(lx)) {
+			menu menus=new menu();
+			List<menu> mlist=m.QueryMenu(menus);
+			bind binds=new bind();
+			List<bind> blist=b.querybind(binds);
+			model.addAttribute("mlist", mlist);
+			model.addAttribute("blist", blist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}else if("1".equals(lx)) {
+			menu menus=new menu();
+			List<menu> mlist=m.QueryMenu(menus);
+			model.addAttribute("mlist", mlist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}else if("2".equals(lx)) {
+			bind binds=new bind();
+			List<bind> blist=b.querybind(binds);
+			model.addAttribute("blist", blist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}
+		return "";
+	}
+	
+	
+	@RequestMapping("/orderadd")
+	public String orderadd() {
+		
+		return "redirect:/menu/tomenuorder";
 	}
 	
 	
