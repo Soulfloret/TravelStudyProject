@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.accp.domain.signin;
 import com.accp.domain.staff;
 import com.accp.domain.staffExample;
 import com.accp.mapper.positionsMapper;
+import com.accp.mapper.signinMapper;
 import com.accp.mapper.staffMapper;
+import com.accp.mapper.usersMapper;
 import com.accp.wujiajun.service.impl.staffServiceImpl;
 
 @Service
@@ -17,7 +20,11 @@ public class staffService implements staffServiceImpl{
 	@Autowired
 	staffMapper mapper;
 
+	@Autowired
+	usersMapper umapper;
 	
+	@Autowired
+	signinMapper smapper;
 	
 	
 	@Override
@@ -37,6 +44,34 @@ public class staffService implements staffServiceImpl{
 		// TODO Auto-generated method stub
 		return mapper.queryLike(sta);
 	}
+
+	@Override
+	public int insert(staff sta) {
+		// TODO Auto-generated method stub
+		int i=umapper.insert(sta.getUlist());
+		sta.setUserid(sta.getUlist().getId());
+		i+=mapper.insert(sta);
+		return i;
+	}
+
+	@Override
+	public List<staff> salaryQuery(staff sta) {
+		// TODO Auto-generated method stub
+		return mapper.salaryQuery(sta);
+	}
+
+	@Override
+	public List<staff> salaryQueryId(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.salaryQueryId(id);
+	}
+
+	@Override
+	public List<signin> signinQuery(Integer id) {
+		// TODO Auto-generated method stub
+		return smapper.signinQuery(id);
+	}
+
 	
 	
 

@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.project;
 import com.accp.domain.projectExample;
+import com.accp.domain.recommend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +33,8 @@ public interface projectMapper {
     List<project> queryAll(project pro);
     
     List<project> queryByProjectId(Integer id);
+    
+    List<project> queryprojectAll(project project);
+    
+    recommend recommendByidproject(@Param("id")Integer id);
 }

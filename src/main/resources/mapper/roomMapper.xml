@@ -15,6 +15,39 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.room" id="BaseResultMap1" extends="BaseResultMap">
+  		<association property="img" javaType="com.accp.domain.images">
+  			<id column="iid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+  		</association>
+  </resultMap>
+  
+  
+  
+  <select id="queryByroom" resultMap="BaseResultMap1">
+  	SELECT r.*,i.`id` AS iid,i.`url` FROM room   r LEFT JOIN `images` i ON r.id=i.`iid` AND i.`typeId`=3
+  	<where>
+  		<if test="typeid!=null and typeid!=''">
+  			r.typeid=#{typeid}
+  		</if>
+  		<if test="id!=null and id!=''">
+  			r.id=#{id}
+  		</if>
+  	</where>
+  </select>
+  
+   <select id="queryByroomData" resultMap="BaseResultMap1">
+  	SELECT r.*,i.`id` AS iid,i.`url` FROM room AS r  LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
+	WHERE r.`id` NOT IN 
+	(SELECT rd.`roomId` FROM roomdestine AS rd 
+		where	DATEDIFF(#{begintime},rd.`begintime`)=0  AND DATEDIFF(#{endtime},rd.`endTime`)=0
+	) 
+  	
+  </select>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

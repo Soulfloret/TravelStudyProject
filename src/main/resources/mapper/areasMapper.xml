@@ -73,7 +73,6 @@
     id, aName, pistion, name1, name2, name3, name4, name5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.areasExample" >
-  
     select * from areas
    	<where>
 	   	<if test="aname != null">
@@ -84,7 +83,8 @@
 	    or pistion=#{pistion}
 	    </if>
    	</where>
-  </select>
+    
+     </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

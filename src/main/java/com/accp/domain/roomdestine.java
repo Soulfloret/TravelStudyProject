@@ -2,13 +2,19 @@ package com.accp.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class roomdestine {
     private Integer id;
 
     private Integer roomid;
 
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date begintime;
 
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date endtime;
 
     private Integer userid;
@@ -114,4 +120,6 @@ public class roomdestine {
     public void setName5(String name5) {
         this.name5 = name5;
     }
+
+
 }

@@ -39,13 +39,13 @@ public class users {
 
     private Integer typeid;
     
-    //鐢ㄦ埛绫诲瀷瀵硅薄 
+    //閻€劍鍩涚猾璇茬�风�电钖� 
     private usertype usetype;
     
-    //鎬у埆鍒�  
+    //閹冨焼閸掞拷  
     private String name1;
 
-    //澶村儚
+    //婢舵潙鍎�
     private String name2;
 
     private String name3;
@@ -54,19 +54,26 @@ public class users {
 
     private String name5;
 
-    //骞�
+    //楠烇拷
 	private Integer year;
-	//鏈�
+	//閺堬拷
 	private Integer month;
-	//鏃�
+	//閺冿拷
 	private Integer day;
-	//骞撮緞
+	//楠炴挳绶�
 	private Integer age;
-    //璐﹀彿
+    //鐠愶箑褰�
     private String name6;
+
     
     private List<userorder> orders;
     
+    
+    private List<users> ulists;
+    
+    public List<users> getUlists() {
+		return ulists;
+	}
 
 	public List<userorder> getOrders() {
 		return orders;
@@ -74,6 +81,9 @@ public class users {
 
 	public void setOrders(List<userorder> orders) {
 		this.orders = orders;
+	}
+	public void setUlists(List<users> ulists) {
+		this.ulists = ulists;
 	}
 
 	public Integer getId() {

@@ -199,14 +199,14 @@
 				        						<span class="step">01</span>
 				        						<span>订单:</span><span class="dingdanhao" th:text="${item.orderno}">SS222121</span>
 				        					</a>
-				        					<span class="time" >订单时间:</span><span th:text="${item.ordertime}">2019-12-2 12:22:22</span>
-				        					<span class="status">订单状态：</span><span th:text="${item.name1}">已完成</span>
+				        					<span class="time" >订单时间:</span><span th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+				        					<span class="status">订单状态：</span><span th:text="${item.name1}"></span>
 				        					<span class="sum">订单总价:</span><span >￥2002</span>
 				        					<span class="team">团队订单</span>
 				        				</h4>
 									</div>
 									<div class="content col-md-12 collapsed" id="checkout-collapse4">
-										<div class="dingdanhead">
+										<div class="dingdanhead"> 
 											<h4>
 												<a data-toggle="collase"  href="#checkout-collapse5" >
 													<span class="step">01</span>

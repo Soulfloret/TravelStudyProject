@@ -16,6 +16,12 @@
 	    border: 1px white solid;
 	    width: 120px;
 	}
+	a {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+	}
 </style>
 </head>
 <body id="reportsPage">
@@ -27,7 +33,8 @@
 					<div class="modal-content">
 						<div id="" class="modal-header JJ_shang">
 							<span class="closeModal">
-								<label>职位</label>&nbsp;&nbsp;&nbsp;<input type="text" />
+								<label>职位</label>&nbsp;&nbsp;&nbsp;
+							<span class="zhiwei"></span>
 							</span> <span class="close" data-dismiss="modal">&times;</span>
 						</div>
 						<div id="" class="modal-body appe"></div>
@@ -45,7 +52,7 @@
 							<div id="" class="modal-header JJ_shang">
 								<span class="closeModal">
 									<h2>录入员工</h2>
-									<label>职位</label> <select>
+									<label>职位</label> <select class="zhi1">
 										<option th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
 								</select>
 								</span> <span class="close" data-dismiss="modal">&times;</span>
@@ -55,21 +62,21 @@
 
 									<tr>
 										<td>姓名</td>
-										<td colspan=""><input type="text" name="name" /></td>
+										<td colspan=""><input type="text" name="name1" /></td>
 										<td>电话号码</td>
-										<td colspan="3"><input type="text" name="phone" /></td>
+										<td colspan="3"><input type="text" name="phone1" /></td>
 									</tr>
 									<tr>
 										<td>住址</td>
-										<td colspan="3"><input type="text" name="address" /></td>
+										<td colspan="3"><input type="text" name="address1" /></td>
 										<td>体重</td>
-										<td><input type="text" name="height" /></td>
+										<td><input type="text" name="width1" /></td>
 									</tr>
 									<tr>
 										<td>身份证号</td>
-										<td colspan="3"><input type="text" name="idCardNo" /></td>
+										<td colspan="3"><input type="text" name="idCardNo1" /></td>
 										<td>身高</td>
-										<td><input type="text" name="width" /></td>
+										<td><input type="text" name="height1" /></td>
 									</tr>
 								</table>
 							</div>
@@ -88,7 +95,7 @@
 						<div class="JJ_feileiselect">
 						<form action="/staff/queryLike" method="post">
 						 <label>职位</label>&nbsp; 
-							<select name="id">
+							<select name="postionid">
 								<option value="">请选择</option>
 								<option  th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
 							</select> 
@@ -104,7 +111,7 @@
 									<th scope="col">员工姓名</th>
 									<th scope="col">员工类型</th>
 									<th scope="col">员工性别</th>
-									<th scope="col">打卡次数</th>
+									<!-- <th scope="col">打卡次数</th> -->
 									<th scope="col">详情</th>
 									<th scope="col">操作</th>
 								</tr>
@@ -118,8 +125,8 @@
 										th:text="${item.plist.postion}"></b>
 									</td>
 									<td><b>男</b></td>
-
-									<td><b th:text="${item.slist.staffid}"> </b></td>
+<!-- 
+									<td><b th:text="${item.slist.staffid}"> </b></td> -->
 									<td><b> <a href="#" data-target="#JJ_tan"
 											data-toggle="modal" class="tm-product-delete-link JJ_xiang">
 												<i class="fa fa-info"></i>
@@ -149,8 +156,8 @@
 		$(function() {
 			$(".JJ_xiang").click(function() {
 			var h = $(this).parent().parent().parent().find(".uids").html();
-					alert(h);
 					$(".appe").html("");
+					$(".zhiwei").html("");
 					$.ajax({
 						url : "/staff/queryById?id="+h,
 						type : "POST",
@@ -158,9 +165,12 @@
 						contentType : "application/json;charset=utf-8",
 						success : function(data) {
 							console.log(data);
-							var st = "<table class='table tables'>"
+							var zhiwei="<select>"
+								+"<option>"+data.plist.postion+"</option>"
+								+"</select>";
+ 							var st = "<table class='table tables'>"
 								+ "<tr>"
-								+ "<td>姓名</td>"
+								+ "<td>用户名</td>"
 								+ "<td colspan=''><input type='text' name='name' value='"+data.ulist.uname+"'/></td>"
 								+ "<td>电话号码</td>"
 								+ "<td colspan='3'><input type='text' value='"+data.ulist.phone+"'/></td>"
@@ -183,10 +193,43 @@
 								+ "<td>离职时间</td>"
 								+ "<td colspan='2'><input type='date' pattern='yyyy-MM-dd HH:mm:ss' name='lz' val='"+data.departuretime+"'/></td>"
 								+ "</tr>" + "</table>";
-							$(".appe").append(st);
+							$(".appe").append(st); 
+							$(".zhiwei").append(zhiwei);
 								}
 							})
 
+						})
+						
+						$(".lr").click(function(){
+							var name1=$("[name=name1]").val();
+							var phone1=$("[name=phone1]").val();
+							var address1=$("[name=address1]").val();
+							var height1=$("[name=height1]").val();
+							var idCardNo1=$("[name=idCardNo1]").val();
+							var width1=$("[name=width1]").val();
+							var position1=$(".zhi1").val();
+							var ulist={};
+							ulist.idcardno=idCardNo1;
+							ulist.address=address1;
+							ulist.height=height1;
+							ulist.width=width1;
+							ulist.phone=phone1;
+							var sta={};
+							sta.postionid=position1;
+							sta.ulist=ulist;
+							var st=JSON.stringify(sta);
+							alert(st);
+							$.ajax({
+								url:"/staff/insert",
+								data:st,
+								type : "POST",
+								dataType : "json",
+								contentType : "application/json;charset=utf-8",
+								success:function(data){
+									console.log(data);
+									alert("录入成功 !")
+								}
+							})
 						})
 					
 		})

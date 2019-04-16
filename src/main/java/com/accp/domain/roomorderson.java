@@ -18,13 +18,20 @@ public class roomorderson {
     private String name4;
 
     private String name5;
-    
-    
+
     private List<roomdestine> list;
     
-    
 
-    public List<roomdestine> getList() {
+    public roomorderson(Integer roomorderid, Integer destineid) {
+		super();
+		this.roomorderid = roomorderid;
+		this.destineid = destineid;
+	}
+
+	public roomorderson() {
+		super();
+	}
+	public List<roomdestine> getList() {
 		return list;
 	}
 
