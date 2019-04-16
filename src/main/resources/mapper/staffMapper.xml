@@ -49,10 +49,6 @@
 			<id column="pid" property="id" jdbcType="INTEGER" />
 			<result column="postion" property="postion" jdbcType="VARCHAR" />
 		</association>
-<<<<<<< HEAD
-
-	</resultMap>
-=======
 		<association property="salist"
 			javaType="com.accp.domain.salary">
 			<id column="said" property="id" jdbcType="INTEGER" />
