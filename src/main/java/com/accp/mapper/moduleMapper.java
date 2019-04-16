@@ -22,6 +22,9 @@ public interface moduleMapper {
 
     int updateByPrimaryKey(module record);
     
+    
+    List<module> queryMapByUid(@Param("uid")Integer uid,@Param("id") Integer id);
+    
     @MapKey("url")
-    Map<String,module> queryMapByUid(@Param("uid")Integer uid);
+    Map<String,module> queryModuleByUidToMap(@Param("uid") Integer uid);
 }
