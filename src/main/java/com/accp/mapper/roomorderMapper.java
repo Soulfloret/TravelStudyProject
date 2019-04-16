@@ -27,4 +27,6 @@ public interface roomorderMapper {
     int updateByPrimaryKeySelective(roomorder record);
 
     int updateByPrimaryKey(roomorder record);
+    
+    List<roomorder> query(Integer id);
 }

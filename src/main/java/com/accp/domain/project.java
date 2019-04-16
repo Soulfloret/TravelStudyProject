@@ -57,8 +57,18 @@ public class project {
     private users use;
     
     
+    private projecttype pt;
+    
 
-    public users getUse() {
+    public projecttype getPt() {
+		return pt;
+	}
+
+	public void setPt(projecttype pt) {
+		this.pt = pt;
+	}
+
+	public users getUse() {
 		return use;
 	}
 

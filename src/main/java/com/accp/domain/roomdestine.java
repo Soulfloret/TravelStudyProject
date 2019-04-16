@@ -29,8 +29,19 @@ public class roomdestine {
 
     private String name5;
     
+    private room room;
+    
+    
 
-    public Integer getId() {
+    public room getRoom() {
+		return room;
+	}
+
+	public void setRoom(room room) {
+		this.room = room;
+	}
+
+	public Integer getId() {
         return id;
     }
 

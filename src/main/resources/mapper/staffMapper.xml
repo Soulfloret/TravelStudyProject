@@ -79,9 +79,9 @@
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`
-		FROM users JOIN staff
+		FROM users inner JOIN staff
 		ON staff.`userId`=users.`id`
-		JOIN positions ON
+		left JOIN positions ON
 		positions.`id`=staff.`PostionId`
 		WHERE staff.`id`=#{id}
 	</select>

@@ -143,7 +143,8 @@
 										<td><b th:text="${item.user.uname}"></b></td>
 										<td><b th:text="${item.staff.user.uname}"></b></td>
 										<td>
-											<a href="" data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link "></a>
+											<input type="hidden" th:value="${item.id}">
+											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
 										</td>
 									</tr>
 								</tbody>
@@ -174,7 +175,7 @@
 									<div class="content col-md-12 collapsed" id="checkout-collapse4">
 										<div class="dingdanhead">
 											<h4>
-												<a data-toggle="collase"  href="#checkout-collapse5" ><span class="step">01</span><span>负责人订单</span></a>
+												<a data-toggle="collase"  href="#checkout-collapse5" ><span class="step">01</span><span><!-- {list.user.uname} --></span></a>
 	        								</h4>
 										</div>
 										<div class="content col-md-12 collapsed" id="checkout-collapse5">
@@ -190,39 +191,7 @@
 													</thead>
 													<tbody>
 														<tr>
-															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-															<td>
-																<b>三区一</b>
-															</td>
-															<td>
-																<b>2018-5-5 10:00</b>
-															</td>
-															<td>
-																<b>188</b>
-															</td>
-															<td>
-																张三
-															</td>
-															<td>已进行</td>
-														</tr>
-														<tr>
-															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-															<td>
-																<b>三区一</b>
-															</td>
-															<td>
-																<b>2018-5-5 10:00</b>
-															</td>
-															<td>
-																<b>188</b>
-															</td>
-															<td>
-																张三
-															</td>
-															<td>已进行</td>
-														</tr>
-														<tr>
-															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
+															<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
 															<td>
 																<b>三区一</b>
 															</td>
@@ -250,7 +219,7 @@
 													</thead>
 													<tbody>
 														<tr>
-															<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+															<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
 															<td>
 																<b>122</b>
 															</td>
@@ -272,7 +241,7 @@
 												</thead>
 												<tbody>
 													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
+														<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
 														<td>
 															<b>122</b>
 														</td>
@@ -286,77 +255,59 @@
 										</div>
 										</div>
 										<p>团员订单管理</p>
+										<div  v-for="(item,index) in list.list">
 										<div class="dingdanhead">
 											<h4>
-												<a data-toggle="collase"  href="#checkout-collapse10" ><span class="step">01</span><span>队员一</span></a>
+												<a data-toggle="collase"  href="#checkout-collapse"+{{index}}+""><span class="step">01</span><span><!-- {{item.uname}} --></span></a>
 	        								</h4>
 										</div>
-										<div class="content col-md-12 collapsed" id="checkout-collapse10">
-										<div class="content col-md-11" id="checkout-collapse5">
-											<table class="table">
-												<thead>
-													<th scope="col">项目名称</th>
-													<th scope="col">项目价格</th>
-													<th scope="col">项目负责人</th>
-													<th scope="col">项目状态</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="content col-md-11" id="checkout-collapse6">
-											<table class="table">
-												<thead>
-													<th scope="col">菜品名称</th>
-													<th scope="col">菜品价格</th>
-													<th scope="col">菜品数据</th>
-													<th scope="col">菜品总价</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
-														<td>
-															<b>122</b>
-														</td>
-														<td>
-															<b>2</b>
-														</td>
-														<td><b>244</b></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="content col-md-11" id="checkout-collapse7">
+										<div class="content col-md-12 collapsed" id="checkout-collapse"+{{index}}+"">
+											<div v-for="(item1,index1) in itme.orders">
+												<div class="content col-md-11">
+													<table class="table">
+														<thead>
+															<th scope="col">项目名称</th>
+															<th scope="col">项目价格</th>
+															<th scope="col">项目负责人</th>
+															<th scope="col">项目状态</th>
+														</thead>
+														<tbody>
+															<tr v-for="(item2,index2) in item1.list" v-if="item2.typeid==1">
+																<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b><!-- {{item2}} --></b></th>
+																<td>
+																	<b>188</b>
+																</td>
+																<td>
+																	张三
+																</td>
+																<td>已进行</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<div class="content col-md-11">
+													<table class="table">
+														<thead>
+															<th scope="col">菜品名称</th>
+															<th scope="col">菜品价格</th>
+															<th scope="col">菜品数据</th>
+															<th scope="col">菜品总价</th>
+														</thead>
+														<tbody>
+															<tr>
+																<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
+																<td>
+																	<b>122</b>
+																</td>
+																<td>
+																	<b>2</b>
+																</td>
+																<td><b>244</b></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<div class="content col-md-11">
 											<table class="table">
 												<thead>
 													<th scope="col">房间名称</th>
@@ -378,25 +329,10 @@
 												</tbody>
 											</table>
 										</div>
+											</div>
+										</div>
+										</div>
 									</div>
-									</div>
-								</div>	
-							</div>
-							<div id="" class="modal-footer">
-								<a class="btn btn-dark">提交</a>
-								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal fade bs-example-modal-lg" id="orderInfo1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
-						<div class="modal-content" style="background-color: #435c70;color: white;">
-							<div id="" class="modal-header">
-								订单详情
-							</div>
-							<div id="" class="modal-body">
-								<div class="box">
 									<div class="dingdanhead">
 										<h4>
 				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
@@ -498,7 +434,7 @@
 							</div>
 							<div id="" class="modal-footer">
 								<a class="btn btn-dark">提交</a>
-								<a class="btn  btn-primary" data-dismiss="modal">关闭</a>
+								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 							</div>
 						</div>
 					</div>
@@ -804,7 +740,21 @@
 		<script th:src="@{/js/Chart.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
     	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
-		<script type="text/javascript">
+    	<script th:src="@{/js/vue.js}"></script>
+		<script type="text/javascript" >
+			var vue=new Vue({
+				el:".box",
+				data:{
+					list:{}
+				}
+			})
+			$(".info").click(function(){
+				var id=$(this).prev().val();
+				$.post("queryById?id="+id+"",function(data){
+					vue.list=data[0];
+					console.log(JSON.stringigy(data));
+				},"json");
+			})
 			$("[name='productOrProject']").click(function(){
 				var index=$("[name='productOrProject']").index($(this));
 				$("[name='hiddens']").attr("hidden","hidden");
