@@ -39,4 +39,9 @@ public class projectService {
 	public List<project> queryAll(project pro){
 		return prom.queryAll(pro);
 	}
+	
+	/*查询项目详情*/
+	public project projectXq_queryById(Integer id) {
+		return prom.projectXq_queryById(id);
+	}
 }

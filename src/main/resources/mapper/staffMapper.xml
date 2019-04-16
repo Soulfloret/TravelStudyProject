@@ -49,10 +49,6 @@
 			<id column="pid" property="id" jdbcType="INTEGER" />
 			<result column="postion" property="postion" jdbcType="VARCHAR" />
 		</association>
-<<<<<<< HEAD
-
-	</resultMap>
-=======
 		<association property="salist"
 			javaType="com.accp.domain.salary">
 			<id column="said" property="id" jdbcType="INTEGER" />
@@ -94,7 +90,6 @@
 		GROUP BY staff.`id`
 	</select>
 
->>>>>>> refs/remotes/origin/wujiajun
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
