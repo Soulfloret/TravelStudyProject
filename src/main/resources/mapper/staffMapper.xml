@@ -24,7 +24,7 @@
 		<association property="ulist"
 			javaType="com.accp.domain.users">
 			<id column="uid" property="id" jdbcType="INTEGER" />
-			<result column="uName" property="uname" jdbcType="VARCHAR" />
+			<result column="uname" property="uname" jdbcType="VARCHAR" />
 			<result column="uPassword" property="upassword"
 				jdbcType="VARCHAR" />
 			<result column="idCardNo" property="idcardno"
@@ -49,29 +49,63 @@
 			<id column="pid" property="id" jdbcType="INTEGER" />
 			<result column="postion" property="postion" jdbcType="VARCHAR" />
 		</association>
-
+		<association property="salist"
+			javaType="com.accp.domain.salary">
+			<id column="said" property="id" jdbcType="INTEGER" />
+			<result column="BaseSalary" property="basesalary"
+				jdbcType="INTEGER" />
+			<result column="pid" property="pid" jdbcType="INTEGER" />
+		</association>
 	</resultMap>
+
+
+	<!-- 根据usersid查询员工薪资 、打卡次数 -->
+	<select id="salaryQueryId" resultMap="Map">
+		SELECT
+		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS stid FROM
+		staff
+		JOIN signin ON signin.`staffId`=staff.`id`
+		JOIN users ON
+		users.`id`=staff.`userId`
+		JOIN positions ON
+		positions.`id`=staff.`PostionId`
+		WHERE signin.`staffId`=#{id}
+	</select>
+
+
+
+	<!-- 查询员工薪资列表 -->
+	<select id="salaryQuery" resultMap="Map">
+		SELECT
+		staff.*,users.*,positions.`postion`,COUNT(*) AS
+		stid,salary.`BaseSalary` FROM staff
+		JOIN
+		users ON
+		users.`id`=staff.`userId`
+		JOIN positions ON
+		positions.`id`=staff.`PostionId`
+		JOIN signin ON
+		signin.`staffId`=staff.`id`
+		JOIN salary ON salary.`pid`=positions.`id`
+		GROUP BY staff.`id`
+	</select>
+
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
-		SELECT
-		staff.`id`,`users`.`uName`,positions.`postion`,COUNT(signin.`staffId`)
-		AS stid,positions.`id` AS pid
-		FROM staff
+		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
+		users.`phone`,users.`address`,users.`height`,users.`width`,
+		staff.*,positions.`id` AS pid,positions.`postion`
+		FROM users JOIN staff
+		ON staff.`userId`=users.`id`
 		JOIN positions ON
-		staff.`PostionId`=positions.`id`
-		JOIN
-		`users` ON
-		`users`.`id`=staff.`userId`
-		JOIN `signin` ON
-		`signin`.`staffId`=staff.`id` GROUP BY staff.`id`
+		positions.`id`=staff.`PostionId`
 		<where>
-			<if test="id!=null and id!=''">
-				AND positions.`id`=#{pid}
+			<if test="postionid!=null">
+				AND staff.`PostionId`=#{postionid}
 			</if>
-			<if test="ulist.uname!=null and ulist.uname!=''">
-				AND users.uName LIKE CONCAT('%',#{uname},'%')
-			</if>
+			<!-- <if test="name1!=null"> AND uname LIKE CONCAT('%',#{name1},'%') </if> -->
 		</where>
+
 	</select>
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
@@ -79,25 +113,23 @@
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`
-		FROM users JOIN staff
+		FROM users inner JOIN staff
 		ON staff.`userId`=users.`id`
-		JOIN positions ON
+		left JOIN positions ON
 		positions.`id`=staff.`PostionId`
 		WHERE staff.`id`=#{id}
 	</select>
 	<!-- 查询员工列表 -->
 	<select id="query" resultMap="Map">
 		SELECT
-		staff.`id`,`users`.`uName`,positions.`postion`,COUNT(signin.`staffId`)
-		AS stid,positions.`id` AS pid
+		staff.`id`,`users`.`uName`,positions.`postion`
+		,positions.`id` AS pid
 		FROM staff
 		JOIN positions ON
 		staff.`PostionId`=positions.`id`
 		JOIN
 		`users` ON
 		`users`.`id`=staff.`userId`
-		JOIN `signin` ON
-		`signin`.`staffId`=staff.`id` GROUP BY staff.`id`
 	</select>
 
 	<sql id="Example_Where_Clause">
@@ -169,7 +201,7 @@
 	<sql id="Base_Column_List">
 		id, userId, entryTime, departureTime, DepartMentId,
 		PostionId, state,
-		name1, name2,
+		uname, name2,
 		name3, name4, name5
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
@@ -210,7 +242,7 @@
 		insert into staff (id, userId,
 		entryTime,
 		departureTime, DepartMentId, PostionId,
-		state, name1, name2,
+		state, uname, name2,
 		name3, name4, name5
 		)
 		values (#{id,jdbcType=INTEGER},
@@ -219,7 +251,7 @@
 		#{departuretime,jdbcType=TIMESTAMP}, #{departmentid,jdbcType=INTEGER},
 		#{postionid,jdbcType=INTEGER},
 		#{state,jdbcType=INTEGER},
-		#{name1,jdbcType=VARCHAR},
+		#{uname,jdbcType=VARCHAR},
 		#{name2,jdbcType=VARCHAR},
 		#{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR},
 		#{name5,jdbcType=VARCHAR}
@@ -250,8 +282,8 @@
 			<if test="state != null">
 				state,
 			</if>
-			<if test="name1 != null">
-				name1,
+			<if test="uname != null">
+				uname,
 			</if>
 			<if test="name2 != null">
 				name2,
@@ -288,8 +320,8 @@
 			<if test="state != null">
 				#{state,jdbcType=INTEGER},
 			</if>
-			<if test="name1 != null">
-				#{name1,jdbcType=VARCHAR},
+			<if test="uname != null">
+				#{uname,jdbcType=VARCHAR},
 			</if>
 			<if test="name2 != null">
 				#{name2,jdbcType=VARCHAR},
@@ -338,8 +370,8 @@
 			<if test="record.state != null">
 				state = #{record.state,jdbcType=INTEGER},
 			</if>
-			<if test="record.name1 != null">
-				name1 = #{record.name1,jdbcType=VARCHAR},
+			<if test="record.uname != null">
+				uname = #{record.uname,jdbcType=VARCHAR},
 			</if>
 			<if test="record.name2 != null">
 				name2 = #{record.name2,jdbcType=VARCHAR},
@@ -373,8 +405,8 @@
 		#{record.postionid,jdbcType=INTEGER},
 		state =
 		#{record.state,jdbcType=INTEGER},
-		name1 =
-		#{record.name1,jdbcType=VARCHAR},
+		uname =
+		#{record.uname,jdbcType=VARCHAR},
 		name2 =
 		#{record.name2,jdbcType=VARCHAR},
 		name3 =
@@ -409,8 +441,8 @@
 			<if test="state != null">
 				state = #{state,jdbcType=INTEGER},
 			</if>
-			<if test="name1 != null">
-				name1 = #{name1,jdbcType=VARCHAR},
+			<if test="uname != null">
+				uname = #{uname,jdbcType=VARCHAR},
 			</if>
 			<if test="name2 != null">
 				name2 = #{name2,jdbcType=VARCHAR},
@@ -439,8 +471,8 @@
 		PostionId =
 		#{postionid,jdbcType=INTEGER},
 		state = #{state,jdbcType=INTEGER},
-		name1
-		= #{name1,jdbcType=VARCHAR},
+		uname
+		= #{uname,jdbcType=VARCHAR},
 		name2 = #{name2,jdbcType=VARCHAR},
 		name3 =
 		#{name3,jdbcType=VARCHAR},

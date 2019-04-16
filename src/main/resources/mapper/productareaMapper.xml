@@ -11,6 +11,27 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+   <!-- 项目查询基地 map-->
+  <resultMap type="com.accp.domain.productarea" id="result_queryByPid" extends="BaseResultMap">
+  	<collection property="alist" column="id" ofType="com.accp.domain.productarea" select="com.accp.mapper.areasMapper.queryById">
+	  	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="aName" property="aname" jdbcType="VARCHAR" />
+	    <result column="pistion" property="pistion" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 项目查询基地 -->
+  <select id="queryByPid" resultMap="result_queryByPid">
+  	SELECT * FROM `productarea` WHERE `productId`=#{pid}
+  </select>
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -102,6 +123,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 项目新增基地 -->
+  <insert id="project_areas">
+  	insert into productarea (productId, AreaId)
+    values
+    <foreach collection="palist" item="a" separator=",">
+    (#{id,jdbcType=INTEGER}, #{a.areaid,jdbcType=INTEGER})    
+    </foreach> 
+  </insert>
+  
   <insert id="insert" parameterType="com.accp.domain.productarea" >
     insert into productarea (id, productId, AreaId, 
       name1, name2, name3, 

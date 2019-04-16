@@ -41,7 +41,7 @@
   </select>
   
   <sql id="Example_Where_Clause" >
-    <where >
+    <where>
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
@@ -130,8 +130,9 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-
   </delete>
+
+  
   <!-- 新增活动项目 -->
   <insert id="insert_product">
     insert into productproject (productId, ProjectId)
@@ -139,10 +140,8 @@
     <foreach collection="pplist" item="as" separator=",">
      (#{id,jdbcType=INTEGER}, #{as.projectid,jdbcType=INTEGER})
     </foreach>
-   
   </insert>
   
-
     <insert id="insert" parameterType="com.accp.domain.productproject" >
     insert into productproject (id, productId, ProjectId, 
       name1, name2, name3, 

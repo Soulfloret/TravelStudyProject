@@ -21,6 +21,11 @@
 	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
 	  	rm.moduleId=m.id AND ur.`userId`=#{uid} AND m.parentId=#{id}
   	</select>
+  	<select id="queryModuleByUidToMap" resultMap="BaseResultMap">
+  		SELECT m.* FROM module AS m,rolemodule AS rm,
+	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
+	  	rm.moduleId=m.id AND ur.`userId`=#{uid}
+  	</select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

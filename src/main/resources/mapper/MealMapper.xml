@@ -12,6 +12,26 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.accp.domain.Meal" id="BaseResultMap1" extends="BaseResultMap">
+  	<collection property="list" column="id" ofType="com.accp.domain.Mealix">
+	  	<id column="mxid" property="id" jdbcType="INTEGER" />
+	    <result column="tid" property="tid" jdbcType="INTEGER" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	    <result column="iid" property="iid" jdbcType="INTEGER" />
+	    <result column="mxname1" property="name1" jdbcType="VARCHAR" />
+	    <result column="mxname2" property="name2" jdbcType="VARCHAR" />
+	    <result column="mxname3" property="name3" jdbcType="VARCHAR" />
+	    <result column="mxname4" property="name4" jdbcType="VARCHAR" />
+	    <result column="mxname5" property="name5" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  <select id="query" resultMap="BaseResultMap1">
+  	select m.*,mx.`id` as mxid,mx.`iid`,mx.`tid`,mx.`typeId`,mx.`name1` as mxname1,mx.`name2` as mxname2,
+  	mx.`name3` as mxname3,mx.`name4` as mxname4,mx.`name5` as mxname5 from meal as m,mealix as mx where m.`id`=mx.`tid`
+ 	<if test="id!=null">
+ 		and m.id=#{id}
+ 	</if>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -17,14 +17,11 @@
   <select id="queryimg" resultType="com.accp.domain.images">
   	SELECT * FROM `images` WHERE `iid`=#{iid} AND `typeId`=#{typeid}
   </select>
-  
-  <!-- 新增动态图片表 -->
-	<insert id="insertimglist">
-		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
-		<foreach collection="img" item="im" separator=",">
-		(#{im.url},#{id},3)
-		</foreach>
-	</insert>
+
+	<!-- 项目查询图片 -->
+	<select id="queryByIid" resultType="com.accp.domain.images">
+		SELECT * FROM `images` WHERE `iid`=#{id}
+	</select>
 
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,19 +86,19 @@
   </sql>
   
   <insert id="insert_project">
-    insert into images (id, url, iid, 
+    insert into images (url, iid, 
       typeId
       )
       
     values 
     <foreach collection="ilist" item="a" separator=",">
-	    (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{a.iid,jdbcType=INTEGER}, 
-	      #{typeid,jdbcType=INTEGER}
+	    (#{a.url,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, 
+	      #{a.typeid,jdbcType=INTEGER}
 	      )
     </foreach>
     
   </insert>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.imagesExample" >
     select
     <if test="distinct" >
       distinct

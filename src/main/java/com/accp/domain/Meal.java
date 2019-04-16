@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Meal {
     private Integer id;
 
@@ -18,8 +20,19 @@ public class Meal {
     private String name4;
 
     private String name5;
+    
+    private List<Mealix> list;
+    
 
-    public Integer getId() {
+    public List<Mealix> getList() {
+		return list;
+	}
+
+	public void setList(List<Mealix> list) {
+		this.list = list;
+	}
+
+	public Integer getId() {
         return id;
     }
 

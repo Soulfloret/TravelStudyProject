@@ -27,4 +27,7 @@ public interface areasMapper {
     int updateByPrimaryKeySelective(areas record);
 
     int updateByPrimaryKey(areas record);
+    
+    /*项目查询基地*/
+    List<areas> queryById(Integer id);
 }

@@ -27,4 +27,6 @@ public interface ordersonMapper {
     int updateByPrimaryKeySelective(orderson record);
 
     int updateByPrimaryKey(orderson record);
+    
+    List<orderson> recommdstatic(@Param("typeid")Integer typeid);
 }

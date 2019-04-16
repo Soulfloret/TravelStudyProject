@@ -42,4 +42,5 @@ public interface usersMapper {
 
     users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
     
+    users project_queryByName(String name);
 }

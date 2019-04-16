@@ -50,9 +50,15 @@ public class ModuleServiceImpl implements ModuleService{
 	}
 
 	@Override
-	public Map<String, module> queryMapByUid(Integer uid) {
+	public Map<String, module> queryModuleByUidToMap(Integer uid) {
 		// TODO Auto-generated method stub
-		return mapper.queryMapByUid(uid);
+		return mapper.queryModuleByUidToMap(uid);
+	}
+
+	@Override
+	public List<module> queryMapByUid(Integer uid, Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.queryMapByUid(uid, id);
 	}
 
 }
