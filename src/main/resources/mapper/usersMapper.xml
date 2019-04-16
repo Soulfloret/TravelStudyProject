@@ -57,7 +57,7 @@
 	 		and uo.`orderMainId`=#{id}		
 	 	</if>
 	 	<if test="uid!=null">
-	 		and u.id=#{uid}
+	 		and u.id=#{id}
 	 	</if>
 	   </where>
   </select>
@@ -97,6 +97,25 @@
 		</if>
 	</where>
 	ORDER BY id
+  </select>
+  
+  <resultMap type="com.accp.domain.users" id="result_ByName" extends="BaseResultMap">
+  	<collection property="sta" column="id" ofType="com.accp.domain.staff">
+  	<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="userId" property="userid" jdbcType="INTEGER" />
+		<result column="entryTime" property="entrytime" jdbcType="TIMESTAMP" />
+		<result column="departureTime" property="departuretime" jdbcType="TIMESTAMP" />
+		<result column="DepartMentId" property="departmentid" jdbcType="INTEGER" />
+		<result column="PostionId" property="postionid" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <!-- 新增项目查询负责人 -->
+  <select id="project_queryByName" resultMap="BaseResultMap">
+  	SELECT * FROM `users` AS `u`
+	INNER JOIN `staff` AS `s`
+	ON `u`.`id`=`s`.`userId`  
+	WHERE `uname`=#{name}
   </select>
   
   <sql id="Example_Where_Clause" >
@@ -191,12 +210,10 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-<<<<<<< HEAD
   </delete>
-=======
-  </delete>
->>>>>>> refs/remotes/origin/wujiajun
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.users" >
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.users" >
+
     insert into users (id, uName, uPassword, 
       idCardNo, phone, address, 
       height, width, TypeId, 

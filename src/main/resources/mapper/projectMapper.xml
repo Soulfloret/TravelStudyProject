@@ -28,6 +28,16 @@
   </resultMap>
   
   <resultMap type="com.accp.domain.project" id="queryAll_result" extends="BaseResultMap">
+	  <collection property="ptype" column="id" ofType="com.accp.domain.projecttype">
+	  	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="ptName" property="ptname" jdbcType="VARCHAR" />
+	  </collection>
+	  <collection property="ilist" column="id" ofType="com.accp.domain.images" select="com.accp.mapper.imagesMapper.queryByIid">  
+	   <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="iid" property="iid" jdbcType="INTEGER" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  </collection> 
   	<collection property="sta" column="id" ofType="com.accp.domain.staff">
   		<id property="id"  column="id"/>
   		<result property="userid" column="userid"/>
@@ -52,42 +62,31 @@
   
   <select id="queryAll" resultMap="queryAll_result">
   	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
+	INNER JOIN `projecttype` AS `pt`
+	ON `pt`.`id`=`pro`.`tid`
 	INNER JOIN `staff` AS `sta`
 	ON `pro`.`leadingoffcial`=`sta`.`userId`
 	INNER JOIN `users` AS `user`
 	ON `sta`.`userId`=`user`.`id`
 	<where>
 		<if test="pname!= null">
-			or `pname`=#{pname}
+			or `pname` liek concat ('%',#{pname},'%')
 		</if>
+		<if test="id!=null">
+			or `id`=#{id}
+		</if>
+		<!-- <if test="pid!=null">
+			or `pid` =#{pid}
+		</if> -->
 		<!-- <if test="uname!=null">
 			or `user`.`uName`=#{uname}
 		</if> -->
 	</where>
   </select>
   
-  <!-- 查询前台项目 -->
-  <select id="queryprojectAll" resultType="com.accp.domain.project">
-  	SELECT * FROM `project` 
-  	<where>
-  	<if test="pname!=null and pname!=''">
-  		and `pname` concat ('%',#{pname},'%')
-  	</if>
-  	<if test="tid!=null and tid!=0">
-  		AND tid=#{tid}
-  	</if>
-  	</where>
-  </select>
-  
   <!-- 查询活动项目 -->
   <select id="queryByProjectId" resultType="com.accp.domain.project">
   	SELECT * FROM `project` WHERE `id`=#{id}
-  </select>
-  
-  
-  <!-- 推荐查询单个项目 -->
-  <select id="recommendByidproject" resultType="com.accp.domain.recommend">
-  	SELECT `pName` AS `name`,`description` as pname,`price`,id FROM `project` where id=#{id}
   </select>
   
   <sql id="Example_Where_Clause" >
@@ -182,6 +181,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.project" >
     insert into project (id, pName, description, 
