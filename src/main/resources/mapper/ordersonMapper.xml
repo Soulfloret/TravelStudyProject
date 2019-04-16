@@ -11,6 +11,17 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+   <!--  查询所有类型推荐-->
+  <select id="recommdstatic" resultType="com.accp.domain.orderson">
+  		SELECT COUNT(iid) as tjcount,iid FROM `orderson` WHERE typeid=#{typeid}
+		GROUP BY iid
+		HAVING COUNT(iid)>=2
+		ORDER BY COUNT(iid) DESC
+		LIMIT 0,5
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

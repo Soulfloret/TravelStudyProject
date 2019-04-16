@@ -142,7 +142,6 @@
    
   </insert>
   
-
     <insert id="insert" parameterType="com.accp.domain.productproject" >
     insert into productproject (id, productId, ProjectId, 
       name1, name2, name3, 
