@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class roomorderson {
     private Integer id;
 
@@ -16,8 +18,21 @@ public class roomorderson {
     private String name4;
 
     private String name5;
+    
+    
+    private List<roomdestine> list;
+    
+    
 
-    public Integer getId() {
+    public List<roomdestine> getList() {
+		return list;
+	}
+
+	public void setList(List<roomdestine> list) {
+		this.list = list;
+	}
+
+	public Integer getId() {
         return id;
     }
 

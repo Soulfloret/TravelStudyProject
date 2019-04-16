@@ -13,6 +13,68 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="query" resultMap="BaseResultMap1">
+  		SELECT ro.*,ros.`DestineId`,ros.`id` AS rosid,ros.`name1` AS name1,ros.`name2` AS rosname2,ros.`name3` AS rosname3,ros.`name4` AS rosname4,
+	ros.`name5` AS rosname5,ros.`roomOrderId`,rd.`begintime`,rd.`endTime`,rd.`id` AS rdid,rd.`name1` AS rdname1,rd.`name2` AS rdname2,
+	rd.`name3` AS rdname3,rd.`name4` AS rdname4,rd.`name5` AS rdname5,rd.`roomId`,rd.`userId`,r.`id` AS rid,r.`introduce`,r.`location`,
+	r.`name1` AS rname1,r.`name2` AS rname2,r.`name3` AS rname3,r.`name4` AS rname4,r.`name5` AS rname5,r.`price`,r.`rname`,r.`state`,r.`typeId`,
+	i.id AS imid,i.name1 AS iname1,i.name2 AS iname2,i.name3 AS iname3,i.name4 AS iname4,i.name5 AS iname5,i.`iid`,i.`typeId`,i.`url`
+	FROM roomorder AS ro,roomorderson AS ros,roomdestine AS rd,room AS r,users AS u,images AS i
+	WHERE ro.`id`=ros.`roomOrderId` AND ros.`DestineId`=rd.`id` AND rd.`roomId`=r.`id` AND u.id=rd.`userId` AND i.typeId=3 AND i.iid=r.id
+	<if test="id!=null">
+		and ro.id=#{id}
+	</if>
+  </select>
+  <resultMap type="com.accp.domain.roomorder" id="BaseResultMap1" extends="BaseResultMap">
+  	<collection property="ros" column="id"  ofType="com.accp.domain.roomorderson">
+  		<id column="rosid" property="id" jdbcType="INTEGER" />
+	    <result column="roomOrderId" property="roomorderid" jdbcType="INTEGER" />
+	    <result column="DestineId" property="destineid" jdbcType="INTEGER" />
+	    <result column="rosname1" property="name1" jdbcType="VARCHAR" />
+	    <result column="rosname2" property="name2" jdbcType="VARCHAR" />
+	    <result column="rosname3" property="name3" jdbcType="VARCHAR" />
+	    <result column="rosname4" property="name4" jdbcType="VARCHAR" />
+	    <result column="rosname5" property="name5" jdbcType="VARCHAR" />
+	    <collection property="list" column="DestineId" ofType="com.accp.domain.roomdestine">
+	    	<id column="rdid" property="id" jdbcType="INTEGER" />
+		    <result column="roomId" property="roomid" jdbcType="INTEGER" />
+		    <result column="begintime" property="begintime" jdbcType="TIMESTAMP" />
+		    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+		    <result column="userId" property="userid" jdbcType="INTEGER" />
+		    <result column="rdname1" property="name1" jdbcType="VARCHAR" />
+		    <result column="rdname2" property="name2" jdbcType="VARCHAR" />
+		    <result column="rdname3" property="name3" jdbcType="VARCHAR" />
+		    <result column="rdname4" property="name4" jdbcType="VARCHAR" />
+		    <result column="rdname5" property="name5" jdbcType="VARCHAR" />
+		    <association property="room" column="roomId" javaType="com.accp.domain.room">
+		    	<id column="rid" property="id" jdbcType="INTEGER" />
+			    <result column="rname" property="rname" jdbcType="VARCHAR" />
+			    <result column="location" property="location" jdbcType="VARCHAR" />
+			    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+			    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+			    <result column="price" property="price" jdbcType="DOUBLE" />
+			    <result column="state" property="state" jdbcType="VARCHAR" />
+			    <result column="rname1" property="name1" jdbcType="VARCHAR" />
+			    <result column="rname2" property="name2" jdbcType="VARCHAR" />
+			    <result column="rname3" property="name3" jdbcType="VARCHAR" />
+			    <result column="rname4" property="name4" jdbcType="VARCHAR" />
+			    <result column="rname5" property="name5" jdbcType="VARCHAR" />
+			    <association property="image" column="id" javaType="com.accp.domain.images">
+			    	<id column="imid" property="id" jdbcType="INTEGER" />
+				    <result column="url" property="url" jdbcType="VARCHAR" />
+				    <result column="iid" property="iid" jdbcType="INTEGER" />
+				    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+				    <result column="iname1" property="name1" jdbcType="VARCHAR" />
+				    <result column="iname2" property="name2" jdbcType="VARCHAR" />
+				    <result column="iname3" property="name3" jdbcType="VARCHAR" />
+				    <result column="iname4" property="name4" jdbcType="VARCHAR" />
+				    <result column="iname5" property="name5" jdbcType="VARCHAR" />
+			    </association>
+		    </association>
+	    </collection>
+  	</collection>
+  </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

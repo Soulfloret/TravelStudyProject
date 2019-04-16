@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.awt.Image;
+
 public class room {
     private Integer id;
 
@@ -24,8 +26,20 @@ public class room {
     private String name4;
 
     private String name5;
+    
+    private Image image;
+    
+    
 
-    public Integer getId() {
+    public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Integer getId() {
         return id;
     }
 

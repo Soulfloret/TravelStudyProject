@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.accp.domain.Usermainorder;
 import com.accp.domain.UsermainorderExample;
+import com.accp.domain.orderwork;
 
 public interface UserMainOrderService {
 	int countByExample(UsermainorderExample example);
@@ -24,5 +25,4 @@ public interface UserMainOrderService {
     
     List<Usermainorder> query(Integer id);
 
-	
 }
