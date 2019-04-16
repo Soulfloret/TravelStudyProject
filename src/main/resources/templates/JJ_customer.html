@@ -135,12 +135,15 @@
 									<td><b> <a href="javascript:void(0)"
 											class="tm-product-delete-link JJ_delete"> <i
 												class="far fa-trash-alt tm-product-delete-icon"></i>
-										</a></b></td>
+										</a><input type="checkbox" th:value="${item.id}" name="x" class="sc"></b></td>
 								</tr>
 							</tbody>
 						</table>
+						
 						<button class="btn JJ_addyg " data-target="#JJ_addygtan"
 							data-toggle="modal">录入员工</button>
+							<button class="btn JJ_plsc">批量删除</button>
+							<button class="btn JJ_sc">删除</button>
 					</div>
 				</div>
 			</div>
@@ -154,6 +157,7 @@
 	<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
 	<script>
 		$(function() {
+			$(".h").hide();
 			$(".JJ_xiang").click(function() {
 			var h = $(this).parent().parent().parent().find(".uids").html();
 					$(".appe").html("");
@@ -231,6 +235,18 @@
 								}
 							})
 						})
+						
+						$(".JJ_plsc").click(function(){
+							$(".JJ_delete").hide();
+							$(".sc").show();
+							$(".JJ_sc").show();
+							$(".JJ_plsc").hide();
+							})
+							$(".JJ_sc").click(function(){
+								var ids=$(".sc").val();
+							})
+							$(".sc").hide();
+							$(".JJ_sc").hide();
 					
 		})
 	</script>

@@ -135,4 +135,15 @@ select {
 .JJ_gz {
 	color: red;
 }
-
+.JJ_plsc{
+	border-radius: 10px;
+	background-color: #435c70;
+	border: none;
+	color: white;
+}
+.JJ_sc{
+	border-radius: 10px;
+	background-color: #435c70;
+	border: none;
+	color: white;
+}
