@@ -90,7 +90,6 @@
 		GROUP BY staff.`id`
 	</select>
 
->>>>>>> refs/remotes/origin/wujiajun
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
