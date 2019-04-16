@@ -191,7 +191,11 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+<<<<<<< HEAD
   </delete>
+=======
+  </delete>
+>>>>>>> refs/remotes/origin/wujiajun
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.users" >
     insert into users (id, uName, uPassword, 
       idCardNo, phone, address, 
