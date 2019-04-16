@@ -26,6 +26,14 @@ public class staffController {
 	@Autowired
 	positionsService positions;
 	
+	@RequestMapping("/staffupdate")
+	public String staffupdate(staff sta) {
+		Date date=new Date();
+		sta.setDeparturetime(date);
+		service.staffupdate(sta);
+		return "JJ_customer";
+	}
+	
 	@RequestMapping("/insert")
 	@ResponseBody
 	public String insert(@RequestBody staff st) {
