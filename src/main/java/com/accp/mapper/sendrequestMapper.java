@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface sendrequestMapper {
+	
+	public List<sendrequest> selectBydid(@Param("typeid")Integer typeid,@Param("did") Integer did);
+	
+	public List<sendrequest> selectByuid(@Param("typeid")Integer typeid,@Param("uid") Integer uid);
+	
     int countByExample(sendrequestExample example);
 
     int deleteByExample(sendrequestExample example);

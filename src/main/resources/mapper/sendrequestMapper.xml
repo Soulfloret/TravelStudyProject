@@ -14,6 +14,17 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <!--根据发送类型为好友  并且发送人是自己的     -->
+  <select id="selectBydid" resultMap="BaseResultMap">
+  	SELECT * FROM sendrequest WHERE  typeid=#{typeid}  AND  did=#{did} 
+	
+  </select>
+  
+  <!-- 类型为好友  接受好友为自己的  -->
+  <select id="selectByuid" resultMap="BaseResultMap">
+  	SELECT * FROM sendrequest WHERE uid=#{uid} AND typeid=#{typeid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
