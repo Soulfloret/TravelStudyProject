@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.domain.dynamics;
 import com.accp.domain.friend;
 import com.accp.domain.friendExample;
+import com.accp.mapper.dynamicsMapper;
 import com.accp.mapper.friendMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.yipeng.service.FriendService;
@@ -19,14 +21,18 @@ public class FriendServiceImpl  implements  FriendService{
 	usersMapper usemapper;
 	@Autowired
 	friendMapper mapper;
+	@Autowired
+	dynamicsMapper dynamapper;
 	@Override
 	public List<friend> queryAllFriend(Integer id) {
 		List<friend> list=mapper.queryAllFriend(id);
 		for (friend friend : list) {
 			if(friend.getUid()==id) {
 				friend.setUse(usemapper.selectByPrimaryKey(friend.getFid()));
+				friend.setDynamic(dynamapper.queryLastById(friend.getFid()));
 			}else {
 				friend.setUse(usemapper.selectByPrimaryKey(friend.getUid()));
+				friend.setDynamic(dynamapper.queryLastById(friend.getUid()));
 			}
 		}
 		

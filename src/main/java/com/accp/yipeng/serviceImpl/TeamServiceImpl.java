@@ -46,5 +46,11 @@ public class TeamServiceImpl implements TeamService{
 		// TODO Auto-generated method stub
 		return mapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public List<team> selectAllTeam(String uname, String tname) {
+		// TODO Auto-generated method stub
+		return mapper.selectAllTeam(uname, tname);
+	}
 	
 }

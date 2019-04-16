@@ -13,11 +13,20 @@ public class friend {
 
     private String name3;
 
-    private String name4;
+    public dynamics getDynamic() {
+		return dynamic;
+	}
+
+	public void setDynamic(dynamics dynamic) {
+		this.dynamic = dynamic;
+	}
+
+	private String name4;
 
     private String name5;
     private users use;
-    
+    //动态对象
+    private dynamics dynamic;
 
     public users getUse() {
 		return use;
