@@ -2,10 +2,18 @@ package com.accp.mapper;
 
 import com.accp.domain.room;
 import com.accp.domain.roomExample;
+import com.accp.domain.roomdestine;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface roomMapper {
+	
+	List<room> queryByroomData(@Param("begintime")Date begintime ,@Param("endtime")Date endtime);
+	
+	List<room> queryByroom(room r);
+	
     int countByExample(roomExample example);
 
     int deleteByExample(roomExample example);

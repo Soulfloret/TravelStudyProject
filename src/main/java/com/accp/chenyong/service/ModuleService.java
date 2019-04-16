@@ -21,6 +21,9 @@ public interface ModuleService {
 
     int updateByPrimaryKey(module record);
     
-    Map<String,module> queryMapByUid(@Param("uid")Integer uid);
+    Map<String,module> queryModuleByUidToMap(@Param("uid")Integer uid);
+    
+    List<module> queryMapByUid(@Param("uid")Integer uid,@Param("id") Integer id);
+
 
 }

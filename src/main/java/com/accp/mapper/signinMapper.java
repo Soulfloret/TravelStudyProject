@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface signinMapper {
+	
+	List<signin> signinQuery(Integer id);
+	
     int countByExample(signinExample example);
 
     int deleteByExample(signinExample example);

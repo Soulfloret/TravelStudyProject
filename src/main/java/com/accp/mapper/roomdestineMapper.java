@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface roomdestineMapper {
+	
+	
     int countByExample(roomdestineExample example);
 
     int deleteByExample(roomdestineExample example);

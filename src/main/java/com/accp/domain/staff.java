@@ -40,14 +40,23 @@ public class staff {
 	}
 
 	private users ulist;
-	
+
 	private positions plist;
-	
+
 	private signin slist;
-	
-	
+
+	private salary salist;
+
 	public signin getSlist() {
 		return slist;
+	}
+
+	public salary getSalist() {
+		return salist;
+	}
+
+	public void setSalist(salary salist) {
+		this.salist = salist;
 	}
 
 	public void setSlist(signin slist) {

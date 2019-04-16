@@ -47,9 +47,10 @@
 						<h2 class="tm-block-title d-inline-block">添加项目</h2>
 					</div>
 				</div>
+				<form action="" class="" name="fileInfo">
 				<div class="row tm-edit-product-row">
 					<div class="col-xl-6 col-lg-6 col-md-12">
-						<form action="" class="tm-edit-product-form">
+						
 							<div class="form-group mb-3">
 								<label for="name">项目名称 </label> <input
 									id="name" name="name" type="text" class="form-control validate"
@@ -58,7 +59,7 @@
 							<div class="form-group mb-3">
 								<label for="">所属类型</label> <select
 									class="custom-select tm-select-accounts" id="">
-									<option th:each="item_type : ${typelist}" th:id="${item_type.id}" th:text="${item_type.ptname}"></option>
+									<option th:each="item_type : ${typelist}"  name="ttype" th:id="${item_type.id}" th:text="${item_type.ptname}"></option>
 								</select>
 							</div>
 							<div class="form-group mb-3">
@@ -104,26 +105,32 @@
 										class="form-control validate" data-large-mode="true" />
 								</div>
 								<div class="form-group mb-3 col-xs-12 col-sm-6">
-									<label for="expire_date">最大身高
+									<label for="expire_date">适合最大身高
 									</label> <input id="expire_date" name="maxheight" type="text"
 										class="form-control validate" data-large-mode="true" />
 								</div>
 
 								<div class="form-group mb-3 col-xs-12 col-sm-6">
-									<label for="stock">最小身高 </label>
+									<label for="stock">适合最小身高 </label>
 									<input id="stock" name="minheight" type="text"
 										class="form-control validate" required />
 								</div>
 
+								<div class="form-group mb-3 col-xs-12 col-sm-6">
+									<label for="expire_date">适合最大年龄
+									</label> <input id="expire_date" name="maxcrowd" type="text"
+										class="form-control validate" data-large-mode="true" />
+								</div>
+
+								<div class="form-group mb-3 col-xs-12 col-sm-6">
+									<label for="stock">适合最小年龄 </label>
+									<input id="stock" name="mincrowd" type="text"
+										class="form-control validate" required />
+								</div>
 							</div>
-							<div hidden id="show_jd" class="form-group mb-3">
+							<div hidden="hidden" id="show_jd" class="form-group mb-3">
 								<h5 style="color: white;">已选基地</h5>
 								<table class="table" id="show_jd_table">
-									<tr>
-										<th>基地名称</th>
-										<th>基地位置</th>
-										<th></th>
-									</tr>
 								</table>
 							</div>
 							<div class="custom-file mt-3 mb-3">
@@ -138,7 +145,7 @@
 								onclick="document.getElementById('fileInput').click();"></i>
 						</div>
 						<div class="custom-file mt-3 mb-3">
-							<input id="fileInput" type="file" style="display: none;" multiple/> <input
+							<input id="fileInput" type="file" style="display: none;" multiple="multiple"/> <input
 								type="button" class="btn btn-primary btn-block mx-auto"
 								value="上传图片"
 								onclick="document.getElementById('fileInput').click();" />
@@ -148,8 +155,8 @@
 						<button type="button" id="insert_project"
 							class="btn btn-primary btn-block text-uppercase">新增项目</button>
 					</div>
-					</form>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -183,7 +190,7 @@
 				onclick="hide_jd(this)" />
 		</div>
 	</div>
-	</div>
+	
 
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<!-- https://jquery.com/download/ -->
@@ -192,6 +199,9 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<!-- https://getbootstrap.com/ -->
 	<script>
+		function getNow(s) {
+		    return s < 10 ? '0' + s: s;
+		}
 		$(function() {
 			$("#expire_date").datepicker();
 
@@ -208,12 +218,18 @@
 					$("#show_jd_table").append(xm);
 				}
 			})
-			$("#insert_project").click(function(){
+			/* $("#insert_project").click(function(){
+				var ilist=[];
+				$("#show_jd_table tr").each(function(){
+					var a={};
+					a.areaid=$(this).find("td:eq(0)").attr("id");
+					ilist.push(a);
+				})
 				var pro={};
 				pro.name=$("[name=name]").val();
 				pro.descirption=$("[name=descirption]").val();
 				pro.remark=$("[name=remark]").val();
-				pro.leadingofficial=$("[name=leadingofficial]").val();
+				pro.leadingofficial=$("[name=leadingofficial]").attr("sid");
 				pro.price=$("[name=Price]").val();
 				pro.safe_time=$("[name=safe_time]").val();
 				pro.needTime=$("[name=needTime]").val();
@@ -221,8 +237,114 @@
 				pro.Cost=$("[name=Cost]").val();
 				pro.minheight=$("[name=minheight]").val();
 				pro.maxheight=$("[name=maxheight]").val();
-				var ilist=[];
+				pro.palist=ilist;
+				var pro=JSON.stringify(pro);
+				console.log(pro); 
+				$.ajax({
+					url:"insert",
+					type:"post",
+					data:pro,
+					processData:false,
+					contentType:"application/json;charset=UTF-8",
+					success:function(){
+						alert("新增成功");
+					}
+				})   
+			}) */
+			
+			$("#insert_project").click(function(){
+				/* var form=$("form"); */
+				var formData = new FormData(); 
+				var fileArr ;
+				$("[type=file]").each(function(i,obj){
+					fileArr = this.files;
+				})
+				for(var i = 0;i < fileArr.length;i++){
+					formData.append("file",fileArr[i]);
+				}
+				console.log(fileArr)
+			 	/* var ilist=[]; */
+				$("#show_jd_table tr").each(function(i,obj){
+					/* var a={};
+					a.areaid=$(this).find("td:eq(0)").attr("id");
+					ilist.push(a); */
+					formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
+				})
 				
+				var myDate = new Date();
+				//获取当前年
+				var year=myDate.getFullYear();
+				//获取当前月
+				var month=myDate.getMonth()+1;
+				//获取当前日
+				var date=myDate.getDate(); 
+				var h=myDate.getHours();       //获取当前小时数(0-23)
+				var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+				var s=myDate.getSeconds();  
+				
+				var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+				
+				var dt = new Date(now.replace(/-/,"/")) 
+				formData.append("pname",$("[name=name]").val());
+				formData.append("createtime",dt);
+				formData.append("tid",$("[name=ttype]").attr("id"));
+				formData.append("description",$("[name=descirption]").val());
+				formData.append("remark",$("[name=remark]").val());
+				formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+				formData.append("price",$("[name=price]").val());
+				formData.append("safetime",$("[name=safe_time]").val());
+				formData.append("needtime",$("[name=needTime]").val());
+				formData.append("galleryful",$("[name=galleryful]").val());
+				formData.append("cost",$("[name=Cost]").val());
+				formData.append("minheight",$("[name=minheight]").val());
+				formData.append("maxheight",$("[name=maxheight]").val());
+				formData.append("mincrowd",$("[name=mincrowd]").val());
+				formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
+				/* formData.append("palist",ilist); */
+				/* var pro={};
+				pro.name=$("[name=name]").val();
+				pro.descirption=$("[name=descirption]").val();
+				pro.remark=$("[name=remark]").val();
+				pro.leadingofficial=$("[name=leadingofficial]").attr("sid");
+				pro.price=$("[name=Price]").val();
+				pro.safe_time=$("[name=safe_time]").val();
+				pro.needTime=$("[name=needTime]").val();
+				pro.galleryful=$("[name=galleryful]").val();
+				pro.Cost=$("[name=Cost]").val();
+				pro.minheight=$("[name=minheight]").val();
+				pro.maxheight=$("[name=maxheight]").val();
+				pro.palist=ilist;
+				var pro=JSON.stringify(pro);
+				console.log(pro); 
+				
+				formData.append("pro",pro); */
+				
+				$.ajax({
+					url:"file",
+					type:"post",
+					data:formData,
+					processData:false,
+					contentType:false,
+					dataType:"json",
+					success:function(result){
+						console.log(123);
+						console.log(result);
+					}
+				});     
+			})
+			
+			$("[name=leadingofficial]").blur(function(){
+				var name=$(this).val();
+				var th=this;
+				$.ajax({
+					url:"queryName?name="+name+"",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						console.log(result);
+						$(th).attr("sid",result.sta.id);
+					}
+				})
 			})
 		});
 

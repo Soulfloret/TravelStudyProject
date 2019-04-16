@@ -26,7 +26,7 @@ public class MyInterceptor implements HandlerInterceptor {
 		uri=uri.replace(request.getContextPath()+"/","");
 		if(request.getSession().getAttribute("urlMap")==null)
 		{
-			Map<String,module> map=service.queryMapByUid(user.getId());
+			Map<String,module> map=service.queryModuleByUidToMap(user.getId());
 			request.getSession().setAttribute("urlMap", map);
 		}
 		Object map=request.getSession().getAttribute("urlMap");

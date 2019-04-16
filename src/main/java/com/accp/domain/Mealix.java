@@ -18,8 +18,19 @@ public class Mealix {
     private String name4;
 
     private String name5;
+    
+    private Object ix;
+    
 
-    public Integer getId() {
+    public Object getIx() {
+		return ix;
+	}
+
+	public void setIx(Object ix) {
+		this.ix = ix;
+	}
+
+	public Integer getId() {
         return id;
     }
 

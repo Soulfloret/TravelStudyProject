@@ -35,10 +35,20 @@ public class menu {
     
     private String mename;
     
+    private menutype mtype;
+    
     
     
 
-    public String getMename() {
+    public menutype getMtype() {
+		return mtype;
+	}
+
+	public void setMtype(menutype mtype) {
+		this.mtype = mtype;
+	}
+
+	public String getMename() {
 		return mename;
 	}
 
