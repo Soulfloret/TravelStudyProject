@@ -22,7 +22,7 @@
   	<div class="md-5" id="home">
   	<div class="container"  style="margin-top: 30px;">  
 		<div class="row tm-content-row">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
         	<input type="text" placeholder="项目名称" class="form-control-sm"/>
         	<input type="text" placeholder="负责人" style="margin-left: 30px;" class="form-control-sm"/>
         	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
@@ -42,16 +42,17 @@
                 <tbody>
                   <tr th:each="item : ${list}">
                     <th scope="row"><input type="checkbox" /></th>
-                    <td class=""><a th:href="@{toproject_xq}" style="color: white;" th:text="${item.pname}"></a></td>
+                    <td class="" th:id="${item.id}"><a th:href="@{toproject_xq}" style="color: white;" th:text="${item.pname}"></a></td>
                     <td th:text="${item.use.uname}"></td>
                     <td th:text="${item.createtime}"></td>
-                    <td th:switch="${item.pstatus==0}">
+                    <td>
                     	<td>开放</td>
                     </td>
                     <td>
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
                       </a>
+                      <a href="javascript:void(0)" style="font-size: 20px" onclick="look_jd(this)">→</a>
                     </td>
                   </tr>
                  
@@ -66,8 +67,16 @@
             	删除项目
             </button>
           </div>
+          
         </div>
-			
+			<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+	          <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+	            <h2 class="tm-block-title">具体基地</h2>
+	            <div class="tm-product-table-container" id="xm_show">
+	              
+	            </div>
+	          </div>
+	        </div>
       </div>
       </div>
 
@@ -82,6 +91,37 @@
           window.location.href = "edit-product.html";
         });
       });
+      
+      function look_jd(th){
+     	 
+	      	var pid=$(th).parents("tr").find("td:eq(0)").attr("id");
+	      	alert(pid);
+	      	 $.ajax({
+	      		url:"queryJd?pid="+pid,
+	      		type:"post",
+	      		dataType:"json",
+	      		success:function(result){
+	      			console.log(result.alist);
+	      			$("#xm_show").html("");
+	      			$.each(result,function(i,obj){
+	      				var dt=$("<table class='table tm-table-small tm-product-table'>"+
+				        	        "<tbody>"+
+					                  "<tr>"+
+					                    "<td class='tm-product-name'></td>"+
+					                    "<td class='text-center'>"+
+					                      "<a href='#' class='tm-product-delete-link'>"+
+					                        "<i class='far fa-trash-alt tm-product-delete-icon'></i>"+
+					                      "</a>"+
+					                    "</td>"+
+					                  "</tr>"+
+					                "</tbody>"+
+					              "</table>");
+	      				$("#xm_show").append(dt);
+	      			})
+	      			
+	      		} 
+	      	})
+    } 
     </script>
   </body>
 </html>

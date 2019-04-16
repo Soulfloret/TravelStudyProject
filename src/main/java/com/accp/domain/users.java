@@ -64,15 +64,27 @@ public class users {
 	private Integer age;
     //鐠愶箑褰�
     private String name6;
-
     
     private List<userorder> orders;
     
+    private staff sta;
     
-    private List<users> ulists;
     
-    public List<users> getUlists() {
-		return ulists;
+
+	public String getName6() {
+		return name6;
+	}
+
+	public void setName6(String name6) {
+		this.name6 = name6;
+	}
+
+	public staff getSta() {
+		return sta;
+	}
+
+	public void setSta(staff sta) {
+		this.sta = sta;
 	}
 
 	public List<userorder> getOrders() {
@@ -81,9 +93,6 @@ public class users {
 
 	public void setOrders(List<userorder> orders) {
 		this.orders = orders;
-	}
-	public void setUlists(List<users> ulists) {
-		this.ulists = ulists;
 	}
 
 	public Integer getId() {

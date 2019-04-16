@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class productarea {
     private Integer id;
 
@@ -16,17 +18,17 @@ public class productarea {
     private String name4;
 
     private String name5;
-    
-    private areas  area;
-    
-    
 
-    public areas getArea() {
-		return area;
+    private List<areas> alist;
+    
+    
+    
+    public List<areas> getAlist() {
+		return alist;
 	}
 
-	public void setArea(areas area) {
-		this.area = area;
+	public void setAlist(List<areas> alist) {
+		this.alist = alist;
 	}
 
 	public Integer getId() {
