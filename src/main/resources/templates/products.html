@@ -43,7 +43,7 @@
 	                    <th scope="row"><input type="checkbox" /></th>
 	                    <td class="tm-product-name" th:id="${item.id}" th:text="${item.pname}"></td>
 	                    <td>
-	                    	<a href="javascript:void(0)" style="font-size: 20px" id="look_project">→</a>
+	                    	<a href="javascript:void(0)" style="font-size: 20px" onclick="look_project(this)">→</a>
 	                    </td>
 	                    <td>
 	                      <a href="#" class="tm-product-delete-link">
@@ -57,7 +57,7 @@
 	            </div>
 	            <!-- table container -->
 	            <a
-	              href="@{toinsert}"
+	              href="toinsert"
 	              class="btn btn-primary btn-block text-uppercase mb-3">新增活动</a>
 	            <button class="btn btn-primary btn-block text-uppercase">
 	            	删除活动
@@ -67,20 +67,8 @@
 	        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
 	          <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
 	            <h2 class="tm-block-title">具体项目</h2>
-	            <div class="tm-product-table-container">
-	              <table class="table tm-table-small tm-product-table">
-	                <tbody>
-	                  <tr>
-	                    <td class="tm-product-name">项目名称</td>
-	                    <td class="text-center">
-	                      <a href="#" class="tm-product-delete-link">
-	                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-	                      </a>
-	                    </td>
-	                  </tr>
-	                 
-	                </tbody>
-	              </table>
+	            <div class="tm-product-table-container" id="xm_show">
+	              
 	            </div>
 	          </div>
 	        </div>
@@ -94,16 +82,41 @@
     <!-- https://getbootstrap.com/ -->
     <script>
       $(function() {
+    	 
         $(".tm-product-name").on("click", function() {
           window.location.href = "edit-product.html";
         });
-        
-        $("#look_project").lick(function(){
-        	alert("qwe");
-        	var productId=$(this).parents("tr").find("td:eq(1)").attr("id");
-        	alert(productId);
-        })
       });
+      function look_project(th){
+    	 
+	      	var productId=$(th).parents("tr").find("td:eq(0)").attr("id");
+	      
+	      	$.ajax({
+	      		url:"queryByProdId?productId="+productId+"",
+	      		type:"post",
+	      		dataType:"json",
+	      		success:function(result){
+	      			console.log(result);
+	      			$("#xm_show").html("");
+	      			$.each(result,function(i,obj){
+	      				var dt=$("<table class='table tm-table-small tm-product-table'>"+
+				        	        "<tbody>"+
+					                  "<tr>"+
+					                    "<td class='tm-product-name'>"+obj.pro.pname+"</td>"+
+					                    "<td class='text-center'>"+
+					                      "<a href='#' class='tm-product-delete-link'>"+
+					                        "<i class='far fa-trash-alt tm-product-delete-icon'></i>"+
+					                      "</a>"+
+					                    "</td>"+
+					                  "</tr>"+
+					                "</tbody>"+
+					              "</table>");
+	      				$("#xm_show").append(dt);
+	      			})
+	      			
+	      		}
+	      	})
+      } 
     </script>
   </body>
 </html>

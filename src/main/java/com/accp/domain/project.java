@@ -56,16 +56,36 @@ public class project {
     
     private users use;
     
+    private projecttype ptype;
     
     private projecttype pt;
     
-
+    
+    
     public projecttype getPt() {
 		return pt;
 	}
 
 	public void setPt(projecttype pt) {
 		this.pt = pt;
+	}
+
+	private List<productarea> palist;
+    
+	public List<productarea> getPalist() {
+		return palist;
+	}
+
+	public void setPalist(List<productarea> palist) {
+		this.palist = palist;
+	}
+
+	public projecttype getPtype() {
+		return ptype;
+	}
+
+	public void setPtype(projecttype ptype) {
+		this.ptype = ptype;
 	}
 
 	public users getUse() {

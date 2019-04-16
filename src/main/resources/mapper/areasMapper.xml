@@ -11,6 +11,13 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 项目查询基地 -->
+	<select id="queryById" resultMap="BaseResultMap">
+		SELECT * FROM `areas` WHERE `id`=#{id}
+	</select>
+
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -83,14 +90,17 @@
 	    or pistion=#{pistion}
 	    </if>
    	</where>
-    
-     </select>
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from areas
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from areas
     where id = #{id,jdbcType=INTEGER}

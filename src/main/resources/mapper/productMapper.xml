@@ -25,14 +25,6 @@
  	 SELECT * FROM `product`
   </select>
   
-  <!-- 推荐查询单个项目 -->
-  <select id="recommendByidproduct" resultType="com.accp.domain.recommend">
-  			SELECT id,pname AS `name`,content AS pname,(SELECT SUM(`project`.`price`) FROM `productproject` JOIN `project`
-			ON `productproject`.`ProjectId`=`project`.`id`
-			WHERE `productproject`.`productId`=#{id}
-			GROUP BY `productproject`.`productId`) AS price FROM `product` where id=#{id}
-  </select>
-  
   
   <sql id="Example_Where_Clause" >
     <where >
@@ -124,9 +116,9 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+
   </delete>
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.product" >
-
     insert into product (id, pname, content, 
       name1, name2, name3, 
       name4, name5)
