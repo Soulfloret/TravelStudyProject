@@ -25,7 +25,6 @@
    <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col" style="color: white;">
-        	<form th:action="@{/menu/tomenuorder}">
         	<select class="custom-select col-2" name="lx" style="background-color: white;color: black;">
         		<option value="0" th:selected="${lx=='0'}">请选择</option>
         		<option value="1" th:selected="${lx=='1'}">普通类</option>
@@ -33,7 +32,7 @@
         	</select>
         	<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
           	</form>
-          <form th:action="@{/menu/}">
+          <form th:action="@{/menu/orderadd}">
           <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
             <div class="tm-product-table-container">
               <table class="table table-hover tm-table-small tm-product-table" style="text-align: center;">
@@ -103,10 +102,11 @@
             </div>
             <!-- table container -->
             <div>
-            <input type="submit" value="立即下单" class="btn btn-primary  text-uppercase" style="float: right;width: 170px;">
+            <span>身份证号码：</span>
+            <input type="text" name="sfz">
+            <input type="button" id="xd" value="立即下单" class="btn btn-primary  text-uppercase" style="float: right;width: 170px;">
             </div>
           </div>
-        	</form>
         </div>
         
       </div>
@@ -144,9 +144,50 @@
 											
 									})
 									
-									$("[type='checkbox']").click(function(){
+									
+								$("[type='checkbox']").click(function(){
 										zj();
+								})
+								
+								$("#xd").click(function(){
+									var sfz=$("[name='sfz']").val();
+									if(sfz==""){
+										alert("请先输入身份证号码！");
+										return false;
+									}
+									var ps=[];
+									var zj=$("[name='price']").val();
+									$("[type='checkbox']").each(function(i,obj){
+										if(obj.checked){ 
+											var vps={};
+											var menuid=$(obj).val();
+											var num=$(obj).parent().next().next().next().next().next().next().next().next().find("input").val();
+											var price=$(obj).parent().next().next().next().next().next().next().text();
+											var name1=$(obj).parent().next().next().next().next().next().next().next().next().next().find("input").val();
+											vps.menuid=menuid;
+											vps.num=num;
+											vps.price=price;
+											vps.name1=name1;
+											vps.name2=zj,
+											vps.name3=sfz,
+											ps.push(vps);
+										}
 									})
+									
+									$.ajax({
+										url:"/menu/orderadd",
+										data:JSON.stringify(ps),
+										type:"post",
+										dataType:"text",
+										contentType:'application/json',
+										success:function(result){
+											alert(result);
+											window.location.reload();
+										}
+									})
+								})
+								
+								
 									function zj(){
 											var zj=0;
 											$("[type='checkbox']").each(function(){

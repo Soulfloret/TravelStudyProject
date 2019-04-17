@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menuorder;
+import com.accp.domain.ordershop;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
+import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
+import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
 import com.alibaba.fastjson.JSON;
 
 @Controller
@@ -31,6 +36,12 @@ public class menucontroller {
 	//套餐
 	@Autowired
 	bindserviceimpl b;
+	//套餐订单
+	@Autowired
+	menuorderserviceimpl mo;
+	//套餐订单从表
+	@Autowired
+	ordershopserviceimpl os;
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
@@ -138,11 +149,33 @@ public class menucontroller {
 		return "";
 	}
 	
-	
+	@ResponseBody
 	@RequestMapping("/orderadd")
-	public String orderadd() {
-		
-		return "redirect:/menu/tomenuorder";
+	public String orderadd(@RequestBody ordershop [] vps) {
+		menuorder m=new menuorder();
+			SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+			String datetime = tempDate.format(new Date());
+			datetime=datetime+"cy";//订单编号
+			m.setOrderrreference(datetime);
+			m.setCreatetime(new Date());
+			m.setStatuss("1");
+			//身份证
+			//m.setName1(vps[0].getName3());
+			m.setUserid(1);
+			m.setPrice(Double.parseDouble(vps[0].getName2()));
+			//调方法添加订单
+			System.out.println(JSON.toJSON(m));
+			mo.insertSelective(m);
+			for (int i = 0; i < vps.length; i++) {
+				ordershop o =new  ordershop();
+				o.setOrderid(m.getId());
+				o.setMenuid(vps[i].getMenuid());
+				o.setNum(vps[i].getNum());
+				o.setName1(vps[i].getName1());
+				o.setPrice(vps[i].getPrice());
+				os.insertSelective(o);
+			}
+		return "下单成功！";
 	}
 	
 	
