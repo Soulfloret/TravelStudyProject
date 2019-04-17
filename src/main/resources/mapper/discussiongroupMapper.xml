@@ -13,6 +13,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+   <!--  根据讨论组名称 模糊查询讨论组-->
+  <select id="selectByname" resultMap="BaseResultMap">
+  	select * from discussiongroup where groupName like CONCAT('%',#{name},'%')
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface discussiongroupMapper {
+	public List<discussiongroup> selectByname(String name);
+	
     int countByExample(discussiongroupExample example);
 
     int deleteByExample(discussiongroupExample example);

@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.domain.discussiongroup;
 import com.accp.domain.sendrequest;
 import com.accp.domain.users;
 import com.accp.mapper.discussiongroupMapper;
+import com.accp.mapper.imagesMapper;
 import com.accp.mapper.sendrequestMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.yipeng.service.SendReqService;
@@ -24,6 +26,8 @@ public class SendReqServiceImpl  implements SendReqService{
 	usersMapper umapper;
 	@Autowired
 	discussiongroupMapper dmapper;
+	@Autowired
+	imagesMapper imgmapper;
 	@Override
 	public List<Object> query(Integer uid) {
 		List<Object> list=new ArrayList<Object>();
@@ -46,12 +50,26 @@ public class SendReqServiceImpl  implements SendReqService{
 		List<Object> list2=new ArrayList<Object>();
 		List<sendrequest> list5=mapper.selectBydid(2, uid);
 		for (sendrequest sendrequest : list5) {
-			sendrequest.setDis(dmapper.selectByPrimaryKey(sendrequest.getUid()));
+			discussiongroup dis=dmapper.selectByPrimaryKey(sendrequest.getUid());
+			dis.setImg(imgmapper.queryimg(sendrequest.getId(), 8));
+			sendrequest.setDis(dis);
+		}
+		List<sendrequest> list6=mapper.selectDisByuid(2, uid);
+		for (sendrequest sendrequest : list6) {
+			sendrequest.setUse(umapper.selectByPrimaryKey(sendrequest.getDid()));
+			sendrequest.getDis().setImg(imgmapper.queryimg(sendrequest.getId(), 8));
 		}
 		list2.add(list5);
+		list2.add(list6);
 		list.add(list1);
-		//list.add(list2);
+		list.add(list2);
 		return list;
 	}
+	@Override
+	public int updateStatusById(String status, Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.updateStatusById(status, id);
+	}
+
 	
 }
