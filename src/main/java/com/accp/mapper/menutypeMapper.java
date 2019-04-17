@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menutypeMapper {
+	
+	List<menutype> selectqueryTypemenu(menutype m);
+	
     int countByExample(menutypeExample example);
 
     int deleteByExample(menutypeExample example);

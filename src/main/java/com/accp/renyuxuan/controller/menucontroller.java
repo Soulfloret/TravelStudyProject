@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.domain.menuorder;
+import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
+import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
+import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
 @Controller
@@ -42,13 +45,16 @@ public class menucontroller {
 	//套餐订单从表
 	@Autowired
 	ordershopserviceimpl os;
+	//
+	@Autowired
+	UsersService u;
+	
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
 	public String toquerymenu(Model model,menu men) {
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
-		System.out.println(JSON.toJSON(list));
 		model.addAttribute("listtype",me.selectByExample(null));
 		model.addAttribute("menus",men);
 		return "GoodManager";
@@ -160,11 +166,10 @@ public class menucontroller {
 			m.setCreatetime(new Date());
 			m.setStatuss("1");
 			//身份证
-			//m.setName1(vps[0].getName3());
-			m.setUserid(1);
+			users us=u.queryByIdCard(vps[0].getName3());//数据库没有
+			m.setUserid(us.getId());
 			m.setPrice(Double.parseDouble(vps[0].getName2()));
 			//调方法添加订单
-			System.out.println(JSON.toJSON(m));
 			mo.insertSelective(m);
 			for (int i = 0; i < vps.length; i++) {
 				ordershop o =new  ordershop();
@@ -178,6 +183,13 @@ public class menucontroller {
 		return "下单成功！";
 	}
 	
+	
+	@RequestMapping("/toquerymenu1")
+	public String toquerymenu1(Model model) {
+		List<menutype> list=me.selectqueryTypemenu(null);
+		model.addAttribute("list", list);
+		return "menu1";
+	}
 	
 	
 	

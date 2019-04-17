@@ -7,4 +7,6 @@ import com.accp.domain.menutypeExample;
 
 public interface menuTypeservice {
 	List<menutype> selectByExample(menutypeExample example);
+	
+	List<menutype> selectqueryTypemenu(menutype m);
 }
