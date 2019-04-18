@@ -28,7 +28,12 @@ public interface projectMapper {
 
     int updateByPrimaryKey(project record);
     
+    /*查询所有*/
     List<project> queryAll(project pro);
     
+    /*活动查询项目*/
     List<project> queryByProjectId(Integer id);
+    
+    /*查询项目详情*/
+    project projectXq_queryById(Integer id);
 }

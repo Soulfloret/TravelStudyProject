@@ -86,6 +86,10 @@
 		JOIN salary ON salary.`pid`=positions.`id`
 		GROUP BY staff.`id`
 	</select>
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/xiangjianbo1
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,

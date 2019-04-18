@@ -60,4 +60,10 @@ public class productController {
 		System.out.println(JSON.toJSONString(list));
 		return list;
 	}
+	
+	/*活动查看详情*/
+	@RequestMapping("look_productxq")
+	public String look_productxq() {
+		return "edit-product";
+	}
 }

@@ -19,25 +19,16 @@ public class productarea {
 
     private String name5;
 
-    private List<areas> alist;
-    
     private areas area;
+    
    
     
-    public areas getArea() {
+	public areas getArea() {
 		return area;
 	}
 
 	public void setArea(areas area) {
 		this.area = area;
-	}
-
-	public List<areas> getAlist() {
-		return alist;
-	}
-
-	public void setAlist(List<areas> alist) {
-		this.alist = alist;
 	}
 
 	public Integer getId() {

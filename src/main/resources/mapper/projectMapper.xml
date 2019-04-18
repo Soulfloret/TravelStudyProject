@@ -27,6 +27,8 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  
+  <!-- 项目查询所有 -->
   <resultMap type="com.accp.domain.project" id="queryAll_result" extends="BaseResultMap">
 	  <collection property="ptype" column="id" ofType="com.accp.domain.projecttype">
 	  	<id column="id" property="id" jdbcType="INTEGER" />
@@ -88,6 +90,54 @@
   <select id="queryByProjectId" resultType="com.accp.domain.project">
   	SELECT * FROM `project` WHERE `id`=#{id}
   </select>
+  
+  
+  <!-- 查询项目详情 -->
+  <resultMap type="com.accp.domain.project" id="queryBy_Xq_result" extends="BaseResultMap">
+	  <collection property="ptype" column="id" ofType="com.accp.domain.projecttype">
+	  	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="ptName" property="ptname" jdbcType="VARCHAR" />
+	  </collection>
+	  <collection property="ilist" column="id" ofType="com.accp.domain.images" select="com.accp.mapper.imagesMapper.queryByIid">  
+	   <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="iid" property="iid" jdbcType="INTEGER" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  </collection> 
+  	<collection property="sta" column="id" ofType="com.accp.domain.staff">
+  		<id property="id"  column="id"/>
+  		<result property="userid" column="userid"/>
+  		<result property="entrytime" column="entrytime"/>
+  		<result property="departuretime" column="departuretime"/>
+  		<result property="departmentid" column="departmentid"/>
+  		<result property="postionid" column="postionid"/>
+  		<result property="state" column="state"/>
+  	</collection>
+  	<collection property="use" column="id" ofType="com.accp.domain.users">
+  		<id property="id"  column="id"/>
+  		<result property="uname" column="uname"/>
+  		<result property="upassword" column="upassword"/>
+  		<result property="idcardno" column="idcardno"/>
+  		<result property="phone" column="phone"/>
+  		<result property="address" column="address"/>
+  		<result property="height" column="height"/>
+  		<result property="width" column="width"/>
+  		<result property="typeid" column="typeid"/>
+  	</collection>
+  </resultMap>
+  
+  
+	<select id="projectXq_queryById" resultMap="queryBy_Xq_result">
+		SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
+		INNER JOIN `projecttype` AS `pt`
+		ON `pt`.`id`=`pro`.`tid`
+		INNER JOIN `staff` AS `sta`
+		ON `pro`.`leadingoffcial`=`sta`.`userId`
+		INNER JOIN `users` AS `user`
+		ON `sta`.`userId`=`user`.`id`
+		WHERE `pro`.`id`=#{id}
+	</select>
+	  
   
   <sql id="Example_Where_Clause" >
     <where >
