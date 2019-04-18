@@ -59,6 +59,10 @@
 	</resultMap>
 
 
+<select id="loginByuserid" resultMap="Map">
+select * from staff where userid=#{userid}
+</select>
+
 	<!-- 根据usersid查询员工薪资 、打卡次数 -->
 	<select id="salaryQueryId" resultMap="Map">
 		SELECT

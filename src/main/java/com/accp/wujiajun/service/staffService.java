@@ -78,6 +78,13 @@ public class staffService implements staffServiceImpl{
 		return mapper.staffupdate(sta);
 	}
 
+	@Override
+	public staff loginByuserid(Integer userid) {
+		staff s=mapper.loginByuserid(userid);
+		s.setUser(umapper.selectByPrimaryKey(s.getUserid()));
+		return s;
+	}
+
 	
 	
 

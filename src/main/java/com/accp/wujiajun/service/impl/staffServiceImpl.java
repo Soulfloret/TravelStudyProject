@@ -23,5 +23,7 @@ public interface staffServiceImpl {
 	List<signin> signinQuery(Integer id);
 	//修改员工在职状态(0,1)
 	int staffupdate(staff sta);
+	//登录时更用户id查询是否是员工
+	staff loginByuserid(Integer userid);
 	
 }
