@@ -71,9 +71,6 @@
 		positions.`id`=staff.`PostionId`
 		WHERE signin.`staffId`=#{id}
 	</select>
-
-
-
 	<!-- 查询员工薪资列表 -->
 	<select id="salaryQuery" resultMap="Map">
 		SELECT
@@ -200,7 +197,7 @@
 	<sql id="Base_Column_List">
 		id, userId, entryTime, departureTime, DepartMentId,
 		PostionId, state,
-		uname, name2,
+		name1, name2,
 		name3, name4, name5
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
@@ -241,7 +238,7 @@
 		insert into staff (id, userId,
 		entryTime,
 		departureTime, DepartMentId, PostionId,
-		state, uname, name2,
+		state, name1, name2,
 		name3, name4, name5
 		)
 		values (#{id,jdbcType=INTEGER},
@@ -250,7 +247,7 @@
 		#{departuretime,jdbcType=TIMESTAMP}, #{departmentid,jdbcType=INTEGER},
 		#{postionid,jdbcType=INTEGER},
 		#{state,jdbcType=INTEGER},
-		#{uname,jdbcType=VARCHAR},
+		#{name1,jdbcType=VARCHAR},
 		#{name2,jdbcType=VARCHAR},
 		#{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR},
 		#{name5,jdbcType=VARCHAR}
@@ -281,8 +278,8 @@
 			<if test="state != null">
 				state,
 			</if>
-			<if test="uname != null">
-				uname,
+			<if test="name1 != null">
+				name1,
 			</if>
 			<if test="name2 != null">
 				name2,
@@ -319,8 +316,8 @@
 			<if test="state != null">
 				#{state,jdbcType=INTEGER},
 			</if>
-			<if test="uname != null">
-				#{uname,jdbcType=VARCHAR},
+			<if test="name1 != null">
+				#{name1,jdbcType=VARCHAR},
 			</if>
 			<if test="name2 != null">
 				#{name2,jdbcType=VARCHAR},
@@ -369,8 +366,8 @@
 			<if test="record.state != null">
 				state = #{record.state,jdbcType=INTEGER},
 			</if>
-			<if test="record.uname != null">
-				uname = #{record.uname,jdbcType=VARCHAR},
+			<if test="record.name1 != null">
+				name1 = #{record.name1,jdbcType=VARCHAR},
 			</if>
 			<if test="record.name2 != null">
 				name2 = #{record.name2,jdbcType=VARCHAR},
@@ -404,8 +401,8 @@
 		#{record.postionid,jdbcType=INTEGER},
 		state =
 		#{record.state,jdbcType=INTEGER},
-		uname =
-		#{record.uname,jdbcType=VARCHAR},
+		name1 =
+		#{record.name1,jdbcType=VARCHAR},
 		name2 =
 		#{record.name2,jdbcType=VARCHAR},
 		name3 =
@@ -440,8 +437,8 @@
 			<if test="state != null">
 				state = #{state,jdbcType=INTEGER},
 			</if>
-			<if test="uname != null">
-				uname = #{uname,jdbcType=VARCHAR},
+			<if test="name1 != null">
+				name1 = #{name1,jdbcType=VARCHAR},
 			</if>
 			<if test="name2 != null">
 				name2 = #{name2,jdbcType=VARCHAR},
@@ -470,8 +467,8 @@
 		PostionId =
 		#{postionid,jdbcType=INTEGER},
 		state = #{state,jdbcType=INTEGER},
-		uname
-		= #{uname,jdbcType=VARCHAR},
+		name1
+		= #{name1,jdbcType=VARCHAR},
 		name2 = #{name2,jdbcType=VARCHAR},
 		name3 =
 		#{name3,jdbcType=VARCHAR},

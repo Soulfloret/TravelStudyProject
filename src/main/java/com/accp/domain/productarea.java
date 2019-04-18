@@ -21,9 +21,18 @@ public class productarea {
 
     private List<areas> alist;
     
+    private areas area;
+   
     
-    
-    public List<areas> getAlist() {
+    public areas getArea() {
+		return area;
+	}
+
+	public void setArea(areas area) {
+		this.area = area;
+	}
+
+	public List<areas> getAlist() {
 		return alist;
 	}
 

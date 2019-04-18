@@ -141,7 +141,7 @@
 										</td>
 										<td><b th:text="${item.ordertime}"></b></td>
 										<td><b th:text="${item.user.uname}"></b></td>
-										<td><b th:text="${item.staff.user.uname}"></b></td>
+										<td><!-- <b th:text="${item.staff.user.uname}"></b> --></td>
 										<td>
 											<input type="hidden" th:value="${item.id}">
 											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
@@ -163,273 +163,6 @@
 							</div>
 							<div id="" class="modal-body">
 								<div class="box">
-									<div class="dingdanhead">
-										<h4>
-				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
-				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
-				        					<span class="status">订单状态：</span><span>已完成</span>
-				        					<span class="sum">订单总价:</span><span>￥2002</span>
-				        					<span class="team">团队订单</span>
-				        				</h4>
-									</div>
-									<div class="content col-md-12 collapsed" id="checkout-collapse4">
-										<div class="dingdanhead">
-											<h4>
-												<a data-toggle="collase"  href="#checkout-collapse5" ><span class="step">01</span><span><!-- {list.user.uname} --></span></a>
-	        								</h4>
-										</div>
-										<div class="content col-md-12 collapsed" id="checkout-collapse5">
-											<div class="content col-md-11" id="checkout-collapse7">
-												<table class="table">
-													<thead>
-														<th scope="col">项目名称</th>
-														<th scope="col">项目地点</th>
-														<th scope="col">项目时间</th>
-														<th scope="col">项目价格</th>
-														<th scope="col">项目负责人</th>
-														<th scope="col">项目状态</th>
-													</thead>
-													<tbody>
-														<tr>
-															<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-															<td>
-																<b>三区一</b>
-															</td>
-															<td>
-																<b>2018-5-5 10:00</b>
-															</td>
-															<td>
-																<b>188</b>
-															</td>
-															<td>
-																张三
-															</td>
-															<td>已进行</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="content col-md-11" id="checkout-collapse8">
-												<table class="table">
-													<thead>
-														<th scope="col">菜品名称</th>
-														<th scope="col">菜品价格</th>
-														<th scope="col">菜品数据</th>
-														<th scope="col">菜品总价</th>
-													</thead>
-													<tbody>
-														<tr>
-															<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
-															<td>
-																<b>122</b>
-															</td>
-															<td>
-																<b>2</b>
-															</td>
-															<td><b>244</b></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="content col-md-11" id="checkout-collapse9">
-											<table class="table">
-												<thead>
-													<th scope="col">房间名称</th>
-													<th scope="col">房间价格</th>
-													<th scope="col">房间类型</th>
-													<th scope="col">房间状态</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="/img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
-														<td>
-															<b>122</b>
-														</td>
-														<td>
-															<b>总统套房</b>
-														</td>
-														<td><b>正在入住</b></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										</div>
-										<p>团员订单管理</p>
-										<div  v-for="(item,index) in list.list">
-										<div class="dingdanhead">
-											<h4>
-												<a data-toggle="collase"  href="#checkout-collapse"+{{index}}+""><span class="step">01</span><span><!-- {{item.uname}} --></span></a>
-	        								</h4>
-										</div>
-										<div class="content col-md-12 collapsed" id="checkout-collapse"+{{index}}+"">
-											<div v-for="(item1,index1) in itme.orders">
-												<div class="content col-md-11">
-													<table class="table">
-														<thead>
-															<th scope="col">项目名称</th>
-															<th scope="col">项目价格</th>
-															<th scope="col">项目负责人</th>
-															<th scope="col">项目状态</th>
-														</thead>
-														<tbody>
-															<tr v-for="(item2,index2) in item1.list" v-if="item2.typeid==1">
-																<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b><!-- {{item2}} --></b></th>
-																<td>
-																	<b>188</b>
-																</td>
-																<td>
-																	张三
-																</td>
-																<td>已进行</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="content col-md-11">
-													<table class="table">
-														<thead>
-															<th scope="col">菜品名称</th>
-															<th scope="col">菜品价格</th>
-															<th scope="col">菜品数据</th>
-															<th scope="col">菜品总价</th>
-														</thead>
-														<tbody>
-															<tr>
-																<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
-																<td>
-																	<b>122</b>
-																</td>
-																<td>
-																	<b>2</b>
-																</td>
-																<td><b>244</b></td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="content col-md-11">
-											<table class="table">
-												<thead>
-													<th scope="col">房间名称</th>
-													<th scope="col">房间价格</th>
-													<th scope="col">房间类型</th>
-													<th scope="col">房间状态</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
-														<td>
-															<b>122</b>
-														</td>
-														<td>
-															<b>总统套房</b>
-														</td>
-														<td><b>正在入住</b></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-											</div>
-										</div>
-										</div>
-									</div>
-									<div class="dingdanhead">
-										<h4>
-				        					<a data-toggle="collase"  href="#checkout-collapse4" ><span class="step">01</span><span>订单:</span><span class="dingdanhao">SS222121</span></a>
-				        					<span class="time">订单时间:</span><span>2019-12-2 12:22:22</span>
-				        					<span class="status">订单状态：</span><span>已完成</span>
-				        					<span class="sum">订单总价:</span><span>￥2002</span>
-				        					<span class="team">个人订单</span>
-				        				</h4>
-									</div>
-									<div class="content col-md-12 collapsed" id="checkout-collapse4">
-										<div class="content col-md-11" id="checkout-collapse5">
-											<table class="table">
-												<thead>
-													<th scope="col">项目名称</th>
-													<th scope="col">项目价格</th>
-													<th scope="col">项目负责人</th>
-													<th scope="col">项目状态</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>射箭</b></th>
-														<td>
-															<b>188</b>
-														</td>
-														<td>
-															张三
-														</td>
-														<td>已进行</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="content col-md-11" id="checkout-collapse6">
-											<table class="table">
-												<thead>
-													<th scope="col">菜品名称</th>
-													<th scope="col">菜品价格</th>
-													<th scope="col">菜品数据</th>
-													<th scope="col">菜品总价</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>小炒时蔬</b></th>
-														<td>
-															<b>122</b>
-														</td>
-														<td>
-															<b>2</b>
-														</td>
-														<td><b>244</b></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="content col-md-11" id="checkout-collapse7">
-											<table class="table">
-												<thead>
-													<th scope="col">房间名称</th>
-													<th scope="col">房间价格</th>
-													<th scope="col">房间类型</th>
-													<th scope="col">房间状态</th>
-												</thead>
-												<tbody>
-													<tr>
-														<th scope="row"><img src="img/product-image.jpg" width="50" height="50" alt="图片" /><b>101</b></th>
-														<td>
-															<b>122</b>
-														</td>
-														<td>
-															<b>总统套房</b>
-														</td>
-														<td><b>正在入住</b></td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
 								</div>	
 							</div>
 							<div id="" class="modal-footer">
@@ -742,18 +475,133 @@
     	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     	<script th:src="@{/js/vue.js}"></script>
 		<script type="text/javascript" >
-			var vue=new Vue({
-				el:".box",
-				data:{
-					list:{}
-				}
-			})
 			$(".info").click(function(){
 				var id=$(this).prev().val();
 				$.post("queryById?id="+id+"",function(data){
-					vue.list=data[0];
-					console.log(JSON.stringigy(data));
-				},"json");
+						console.log(data);
+						var div1=$("<div class='dingfanhead'></div>");
+						var h41=$("<h4></h4>");
+						var a1=$("<a data-toggle='collase'  href='#checkout-collapse4'><span class='step'>1</span><span>订单:<span><span class='dingdanhao'>"+data.orderno+"</span></a>");	
+						var span1=$("<span class='time'>订单时间:</span><span>"+data.ordertime+"</span>");
+    					var span2=$("<span class='status'>订单状态：</span><span>"+data.name1+"</span>");
+    					var span3=$("<span class='sum'>订单总价:</span><span>"+data.price+"</span>");
+    					var span4=$("<span class='team'>"+data.name2+"</span>");
+    					$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+    					$(div1).append(h41);
+						if(data.name2=="个人"){
+							
+						}else{
+							var div=$("<div class='content col-md-12 collapsed' id='checkout-collapse4'><div>");
+							var divh;
+							var divh1;
+							$.each(data.list,function(index,item){
+								var div2;
+								var div3;
+								var div4;
+								$.each(item.orders,function(index1,item1){
+									$.each(item1.list,function(index2,item2){
+										if(item2.typeid==1||item2.typeid==5){
+											var divh2=$("<div class='content col-md-11'></div>");
+											var divhtable=$("<table class='table'><thead>"
+											+"<th scope='col'>项目名称</th>"
+											+"<th scope='col'>项目地点</th>"
+											+"<th scope='col'>项目时间</th>"
+											+"<th scope='col'>项目价格</th>"
+											+"<th scope='col'>项目负责人</th>"
+											+"<th scope='col'>项目状态</th></thead></table>");
+											var divtbody=$("<tbody></tbody>");
+											if(item2.typeid==1){
+												var fzr;
+												$.each(item2.ix.list[0].list,function(indexs,is){
+													if(is.productstaffid==5){
+														fzr=is.staff.user.uname;
+													}
+												})
+												var divtr=$("<tr>"
+														+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item2.ix.project.pname+"</b></th>"
+														+"<td><b>"+item2.ix.area.area.aname+"</b><td>"
+														+"<td><b>"+item2.ix.starttime+"-"+item2.ix.endtime+"</b></td>"
+														+"<td><b>"+item2.ix.project.price+"</b></td>"
+														+"<td>"+fzr+"</td>"
+														+"<td>进行中</td></tr>");
+												$(divtbody).append(divtr);
+											}else{
+												$.each(item2.list,function(index3,item3){
+													var fzr;
+													$.each(item3.list,function(indexs,is){
+														if(is.productstaffid==5){
+															fzr=is.staff.user.uname;
+														}
+													})
+													var divtr=$("<tr>"
+															+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
+															+"<td><b>"+item3.area.area.aname+"</b><td>"
+															+"<td><b>"+item3.starttime+"-"+item3.endtime+"</b></td>"
+															+"<td><b>"+item3.project.price+"</b></td>"
+															+"<td>"+fzr+"</td>"
+															+"<td>进行中</td></tr>");
+													$(divtbody).append(divtr);
+												})
+											}
+											$(divhtable).append(divtbody);
+											$(divh2).append(divhtable);
+											div2=divh2;
+										}
+										if(item2.typeid==2){
+											var divs=$("<div class='content col-md-11'></div>")
+												var divtable=$("<table class='table'>"
+												    +"<thead>"
+													+"<th scope='col'>菜品名称</th>"
+													+"<th scope='col'>菜品价格</th>"
+													+"<th scope='col'>菜品数据</th>"
+													+"<th scope='col'>菜品总价</th>"
+													+"</thead>");
+												var divbody=$("<tbody></tbody>");
+												$.each(item1.list,function(item2,index2){
+													var tr=$("<tr>"
+													+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+													+"<td><b>{{item2.price}}</b></td>"
+													+"<td><b>{{item2.name2}}</b></td>"
+													+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
+													+"</tr>");
+													$(divbody).append(tr);
+												})
+												$(divtable).append(divbody);
+												$(divs).append(divtable);
+												div3=divs;
+										}
+										if(item2.typeid==3){
+											var div=$("<div class='content col-md-11'></div>");
+											var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
+											var tbody=$("<tbody></tbody>");
+											$.each(item1.list,function(item2,index){
+												var tr=$("<tr>"
+												+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+												+"<td><b>{{item2.price}}</b></td>"
+												+"<td><b>{{item2.name2}}</b></td>"
+												+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
+												+"</tr>");
+												$(tbody).append(tr);
+											})
+											$(table).append(tbody);
+											$(div).append(table);
+											div4=div;
+										}
+									})
+							})
+							if(item.id==data.user.id){
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapse0'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
+								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapse0'></div>");
+								$(div).append(divh).append(divh1);
+							}else{
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
+								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
+								$(div).append(divh).append(divh1);
+							}
+								$(".box").append(div);
+							})
+						}
+						},"json");
 			})
 			$("[name='productOrProject']").click(function(){
 				var index=$("[name='productOrProject']").index($(this));
