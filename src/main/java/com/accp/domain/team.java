@@ -5,14 +5,25 @@ public class team {
 
     private Integer mainiuserid;
 
-    public team( Integer mainiuserid) {
+    public team( Integer mainiuserid,String name1) {
+    	this.name1=name1;
 		this.mainiuserid = mainiuserid;
 	}
+    private users use;
+    
+    
+    public users getUse() {
+		return use;
+	}
 
+	public void setUse(users use) {
+		this.use = use;
+	}
+	//团队名称
 	private String name1;
 
     public team() {
-		super();
+		
 	}
 
 	private String name2;

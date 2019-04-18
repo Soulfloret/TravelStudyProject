@@ -43,6 +43,13 @@
 	    </collection>
   	</collection>
   </resultMap>
+  
+  <!--  根据用户名 模糊查询用户-->
+  <select id="selectByUname" resultMap="BaseResultMap">
+  	select * from users where uname like CONCAT('%',#{uname},'%')
+  </select>
+  
+  
  <!-- 订单查询接口 -->
   <select id="queryByMainOrderId" resultMap="ResultMapChen">
 	 SELECT u.*,uo.`id` AS uoid,uo.`name1` AS uoname1,uo.`name2` AS uoname2,

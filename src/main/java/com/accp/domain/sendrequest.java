@@ -23,11 +23,31 @@ public class sendrequest {
 
     private String name5;
 
+    private users use;
+    
+    private discussiongroup dis;
+    
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+
+	public discussiongroup getDis() {
+		return dis;
+	}
+
+	public void setDis(discussiongroup dis) {
+		this.dis = dis;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface teamMapper {
+	public  List<team> selectAllTeam(@Param("uname") String uname,@Param("tname") String tname);
+	
     int countByExample(teamExample example);
 
     int deleteByExample(teamExample example);

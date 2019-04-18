@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class discussiongroup {
     private Integer id;
 
@@ -20,8 +22,21 @@ public class discussiongroup {
     private String name4;
 
     private String name5;
+    
+    //保存讨论组图片
+    private List<images> img;
+    
 
-    public Integer getId() {
+   
+	public List<images> getImg() {
+		return img;
+	}
+
+	public void setImg(List<images> img) {
+		this.img = img;
+	}
+
+	public Integer getId() {
         return id;
     }
 
