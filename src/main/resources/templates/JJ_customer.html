@@ -175,6 +175,30 @@
 						contentType : "application/json;charset=utf-8",
 						success : function(data) {
 							console.log(data);
+							/* 拼接在职时间 */
+							var datetime=new Date(data.entrytime);
+							var year=datetime.getFullYear();
+							var month=datetime.getMonth();
+							var ri=datetime.getDate();
+							var shi=datetime.getHours();
+							var fen=datetime.getMinutes();
+							var miao=datetime.getSeconds();
+							var zaizhi=year+"-"+month+"-"+ri+" "+shi+":"+fen+":"+miao;
+							/* 判断是否离职，离职就拼接赋值 */
+							if(data.departuretime!=null){
+								var datetime=new Date(data.departuretime);
+								var year=datetime.getFullYear();
+								var month=datetime.getMonth();
+								var ri=datetime.getDate();
+								var shi=datetime.getHours();
+								var fen=datetime.getMinutes();
+								var miao=datetime.getSeconds();
+								var lizhi=year+"-"+month+"-"+ri+" "+shi+":"+fen+":"+miao;
+							}else{
+								var lizhi="未离职";
+							}
+							/* 拼接离职时间 */
+							
 							var zhiwei="<select>"
 								+"<option>"+data.plist.postion+"</option>"
 								+"</select>";
@@ -199,9 +223,9 @@
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>入职时间</td>"
-								+ "<td colspan='2'><input type='date' val='"+data.entrytime+"'/></td>"
+								+ "<td colspan='2'><input type='text' class='date1' value='"+zaizhi+"'/></td>"
 								+ "<td>离职时间</td>"
-								+ "<td colspan='2'><input type='date' pattern='yyyy-MM-dd HH:mm:ss' name='lz' val='"+data.departuretime+"'/></td>"
+								+ "<td colspan='2'><input type='text' class='date2'  name='lz' value='"+lizhi+"'/></td>"
 								+ "</tr>" + "</table>";
 							$(".appe").append(st); 
 							$(".zhiwei").append(zhiwei);
