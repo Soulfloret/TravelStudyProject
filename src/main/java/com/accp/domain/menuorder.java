@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class menuorder {
     private Integer id;
@@ -24,8 +25,36 @@ public class menuorder {
     private String name4;
 
     private String name5;
+    
+    private List<ordershop> olist;
+    
+    
+    
 
-    public Integer getId() {
+    public menuorder(String orderrreference, Date createtime, String statuss, Double price, Integer userid,
+			List<ordershop> olist) {
+		super();
+		this.orderrreference = orderrreference;
+		this.createtime = createtime;
+		this.statuss = statuss;
+		this.price = price;
+		this.userid = userid;
+		this.olist = olist;
+	}
+
+	public menuorder() {
+		super();
+	}
+
+	public List<ordershop> getOlist() {
+		return olist;
+	}
+
+	public void setOlist(List<ordershop> olist) {
+		this.olist = olist;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -18,6 +18,7 @@ import com.accp.renyuxuan.service.impl.roomdestineserviceimpl;
 import com.accp.renyuxuan.service.impl.roomorderserviceimpl;
 import com.accp.renyuxuan.service.impl.roomordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomserviceimpl;
+import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
 @Controller
@@ -32,6 +33,8 @@ public class roomcontroller {
 	roomorderserviceimpl ro;
 	@Autowired
 	roomordersonserviceimpl rs;
+	@Autowired
+	UsersService u;
 	
 	@RequestMapping("/toqueryroom")
 	public String toqueryroom(Model model ,room ro) {
@@ -78,7 +81,10 @@ public class roomcontroller {
 	
 	@RequestMapping("/RoomDestineadd")
 	public String RoomDestineadd(roomdestine roo,String sfz,Double price) {
-		Integer uid=1;//创建一个临时用户id
+		users us=u.queryByIdCard(sfz);
+		
+		Integer uid=us.getId();//数据库没有
+		
 		roo.setUserid(uid);
 		rd.insertSelective(roo);//添加记录
 		roomorder roomorders=new roomorder();//创建一个房间订单表对象

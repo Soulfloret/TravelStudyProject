@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menuorder;
+import com.accp.domain.menutype;
+import com.accp.domain.ordershop;
+import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
+import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
+import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
+import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
 @Controller
@@ -31,13 +39,22 @@ public class menucontroller {
 	//套餐
 	@Autowired
 	bindserviceimpl b;
+	//套餐订单
+	@Autowired
+	menuorderserviceimpl mo;
+	//套餐订单从表
+	@Autowired
+	ordershopserviceimpl os;
+	//
+	@Autowired
+	UsersService u;
+	
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
 	public String toquerymenu(Model model,menu men) {
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
-		System.out.println(JSON.toJSON(list));
 		model.addAttribute("listtype",me.selectByExample(null));
 		model.addAttribute("menus",men);
 		return "GoodManager";
@@ -109,14 +126,70 @@ public class menucontroller {
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder(Model model) {
-		menu menus=new menu();
-		List<menu> mlist=m.QueryMenu(menus);
-		bind binds=new bind();
-		List<bind> blist=b.querybind(binds);
-		return "GoodOrderAdd";
+	public String tomenuorder(Model model,String lx) {
+		if(lx==null || lx=="") {
+			lx="0";
+		}
+		if("0".equals(lx)) {
+			menu menus=new menu();
+			List<menu> mlist=m.QueryMenu(menus);
+			bind binds=new bind();
+			List<bind> blist=b.querybind(binds);
+			model.addAttribute("mlist", mlist);
+			model.addAttribute("blist", blist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}else if("1".equals(lx)) {
+			menu menus=new menu();
+			List<menu> mlist=m.QueryMenu(menus);
+			model.addAttribute("mlist", mlist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}else if("2".equals(lx)) {
+			bind binds=new bind();
+			List<bind> blist=b.querybind(binds);
+			model.addAttribute("blist", blist);
+			model.addAttribute("lx", lx);
+			return "GoodOrderAdd";
+		}
+		return "";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/orderadd")
+	public String orderadd(@RequestBody ordershop [] vps) {
+		menuorder m=new menuorder();
+			SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+			String datetime = tempDate.format(new Date());
+			datetime=datetime+"cy";//订单编号
+			m.setOrderrreference(datetime);
+			m.setCreatetime(new Date());
+			m.setStatuss("1");
+			//身份证
+			users us=u.queryByIdCard(vps[0].getName3());//数据库没有
+			m.setUserid(us.getId());
+			m.setPrice(Double.parseDouble(vps[0].getName2()));
+			//调方法添加订单
+			mo.insertSelective(m);
+			for (int i = 0; i < vps.length; i++) {
+				ordershop o =new  ordershop();
+				o.setOrderid(m.getId());
+				o.setMenuid(vps[i].getMenuid());
+				o.setNum(vps[i].getNum());
+				o.setName1(vps[i].getName1());
+				o.setPrice(vps[i].getPrice());
+				os.insertSelective(o);
+			}
+		return "下单成功！";
+	}
+	
+	
+	@RequestMapping("/toquerymenu1")
+	public String toquerymenu1(Model model) {
+		List<menutype> list=me.selectqueryTypemenu(null);
+		model.addAttribute("list", list);
+		return "menu1";
+	}
 	
 	
 	
