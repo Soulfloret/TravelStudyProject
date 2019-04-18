@@ -59,16 +59,21 @@
 	</resultMap>
 
 
+<select id="loginByuserid" resultMap="Map">
+select * from staff where userid=#{userid}
+</select>
+
 	<!-- 根据usersid查询员工薪资 、打卡次数 -->
 	<select id="salaryQueryId" resultMap="Map">
 		SELECT
-		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS stid FROM
+		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS stid,salary.BaseSalary FROM
 		staff
 		JOIN signin ON signin.`staffId`=staff.`id`
 		JOIN users ON
 		users.`id`=staff.`userId`
 		JOIN positions ON
 		positions.`id`=staff.`PostionId`
+		join salary on positions.id=salary.pid
 		WHERE signin.`staffId`=#{id}
 	</select>
 	<!-- 查询员工薪资列表 -->
@@ -101,15 +106,21 @@
 			</if>
 			<!-- <if test="name1!=null"> AND uname LIKE CONCAT('%',#{name1},'%') </if> -->
 		</where>
-
+		ORDER BY staff.state ASC,
+		staff.id
 	</select>
+	<!-- 员工离职 -->
+	<update id="staffupdate">
+		update staff set state=1,departuretime=#{departuretime} where id=#{id}
+	</update>
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
 		SELECT users.id AS
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`
-		FROM users inner JOIN staff
+		FROM users inner JOIN
+		staff
 		ON staff.`userId`=users.`id`
 		left JOIN positions ON
 		positions.`id`=staff.`PostionId`
@@ -119,13 +130,16 @@
 	<select id="query" resultMap="Map">
 		SELECT
 		staff.`id`,`users`.`uName`,positions.`postion`
-		,positions.`id` AS pid
+		,positions.`id` AS
+		pid,staff.state
 		FROM staff
 		JOIN positions ON
 		staff.`PostionId`=positions.`id`
 		JOIN
 		`users` ON
 		`users`.`id`=staff.`userId`
+		ORDER BY staff.state ASC,
+		staff.id
 	</select>
 
 	<sql id="Example_Where_Clause">

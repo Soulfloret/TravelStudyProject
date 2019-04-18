@@ -111,7 +111,7 @@
 									<th scope="col">员工姓名</th>
 									<th scope="col">员工类型</th>
 									<th scope="col">员工性别</th>
-									<!-- <th scope="col">打卡次数</th> -->
+									<th scope="col">状态</th>
 									<th scope="col">详情</th>
 									<th scope="col">操作</th>
 								</tr>
@@ -125,8 +125,13 @@
 										th:text="${item.plist.postion}"></b>
 									</td>
 									<td><b>男</b></td>
-<!-- 
-									<td><b th:text="${item.slist.staffid}"> </b></td> -->
+									<td><b th:if="${item.state==0}" th:text="在职">
+									
+									</b>
+									<b th:if="${item.state==1}" th:text="离职" style="color: red">
+									
+									</b>
+									</td>
 									<td><b> <a href="#" data-target="#JJ_tan"
 											data-toggle="modal" class="tm-product-delete-link JJ_xiang">
 												<i class="fa fa-info"></i>
@@ -135,12 +140,15 @@
 									<td><b> <a href="javascript:void(0)"
 											class="tm-product-delete-link JJ_delete"> <i
 												class="far fa-trash-alt tm-product-delete-icon"></i>
-										</a></b></td>
+										</a><input type="checkbox" th:value="${item.id}" name="x" class="sc"></b></td>
 								</tr>
 							</tbody>
 						</table>
+						
 						<button class="btn JJ_addyg " data-target="#JJ_addygtan"
 							data-toggle="modal">录入员工</button>
+							<button class="btn JJ_plsc">批量删除</button>
+							<button class="btn JJ_sc">删除</button>
 					</div>
 				</div>
 			</div>
@@ -154,6 +162,8 @@
 	<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
 	<script>
 		$(function() {
+			$(".sc").hide();
+			$(".JJ_sc").hide();
 			$(".JJ_xiang").click(function() {
 			var h = $(this).parent().parent().parent().find(".uids").html();
 					$(".appe").html("");
@@ -165,6 +175,30 @@
 						contentType : "application/json;charset=utf-8",
 						success : function(data) {
 							console.log(data);
+							/* 拼接在职时间 */
+							var datetime=new Date(data.entrytime);
+							var year=datetime.getFullYear();
+							var month=datetime.getMonth();
+							var ri=datetime.getDate();
+							var shi=datetime.getHours();
+							var fen=datetime.getMinutes();
+							var miao=datetime.getSeconds();
+							var zaizhi=year+"-"+month+"-"+ri+" "+shi+":"+fen+":"+miao;
+							/* 判断是否离职，离职就拼接赋值 */
+							if(data.departuretime!=null){
+								var datetime=new Date(data.departuretime);
+								var year=datetime.getFullYear();
+								var month=datetime.getMonth();
+								var ri=datetime.getDate();
+								var shi=datetime.getHours();
+								var fen=datetime.getMinutes();
+								var miao=datetime.getSeconds();
+								var lizhi=year+"-"+month+"-"+ri+" "+shi+":"+fen+":"+miao;
+							}else{
+								var lizhi="未离职";
+							}
+							/* 拼接离职时间 */
+							
 							var zhiwei="<select>"
 								+"<option>"+data.plist.postion+"</option>"
 								+"</select>";
@@ -189,9 +223,9 @@
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>入职时间</td>"
-								+ "<td colspan='2'><input type='date' val='"+data.entrytime+"'/></td>"
+								+ "<td colspan='2'><input type='text' class='date1' value='"+zaizhi+"'/></td>"
 								+ "<td>离职时间</td>"
-								+ "<td colspan='2'><input type='date' pattern='yyyy-MM-dd HH:mm:ss' name='lz' val='"+data.departuretime+"'/></td>"
+								+ "<td colspan='2'><input type='text' class='date2'  name='lz' value='"+lizhi+"'/></td>"
 								+ "</tr>" + "</table>";
 							$(".appe").append(st); 
 							$(".zhiwei").append(zhiwei);
@@ -225,12 +259,37 @@
 								type : "POST",
 								dataType : "json",
 								contentType : "application/json;charset=utf-8",
-								success:function(data){
-									console.log(data);
+								success:function(data1){
+									console.log(data1);
 									alert("录入成功 !")
 								}
 							})
 						})
+						
+						$(".JJ_plsc").click(function(){
+							$(".JJ_delete").hide();
+							$(".sc").show();
+							$(".JJ_sc").show();
+							$(".JJ_plsc").hide();
+							})
+							
+							$(".JJ_sc").click(function(){
+								var ids=$(".sc").val();
+							})
+							
+							$(".JJ_delete").click(function(){
+								var h = $(this).parent().parent().parent().find(".uids").html();
+								alert(h);
+								$.ajax({
+									url:"/staff/staffupdate?id="+h,
+									type : "POST",
+									dataType : "json",
+									contentType : "application/json;charset=utf-8",
+									success:function(data2){
+										alert("离职成功!");
+									}
+								})
+							})
 					
 		})
 	</script>
