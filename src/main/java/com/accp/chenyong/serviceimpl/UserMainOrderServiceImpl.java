@@ -111,7 +111,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		List<Usermainorder> list=mapper.query(id);
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			if(umo.getName2().equals("ä¸ªäºº")) {
+			if(umo.getName2().equals("¸öÈË")) {
 				umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));

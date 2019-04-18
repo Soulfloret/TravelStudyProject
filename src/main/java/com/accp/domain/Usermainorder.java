@@ -30,8 +30,20 @@ public class Usermainorder {
         
     private List<users> list;
     
+    private Double price;
+    
 
-    public List<users> getList() {
+    
+
+    public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public List<users> getList() {
 		return list;
 	}
 
