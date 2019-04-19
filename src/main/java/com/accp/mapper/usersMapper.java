@@ -9,6 +9,7 @@ import com.accp.domain.users;
 import com.accp.domain.usersExample;
 
 public interface usersMapper {
+	public List<users> selectByUname(String uname);
 	
 	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);
 	

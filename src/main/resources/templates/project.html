@@ -23,9 +23,11 @@
   	<div class="container"  style="margin-top: 30px;">  
 		<div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
-        	<input type="text" placeholder="项目名称" class="form-control-sm"/>
-        	<input type="text" placeholder="负责人" style="margin-left: 30px;" class="form-control-sm"/>
-        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+        	<form action="query" method="post">
+	        	<input type="text" placeholder="项目名称" class="form-control-sm"/>
+	        	<input type="text" placeholder="负责人" style="margin-left: 30px;" class="form-control-sm"/>
+	        	<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+	        </form>
           <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
             <div class="tm-product-table-container">
               <table class="table table-hover tm-table-small tm-product-table">
@@ -42,7 +44,7 @@
                 <tbody>
                   <tr th:each="item : ${list}">
                     <th scope="row"><input type="checkbox" /></th>
-                    <td class="" th:id="${item.id}"><a th:href="@{toproject_xq}" style="color: white;" th:text="${item.pname}"></a></td>
+                    <td class="" th:id="${item.id}"><a th:href="@{toproject_xq(id=${item.id})}" style="color: white;" th:text="${item.pname}"></a></td>
                     <td th:text="${item.use.uname}"></td>
                     <td th:text="${item.createtime}"></td>
                     <td>
@@ -95,19 +97,18 @@
       function look_jd(th){
      	 
 	      	var pid=$(th).parents("tr").find("td:eq(0)").attr("id");
-	      	alert(pid);
 	      	 $.ajax({
 	      		url:"queryJd?pid="+pid,
 	      		type:"post",
 	      		dataType:"json",
 	      		success:function(result){
-	      			console.log(result.alist);
+	      			console.log(result);
 	      			$("#xm_show").html("");
 	      			$.each(result,function(i,obj){
 	      				var dt=$("<table class='table tm-table-small tm-product-table'>"+
 				        	        "<tbody>"+
 					                  "<tr>"+
-					                    "<td class='tm-product-name'></td>"+
+					                    "<td class='tm-product-name'>"+obj.area.aname+"</td>"+
 					                    "<td class='text-center'>"+
 					                      "<a href='#' class='tm-product-delete-link'>"+
 					                        "<i class='far fa-trash-alt tm-product-delete-icon'></i>"+

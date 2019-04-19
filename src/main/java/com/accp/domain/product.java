@@ -21,9 +21,19 @@ public class product {
 
     private List<productproject> pplist;
     
+    private recommend recommend;
     
     
-    public List<productproject> getPplist() {
+    
+    public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public List<productproject> getPplist() {
 		return pplist;
 	}
 

@@ -35,7 +35,7 @@
 						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 							<h2 class="tm-block-title">客户列表</h2>
 							<div class="row">
-								<form class="form-inline col-md-11" style="margin-bottom: 10px;" th:action="@{/customer/toCustomer}">
+								<form class="form-inline col-md-11" method="post" style="margin-bottom: 10px;" th:action="@{/customer/toCustomer}">
 									<div class="form-group" style="margin:0px 10px 0px 0px;">
 										<label for="exampleInputName2">客户姓名:</label>
 										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="客户姓名">

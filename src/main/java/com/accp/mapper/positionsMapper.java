@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface positionsMapper {
+	
+	List<positions> positionsById(Integer id);
+	
     int countByExample(positionsExample example);
 
     int deleteByExample(positionsExample example);

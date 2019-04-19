@@ -11,6 +11,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!--  根据讨论组id 查询数量 -->
+  <select id="selectCountBydid" resultType="Integer">
+  	SELECT COUNT(*) FROM discussiongroupson	WHERE did=#{did}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

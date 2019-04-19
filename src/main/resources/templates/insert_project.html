@@ -259,81 +259,64 @@
 				$("[type=file]").each(function(i,obj){
 					fileArr = this.files;
 				})
-				for(var i = 0;i < fileArr.length;i++){
-					formData.append("file",fileArr[i]);
-				}
-				console.log(fileArr)
-			 	/* var ilist=[]; */
-				$("#show_jd_table tr").each(function(i,obj){
-					/* var a={};
-					a.areaid=$(this).find("td:eq(0)").attr("id");
-					ilist.push(a); */
-					formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
-				})
-				
-				var myDate = new Date();
-				//获取当前年
-				var year=myDate.getFullYear();
-				//获取当前月
-				var month=myDate.getMonth()+1;
-				//获取当前日
-				var date=myDate.getDate(); 
-				var h=myDate.getHours();       //获取当前小时数(0-23)
-				var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-				var s=myDate.getSeconds();  
-				
-				var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-				
-				var dt = new Date(now.replace(/-/,"/")) 
-				formData.append("pname",$("[name=name]").val());
-				formData.append("createtime",dt);
-				formData.append("tid",$("[name=ttype]").attr("id"));
-				formData.append("description",$("[name=descirption]").val());
-				formData.append("remark",$("[name=remark]").val());
-				formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
-				formData.append("price",$("[name=price]").val());
-				formData.append("safetime",$("[name=safe_time]").val());
-				formData.append("needtime",$("[name=needTime]").val());
-				formData.append("galleryful",$("[name=galleryful]").val());
-				formData.append("cost",$("[name=Cost]").val());
-				formData.append("minheight",$("[name=minheight]").val());
-				formData.append("maxheight",$("[name=maxheight]").val());
-				formData.append("mincrowd",$("[name=mincrowd]").val());
-				formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
-				/* formData.append("palist",ilist); */
-				/* var pro={};
-				pro.name=$("[name=name]").val();
-				pro.descirption=$("[name=descirption]").val();
-				pro.remark=$("[name=remark]").val();
-				pro.leadingofficial=$("[name=leadingofficial]").attr("sid");
-				pro.price=$("[name=Price]").val();
-				pro.safe_time=$("[name=safe_time]").val();
-				pro.needTime=$("[name=needTime]").val();
-				pro.galleryful=$("[name=galleryful]").val();
-				pro.Cost=$("[name=Cost]").val();
-				pro.minheight=$("[name=minheight]").val();
-				pro.maxheight=$("[name=maxheight]").val();
-				pro.palist=ilist;
-				var pro=JSON.stringify(pro);
-				console.log(pro); 
-				
-				formData.append("pro",pro); */
-				
-				$.ajax({
-					url:"file",
-					type:"post",
-					data:formData,
-					processData:false,
-					contentType:false,
-					dataType:"json",
-					success:function(result){
-						console.log(123);
-						console.log(result);
+				if(fileArr.length>3){
+					alert("不好意思,最多选择三张图片");	
+				}else{
+					for(var i = 0;i < fileArr.length;i++){
+						formData.append("file",fileArr[i]);
 					}
-				});     
+					console.log(fileArr)
+				 	/* var ilist=[]; */
+					$("#show_jd_table tr").each(function(i,obj){
+						/* var a={};
+						a.areaid=$(this).find("td:eq(0)").attr("id");
+						ilist.push(a); */
+						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
+					})
+					var myDate = new Date();
+					//获取当前年
+					var year=myDate.getFullYear();
+					//获取当前月
+					var month=myDate.getMonth()+1;
+					//获取当前日
+					var date=myDate.getDate(); 
+					var h=myDate.getHours();       //获取当前小时数(0-23)
+					var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+					var s=myDate.getSeconds();  
+					var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+					var dt = new Date(now.replace(/-/,"/")) 
+					formData.append("pname",$("[name=name]").val());
+					formData.append("createtime",dt);
+					formData.append("tid",$("[name=ttype]").attr("id"));
+					formData.append("description",$("[name=descirption]").val());
+					formData.append("remark",$("[name=remark]").val());
+					formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+					formData.append("price",$("[name=price]").val());
+					formData.append("safetime",$("[name=safe_time]").val());
+					formData.append("needtime",$("[name=needTime]").val());
+					formData.append("galleryful",$("[name=galleryful]").val());
+					formData.append("cost",$("[name=Cost]").val());
+					formData.append("minheight",$("[name=minheight]").val());
+					formData.append("maxheight",$("[name=maxheight]").val());
+					formData.append("mincrowd",$("[name=mincrowd]").val());
+					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
+					$.ajax({
+						url:"file",
+						type:"post",
+						data:formData,
+						processData:false,
+						contentType:false,
+						dataType:"json",
+						success:function(result){
+							console.log(123);
+							console.log(result);
+						}
+					});     
+				}
+				 
 			})
 			
-			$("[name=leadingofficial]").blur(function(){
+			$("[name=leadingofficial]").change(function(){
 				var name=$(this).val();
 				var th=this;
 				$.ajax({
@@ -342,7 +325,11 @@
 					dataType:"json",
 					success:function(result){
 						console.log(result);
-						$(th).attr("sid",result.sta.id);
+						$(th).attr("sid",result.sta.id);	
+					},error(result){
+						if(result!=null){
+							alert("您输入的不是负责人,请重新输入");
+						}
 					}
 				})
 			})

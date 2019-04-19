@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface dynamicsMapper {
+	//查询最后一条 动态
+	public dynamics queryLastById(Integer id);
+	
     int countByExample(dynamicsExample example);
 
     int deleteByExample(dynamicsExample example);

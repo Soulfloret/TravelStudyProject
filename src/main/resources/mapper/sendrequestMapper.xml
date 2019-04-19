@@ -14,6 +14,35 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="MapOneYp" type="com.accp.domain.sendrequest" extends="BaseResultMap" >
+   		<association property="dis" javaType="com.accp.domain.discussiongroup">
+   			  <id column="disid" property="id" jdbcType="INTEGER" />
+		    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
+		    <result column="groupSize" property="groupsize" jdbcType="INTEGER" />
+		    <result column="groupDescribe" property="groupdescribe" jdbcType="VARCHAR" />
+		    <result column="groupMainId" property="groupmainid" jdbcType="INTEGER" />
+   		</association>
+  </resultMap>
+  <!-- 修改请求状态ById  -->
+  <update id="updateStatusById">
+  	update sendrequest set sstatus=#{status} where id=#{id}
+  </update>
+  
+  <!--根据发送类型为好友  并且发送人是自己的     -->
+  <select id="selectBydid" resultMap="BaseResultMap">
+  	SELECT * FROM sendrequest WHERE  typeid=#{typeid}  AND  did=#{did} 
+  </select>
+  <!-- 查询讨论组负责人为我的  -->
+  <select id="selectDisByuid" resultMap="MapOneYp">
+  	SELECT  s.*,d.id AS disid,d.groupName,d.groupSize,d.groupDescribe,d.groupMainId FROM sendrequest AS s 
+	INNER JOIN discussiongroup AS d ON s.uid=d.id WHERE typeId=#{typeid} AND groupmainId=#{uid}
+  </select>
+  
+  <!-- 类型为好友  接受好友为自己的  -->
+  <select id="selectByuid" resultMap="BaseResultMap">
+  	SELECT * FROM sendrequest WHERE uid=#{uid} AND typeid=#{typeid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

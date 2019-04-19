@@ -30,8 +30,30 @@ public class Usermainorder {
         
     private List<users> list;
     
+    private Double price;
+    
+    private team team;
+    
 
-    public List<users> getList() {
+    
+
+	public team getTeam() {
+		return team;
+	}
+
+	public void setTeam(team team) {
+		this.team = team;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public List<users> getList() {
 		return list;
 	}
 

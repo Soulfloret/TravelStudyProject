@@ -13,6 +13,11 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  <!--查询用户最后一条动态  -->
+  <select id="queryLastById" resultType="com.accp.domain.dynamics">
+  	SELECT * FROM dynamics WHERE shareTime =(SELECT MAX(shareTime) FROM dynamics WHERE uid=#{uid})
+  </select>
+  
   <select id="queryByid" resultType="com.accp.domain.dynamics">
   		SELECT * FROM `dynamics` WHERE `id`=#{id}
   </select>
