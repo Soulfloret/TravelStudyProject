@@ -137,9 +137,9 @@
 									
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-							<div class="tm-product-img-edit mx-auto" style="border:1px solid white;">
-								
-			                </div> 
+							<div class="tm-product-img-edit mx-auto" th:each="item1 : ${list.ilist}" style="border:1px solid white;">
+								<img th:src="'/'+${item1.url}" style="width: 100%;height: 100%;">
+			                </div>
                 
                 <div class="tm-product-img-edit mx-auto" style="margin-top: 20px;">
                   <input type="button" data-toggle="modal" data-target="#look_pl" class="btn btn-primary btn-block text-uppercase" value="查看评论(数量)"/>
@@ -167,10 +167,10 @@
 		                  </tr>
 		                </thead>
 		                <tbody>
-		                  <tr>
+		                  <tr th:each="item : ${list.palist}">
 		                    <th scope="row"></th>
-		                     <td class=""><a href="" style="color: white;">qweasd</a></td>
-		                    <td>123123</td>
+		                     <td class=""><a href="" style="color: white;" th:text="${item.area.aname}"></a></td>
+		                    <td th:text="${item.area.pistion}"></td>
 		                    <td>
 		                    </td>
 		                  </tr>

@@ -30,12 +30,13 @@ public class productController {
 	@Autowired
 	productprojectService prop;
 	
+	/*后台查询所有*/
 	@RequestMapping("query")
 	public String query(Model model) {
 		List<product> list=prod.queryAll();
 		model.addAttribute("list", list);
 		return "products";
-	}
+	}		
 	
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,project pro) {
@@ -66,4 +67,8 @@ public class productController {
 	public String look_productxq() {
 		return "edit-product";
 	}
+	
+	
+	
+	
 }

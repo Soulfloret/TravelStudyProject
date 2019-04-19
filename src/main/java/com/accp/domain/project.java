@@ -52,7 +52,19 @@ public class project {
 
     private List<images> ilist;
     
-    private staff sta;
+    private images img;
+    
+    
+    
+    public images getImg() {
+		return img;
+	}
+
+	public void setImg(images img) {
+		this.img = img;
+	}
+
+	private staff sta;
     
     private users use;
     
