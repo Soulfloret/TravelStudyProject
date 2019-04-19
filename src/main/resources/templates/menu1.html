@@ -255,6 +255,26 @@
 					<h3>CHECK OUT OUR MENU HERE</h3>
 					<div class="strip-line"></div>
 				</div>
+				<div class="our-menu-grids">
+					<span>实惠套餐</span>
+					<div class="order-top" th:each="bitem : ${blist}">
+						<li class="im-g">
+							<a th:href="@{/menu/toquerymenu1Bybid(id=${bitem.id})}"><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
+						</li>
+						<li class="data">
+							<h3 th:text="${bitem.price}"></h3>
+							<h4 th:text="${bitem.mname}"></h4>
+							<p th:text="${bitem.name1}"></p>
+						</li>
+						<li class="bt-nn">
+							<a class="hvr-shutter-in-horizontal button" >加入</a>
+						</li>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				
+				
+				
 				<div class="our-menu-grids" th:each="item : ${list}">
 					<span th:text="${item.tname}"></span>
 					<div class="order-top" th:each="items : ${item.list}">
@@ -271,7 +291,6 @@
 						</li>
 						<div class="clearfix"></div>
 					</div>
-					
 				</div>
 
 			</div>
