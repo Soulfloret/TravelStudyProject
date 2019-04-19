@@ -1,13 +1,12 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Single</title>
 <meta charset="utf-8">
-<link href="css1/bootstrap.css" rel='stylesheet' type='text/css' />
-<script src="js1/jquery.min.js"></script>
-<script src="js1/bootstrap.min.js"></script>
-<script src="js1/jquery.min.js"></script>
-<link href="css1/style1.css" rel='stylesheet' type='text/css' />
+<link th:href="@{/css1/bootstrap.css}" rel='stylesheet' type='text/css' />
+<script type="text/javascript" th:src="@{/js1/jquery.min.js}"></script>
+<script th:src="@{/js1/bootstrap.min.js}"></script>
+<link th:href="@{/css1/style1.css}" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 </script>
@@ -15,8 +14,8 @@
 </style>
 <link href='http://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
 				<!-- Include the Etalage files -->
-					<link rel="stylesheet" href="css1/etalage.css">
-					<script src="js1/jquery.etalage.min.js"></script>
+					<link rel="stylesheet" th:href="@{/css1/etalage.css}">
+					<script th:src="@{/js1/jquery.etalage.min.js}"></script>
 				<!-- Include the Etalage files -->
 				<script>
 						jQuery(document).ready(function($){
@@ -52,35 +51,35 @@
 		   	   	<h3><i class="arrow"> </i><span>销售排行榜</span></h3>
 		   	   	<li>
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
 		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
 		   	   	<li>
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
 		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
 		   	   	<li>
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
 		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
 		   	   	<li>
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
 		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
 		   	   	<li>
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img src="images/pic1.jpg" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
 		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
@@ -93,34 +92,28 @@
 		   	   <div class="single_image">
 					     <ul id="etalage">
 							<li>
-								<a href="optionallink.html">
-									<img class="etalage_thumb_image" src="images/s1.jpg" class="img-responsive" alt=""/>
-									<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
-								</a>
+								<img class="etalage_thumb_image" th:src="@{/images/s1.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s1.jpg}"  alt=""/>
 							</li>
 							<li>
-								<img class="etalage_thumb_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_thumb_image"  th:src="@{/images/s2.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s2.jpg}"  alt=""/>
 							</li>
 							<li>
-								<img class="etalage_thumb_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_thumb_image"  th:src="@{/images/s3.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s3.jpg}"  alt=""/>
 							</li>
 							<li>
-								<img class="etalage_thumb_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_thumb_image" th:src="@{/images/s1.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s1.jpg}"  alt=""/>
 							</li>
 							<li>
-								<img class="etalage_thumb_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s2.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_thumb_image"  th:src="@{/images/s2.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s2.jpg}"  alt=""/>
 							</li>
 							<li>
-								<img class="etalage_thumb_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s3.jpg" class="img-responsive" alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
-								<img class="etalage_source_image"  src="images/s1.jpg" class="img-responsive" alt=""/>
+								<img class="etalage_thumb_image"  th:src="@{/images/s3.jpg}"  alt=""/>
+								<img class="etalage_source_image"  th:src="@{/images/s3.jpg}"  alt=""/>
 							</li>
 						</ul>
 					    </div>
@@ -220,7 +213,7 @@
 					  <li class="media">
 					    <div class="media-left">
 					      <a href="#">
-					        <img class="media-object" src="images/6.png" alt="...">
+					        <img class="media-object" th:src="@{/images/6.png}" alt="...">
 					      </a>
 					    </div>
 					    <div class="media-body"  style="border: 1px solid #fff;">
@@ -231,7 +224,7 @@
 					  <li class="media">
 					    <div class="media-left">
 					      <a href="#">
-					        <img class="media-object" src="images/6.png" alt="...">
+					        <img class="media-object" th:src="@{/images/6.png}" alt="...">
 					      </a>
 					    </div>
 					    <div class="media-body"  style="border: 1px solid #fff;">

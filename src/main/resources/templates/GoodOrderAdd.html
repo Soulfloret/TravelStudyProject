@@ -66,7 +66,7 @@
                     <td th:text="${mitem.price}"></td>
                     <td style="display: none;"><input type="hidden" name="mzj" th:value="${mitem.price}"></td>
                     <td style="display: none;"><input type="hidden" name="msl" th:value="1"></td>
-                  	<td style="display: none;"><input type="hidden" name="mlx" value="1"></td>
+                  	<td style="display: none;"><input type="hidden" name="mlx" value="2"></td>
                   </tr>
                   
                   <tr th:each="bitem : ${blist}">
@@ -87,7 +87,7 @@
                     <td th:text="${bitem.price}"></td>
                     <td style="display: none;"><input type="hidden" name="bzj" th:value="${bitem.price}"></td>
                     <td style="display: none;"><input type="hidden" name="bsl" th:value="1"></td>
-                  	<td style="display: none;"><input type="hidden" name="blx" value="2"></td>
+                  	<td style="display: none;"><input type="hidden" name="blx" value="4"></td>
                   </tr>
                 </tbody>
               </table>

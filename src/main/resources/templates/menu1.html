@@ -50,10 +50,10 @@
 			window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');
 		</script>
 		<script src="js1/modernizr.min.js"></script>
-		<link rel="stylesheet" href="css1/owl.carousel.css">
-		<link rel="stylesheet" href="css1/owl.theme.css">
-		<link href="css1/flexslider.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css1/responsive.css">
+		<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
+		<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
+		<link th:href="@{/css1/flexslider.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 		<style>
 			#main-content .section {
 				padding-bottom: 30px;
@@ -259,7 +259,7 @@
 					<span th:text="${item.tname}"></span>
 					<div class="order-top" th:each="items : ${item.list}">
 						<li class="im-g">
-							<a href="single1.html"><img th:if="${items.images!=null}" th:src="${items.images.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id})}"><img th:if="${items.images!=null}" th:src="${items.images.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${items.price}"></h3>
@@ -267,7 +267,7 @@
 							<p th:text="${items.name1}"></p>
 						</li>
 						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" >EXPLORE</a>
+							<a class="hvr-shutter-in-horizontal button" >加入</a>
 						</li>
 						<div class="clearfix"></div>
 					</div>

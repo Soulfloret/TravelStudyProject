@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.accp.domain.orderson;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
 import com.accp.domain.users;
 import com.accp.domain.roomorder;
 import com.accp.domain.roomorderson;
+import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomdestineserviceimpl;
 import com.accp.renyuxuan.service.impl.roomorderserviceimpl;
 import com.accp.renyuxuan.service.impl.roomordersonserviceimpl;
@@ -35,7 +37,11 @@ public class roomcontroller {
 	roomordersonserviceimpl rs;
 	@Autowired
 	UsersService u;
+	@Autowired
+	ordersonserviceimpl o;
 	
+	
+	//去住宿页面
 	@RequestMapping("/toqueryroom")
 	public String toqueryroom(Model model ,room ro) {
 		List<room> list =r.queryByroom(ro);
@@ -44,6 +50,7 @@ public class roomcontroller {
 		return "/HotelManager";
 	}
 	
+	//去住宿添加页面
 	@RequestMapping("/toaddroom")
 	public String toaddroom(room ro) {
 		return "HotelAdd";
@@ -55,6 +62,7 @@ public class roomcontroller {
 		return "redirect:/room/toqueryroom";
 	}
 	
+	//去住宿修改页面
 	@RequestMapping("/toupdateroom")
 	public String toupdateroom(Model model,room ro) {
 		model.addAttribute("list", r.queryByroom(ro));
@@ -82,9 +90,7 @@ public class roomcontroller {
 	@RequestMapping("/RoomDestineadd")
 	public String RoomDestineadd(roomdestine roo,String sfz,Double price) {
 		users us=u.queryByIdCard(sfz);
-		
 		Integer uid=us.getId();//数据库没有
-		
 		roo.setUserid(uid);
 		rd.insertSelective(roo);//添加记录
 		roomorder roomorders=new roomorder();//创建一个房间订单表对象
@@ -100,6 +106,11 @@ public class roomcontroller {
 		roomordersons.setDestineid(roo.getId());
 		roomordersons.setRoomorderid(roomorders.getId());
 		rs.insertSelective(roomordersons);//添加订单从表
+		//添加总订单从表
+		orderson ordersons=new orderson();
+		ordersons.setIid(roo.getRoomid());
+		ordersons.setTypeid(3);
+		o.insertSelective(ordersons);
 		return "redirect:/room/roomorder";
 	}
 	
