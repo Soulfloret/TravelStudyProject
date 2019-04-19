@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.menu;
 import com.accp.domain.menuExample;
+import com.accp.domain.recommend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +32,8 @@ public interface menuMapper {
     int updateByPrimaryKeySelective(menu record);
 
     int updateByPrimaryKey(menu record);
+    
+    recommend recommendByidmenu(@Param("id")Integer id);
+    
+    List<menu> queryMenuAll(menu menu);
 }

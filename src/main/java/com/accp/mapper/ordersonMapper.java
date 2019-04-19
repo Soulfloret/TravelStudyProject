@@ -29,4 +29,6 @@ public interface ordersonMapper {
     int updateByPrimaryKey(orderson record);
     
     List<orderson> recommdstatic(@Param("typeid")Integer typeid);
+    
+    List<orderson> recommdstaticmenu(@Param("typeid")Integer typeid);
 }
