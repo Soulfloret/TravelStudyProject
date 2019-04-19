@@ -1,14 +1,11 @@
-package com.accp.chenyong.serviceimpl;
+package com.accp.sunhuihui.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Meal;
 import com.accp.domain.Mealix;
 import com.accp.domain.Usermainorder;
@@ -21,8 +18,6 @@ import com.accp.domain.orderwork;
 import com.accp.domain.project;
 import com.accp.domain.roomorder;
 import com.accp.domain.staff;
-import com.accp.domain.team;
-import com.accp.domain.teammember;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.domain.worduser;
@@ -38,13 +33,11 @@ import com.accp.mapper.projecttypeMapper;
 import com.accp.mapper.roomorderMapper;
 import com.accp.mapper.staffMapper;
 import com.accp.mapper.teamMapper;
-import com.accp.mapper.teammemberMapper;
-import com.accp.mapper.userorderMapper;
 import com.accp.mapper.usersMapper;
 import com.alibaba.fastjson.JSON;
 @Service
 @Transactional
-public class UserMainOrderServiceImpl implements UserMainOrderService {
+public class UserMainOrderService {
 	@Autowired
 	UsermainorderMapper mapper;
 	@Autowired
@@ -71,76 +64,16 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	productMapper mapper11;
 	@Autowired
 	teamMapper mapper12;
-	@Autowired
-	teammemberMapper mapper13;
-	@Autowired
-	userorderMapper mapper14;
 	
-	public int countByExample(UsermainorderExample example) {
-		// TODO Auto-generated method stub
-		return mapper.countByExample(example);
-	}
-	@Override
-	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return mapper.deleteByPrimaryKey(id);
-	}
-/*	@Override
-	public int insert(Usermainorder record) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		int num;
-		record.setName2("个人");
-		record.setName1("正在进行");
-		String date=new Date().toString();
-		record.setOrdertime(new Date());
-		record.setOrderno(sdf.parse(date)+"yxlx");
-		if(record.getTeam()!=null) {
-			mapper12.insert(record.getTeam());
-			record.setOrdercustomer(record.getTeam().getId());
-			record.setName2("团队");
-		}
-		num=mapper.insert(record);
-		for (teammember t :record.getTeam().getTeams()) {
-			t.setTeamid(record.getId());
-			mapper13.insert(t);
-			userorder uo=new userorder();
-			uo.setOrderno();
-			mapper14.insert();
-		}
-		return num;
-	}
-*/
-	@Override
-	public int insertSelective(Usermainorder record) {
-		// TODO Auto-generated method stub
-		return mapper.insertSelective(record);
-	}
-
-	@Override
-	public List<Usermainorder> selectByExample(UsermainorderExample example) {
-		// TODO Auto-generated method stub
-		return mapper.selectByExample(example);
-	}
-
-	@Override
-	public Usermainorder selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return mapper.selectByPrimaryKey(id);
-	}
-
-	@Override
-	public int updateByPrimaryKey(Usermainorder record) {
-		// TODO Auto-generated method stub
-		return mapper.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public List<Usermainorder> query(Integer id) {
+	
+	
+	
+	public List<Usermainorder> query(Integer id,Integer uid) {
 		// TODO Auto-generated method stub
 		List<Usermainorder> list=mapper.query(id);
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			if(umo.getName2().equals("涓汉")) {
+			if(umo.getName2().equals("涓汉")||umo.getOrdercustomer()==uid) {
 				umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
@@ -213,7 +146,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
 				for (users u : umo.getList()) {
-					//if(u.getId()==1||umo.getUser().getId()==1)
+					if(u.getId()==uid||umo.getUser().getId()==uid) {
 					for (userorder uo : u.getOrders()) {
 						uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
 						uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
@@ -280,12 +213,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					}
 				}
 			}
+		}
 		return list;
-	}
-	@Override
-	public int insert(Usermainorder record) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
