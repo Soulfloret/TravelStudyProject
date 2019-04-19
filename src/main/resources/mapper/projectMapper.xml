@@ -77,6 +77,9 @@
 		<if test="id!=null">
 			or `id`=#{id}
 		</if>
+		<if test="tid!=null">
+			or `tid`=#{tid}
+		</if>
 		<!-- <if test="pid!=null">
 			or `pid` =#{pid}
 		</if> -->
@@ -123,6 +126,11 @@
   		<result property="height" column="height"/>
   		<result property="width" column="width"/>
   		<result property="typeid" column="typeid"/>
+  	</collection>
+  	<collection property="palist" column="id" ofType="com.accp.domain.productarea" select="com.accp.mapper.productareaMapper.queryByPid">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="productId" property="productid" jdbcType="INTEGER" />
+	    <result column="AreaId" property="areaid" jdbcType="INTEGER" />
   	</collection>
   </resultMap>
   

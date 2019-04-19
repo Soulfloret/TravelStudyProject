@@ -28,6 +28,7 @@ public class projecttype {
     }
 
     public void setPtname(String ptname) {
+    	
         this.ptname = ptname;
     }
 

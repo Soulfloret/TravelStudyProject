@@ -59,7 +59,7 @@ public class projectController {
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,areas area,String name) {
 		List<projecttype> typelist=ptype.query();
-		List<areas> alist=areas.selectByExample(area);
+		List<areas> alist=areas.insery_project_query_area();
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("alist", alist);
 		return "insert_project";
@@ -71,7 +71,12 @@ public class projectController {
 	@ResponseBody
 	public users queryName(String name) {
 		users project_user=user.queryByName(name);
-		return project_user;
+		if(project_user!=null) {
+			
+			return project_user;
+		}else {
+			return null;
+		}
 	}
 	
 	/*查询项目详情*/
@@ -100,8 +105,9 @@ public class projectController {
 				String suffix=name.substring(name.lastIndexOf("."),name.length());//��ȡ���ļ��ĺ�׺��
 				File fileImg=new File(url+uuid+suffix);//�����ļ�·��
 				f.transferTo(fileImg);//�����ļ�
-				String img_json=JSON.toJSONString(fileImg);
+				String img_json="fileupload/"+fileImg.getName();
 				images i=new images();
+				System.out.println(img_json);
 				i.setUrl(img_json);
 				i.setTypeid(1);
 				ilist.add(i);
@@ -126,6 +132,32 @@ public class projectController {
 		List<productarea> list=pas.queryByPid(pid);
 		System.out.println(JSON.toJSONString(list));
 		return list;
+	}
+	
+	/*前台查询所有*/
+	@RequestMapping("query_Qt")
+	public String query_Qt(Model model,project pro) {
+		List<projecttype> type_list=ptype.query();
+		List<project> list=pros.queryAll(pro);
+		System.out.println(JSON.toJSONString(list));
+		model.addAttribute("type_list", type_list);
+		model.addAttribute("list",list);
+		return "productList";
+	}
+	
+	/*前台查询详情*/
+	@RequestMapping("queryBy_Qt_Xq")
+	public String queryBy_Qt_Xq(Model model,Integer id) {
+		project list=pros.projectXq_queryById(id);
+		System.out.println(JSON.toJSONString(list));
+		/*for(int i=0;i<list.getIlist().size();i++) {
+			project plist=new project();
+			if(list.getIlist().get(i)!=null) {
+				
+			}
+		}*/
+		model.addAttribute("list",list);
+		return "productInfo";
 	}
 	
 }

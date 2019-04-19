@@ -111,11 +111,11 @@
   </resultMap>
   
   <!-- 新增项目查询负责人 -->
-  <select id="project_queryByName" resultMap="BaseResultMap">
+  <select id="project_queryByName" resultMap="result_ByName">
   	SELECT * FROM `users` AS `u`
 	INNER JOIN `staff` AS `s`
 	ON `u`.`id`=`s`.`userId`  
-	WHERE `uname`=#{name}
+	WHERE `uname`=#{name} AND `TypeId`=2
   </select>
   
   <sql id="Example_Where_Clause" >
