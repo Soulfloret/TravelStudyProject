@@ -21,6 +21,12 @@ public class positionsService implements positionsServiceImpl{
 		// TODO Auto-generated method stub
 		return mapper.selectByExample(example);
 	}
+
+	@Override
+	public List<positions> positionsById(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.positionsById(id);
+	}
 	
 	
 }

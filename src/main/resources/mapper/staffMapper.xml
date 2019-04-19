@@ -122,7 +122,7 @@ select * from staff where userid=#{userid}
 		SELECT users.id AS
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
-		staff.*,positions.`id` AS pid,positions.`postion`
+		staff.*,positions.`id` AS pid,positions.`postion`,staff.`state`
 		FROM users inner JOIN
 		staff
 		ON staff.`userId`=users.`id`

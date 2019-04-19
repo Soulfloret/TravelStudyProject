@@ -20,43 +20,43 @@ public class JJ_loginController {
 
 	@Autowired
 	JJ_loginServiceImpl service;
-	
+
 	@Autowired
 	staffServiceImpl st;
-	
+
 	@RequestMapping("/login")
 	public String login() {
-		
+
 		return "/login";
 	}
-	
+
 	@RequestMapping("/mode")
 	public String mode() {
-		
+
 		return "mode";
 	}
+
 	@RequestMapping("/index")
 	public String index() {
-		
 		return "index";
 	}
-	
+
 	/*
 	 * 登录
 	 */
 	@RequestMapping("/loginQuery")
-	public String loginQuery(String uname,String upassword,users users,HttpSession session) {
-		users user=service.queryByName(uname,upassword);
-		System.out.println(user.getTypeid());
-		if (user.getTypeid()==3) {
-			staff staffid=st.loginByuserid(user.getId());
-			session.setAttribute("staff", staffid);
+	public String loginQuery(String uname, String upassword, users users, HttpSession session) {
+		users user = service.queryByName(uname, upassword);
+		if(user!=null) {
+			if (user.getTypeid()==3) {
+				staff staffid = st.loginByuserid(user.getId());
+				session.setAttribute("staff", staffid);
+			}
+		}else {
+			return "redirect:/login/login";			
 		}
+		
 		return "redirect:/login/mode";
 	}
-	
-	
-	
-	
-	
+
 }
