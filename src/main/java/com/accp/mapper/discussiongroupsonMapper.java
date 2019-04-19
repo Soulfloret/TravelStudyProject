@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface discussiongroupsonMapper {
+	public List<discussiongroupson> selectAllusersBydid(Integer did);
 	public int selectCountBydid(Integer did);
 	
     int countByExample(discussiongroupsonExample example);

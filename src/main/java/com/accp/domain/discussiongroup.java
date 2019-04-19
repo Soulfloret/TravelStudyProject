@@ -27,8 +27,17 @@ public class discussiongroup {
     private List<images> img;
     //讨论组现人数
     private Integer Count;
+    //用来保存请求 判断是当前登录用户对讨论组是否已发送请求
+    private sendrequest sendreq;
     
-   
+	public sendrequest getSendreq() {
+		return sendreq;
+	}
+
+	public void setSendreq(sendrequest sendreq) {
+		this.sendreq = sendreq;
+	}
+
 	public Integer getCount() {
 		return Count;
 	}

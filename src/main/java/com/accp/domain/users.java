@@ -27,6 +27,17 @@ public class users {
 		this.upassword=upassword1;
 	}
 
+	public sendrequest getSendreq() {
+		return sendreq;
+	}
+
+	public void setSendreq(sendrequest sendreq) {
+		this.sendreq = sendreq;
+	}
+	
+	//用来保存请求 判断是当前登录用户对用户是否已发送请求
+	private sendrequest sendreq;
+	
 	private String idcardno;
 
     private String phone;

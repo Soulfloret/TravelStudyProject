@@ -16,6 +16,11 @@
   <select id="selectCountBydid" resultType="Integer">
   	SELECT COUNT(*) FROM discussiongroupson	WHERE did=#{did}
   </select>
+  	<!-- 根据讨论组id 查询讨论组成员 -->
+    <select id="selectAllusersBydid" resultMap="BaseResultMap">
+  		SELECT * FROM discussiongroupson	WHERE did=#{did}
+  	</select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >

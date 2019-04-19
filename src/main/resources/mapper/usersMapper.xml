@@ -44,9 +44,10 @@
   	</collection>
   </resultMap>
   
-  <!--  根据用户名 模糊查询用户-->
+  <!--  根据输入用户名的 模糊查询不是好友的用户-->
   <select id="selectByUname" resultMap="BaseResultMap">
-  	select * from users where uname like CONCAT('%',#{uname},'%')
+  	SELECT * FROM users WHERE uname LIKE CONCAT('%',#{name},'%') AND id
+ 	NOT IN(SELECT u.id FROM friend AS f,users AS u WHERE (u.id=f.uid OR u.id=f.fid) AND (uid=#{id} OR fid=#{id}))
   </select>
   
   
