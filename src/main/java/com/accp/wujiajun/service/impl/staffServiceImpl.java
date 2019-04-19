@@ -21,5 +21,9 @@ public interface staffServiceImpl {
 	List<staff> salaryQueryId(Integer id);
 	//根据员工查询每个员工打卡的条数
 	List<signin> signinQuery(Integer id);
+	//修改员工在职状态(0,1)
+	int staffupdate(staff sta);
+	//登录时更用户id查询是否是员工
+	staff loginByuserid(Integer userid);
 	
 }
