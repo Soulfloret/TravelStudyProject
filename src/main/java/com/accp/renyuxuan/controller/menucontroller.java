@@ -17,12 +17,14 @@ import com.accp.domain.menu;
 import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
+import com.accp.domain.orderson;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
+import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -48,6 +50,8 @@ public class menucontroller {
 	//
 	@Autowired
 	UsersService u;
+	@Autowired
+	ordersonserviceimpl oo;
 	
 	
 	//查询后台菜单
@@ -178,17 +182,30 @@ public class menucontroller {
 				o.setNum(vps[i].getNum());
 				o.setName1(vps[i].getName1());
 				o.setPrice(vps[i].getPrice());
-				os.insertSelective(o);
+				os.insertSelective(o);//添加餐饮订单从表
+				orderson ordersons=new orderson();
+				ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+				ordersons.setIid(vps[i].getMenuid());
+				oo.insertSelective(ordersons);//添加总订单从表
 			}
 		return "下单成功！";
 	}
 	
-	
+	//前台
 	@RequestMapping("/toquerymenu1")
 	public String toquerymenu1(Model model) {
 		List<menutype> list=me.selectqueryTypemenu(null);
+		List<bind> blist=b.querybind(null);
+		model.addAttribute("blist", blist);
 		model.addAttribute("list", list);
 		return "menu1";
+	}
+	
+	
+	@RequestMapping("/toquerymenu1Byid")
+	public String toquerymenu1Byid() {
+		
+		return "single1";
 	}
 	
 	
