@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class menu {
     private Integer id;
@@ -37,10 +38,30 @@ public class menu {
     
     private menutype mtype;
     
+    private List<images> mlist;
+    
+    private List<Object> list;
+    
     
     
 
-    public menutype getMtype() {
+    public List<Object> getList() {
+		return list;
+	}
+
+	public void setList(List<Object> list) {
+		this.list = list;
+	}
+
+	public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public menutype getMtype() {
 		return mtype;
 	}
 

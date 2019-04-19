@@ -88,41 +88,26 @@
 		   	   </ul>
 		   	   
 		   	</div>
-		   	<div class="col-md-9">
+		   	<div class="col-md-9" th:each="item,stack : ${list}">
 		   	   <div class="single_image">
 					     <ul id="etalage">
-							<li>
-								<img class="etalage_thumb_image" th:src="@{/images/s1.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s1.jpg}"  alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image"  th:src="@{/images/s2.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s2.jpg}"  alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image"  th:src="@{/images/s3.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s3.jpg}"  alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image" th:src="@{/images/s1.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s1.jpg}"  alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image"  th:src="@{/images/s2.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s2.jpg}"  alt=""/>
-							</li>
-							<li>
-								<img class="etalage_thumb_image"  th:src="@{/images/s3.jpg}"  alt=""/>
-								<img class="etalage_source_image"  th:src="@{/images/s3.jpg}"  alt=""/>
+							<li th:each="items,stack1 : ${item.mlist}">
+								<img class="etalage_thumb_image"   th:src="${items.url}"  alt=""/>
+								<img class="etalage_source_image"  th:src="${items.url}"  alt=""/>
 							</li>
 						</ul>
-					    </div>
+				</div>
 					    <div class="single_right">
-				        	<h3>美味汉堡 </h3>
-				        	<p class="m_5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
+				        	<h3 th:text="${item.mname}"> </h3>
+				        	<p class="m_5" th:text="${item.name1}"></p>
+				        	<br>
+				        	<span th:if="${item.list!=null}" th:text="套餐详情"></span>
+				        	<div th:if="${item.list!=null}" th:each="mitem : ${item.list}">
+				        		<span th:text="${mitem.mname}" style="color: green;"></span>
+				        	</div>
 				        	<div class="price_single">
-							  <span class="yj reducedfrom">$66.00</span>
-							  <span class="xj actual1">$12.00</span><a href="#">click for offer</a>
+							 <!--  <span class="yj reducedfrom">$66.00</span> -->
+							  <span class="xj actual1" th:text="'$'+${item.price}"></span>
 							</div>
 				        	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
 							  <button type="button" class="jian btn btn-default">-</button>
@@ -171,32 +156,8 @@
 							  </form>
 							</div>
 							<ul class="add-to-links">
-    			              <li><img src="images/wish.png" alt=""><a href="#">123位用户赞了</a></li>
+    			              <li><img th:src="@{/images/wish.png}" alt=""><a href="javascript:void(0)"><span th:text="${item.likecount}"></span> 位用户赞了</a></li>
     			            </ul>
-							<div class="col-xs-12  col-sm-6  col-md-4">
-				              <div class="banners--small  banners--small--social">
-				                <a href="#" class="social"><i class="zocial-facebook"> </i>
-				                <span class="banners--small--text"> Share on<br>Facebook</span>
-				                <div class="clearfix"> </div>
-				                </a>
-				              </div>
-            				</div>
-                            <div class="col-xs-12  col-sm-6  col-md-4">
-				              <div class="banners--small  banners--small--social">
-				                <a href="#" class="social"><i class="zocial-twitter"> </i>
-				                <span class="banners--small--text"> Tweet it<br>Twitter</span>
-				                <div class="clearfix"> </div>
-				                </a>
-				              </div>
-            				</div>
-                            <div class="col-xs-12  col-sm-6  col-md-4">
-				              <div class="banners--small  banners--small--social">
-				                <a href="#" class="social"><i class="zocial-pin"> </i>
-				                <span class="banners--small--text">Pin on<br>Pinterest</span>
-				                <div class="clearfix"> </div>
-				                </a>
-				              </div>
-            			   </div>
           </div> 
           
           	
@@ -210,26 +171,15 @@
 	 			<div class="col-md-3"></div>
 	 			<div class="col-md-9">
 	 				<ul class="media-list">
-					  <li class="media">
+					  <li class="media" th:each="pitem : ${plist}">
 					    <div class="media-left">
 					      <a href="#">
-					        <img class="media-object" th:src="@{/images/6.png}" alt="...">
+					        <img class="media-object" th:src="${pitem.muser.name2}" alt="...">
 					      </a>
 					    </div>
 					    <div class="media-body"  style="border: 1px solid #fff;">
-					      <h4 class="media-heading">Media heading</h4>
-					      	<p style="font-size: 16px;">很好啊实打实大师大师大师大dsfdsfsdfds第三方斯蒂芬第三方第三方师大师大师大师的第三方斯蒂芬第三方斯蒂芬第三方的所发生的</p>
-					    </div>
-					  </li>
-					  <li class="media">
-					    <div class="media-left">
-					      <a href="#">
-					        <img class="media-object" th:src="@{/images/6.png}" alt="...">
-					      </a>
-					    </div>
-					    <div class="media-body"  style="border: 1px solid #fff;">
-					      <h4 class="media-heading">Media heading</h4>
-					      	<p style="font-size: 16px;">很好啊实打实大师大师大师大dsfdsfsdfds第三方斯蒂芬第三方第三方师大师大师大师的第三方斯蒂芬第三方斯蒂芬第三方的所发生的</p>
+					      <h4 class="media-heading" th:text="${pitem.muser.uname}"></h4>
+					      	<p style="font-size: 16px;" th:text="${pitem.content}"></p>
 					    </div>
 					  </li>
 					</ul>

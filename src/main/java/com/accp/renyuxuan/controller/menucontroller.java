@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menucomment;
 import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
@@ -21,6 +22,7 @@ import com.accp.domain.orderson;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
+import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
@@ -52,6 +54,9 @@ public class menucontroller {
 	UsersService u;
 	@Autowired
 	ordersonserviceimpl oo;
+	//餐饮评论表
+	@Autowired
+	menucommentserviceimpl mm;
 	
 	
 	//查询后台菜单
@@ -191,7 +196,7 @@ public class menucontroller {
 		return "下单成功！";
 	}
 	
-	//前台
+	//前台查询所有餐饮
 	@RequestMapping("/toquerymenu1")
 	public String toquerymenu1(Model model) {
 		List<menutype> list=me.selectqueryTypemenu(null);
@@ -201,12 +206,24 @@ public class menucontroller {
 		return "menu1";
 	}
 	
-	
+	//根据普通餐饮编号或者套餐编号查询
 	@RequestMapping("/toquerymenu1Byid")
-	public String toquerymenu1Byid() {
-		
+	public String toquerymenu1Byid(Model model,Integer id,String type) {
+		if("2".equals(type)) {
+			List<menu> list=m.selectmenuByid(id);
+			model.addAttribute("list", list);
+		}else if("4".equals(type)) {
+			List<bind> list=b.selectbindByid(id);
+			model.addAttribute("list", list);
+		}
+		menucomment menucomments=new menucomment();
+		menucomments.setMenuid(id);
+		menucomments.setName1(type);
+		List<menucomment> plist=mm.selectmenucommentByid(menucomments);
+		model.addAttribute("plist", plist);
 		return "single1";
 	}
+	
 	
 	
 	

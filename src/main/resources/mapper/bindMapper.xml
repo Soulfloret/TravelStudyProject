@@ -33,6 +33,32 @@
 	  	</collection> 	
   </resultMap>
   
+  <resultMap type="com.accp.domain.bind" id="BaseResultMap2" extends="BaseResultMap">
+  		<collection property="mlist" ofType="com.accp.domain.images">
+  			<id column="iiid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+  		</collection>
+  		<collection property="list" ofType="com.accp.domain.menu">
+	  		 <id column="mid" property="id" jdbcType="INTEGER" />
+   			 <result column="mnames" property="mname" jdbcType="VARCHAR" />
+   			 <result column="mprice" property="price" jdbcType="DOUBLE" />
+   			 <result column="mname1" property="name1" jdbcType="VARCHAR" />
+   			 <result column="mename" property="mename" jdbcType="VARCHAR" />
+	  	</collection> 
+  </resultMap>
+  
+  <select id="selectbindByid" resultMap="BaseResultMap2">
+		SELECT b.*,i.`id`AS iiid ,i.`iid`,i.`url`,i.`typeId` 
+			,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename
+			FROM `bind` b LEFT JOIN `images` i ON b.`id`=i.`iid` AND i.`typeId`=4
+			INNER JOIN `menubind` me ON b.`id`=me.`BindId`
+			INNER JOIN `menu` m ON m.`id`=me.`menuId`
+		WHERE b.`id`=#{id}
+  </select>
+  
+  
   <insert id="insertmenubind">
   	INSERT INTO `menubind`(`BindId`,`menuId`,`name1`)VALUES
   	<foreach collection="blist" item="li" separator=",">

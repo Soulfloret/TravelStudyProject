@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface menuMapper {
 	
+	List<menu> selectmenuByid(Integer id);
+	
 	List<menu> QueryMenu(menu me);
 	
     int countByExample(menuExample example);
