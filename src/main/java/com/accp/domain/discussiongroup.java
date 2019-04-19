@@ -25,9 +25,18 @@ public class discussiongroup {
     
     //保存讨论组图片
     private List<images> img;
+    //讨论组现人数
+    private Integer Count;
     
-
    
+	public Integer getCount() {
+		return Count;
+	}
+
+	public void setCount(Integer count) {
+		Count = count;
+	}
+
 	public List<images> getImg() {
 		return img;
 	}

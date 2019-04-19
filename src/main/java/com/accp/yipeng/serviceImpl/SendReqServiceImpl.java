@@ -51,13 +51,13 @@ public class SendReqServiceImpl  implements SendReqService{
 		List<sendrequest> list5=mapper.selectBydid(2, uid);
 		for (sendrequest sendrequest : list5) {
 			discussiongroup dis=dmapper.selectByPrimaryKey(sendrequest.getUid());
-			dis.setImg(imgmapper.queryimg(sendrequest.getId(), 8));
+			dis.setImg(imgmapper.queryimg(dis.getId(), 8));
 			sendrequest.setDis(dis);
 		}
 		List<sendrequest> list6=mapper.selectDisByuid(2, uid);
 		for (sendrequest sendrequest : list6) {
 			sendrequest.setUse(umapper.selectByPrimaryKey(sendrequest.getDid()));
-			sendrequest.getDis().setImg(imgmapper.queryimg(sendrequest.getId(), 8));
+			sendrequest.getDis().setImg(imgmapper.queryimg(sendrequest.getDis().getId(), 8));
 		}
 		list2.add(list5);
 		list2.add(list6);
@@ -69,6 +69,11 @@ public class SendReqServiceImpl  implements SendReqService{
 	public int updateStatusById(String status, Integer id) {
 		// TODO Auto-generated method stub
 		return mapper.updateStatusById(status, id);
+	}
+	@Override
+	public int insert(sendrequest record) {
+		// TODO Auto-generated method stub
+		return mapper.insert(record);
 	}
 
 	

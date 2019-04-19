@@ -11,7 +11,19 @@ public class sendrequest {
 
     private String sstatus;
 
-    private String content;
+    public sendrequest() {
+	}
+
+	public sendrequest(Integer uid, Integer did, Integer typeid, String sstatus, String content) {
+		super();
+		this.uid = uid;
+		this.did = did;
+		this.typeid = typeid;
+		this.sstatus = sstatus;
+		this.content = content;
+	}
+
+	private String content;
 
     private String name1;
 

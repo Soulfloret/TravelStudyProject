@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.discussiongroupson;
 import com.accp.domain.friend;
+import com.accp.domain.sendrequest;
 import com.accp.yipeng.service.DiscussiongroupService;
 import com.accp.yipeng.service.DiscussiongroupSonService;
 import com.accp.yipeng.service.FriendService;
@@ -66,8 +67,20 @@ public class FriendCotrller {
 	}
 	
 	@RequestMapping("serach")
-	public List<Object> Serach(String name) {
-		return DisService.query(name);
+	public List<Object> Serach(String name,Integer Id) {
+		return DisService.query(name,Id);
 	}
+	
+	@RequestMapping("sendReq")
+	public int sendReq(String uid,String did,String TypeId,String content){
+		int uids=Integer.parseInt(uid);
+		int typeId=Integer.parseInt(TypeId);
+		int dids=Integer.parseInt(did);
+		int num=0;
+		sendrequest s=new sendrequest(uids, dids, typeId, "等待同意", content);
+		num=sendService.insert(s);
+		return num;
+	} 
+	
 	
 }
