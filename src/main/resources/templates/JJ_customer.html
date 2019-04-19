@@ -35,6 +35,8 @@
 							<span class="closeModal">
 								<label>职位</label>&nbsp;&nbsp;&nbsp;
 							<span class="zhiwei"></span>
+							<label>在职状态</label>&nbsp;&nbsp;&nbsp;
+							<span class="zt"></span>
 							</span> <span class="close" data-dismiss="modal">&times;</span>
 						</div>
 						<div id="" class="modal-body appe"></div>
@@ -122,13 +124,13 @@
 									<td><b th:text="${item.ulist.uname}"></b></td>
 									<td>
 										<div class="tm-status-circle moving"></div> <b
-										th:text="${item.plist.postion}"></b>
+										th:text="${item.plist.postion}" th:value="${item.plist.id}" class="zw"></b>
 									</td>
 									<td><b>男</b></td>
-									<td><b th:if="${item.state==0}" th:text="在职">
+									<td><b th:if="${item.state==0}" class="stateid" th:value="${item.state}" th:text="在职">
 									
 									</b>
-									<b th:if="${item.state==1}" th:text="离职" style="color: red">
+									<b th:if="${item.state==1}" class="stateid" th:value="${item.state}" th:text="离职" style="color: red">
 									
 									</b>
 									</td>
@@ -145,7 +147,7 @@
 							</tbody>
 						</table>
 						
-						<button class="btn JJ_addyg " data-target="#JJ_addygtan"
+						<button class="btn JJ_addyg" data-target="#JJ_addygtan"
 							data-toggle="modal">录入员工</button>
 							<button class="btn JJ_plsc">批量删除</button>
 							<button class="btn JJ_sc">删除</button>
@@ -166,8 +168,11 @@
 			$(".JJ_sc").hide();
 			$(".JJ_xiang").click(function() {
 			var h = $(this).parent().parent().parent().find(".uids").html();
+			var zw=$(this).parent().parent().parent().find(".zw").html();
+			var stateids;
 					$(".appe").html("");
 					$(".zhiwei").html("");
+					$(".zt").html("");
 					$.ajax({
 						url : "/staff/queryById?id="+h,
 						type : "POST",
@@ -197,11 +202,18 @@
 							}else{
 								var lizhi="未离职";
 							}
-							/* 拼接离职时间 */
-							
 							var zhiwei="<select>"
 								+"<option>"+data.plist.postion+"</option>"
 								+"</select>";
+							$(".zhiwei").append(zhiwei);
+								var t;
+								var zts=data.state;
+								if(zts==0){
+									t="在职";
+								}else{
+									t="离职";
+								}
+							var zt="<select><option>"+t+"</option></select>";
  							var st = "<table class='table tables'>"
 								+ "<tr>"
 								+ "<td>用户名</td>"
@@ -228,7 +240,8 @@
 								+ "<td colspan='2'><input type='text' class='date2'  name='lz' value='"+lizhi+"'/></td>"
 								+ "</tr>" + "</table>";
 							$(".appe").append(st); 
-							$(".zhiwei").append(zhiwei);
+							
+							$(".zt").append(zt);
 								}
 							})
 

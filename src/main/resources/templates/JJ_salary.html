@@ -135,7 +135,7 @@ a {
 				<h2 class="tm-block-title">薪资列表</h2>
 				<div class="JJ_feileiselect">
 
-					<label>职位</label>&nbsp; 
+					<!-- <label>职位</label>&nbsp; 
 					<select>
 						<option>请选择</option>
 						<option th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
@@ -145,9 +145,9 @@ a {
 						style="width: 100px;" placeholder="" /> ~ <input type="text"
 						style="width: 100px;" placeholder="" />
 					<button class="JJ_mohua">查找</button>
-
+ -->
 					<a data-target="#JJ_jbgz" data-toggle="modal"
-						href="javascript:void(0)" style="margin-left: 170px; color: red;">基本工资</a>
+						href="javascript:void(0)" style="/* margin-left: 170px; */ color: red;">基本工资</a>
 				</div>
 				<table class="table JJ_tables">
 					<thead>
@@ -255,9 +255,6 @@ a {
 											+"<td>时间</td>"
 											+"</tr>"
 											+"</table>";
-											
-											
-											
 											$(".tab2").append(tab2);
 											$(".ta").append(tabs);
 										}

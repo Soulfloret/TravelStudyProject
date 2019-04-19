@@ -8,4 +8,6 @@ import com.accp.domain.positionsExample;
 public interface positionsServiceImpl {
 
 	List<positions> selectByExample(positionsExample example);
+	
+	List<positions> positionsById(Integer id);
 }

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.positions;
 import com.accp.domain.staff;
-import com.accp.domain.users;
-import com.accp.wujiajun.service.positionsService;
+import com.accp.wujiajun.service.impl.positionsServiceImpl;
 import com.accp.wujiajun.service.impl.staffServiceImpl;
 
 @Controller
@@ -24,7 +23,7 @@ public class staffController {
 	staffServiceImpl service;
 	
 	@Autowired
-	positionsService positions;
+	positionsServiceImpl positions;
 	
 	@RequestMapping("/staffupdate")
 	public String staffupdate(staff sta) {
@@ -71,7 +70,15 @@ public class staffController {
 	@ResponseBody
 	public staff queryById(Integer id,Model model) {
 		staff lists=service.queryById(id);
+		
 		/*model.addAttribute(lists);*/
 		return lists;
+	}
+	
+	@RequestMapping("/positionsById")
+	@ResponseBody
+	public List<positions> positionsById(Integer id){
+		List<positions> plists=positions.positionsById(id);
+		return plists;
 	}
 }
