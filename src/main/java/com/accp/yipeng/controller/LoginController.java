@@ -39,7 +39,6 @@ public class LoginController {
 	public String login(String uname,String upassword,HttpSession session) {
 		users use=sunService.queryByName(uname, upassword);
 		if(use!=null){
-			//System.out.println(use.getId());
 			session.setAttribute("use", use);
 		}else {
 			return "redirect/Login/tologin";

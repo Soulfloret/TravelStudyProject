@@ -49,6 +49,14 @@
 		</where>
   </select>
   
+  <select id="recommendByidmenu" resultType="com.accp.domain.recommend">
+  		SELECT `mname` AS `name`,`name1` AS pname,`price` AS price,id FROM `menu`  WHERE `id`=#{id}
+  </select>
+  
+  <select id="queryMenuAll" resultType="com.accp.domain.menu">
+  		SELECT * FROM `menu` ORDER BY `likecount` DESC
+  </select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >

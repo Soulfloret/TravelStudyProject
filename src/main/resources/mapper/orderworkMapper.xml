@@ -58,7 +58,7 @@
   <select id="queryByOrderId" resultMap="BaseResultMap1">
 	SELECT ow.*,opw.`id` AS opwid,opw.`endTime` AS opwendtime,opw.`iid` AS opwiid,
 	opw.`name1` AS opwname1,opw.`name2` AS opwname2,opw.`name3` AS opwname3,opw.`name4` AS opwname4,
-	opw.`name5` AS opwname5,opw.`orderWorkId` AS opworderworkid,opw.`startTime` AS starttime,
+	opw.`name5` AS opwname5,opw.`orderWorkId` AS opworderworkid,opw.`startTime` AS opwstarttime,
 	wu.`id` AS wuid,wu.`name1` AS wuname1,wu.`name2` AS wuname2,wu.`name3` AS wuname3,wu.`name4` AS wuname4,
 	wu.`name5` AS wuname5,wu.`productStaffId` AS wuproductstaffid,wu.`workId` AS wuworkid,
 	pa.`AreaId` AS paareaid,pa.`id` AS paid,pa.`name1` AS paname1,pa.`name2` AS paname2,pa.`name3` AS paname3,

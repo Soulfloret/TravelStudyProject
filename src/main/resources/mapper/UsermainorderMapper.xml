@@ -112,7 +112,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Usermainorder" >
+  <insert id="insert" parameterType="com.accp.domain.Usermainorder" keyProperty="id"  useGeneratedKeys="true">
     insert into usermainorder (id, orderNo, orderTime, 
       orderUser, orderCustomer, name1, 
       name2, name3, name4, 

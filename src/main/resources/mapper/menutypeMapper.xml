@@ -10,6 +10,50 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.menutype" id="BaseResultMap1">
+  	<id column="mtid" property="id" jdbcType="INTEGER" />
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
+    <result column="mtname1" property="name1" jdbcType="VARCHAR" />
+    <result column="mtname2" property="name2" jdbcType="VARCHAR" />
+    <result column="mtname3" property="name3" jdbcType="VARCHAR" />
+    <result column="mtname4" property="name4" jdbcType="VARCHAR" />
+    <result column="mtname5" property="name5" jdbcType="VARCHAR" />
+    <collection property="list" ofType="com.accp.domain.menu">
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="mname" property="mname" jdbcType="VARCHAR" />
+	    <result column="intorduce" property="intorduce" jdbcType="VARCHAR" />
+	    <result column="price" property="price" jdbcType="DOUBLE" />
+	    <result column="stock" property="stock" jdbcType="INTEGER" />
+	    <result column="state" property="state" jdbcType="VARCHAR" />
+	    <result column="menutypeId" property="menutypeid" jdbcType="INTEGER" />
+	    <result column="putawayTime" property="putawaytime" jdbcType="TIMESTAMP" />
+	    <result column="likecount" property="likecount" jdbcType="INTEGER" />
+	    <result column="name1" property="name1" jdbcType="VARCHAR" />
+	    <result column="name2" property="name2" jdbcType="VARCHAR" />
+	    <result column="name3" property="name3" jdbcType="VARCHAR" />
+	    <result column="name4" property="name4" jdbcType="VARCHAR" />
+	    <result column="name5" property="name5" jdbcType="VARCHAR" />
+	    <association property="image"   javaType="com.accp.domain.images">
+	  		<id column="iiid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  	</association>
+    </collection>
+  </resultMap>
+  
+  <select id="selectqueryTypemenu" resultMap="BaseResultMap1">
+  		SELECT mt.`id` AS mtid,mt.`tname`,mt.`name1` AS mtname1,mt.`name2`AS mtname2,
+		mt.`name3`AS mtname3,mt.`name4`AS  mtname4,mt.`name5`AS mtname5 ,
+		 m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` 
+		FROM  `menutype` mt LEFT JOIN `menu` m 
+		ON mt.`id`=m.`menutypeId`
+		LEFT JOIN `images` i 
+		ON m.`id`=i.`iid` AND i.`typeId`=2
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

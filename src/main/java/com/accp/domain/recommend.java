@@ -15,7 +15,7 @@ public class recommend
 	
 	private String pname;
 	
-	private List<images> img;
+	private List<images> imgs;
 
 	public String getPname() {
 		return pname;
@@ -63,12 +63,12 @@ public class recommend
 		this.price = price;
 	}
 
-	public List<images> getImg() {
-		return img;
+	public List<images> getImgs() {
+		return imgs;
 	}
 
-	public void setImg(List<images> img) {
-		this.img = img;
+	public void setImgs(List<images> imgs) {
+		this.imgs = imgs;
 	}
 	
 	

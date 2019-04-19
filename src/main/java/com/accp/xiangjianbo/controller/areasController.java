@@ -40,7 +40,6 @@ public class areasController {
 	
 	@RequestMapping("/insert")
 	public String insert(areas area) {
-		
 		int i=areas.insert(area);
 		return "redirect:query";
 	}

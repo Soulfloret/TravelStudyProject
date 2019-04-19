@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class team {
     private Integer id;
 
@@ -10,9 +12,21 @@ public class team {
 		this.mainiuserid = mainiuserid;
 	}
     private users use;
+        
+    
+    private List<teammember> teams;
     
     
-    public users getUse() {
+    
+    public List<teammember> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<teammember> teams) {
+		this.teams = teams;
+	}
+
+	public users getUse() {
 		return use;
 	}
 

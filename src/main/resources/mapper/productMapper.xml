@@ -25,6 +25,14 @@
  	 SELECT * FROM `product`
   </select>
   
+  <select id="recommendByidproduct" resultType="com.accp.domain.recommend">
+  		SELECT id,pname AS `name`,content AS pname,(SELECT SUM(`project`.`price`) FROM `productproject` JOIN `project`
+		ON `productproject`.`ProjectId`=`project`.`id`
+		WHERE `productproject`.`productId`=1
+		GROUP BY `productproject`.`productId`) AS price FROM `product`
+		WHERE id=#{id}
+  </select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >

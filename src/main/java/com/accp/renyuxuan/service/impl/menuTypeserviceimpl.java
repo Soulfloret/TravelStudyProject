@@ -23,5 +23,11 @@ public class menuTypeserviceimpl implements menuTypeservice{
 		// TODO Auto-generated method stub
 		return m.selectByExample(example);
 	}
+
+	@Override
+	public List<menutype> selectqueryTypemenu(menutype ms) {
+		// TODO Auto-generated method stub
+		return m.selectqueryTypemenu(ms);
+	}
 	
 }

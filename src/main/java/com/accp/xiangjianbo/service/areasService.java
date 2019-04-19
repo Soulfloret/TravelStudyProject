@@ -23,5 +23,7 @@ public class areasService {
 		return areas.insert(record);
 	}
 	
-	
+	public List<areas> insery_project_query_area(){
+		return areas.insery_project_query_area();
+	}
 }

@@ -17,6 +17,11 @@
 		SELECT * FROM `areas` WHERE `id`=#{id}
 	</select>
 
+	<!-- 新增项目查询基地 -->
+	<select id="insery_project_query_area" resultMap="BaseResultMap">
+		SELECT * FROM areas AS a WHERE a.id NOT IN ((SELECT areaid FROM `productarea` ))
+	</select>
+
   
   <sql id="Example_Where_Clause" >
     <where >

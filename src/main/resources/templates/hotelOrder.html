@@ -91,6 +91,9 @@
 						
 					</div>
 					<form th:action="@{/room/RoomDestineadd}" method="post">
+					
+					
+					
 					<div class="modal-body">
 						<div>
 						<input type="date" name="begintime" readonly="readonly" class="data1">到<input name="endtime" readonly="readonly" class="data2" type="date">
@@ -178,10 +181,7 @@
     					alert("请至少选择一天时间");
     					return false;
     				}
-    				if(ksdata<jsdata){
-    					alert("开始时间不能小于结束时间");
-    					return false;
-    				}
+    				
     				var date = new Date();
     				var n=date.getFullYear();
     				var y=date.getMonth();

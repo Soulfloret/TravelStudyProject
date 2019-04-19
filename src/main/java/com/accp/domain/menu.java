@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class menu {
     private Integer id;
@@ -31,13 +32,24 @@ public class menu {
 
     private String name5;
     
-    private images image;
+    private List<images> imgs;
     
     private String mename;
     
     private menutype mtype;
     
+    private recommend recommend;
     
+    
+    
+    public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
     
 
     public menutype getMtype() {
@@ -56,12 +68,12 @@ public class menu {
 		this.mename = mename;
 	}
 
-	public images getImages() {
-		return image;
+	public List<images> getImages() {
+		return imgs;
 	}
 
-	public void setImage(images image) {
-		this.image = image;
+	public void setImgs(List<images> imgs) {
+		this.imgs = imgs;
 	}
 
 	public Integer getId() {

@@ -72,6 +72,19 @@ public class staffService implements staffServiceImpl{
 		return smapper.signinQuery(id);
 	}
 
+	@Override
+	public int staffupdate(staff sta) {
+		// TODO Auto-generated method stub
+		return mapper.staffupdate(sta);
+	}
+
+	@Override
+	public staff loginByuserid(Integer userid) {
+		staff s=mapper.loginByuserid(userid);
+		s.setUser(umapper.selectByPrimaryKey(s.getUserid()));
+		return s;
+	}
+
 	
 	
 

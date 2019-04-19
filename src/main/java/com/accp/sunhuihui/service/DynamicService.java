@@ -53,7 +53,7 @@ public class DynamicService {
 				List<dynamics> list=mapper.selectByExample(null);
 				PageInfo<dynamics> page=new PageInfo<dynamics>(list);
 				for (dynamics d : list) {
-					List<images> img=imapper.queryimg(d.getId(), typeid);
+					List<images> img=imapper.queryimg(d.getId(), 6);
 					users u=umapper.selectByPrimaryKey(d.getUid());
 					d.setDzcountdt(stmapper.dzcountdt(d.getId(),uid));
 					d.setUser(u);
@@ -72,7 +72,7 @@ public class DynamicService {
 			for (comments c : comme) {
 				c.setDzcount(cmapper.dzcounts(c.getId(),uidd));
 			}
-			dynamic.setImg(imapper.queryimg(dynamic.getId(),3));
+			dynamic.setImg(imapper.queryimg(dynamic.getId(),6));
 			users u=umapper.selectByPrimaryKey(dynamic.getUid());	
 			dynamic.setDzcountdt(stmapper.dzcountdt(id, uidd));
 			dynamic.setComment(comme);

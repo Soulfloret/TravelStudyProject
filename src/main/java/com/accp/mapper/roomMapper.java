@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.recommend;
 import com.accp.domain.room;
 import com.accp.domain.roomExample;
 import com.accp.domain.roomdestine;
@@ -35,4 +36,8 @@ public interface roomMapper {
     int updateByPrimaryKeySelective(room record);
 
     int updateByPrimaryKey(room record);
+    
+    recommend recommendByidroom(@Param("id")Integer id);
+    
+    List<room> queryRoomAll(room room);
 }

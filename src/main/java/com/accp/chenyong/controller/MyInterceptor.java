@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.accp.chenyong.service.ModuleService;
 import com.accp.domain.module;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 @Configuration
 public class MyInterceptor implements HandlerInterceptor {
@@ -21,12 +22,17 @@ public class MyInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		users user=(users)request.getSession().getAttribute("user");
+		staff staff=(staff)request.getSession().getAttribute("staff");
 		String uri=request.getRequestURI();
 		uri=uri.replace(request.getContextPath()+"/","");
+		if(staff==null) {
+			/*response.sendRedirect("goLogin");*/
+			staff=new staff();
+			staff.setId(1);
+		}
 		if(request.getSession().getAttribute("urlMap")==null)
 		{
-			Map<String,module> map=service.queryModuleByUidToMap(user.getId());
+			Map<String,module> map=service.queryModuleByUidToMap(staff.getId());
 			request.getSession().setAttribute("urlMap", map);
 		}
 		Object map=request.getSession().getAttribute("urlMap");

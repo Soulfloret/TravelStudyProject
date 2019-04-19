@@ -33,28 +33,16 @@ a {
 						data-dismiss="modal">&times;</span>
 				</div>
 				<div id="" class="modal-body bodys">
-				<div class="tab1"></div>
-					<!-- <table class="table tables">
-						<tr>
-							<td>打卡次数</td>
-						</tr>
-						<tr>
-							<td>28</td>
-						</tr>
-					</table> -->
-					<!-- <table class="table tables">
-						<tr>
-							<td colspan="2">打卡</td>
-						</tr>
-						<tr>
-							<td>次数</td>
-							<td>时间</td>
-						</tr>
-						
-					</table> -->
-					<div class="tab2">
+				<div class="tab1">
+				
+					</div>
+					
+				<div class="tab2">
 							
-						</div>
+					</div>
+				<div class="tab3">
+							
+					</div>
 				</div>
 				<div id="" class="modal-footer">
 					<a class="btn">提交</a> <a class="btn" data-dismiss="modal">关闭</a>
@@ -147,18 +135,19 @@ a {
 				<h2 class="tm-block-title">薪资列表</h2>
 				<div class="JJ_feileiselect">
 
-					<label>职位</label>&nbsp; <select>
-						<option>经理</option>
-						<option>主管</option>
-						<option>员工</option>
-					</select> <label>员工姓名</label>&nbsp; <input type="text" style="width: 100px;"
+					<!-- <label>职位</label>&nbsp; 
+					<select>
+						<option>请选择</option>
+						<option th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
+					</select>
+					 <label>员工姓名</label>&nbsp; <input type="text" style="width: 100px;"
 						placeholder="" /> <label>工资范围</label> <input type="text"
 						style="width: 100px;" placeholder="" /> ~ <input type="text"
 						style="width: 100px;" placeholder="" />
 					<button class="JJ_mohua">查找</button>
-
+ -->
 					<a data-target="#JJ_jbgz" data-toggle="modal"
-						href="javascript:void(0)" style="margin-left: 170px; color: red;">基本工资</a>
+						href="javascript:void(0)" style="/* margin-left: 170px; */ color: red;">基本工资</a>
 				</div>
 				<table class="table JJ_tables">
 					<thead>
@@ -208,6 +197,7 @@ a {
 							$(".salaryzhi").html("");
 							$(".tab1").html("");
 							$(".tab2").html("");
+							$(".tab3").html("");
 								$.ajax({
 										url : "/salary/salaryQueryId?id=" + h,
 										type : "POST",
@@ -233,6 +223,9 @@ a {
 													+ "</tr>"
 													+ "</table><br><br>";
 													$(".tab1").append(tab1);
+													
+													var tab3="<label>个人工资:</label><span>"+data[0].salist.basesalary+"</span>";
+													$(".tab3").append(tab3);
 								$.ajax({
 									url : "/salary/signinQuery?id=" + h,
 										type : "POST",
@@ -251,6 +244,8 @@ a {
 												+"<td>"+dates+"</td>"
 												+"</tr>";
 											tabs+=tr;
+											
+											
 											})
 											
 											

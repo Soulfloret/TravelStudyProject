@@ -25,15 +25,14 @@
    <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col" style="color: white;">
-        	<span style="margin: 0 20px;">餐饮名称</span>
-        	<input type="text" placeholder="" class="input-group-sm"/>
-        	<span style="margin: 0 20px;">餐饮类型</span>
-        	<select class="custom-select col-2" style="background-color: white;height: 30px;">
-        		<option>1</option>
-        		<option>1</option>
-        		<option>1</option>
+        	<select class="custom-select col-2" name="lx" style="background-color: white;color: black;">
+        		<option value="0" th:selected="${lx=='0'}">请选择</option>
+        		<option value="1" th:selected="${lx=='1'}">普通类</option>
+        		<option value="2" th:selected="${lx=='2'}">套餐类</option>
         	</select>
-        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
+        	<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
+          	</form>
+          <form th:action="@{/menu/orderadd}">
           <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
             <div class="tm-product-table-container">
               <table class="table table-hover tm-table-small tm-product-table" style="text-align: center;">
@@ -49,107 +48,46 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="/img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
+                  <tr th:each="mitem ,state1: ${mlist}">
+                    <th scope="row"><input type="checkbox" th:name="mid" th:value="${mitem.id}"/></th>
+                    <td><img th:if="${mitem.images!=null}" th:src="${mitem.images.url}" width="65px" height="65px"/></td>
+                    <td class="tm-product-name" th:text="${mitem.mname}"></td>
+                    <td>普通类型</td>
                     <td>
                     	
                     	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
 												  <button type="button" class="jian btn btn-default">-</button>
 												  <button type="button" class="btn btn-default">1</button>
 												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
+						</div>
 											
                     </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
+                    <td th:text="${mitem.price}"></td>
+                    <td th:text="${mitem.price}"></td>
+                    <td style="display: none;"><input type="hidden" name="mzj" th:value="${mitem.price}"></td>
+                    <td style="display: none;"><input type="hidden" name="msl" th:value="1"></td>
+                  	<td style="display: none;"><input type="hidden" name="mlx" value="2"></td>
                   </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
+                  
+                  <tr th:each="bitem : ${blist}">
+                    <th scope="row"><input type="checkbox" name="bid" th:value="${bitem.id}"/></th>
+                    <td><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="65px" height="65px"/></td>
+                    <td class="tm-product-name" th:text="${bitem.mname}"></td>
+                    <td><p th:each="items,state1 : ${bitem.list}" th:text="${items.mname}+'('+${items.mename}+')'"></p></td>
                     <td>
                     	
                     	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
 												  <button type="button" class="jian btn btn-default">-</button>
 												  <button type="button" class="btn btn-default">1</button>
 												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
+						</div>
 											
                     </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
-                    <td>
-                    	
-                    	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
-												  <button type="button" class="jian btn btn-default">-</button>
-												  <button type="button" class="btn btn-default">1</button>
-												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
-											
-                    </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
-                    <td>
-                    	
-                    	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
-												  <button type="button" class="jian btn btn-default">-</button>
-												  <button type="button" class="btn btn-default">1</button>
-												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
-											
-                    </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
-                    <td>
-                    	
-                    	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
-												  <button type="button" class="jian btn btn-default">-</button>
-												  <button type="button" class="btn btn-default">1</button>
-												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
-											
-                    </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><input type="checkbox" /></th>
-                    <td><img src="img/notification-03.jpg" width="65px" height="65px"/></td>
-                    <td class="tm-product-name">活动名称</td>
-                    <td>类型</td>
-                    <td>
-                    	
-                    	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
-												  <button type="button" class="jian btn btn-default">-</button>
-												  <button type="button" class="btn btn-default">1</button>
-												  <button type="button" class="jia btn btn-default">+</button>
-											</div>
-											
-                    </td>
-                    <td>1450.00</td>
-                    <td>1450.00</td>
+                    <td th:text="${bitem.price}"></td>
+                    <td th:text="${bitem.price}"></td>
+                    <td style="display: none;"><input type="hidden" name="bzj" th:value="${bitem.price}"></td>
+                    <td style="display: none;"><input type="hidden" name="bsl" th:value="1"></td>
+                  	<td style="display: none;"><input type="hidden" name="blx" value="4"></td>
                   </tr>
                 </tbody>
               </table>
@@ -159,13 +97,14 @@
             	<h4 style="float: right;">
             		订单总价：
             		<span id="ddzj" style="color: red;">0.00</span>
+            		<input type="hidden" name="price" value="">
             	</h4>
             </div>
             <!-- table container -->
             <div>
-            <button class="btn btn-primary  text-uppercase" style="float: right;width: 170px;">
-            	立即下单
-            </button>
+            <span>身份证号码：</span>
+            <input type="text" name="sfz">
+            <input type="button" id="xd" value="立即下单" class="btn btn-primary  text-uppercase" style="float: right;width: 170px;">
             </div>
           </div>
         </div>
@@ -183,9 +122,11 @@
 											var num=$(this).prev().text();
 											num=parseInt(num)+1;
 											$(this).prev().text(num);
+											$(this).parent().parent().next().next().next().next().find("input").val(num);
 											var price=$(this).parent().parent().next().text();
 											var price1=parseFloat(price)*num;
 											$(this).parent().parent().next().next().text(price1.toFixed(2));
+											$(this).parent().parent().next().next().next().find("input").val(price1.toFixed(2));
 											zj();
 									})
 									$(".jian").click(function(){
@@ -193,17 +134,60 @@
 											num=parseInt(num)-1;
 											if(num>0){
 												$(this).next().text(num);
+												$(this).parent().parent().next().next().next().next().find("input").val(num)
 												var price=$(this).parent().parent().next().text();
 												var price1=parseFloat(price)*num;
 												$(this).parent().parent().next().next().text(price1.toFixed(2));
+												$(this).parent().parent().next().next().next().find("input").val(price1.toFixed(2));
 												zj();
 											}
 											
 									})
 									
-									$("[type='checkbox']").click(function(){
+									
+								$("[type='checkbox']").click(function(){
 										zj();
+								})
+								
+								$("#xd").click(function(){
+									var sfz=$("[name='sfz']").val();
+									if(sfz==""){
+										alert("请先输入身份证号码！");
+										return false;
+									}
+									var ps=[];
+									var zj=$("[name='price']").val();
+									$("[type='checkbox']").each(function(i,obj){
+										if(obj.checked){ 
+											var vps={};
+											var menuid=$(obj).val();
+											var num=$(obj).parent().next().next().next().next().next().next().next().next().find("input").val();
+											var price=$(obj).parent().next().next().next().next().next().next().text();
+											var name1=$(obj).parent().next().next().next().next().next().next().next().next().next().find("input").val();
+											vps.menuid=menuid;
+											vps.num=num;
+											vps.price=price;
+											vps.name1=name1;
+											vps.name2=zj,
+											vps.name3=sfz,
+											ps.push(vps);
+										}
 									})
+									
+									$.ajax({
+										url:"/menu/orderadd",
+										data:JSON.stringify(ps),
+										type:"post",
+										dataType:"text",
+										contentType:'application/json',
+										success:function(result){
+											alert(result);
+											window.location.reload();
+										}
+									})
+								})
+								
+								
 									function zj(){
 											var zj=0;
 											$("[type='checkbox']").each(function(){
@@ -213,7 +197,7 @@
 													}
 											})
 											$("#ddzj").html(zj.toFixed(2));
-										
+											$("#ddzj").next().val(zj.toFixed(2))
 									}
 									
 						})

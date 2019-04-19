@@ -14,9 +14,20 @@
   
    <!--  查询所有类型推荐-->
   <select id="recommdstatic" resultType="com.accp.domain.orderson">
-  		SELECT COUNT(iid) as tjcount,iid FROM `orderson` WHERE typeid=#{typeid}
+  		SELECT COUNT(iid) as tjcount,iid,typeid FROM `orderson` WHERE typeid=#{typeid}
 		GROUP BY iid
 		HAVING COUNT(iid)>=2
+		ORDER BY COUNT(iid) DESC
+		LIMIT 0,5
+  </select>
+  
+   <!--  查询餐饮类型推荐-->
+  <select id="recommdstaticmenu" resultType="com.accp.domain.orderson">
+  		SELECT COUNT(iid),iid,typeid,SUM(`menu`.`likecount`) FROM `orderson`
+		JOIN `menu` ON `menu`.`id`=`orderson`.`iid`
+		WHERE typeid=#{typeid}
+		GROUP BY iid
+		HAVING COUNT(iid)>=2 AND SUM(`menu`.`likecount`)>30
 		ORDER BY COUNT(iid) DESC
 		LIMIT 0,5
   </select>
