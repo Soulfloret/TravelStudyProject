@@ -91,6 +91,10 @@
   	SELECT * FROM `project` WHERE `id`=#{id}
   </select>
   
+  <select id="recommendByidproject" resultType="com.accp.domain.recommend">
+  		SELECT `pName` AS `name`,`description` as pname,`price` as price,id FROM `project` WHERE `id`=#{id}
+  </select>
+  
   
   <!-- 查询项目详情 -->
   <resultMap type="com.accp.domain.project" id="queryBy_Xq_result" extends="BaseResultMap">
@@ -136,6 +140,24 @@
 		INNER JOIN `users` AS `user`
 		ON `sta`.`userId`=`user`.`id`
 		WHERE `pro`.`id`=#{id}
+	</select>
+	
+	<select id="queryprojectAll" resultType="com.accp.domain.project">
+			SELECT * FROM `project`
+			<where>
+				<if test="pname!=null and pname!=''">
+					and `pName` concat('%',#{pname},'%');
+				</if>
+				<if test="tid!=null and tid!=0">
+					and `tid`=#{tid}
+				</if>
+			</where>
+	</select>
+	
+	<select id="queryprojectproductproject" resultType="com.accp.domain.project">
+		SELECT (`project`.`pName`) AS pname,`project`.`price` FROM `productproject`
+		JOIN `project` ON `project`.`id`=`productproject`.`ProjectId`
+		WHERE `productproject`.`productId`=#{id}
 	</select>
 	  
   

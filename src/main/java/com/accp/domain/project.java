@@ -60,9 +60,19 @@ public class project {
     
     private projecttype pt;
     
+    private recommend recommend;
     
     
-    public projecttype getPt() {
+    
+    public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public projecttype getPt() {
 		return pt;
 	}
 

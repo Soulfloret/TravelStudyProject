@@ -37,6 +37,22 @@
   	</where>
   </select>
   
+  <select id="recommendByidroom" resultType="com.accp.domain.recommend">
+  		SELECT `rname` AS `name`,`introduce` AS pname,price AS price,id FROM `room` WHERE id=#{id}
+  </select>
+  
+  <select id="queryRoomAll" resultType="com.accp.domain.room">
+  		SELECT * FROM `room`
+  		<where>
+	  		<if test="typeid!=null and typeid!=0">
+	  			typeid=#{typeid}
+	  		</if>
+	  		<if test="rname!=null and rname!=''">
+	  			rname=#{rname}
+	  		</if>
+  		</where>
+  </select>
+  
    <select id="queryByroomData" resultMap="BaseResultMap1">
   	SELECT r.*,i.`id` AS iid,i.`url` FROM room AS r  LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
 	WHERE r.`id` NOT IN 
