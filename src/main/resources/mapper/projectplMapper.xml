@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.accp.mapper.UsermainorderMapper" >
-  <resultMap id="BaseResultMap" type="com.accp.domain.Usermainorder" >
+<mapper namespace="com.accp.mapper.projectplMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.projectpl" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="orderNo" property="orderno" jdbcType="VARCHAR" />
-    <result column="orderTime" property="ordertime" jdbcType="TIMESTAMP" />
-    <result column="orderUser" property="orderuser" jdbcType="INTEGER" />
-    <result column="orderCustomer" property="ordercustomer" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="projectid" property="projectid" jdbcType="INTEGER" />
+    <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="name1" property="name1" jdbcType="VARCHAR" />
     <result column="name2" property="name2" jdbcType="VARCHAR" />
     <result column="name3" property="name3" jdbcType="VARCHAR" />
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="query" resultMap="BaseResultMap">
-		select * from usermainorder 
-		<where>
-		    <if test="id!=null">
-		  		and id=#{id}
-		  	</if>	
-		</where>
-  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -80,15 +72,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, orderNo, orderTime, orderUser, orderCustomer, name1, name2, name3, name4, name5
+    id, content, projectid, star, userid, name1, name2, name3, name4, name5
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.UsermainorderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.projectplExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from usermainorder
+    from projectpl
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,46 +91,46 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from usermainorder
+    from projectpl
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from usermainorder
+    delete from projectpl
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.accp.domain.UsermainorderExample" >
-    delete from usermainorder
+  <delete id="deleteByExample" parameterType="com.accp.domain.projectplExample" >
+    delete from projectpl
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Usermainorder" keyProperty="id"  useGeneratedKeys="true">
-    insert into usermainorder (id, orderNo, orderTime, 
-      orderUser, orderCustomer, name1, 
+  <insert id="insert" parameterType="com.accp.domain.projectpl" >
+    insert into projectpl (id, content, projectid, 
+      star, userid, name1, 
       name2, name3, name4, 
       name5)
-    values (#{id,jdbcType=INTEGER}, #{orderno,jdbcType=VARCHAR}, #{ordertime,jdbcType=TIMESTAMP}, 
-      #{orderuser,jdbcType=INTEGER}, #{ordercustomer,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{projectid,jdbcType=INTEGER}, 
+      #{star,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name1,jdbcType=VARCHAR}, 
       #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
       #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.Usermainorder" >
-    insert into usermainorder
+  <insert id="insertSelective" parameterType="com.accp.domain.projectpl" >
+    insert into projectpl
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="orderno != null" >
-        orderNo,
+      <if test="content != null" >
+        content,
       </if>
-      <if test="ordertime != null" >
-        orderTime,
+      <if test="projectid != null" >
+        projectid,
       </if>
-      <if test="orderuser != null" >
-        orderUser,
+      <if test="star != null" >
+        star,
       </if>
-      <if test="ordercustomer != null" >
-        orderCustomer,
+      <if test="userid != null" >
+        userid,
       </if>
       <if test="name1 != null" >
         name1,
@@ -160,17 +152,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderno != null" >
-        #{orderno,jdbcType=VARCHAR},
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
       </if>
-      <if test="ordertime != null" >
-        #{ordertime,jdbcType=TIMESTAMP},
+      <if test="projectid != null" >
+        #{projectid,jdbcType=INTEGER},
       </if>
-      <if test="orderuser != null" >
-        #{orderuser,jdbcType=INTEGER},
+      <if test="star != null" >
+        #{star,jdbcType=INTEGER},
       </if>
-      <if test="ordercustomer != null" >
-        #{ordercustomer,jdbcType=INTEGER},
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         #{name1,jdbcType=VARCHAR},
@@ -189,29 +181,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.accp.domain.UsermainorderExample" resultType="java.lang.Integer" >
-    select count(*) from usermainorder
+  <select id="countByExample" parameterType="com.accp.domain.projectplExample" resultType="java.lang.Integer" >
+    select count(*) from projectpl
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update usermainorder
+    update projectpl
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderno != null" >
-        orderNo = #{record.orderno,jdbcType=VARCHAR},
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.ordertime != null" >
-        orderTime = #{record.ordertime,jdbcType=TIMESTAMP},
+      <if test="record.projectid != null" >
+        projectid = #{record.projectid,jdbcType=INTEGER},
       </if>
-      <if test="record.orderuser != null" >
-        orderUser = #{record.orderuser,jdbcType=INTEGER},
+      <if test="record.star != null" >
+        star = #{record.star,jdbcType=INTEGER},
       </if>
-      <if test="record.ordercustomer != null" >
-        orderCustomer = #{record.ordercustomer,jdbcType=INTEGER},
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
       </if>
       <if test="record.name1 != null" >
         name1 = #{record.name1,jdbcType=VARCHAR},
@@ -234,12 +226,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update usermainorder
+    update projectpl
     set id = #{record.id,jdbcType=INTEGER},
-      orderNo = #{record.orderno,jdbcType=VARCHAR},
-      orderTime = #{record.ordertime,jdbcType=TIMESTAMP},
-      orderUser = #{record.orderuser,jdbcType=INTEGER},
-      orderCustomer = #{record.ordercustomer,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      projectid = #{record.projectid,jdbcType=INTEGER},
+      star = #{record.star,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
       name1 = #{record.name1,jdbcType=VARCHAR},
       name2 = #{record.name2,jdbcType=VARCHAR},
       name3 = #{record.name3,jdbcType=VARCHAR},
@@ -249,20 +241,20 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Usermainorder" >
-    update usermainorder
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.projectpl" >
+    update projectpl
     <set >
-      <if test="orderno != null" >
-        orderNo = #{orderno,jdbcType=VARCHAR},
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="ordertime != null" >
-        orderTime = #{ordertime,jdbcType=TIMESTAMP},
+      <if test="projectid != null" >
+        projectid = #{projectid,jdbcType=INTEGER},
       </if>
-      <if test="orderuser != null" >
-        orderUser = #{orderuser,jdbcType=INTEGER},
+      <if test="star != null" >
+        star = #{star,jdbcType=INTEGER},
       </if>
-      <if test="ordercustomer != null" >
-        orderCustomer = #{ordercustomer,jdbcType=INTEGER},
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="name1 != null" >
         name1 = #{name1,jdbcType=VARCHAR},
@@ -282,12 +274,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Usermainorder" >
-    update usermainorder
-    set orderNo = #{orderno,jdbcType=VARCHAR},
-      orderTime = #{ordertime,jdbcType=TIMESTAMP},
-      orderUser = #{orderuser,jdbcType=INTEGER},
-      orderCustomer = #{ordercustomer,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.projectpl" >
+    update projectpl
+    set content = #{content,jdbcType=VARCHAR},
+      projectid = #{projectid,jdbcType=INTEGER},
+      star = #{star,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
       name1 = #{name1,jdbcType=VARCHAR},
       name2 = #{name2,jdbcType=VARCHAR},
       name3 = #{name3,jdbcType=VARCHAR},

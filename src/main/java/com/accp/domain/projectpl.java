@@ -1,46 +1,19 @@
 package com.accp.domain;
 
-import java.util.List;
-
-public class team {
+public class projectpl {
     private Integer id;
 
-    private Integer mainiuserid;
+    private String content;
 
-    public team( Integer mainiuserid,String name1) {
-    	this.name1=name1;
-		this.mainiuserid = mainiuserid;
-	}
-    private users use;
-        
-    
-    private List<teammember> teams;
-    
-    
-    
-    public List<teammember> getTeams() {
-		return teams;
-	}
+    private Integer projectid;
 
-	public void setTeams(List<teammember> teams) {
-		this.teams = teams;
-	}
+    private Integer star;
 
-	public users getUse() {
-		return use;
-	}
+    private Integer userid;
 
-	public void setUse(users use) {
-		this.use = use;
-	}
-	//团队名称
-	private String name1;
+    private String name1;
 
-    public team() {
-		
-	}
-
-	private String name2;
+    private String name2;
 
     private String name3;
 
@@ -56,12 +29,36 @@ public class team {
         this.id = id;
     }
 
-    public Integer getMainiuserid() {
-        return mainiuserid;
+    public String getContent() {
+        return content;
     }
 
-    public void setMainiuserid(Integer mainiuserid) {
-        this.mainiuserid = mainiuserid;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(Integer projectid) {
+        this.projectid = projectid;
+    }
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getName1() {

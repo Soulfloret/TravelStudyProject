@@ -1,5 +1,7 @@
 package com.accp.chenyong.serviceimpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import com.accp.domain.orderwork;
 import com.accp.domain.project;
 import com.accp.domain.roomorder;
 import com.accp.domain.staff;
+import com.accp.domain.team;
+import com.accp.domain.teammember;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.domain.worduser;
@@ -34,6 +38,8 @@ import com.accp.mapper.projecttypeMapper;
 import com.accp.mapper.roomorderMapper;
 import com.accp.mapper.staffMapper;
 import com.accp.mapper.teamMapper;
+import com.accp.mapper.teammemberMapper;
+import com.accp.mapper.userorderMapper;
 import com.accp.mapper.usersMapper;
 import com.alibaba.fastjson.JSON;
 @Service
@@ -65,6 +71,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	productMapper mapper11;
 	@Autowired
 	teamMapper mapper12;
+	@Autowired
+	teammemberMapper mapper13;
+	@Autowired
+	userorderMapper mapper14;
 	
 	public int countByExample(UsermainorderExample example) {
 		// TODO Auto-generated method stub
@@ -75,12 +85,31 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		// TODO Auto-generated method stub
 		return mapper.deleteByPrimaryKey(id);
 	}
-	@Override
+/*	@Override
 	public int insert(Usermainorder record) {
-		// TODO Auto-generated method stub
-		return mapper.insert(record);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
+		int num;
+		record.setName2("个人");
+		record.setName1("正在进行");
+		String date=new Date().toString();
+		record.setOrdertime(new Date());
+		record.setOrderno(sdf.parse(date)+"yxlx");
+		if(record.getTeam()!=null) {
+			mapper12.insert(record.getTeam());
+			record.setOrdercustomer(record.getTeam().getId());
+			record.setName2("团队");
+		}
+		num=mapper.insert(record);
+		for (teammember t :record.getTeam().getTeams()) {
+			t.setTeamid(record.getId());
+			mapper13.insert(t);
+			userorder uo=new userorder();
+			uo.setOrderno();
+			mapper14.insert();
+		}
+		return num;
 	}
-
+*/
 	@Override
 	public int insertSelective(Usermainorder record) {
 		// TODO Auto-generated method stub
@@ -251,6 +280,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 			}
 		return list;
+	}
+	@Override
+	public int insert(Usermainorder record) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
