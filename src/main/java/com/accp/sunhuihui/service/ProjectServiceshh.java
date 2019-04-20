@@ -107,4 +107,8 @@ public class ProjectServiceshh {
 		return ptmapper.selectByExample(null);
 	}
 	
+	public project projectXq_queryById(Integer id) {
+		return mapper.projectXq_queryById(id);
+	}
+	
 }

@@ -56,4 +56,9 @@ public class ProjectControllershh {
 		return service.queryMenuAll(menu);
 	}
 	
+	@RequestMapping("projectXq_queryById")
+	public project projectXq_queryById(Integer id) {
+		return service.projectXq_queryById(id);
+	}
+	
 }

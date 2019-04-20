@@ -34,15 +34,29 @@ public class menu {
     
     private List<images> imgs;
     
+    private images image;
+    
     private String mename;
     
     private menutype mtype;
     
+    
     private recommend recommend;
     
     
-    
-    public recommend getRecommend() {
+    public images getImage() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public List<images> getImgs() {
+		return imgs;
+	}
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 

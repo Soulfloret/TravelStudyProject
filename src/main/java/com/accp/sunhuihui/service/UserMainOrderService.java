@@ -1,5 +1,6 @@
 package com.accp.sunhuihui.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +72,10 @@ public class UserMainOrderService {
 	public List<Usermainorder> query(Integer id,Integer uid) {
 		// TODO Auto-generated method stub
 		List<Usermainorder> list=mapper.query(id);
+		List<Usermainorder> listss=new ArrayList<Usermainorder>();
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			if(umo.getName2().equals("个人")||umo.getOrdercustomer()==uid) {
+			if(umo.getName2().equals("个人")&&umo.getOrdercustomer()==uid) {
 				umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
@@ -140,13 +142,14 @@ public class UserMainOrderService {
 							}
 						}
 				}
+				listss.add(umo);
 			}else {
 				umo.setList(mapper1.queryByMainOrderId(umo.getId(),null));
 				umo.setUser(mapper1.selectByPrimaryKey(mapper12.selectByPrimaryKey(umo.getOrdercustomer()).getMainiuserid()));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
 				for (users u : umo.getList()) {
-					if(u.getId()==uid||umo.getUser().getId()==uid) {
+					if(u.getId()==uid) {
 					for (userorder uo : u.getOrders()) {
 						uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
 						uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
@@ -210,10 +213,13 @@ public class UserMainOrderService {
 								}
 							}
 						}
+						listss.add(umo);
 					}
 				}
 			}
+			
 		}
+		list=listss;
 		return list;
 	}
 

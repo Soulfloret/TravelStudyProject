@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accp.domain.actionimages;
+import com.accp.domain.stopfcomment;
 import com.accp.domain.users;
 import com.accp.mapper.actionimagesMapper;
 import com.accp.mapper.usersMapper;
@@ -26,5 +27,9 @@ public class UserService {
 	public List<actionimages> query(){
 		
 		return amapper.query();
+	}
+	
+	public users userByid(Integer id) {
+		return mapper.selectByPrimaryKey(id);
 	}
 }
