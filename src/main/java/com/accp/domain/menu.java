@@ -44,9 +44,19 @@ public class menu {
     
     private recommend recommend;
     
+    private images image;
     
     
-    public recommend getRecommend() {
+    
+    public images getImage() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 

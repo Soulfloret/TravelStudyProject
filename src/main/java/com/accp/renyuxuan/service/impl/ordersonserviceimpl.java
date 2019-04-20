@@ -1,5 +1,7 @@
 package com.accp.renyuxuan.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +15,18 @@ import com.accp.renyuxuan.service.ordersonservice;
 public class ordersonserviceimpl  implements ordersonservice{
 
 	@Autowired
-	ordersonMapper o;
+	ordersonMapper oo;
 	
 	@Override
 	public int insertSelective(orderson record) {
 		// TODO Auto-generated method stub
-		return o.insertSelective(record);
+		return oo.insertSelective(record);
+	}
+
+	@Override
+	public List<orderson> querytj(orderson o) {
+		// TODO Auto-generated method stub
+		return oo.querytj(o);
 	}
 	
 }

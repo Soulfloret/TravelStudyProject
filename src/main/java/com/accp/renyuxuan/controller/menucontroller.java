@@ -19,6 +19,7 @@ import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
@@ -27,6 +28,7 @@ import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
+import com.accp.renyuxuan.service.impl.userorderserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -57,6 +59,9 @@ public class menucontroller {
 	//餐饮评论表
 	@Autowired
 	menucommentserviceimpl mm;
+	//用户订单
+	@Autowired
+	userorderserviceimpl uo;
 	
 	
 	//查询后台菜单
@@ -180,6 +185,7 @@ public class menucontroller {
 			m.setPrice(Double.parseDouble(vps[0].getName2()));
 			//调方法添加订单
 			mo.insertSelective(m);
+			userorder userorders =uo.selectByuid(us.getId());
 			for (int i = 0; i < vps.length; i++) {
 				ordershop o =new  ordershop();
 				o.setOrderid(m.getId());
@@ -191,6 +197,7 @@ public class menucontroller {
 				orderson ordersons=new orderson();
 				ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
 				ordersons.setIid(vps[i].getMenuid());
+				ordersons.setName1(userorders.getOrdermainid().toString());
 				oo.insertSelective(ordersons);//添加总订单从表
 			}
 		return "下单成功！";

@@ -31,6 +31,18 @@ public class room {
     
     private recommend recommend;
     
+    private images img;
+    
+    
+
+    public images getImg() {
+		return img;
+	}
+
+	public void setImg(images img) {
+		this.img = img;
+	}
+    
     
     
     public recommend getRecommend() {

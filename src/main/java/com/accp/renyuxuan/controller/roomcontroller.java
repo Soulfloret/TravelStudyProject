@@ -15,11 +15,13 @@ import com.accp.domain.roomdestine;
 import com.accp.domain.users;
 import com.accp.domain.roomorder;
 import com.accp.domain.roomorderson;
+import com.accp.domain.userorder;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomdestineserviceimpl;
 import com.accp.renyuxuan.service.impl.roomorderserviceimpl;
 import com.accp.renyuxuan.service.impl.roomordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomserviceimpl;
+import com.accp.renyuxuan.service.impl.userorderserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -39,6 +41,8 @@ public class roomcontroller {
 	UsersService u;
 	@Autowired
 	ordersonserviceimpl o;
+	@Autowired
+	userorderserviceimpl uo;
 	
 	
 	//去住宿页面
@@ -93,23 +97,25 @@ public class roomcontroller {
 		Integer uid=us.getId();//数据库没有
 		roo.setUserid(uid);
 		rd.insertSelective(roo);//添加记录
-		roomorder roomorders=new roomorder();//创建一个房间订单表对象
+		/*roomorder roomorders=new roomorder();//创建一个房间订单表对象
 		SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
 		String datetime = tempDate.format(new Date());
 		datetime=datetime+"zs";//订单编号
 		roomorders.setOrdernumber(datetime);
 		roomorders.setState("1");
 		roomorders.setPrice(price);
-		roomorders.setUserid(uid);
-		ro.insertSelective(roomorders);//添加订单
-		roomorderson roomordersons=new roomorderson();//创建一个房间订单从表对象
-		roomordersons.setDestineid(roo.getId());
-		roomordersons.setRoomorderid(roomorders.getId());
-		rs.insertSelective(roomordersons);//添加订单从表
+		roomorders.setUserid(uid);*/
+		//ro.insertSelective(roomorders);//添加订单
+		//roomorderson roomordersons=new roomorderson();//创建一个房间订单从表对象
+		//roomordersons.setDestineid(roo.getId());
+		//roomordersons.setRoomorderid(roomorders.getId());
+		//rs.insertSelective(roomordersons);//添加订单从表
 		//添加总订单从表
 		orderson ordersons=new orderson();
-		ordersons.setIid(roo.getRoomid());
+		ordersons.setIid(roo.getId());
 		ordersons.setTypeid(3);
+		userorder userorders =uo.selectByuid(us.getId());
+		ordersons.setName1(userorders.getOrdermainid().toString());
 		o.insertSelective(ordersons);
 		return "redirect:/room/roomorder";
 	}

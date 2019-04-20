@@ -25,6 +25,7 @@
    <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col" style="color: white;">
+        	 <form th:action="@{/menu/tomenuorder}">
         	<select class="custom-select col-2" name="lx" style="background-color: white;color: black;">
         		<option value="0" th:selected="${lx=='0'}">请选择</option>
         		<option value="1" th:selected="${lx=='1'}">普通类</option>
@@ -50,7 +51,7 @@
                 <tbody>
                   <tr th:each="mitem ,state1: ${mlist}">
                     <th scope="row"><input type="checkbox" th:name="mid" th:value="${mitem.id}"/></th>
-                    <td><img th:if="${mitem.images!=null}" th:src="${mitem.images.url}" width="65px" height="65px"/></td>
+                    <td><img th:if="${mitem.image!=null}" th:src="${mitem.image.url}" width="65px" height="65px"/></td>
                     <td class="tm-product-name" th:text="${mitem.mname}"></td>
                     <td>普通类型</td>
                     <td>

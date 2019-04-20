@@ -25,7 +25,17 @@ public class orderson {
     
     private recommend recommend;
     
-    public Object getIx() {
+    private menu menus;
+    
+    public menu getMenus() {
+		return menus;
+	}
+
+	public void setMenus(menu menus) {
+		this.menus = menus;
+	}
+
+	public Object getIx() {
 		return ix;
 	}
 
