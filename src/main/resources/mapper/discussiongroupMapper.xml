@@ -111,7 +111,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.discussiongroup" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.accp.domain.discussiongroup" >
     insert into discussiongroup (id, groupName, groupSize, 
       groupDescribe, groupMainId, name1, 
       name2, name3, name4, 

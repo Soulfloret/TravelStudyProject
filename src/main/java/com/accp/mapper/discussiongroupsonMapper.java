@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface discussiongroupsonMapper {
+	public int insertByarray(@Param("did")Integer did,@Param("ids")Integer[] ids);
+	
 	public List<discussiongroupson> selectAllusersBydid(Integer did);
 	public int selectCountBydid(Integer did);
 	

@@ -32,7 +32,9 @@ public interface imagesMapper {
     int updateByPrimaryKey(images record);
     
     int insert_project(project pro);
-
+    
+    int insertByList(@Param("iid")Integer iid,@Param("typeid")Integer typeid,@Param("images")List<images> images);
+    
 	   List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
 	
 	   int insertimglist(dynamics dinameics);

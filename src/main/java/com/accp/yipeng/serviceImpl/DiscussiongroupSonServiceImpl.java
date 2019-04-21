@@ -22,5 +22,11 @@ public class DiscussiongroupSonServiceImpl implements  DiscussiongroupSonService
 		return mapper.insert(record);
 	}
 
+	@Override
+	public int selectCountBydid(Integer did) {
+		// TODO Auto-generated method stub
+		return mapper.selectCountBydid(did);
+	}
+
 	
 }

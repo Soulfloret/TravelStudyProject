@@ -11,13 +11,24 @@ public class discussiongroup {
 
     private String groupdescribe;
 
-    private Integer groupmainid;
+    public discussiongroup() {
+	}
+
+	private Integer groupmainid;
 
     private String name1;
 
     private String name2;
 
-    private String name3;
+    public discussiongroup(String groupname, Integer groupsize, String groupdescribe, Integer groupmainid) {
+		super();
+		this.groupname = groupname;
+		this.groupsize = groupsize;
+		this.groupdescribe = groupdescribe;
+		this.groupmainid = groupmainid;
+	}
+
+	private String name3;
 
     private String name4;
 

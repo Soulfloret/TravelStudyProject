@@ -34,7 +34,16 @@ public class users {
 	public void setSendreq(sendrequest sendreq) {
 		this.sendreq = sendreq;
 	}
+	private discussiongroup dis;
 	
+	
+	public discussiongroup getDis() {
+		return dis;
+	}
+
+	public void setDis(discussiongroup dis) {
+		this.dis = dis;
+	}
 	//用来保存请求 判断是当前登录用户对用户是否已发送请求
 	private sendrequest sendreq;
 	

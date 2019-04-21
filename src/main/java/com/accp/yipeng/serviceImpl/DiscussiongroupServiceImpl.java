@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.discussiongroup;
 import com.accp.domain.discussiongroupson;
+import com.accp.domain.images;
 import com.accp.domain.sendrequest;
 import com.accp.domain.users;
 import com.accp.mapper.discussiongroupMapper;
@@ -76,5 +77,22 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		list.add(list1);
 		list.add(list2);
 		return list;
+	}
+	@Override
+	public discussiongroup selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return dismapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public int add(discussiongroup record,String[] ids,List<images> list) {
+		int i=dismapper.insert(record);
+		Integer [] id=new Integer[ids.length];
+		for (int j = 0; j < ids.length; j++) {
+			id[j]=Integer.parseInt(ids[j]);
+		}
+		i=disSonmapper.insertByarray(record.getId(), id);
+		i=imgmapper.insertByList(record.getId(), 8, list);
+		return i;
+		
 	}
 }
