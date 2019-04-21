@@ -159,6 +159,12 @@
 		JOIN `project` ON `project`.`id`=`productproject`.`ProjectId`
 		WHERE `productproject`.`productId`=#{id}
 	</select>
+	
+	
+	<!-- app前台查询项目详情 -->
+		<select id="AppProjectByid" resultType="com.accp.domain.project">
+			SELECT * FROM `project` WHERE `id`=#{id}
+		</select>
 	  
   
   <sql id="Example_Where_Clause" >

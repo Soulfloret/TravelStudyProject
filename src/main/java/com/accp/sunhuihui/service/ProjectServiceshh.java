@@ -2,12 +2,14 @@ package com.accp.sunhuihui.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accp.domain.images;
 import com.accp.domain.menu;
 import com.accp.domain.product;
+import com.accp.domain.productproject;
 import com.accp.domain.project;
 import com.accp.domain.projecttype;
 import com.accp.domain.recommend;
@@ -18,6 +20,7 @@ import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
 import com.accp.mapper.projecttypeMapper;
 import com.accp.mapper.roomMapper;
+import com.accp.mapper.usersMapper;
 
 @Service
 public class ProjectServiceshh {
@@ -34,6 +37,8 @@ public class ProjectServiceshh {
 	menuMapper mmapper;
 	@Autowired
 	productMapper pdmapper; 
+	@Autowired
+	usersMapper umapper;
 	
 	
 	public  List<project> queryprojectAll(project project){
@@ -111,4 +116,43 @@ public class ProjectServiceshh {
 		return mapper.projectXq_queryById(id);
 	}
 	
+	/**
+	 * 查询项目详情
+	 * @param id
+	 * @return
+	 */
+	public project AppProjectByid(@Param("id")Integer id) {
+		project p=mapper.AppProjectByid(id);
+		p.setIlist(imapper.queryimg(p.getId(), 1));
+		return p;
+	}
+	
+	/**
+	 * 查询活动详情
+	 */
+	public product AppProductByid(@Param("id")Integer id) {
+		product pd=pdmapper.AppProductByid(id);
+		for (productproject pds : pd.getPplist()) {
+			pds.setPro(mapper.AppProjectByid(pds.getProjectid()));
+		}
+		return pd;
+	}
+	
+	/**
+	 * 查询餐饮详情
+	 */
+	public menu AppMenuByid(Integer id) {
+		menu m=mmapper.selectByPrimaryKey(id);
+		m.setImgs(imapper.queryimg(m.getId(), 2));
+		return m;
+	}
+	
+	/**
+	 * 查询房间详情
+	 */
+	public room AppRoomByid(Integer id) {
+		room r=rmapper.selectByPrimaryKey(id);
+		r.setImgs(imapper.queryimg(r.getId(), 3));
+		return r;
+	}
 }

@@ -36,4 +36,6 @@ public interface menuMapper {
     recommend recommendByidmenu(@Param("id")Integer id);
     
     List<menu> queryMenuAll(menu menu);
+    
+    
 }

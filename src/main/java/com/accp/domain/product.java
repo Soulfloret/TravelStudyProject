@@ -23,9 +23,9 @@ public class product {
     
     private recommend recommend;
     
-    
-    
-    public recommend getRecommend() {
+
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 
