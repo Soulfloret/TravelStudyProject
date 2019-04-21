@@ -26,20 +26,23 @@ public class MyInterceptor implements HandlerInterceptor {
 		String uri=request.getRequestURI();
 		uri=uri.replace(request.getContextPath()+"/","");
 		if(staff==null) {
-			/*response.sendRedirect("goLogin");*/
-			staff=new staff();
-			staff.setId(1);
+			response.sendRedirect("/login/login");
 		}
 		if(request.getSession().getAttribute("urlMap")==null)
 		{
-			Map<String,module> map=service.queryModuleByUidToMap(staff.getId());
+			Map<String,module> map=service.queryModuleByUidToMap(staff.getUserid());
 			request.getSession().setAttribute("urlMap", map);
+		}
+		if(uri.indexOf("login")!=-1) {
+			return true;
 		}
 		Object map=request.getSession().getAttribute("urlMap");
 		if(map!=null) {
 			Map<String,module>maps=(Map<String,module>)request.getSession().getAttribute("urlMap");
-			if(maps.get(uri)!=null) {
-				return true;
+			for (String s : maps.keySet()) {
+				if(s.indexOf(uri)!=-1) {
+					return true;
+				}
 			}
 		}
 		return false;

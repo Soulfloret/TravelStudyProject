@@ -1,5 +1,6 @@
 package com.accp.chenyong.serviceimpl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.UsermainorderExample;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menuorder;
 import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
@@ -31,6 +33,9 @@ import com.accp.mapper.UsermainorderMapper;
 import com.accp.mapper.bindMapper;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
+import com.accp.mapper.menuorderMapper;
+import com.accp.mapper.orderproductworkMapper;
+import com.accp.mapper.ordersonMapper;
 import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
@@ -41,6 +46,7 @@ import com.accp.mapper.teamMapper;
 import com.accp.mapper.teammemberMapper;
 import com.accp.mapper.userorderMapper;
 import com.accp.mapper.usersMapper;
+import com.accp.mapper.worduserMapper;
 import com.alibaba.fastjson.JSON;
 @Service
 @Transactional
@@ -75,6 +81,14 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	teammemberMapper mapper13;
 	@Autowired
 	userorderMapper mapper14;
+	@Autowired
+	ordersonMapper mapper15;
+	@Autowired
+	orderproductworkMapper mapper16;
+	@Autowired
+	worduserMapper mapper17;
+	@Autowired
+	menuorderMapper mapper18;
 	
 	public int countByExample(UsermainorderExample example) {
 		// TODO Auto-generated method stub
@@ -85,31 +99,139 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		// TODO Auto-generated method stub
 		return mapper.deleteByPrimaryKey(id);
 	}
-/*	@Override
+	@Override
 	public int insert(Usermainorder record) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		int num;
-		record.setName2("个人");
-		record.setName1("正在进行");
+		record.setName2("姝ｅ湪杩涜");
+		record.setName1("涓汉");
 		String date=new Date().toString();
 		record.setOrdertime(new Date());
-		record.setOrderno(sdf.parse(date)+"yxlx");
-		if(record.getTeam()!=null) {
-			mapper12.insert(record.getTeam());
-			record.setOrdercustomer(record.getTeam().getId());
-			record.setName2("团队");
+		try {
+			record.setOrderno(sdf.parse(date)+"yxlx");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		num=mapper.insert(record);
-		for (teammember t :record.getTeam().getTeams()) {
-			t.setTeamid(record.getId());
-			mapper13.insert(t);
-			userorder uo=new userorder();
-			uo.setOrderno();
-			mapper14.insert();
-		}
+		if(record.getList().size()>1) {
+				team t=new team();
+				t.setId(record.getUser().getId());
+				mapper12.insert(t);
+				record.setName2("鍥㈤槦");
+				record.setOrdercustomer(t.getId());
+				num=mapper.insert(record);
+				for (users u : record.getList()) {
+					teammember tm=new teammember();
+					tm.setMemberid(u.getId());
+					tm.setTeamid(record.getId());
+					mapper13.insert(tm);					
+					for (userorder uo : u.getOrders()) {
+						try {
+							uo.setOrderno(sdf.parse(date)+"yxlx");
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						uo.setOrdertime(new Date());
+						uo.setOrderuser(record.getOrderuser());
+						uo.setOrdercustomer(tm.getMemberid());
+						uo.setOrdermainid(record.getId());
+						uo.setOrderstatus("姝ｅ湪杩涜");
+						mapper14.insert(uo);
+						for (orderson os : uo.getList()) {
+							os.setName1(uo.getId()+"");
+							mapper15.insert(os);
+							if(os.getTypeid()==1||os.getTypeid()==5) {
+								orderwork ow=(orderwork)os.getIx();
+								ow.setOrderid(os.getId());
+								mapper3.insert(ow);
+								for (orderproductwork opw : ow.getList()) {
+									opw.setOrderworkid(ow.getId());
+									mapper16.insert(opw);
+									for (worduser wu : opw.getList()) {
+										wu.setWorkid(opw.getId());
+										mapper17.insert(wu);
+									}
+								}
+							}
+							if(os.getTypeid()==2) {
+								menuorder mo=new menuorder();
+								try {
+									mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								mo.setCreatetime(new Date());
+								mo.setStatuss("鏈彇");
+								menu m=mapper7.selectByPrimaryKey(os.getIid());
+								mo.setPrice(m.getPrice());
+								mapper18.insert(mo);
+							}
+							if(os.getTypeid()==3) {
+								 
+							}
+							if(os.getTypeid()==4) {
+								
+							}
+						}
+					}
+				}
+			}else {
+				num=mapper.insert(record);
+				for (userorder uo : record.getUser().getOrders()) {
+					try {
+						uo.setOrderno(sdf.parse(date)+"yxlx");
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					uo.setOrdertime(new Date());
+					uo.setOrderuser(record.getOrderuser());
+					uo.setOrdermainid(record.getId());
+					uo.setOrderstatus("姝ｅ湪杩涜");
+					mapper14.insert(uo);
+					for (orderson os : uo.getList()) {
+						os.setName1(uo.getId()+"");
+						mapper15.insert(os);
+						if(os.getTypeid()==1||os.getTypeid()==5) {
+							orderwork ow=(orderwork)os.getIx();
+							ow.setOrderid(os.getId());
+							mapper3.insert(ow);
+							for (orderproductwork opw : ow.getList()) {
+								opw.setOrderworkid(ow.getId());
+								mapper16.insert(opw);
+								for (worduser wu : opw.getList()) {
+									wu.setWorkid(opw.getId());
+									mapper17.insert(wu);
+								}
+							}
+						}
+						if(os.getTypeid()==2) {
+							menuorder mo=new menuorder();
+							try {
+								mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							mo.setCreatetime(new Date());
+							mo.setStatuss("鏈彇");
+							menu m=mapper7.selectByPrimaryKey(os.getIid());
+							mo.setPrice(m.getPrice());
+							mapper18.insert(mo);
+						}
+						if(os.getTypeid()==3) {
+							 
+						}
+						if(os.getTypeid()==4) {
+							
+						}
+					}
+				}
+			}
 		return num;
-	}
-*/
+	} 
 	@Override
 	public int insertSelective(Usermainorder record) {
 		// TODO Auto-generated method stub
@@ -186,9 +308,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								m=mapper9.query(orderson.getIid()).get(0);
 								for (Mealix mx : m.getList()) {
 									if(mx.getTypeid()==1) {
-										project p=new project();
-										p.setId(mx.getIid());
-										mx.setIx(mapper4.queryAll(p).get(0));
+										orderwork p=mapper3.queryByOrderId(orderson.getId());
+										if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
+											for (orderproductwork opw  : p.getList()) {
+												opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
+												opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
+												opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
+												for (worduser  wu: opw.getList()) {
+													wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
+													wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
+												}
+											}
+										}
+										mx.setIx(p);
 									}
 									if(mx.getTypeid()==2) {
 										menu mu=new menu();
@@ -256,9 +388,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									m=mapper9.query(orderson.getIid()).get(0);
 									for (Mealix mx : m.getList()) {
 										if(mx.getTypeid()==1) {
-											project p=new project();
-											p.setId(mx.getIid());
-											mx.setIx(mapper4.queryAll(p).get(0));
+											orderwork p=mapper3.queryByOrderId(orderson.getId());
+											if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
+												for (orderproductwork opw  : p.getList()) {
+													opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
+													opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
+													opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
+													for (worduser  wu: opw.getList()) {
+														wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
+														wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
+													}
+												}
+											}
+											mx.setIx(p);
 										}
 										if(mx.getTypeid()==2) {
 											menu mu=new menu();
@@ -281,11 +423,6 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 			}
 		return list;
-	}
-	@Override
-	public int insert(Usermainorder record) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

@@ -163,7 +163,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.orderwork" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.accp.domain.orderwork" >
     insert into orderwork (id, orderId, name1, 
       name2, name3, name4, 
       name5)

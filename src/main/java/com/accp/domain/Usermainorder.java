@@ -32,18 +32,7 @@ public class Usermainorder {
     
     private Double price;
     
-    private team team;
     
-
-    
-
-	public team getTeam() {
-		return team;
-	}
-
-	public void setTeam(team team) {
-		this.team = team;
-	}
 
 	public Double getPrice() {
 		return price;

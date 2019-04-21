@@ -40,9 +40,25 @@ public class menu {
     
     private recommend recommend;
     
+    private images image;
     
     
-    public recommend getRecommend() {
+    public images getImages() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public List<images> getImgs() {
+		return imgs;
+	}
+	public void setImgs(List<images> imgs) {
+		imgs=imgs;
+	}
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 
@@ -66,14 +82,6 @@ public class menu {
 
 	public void setMename(String mename) {
 		this.mename = mename;
-	}
-
-	public List<images> getImages() {
-		return imgs;
-	}
-
-	public void setImgs(List<images> imgs) {
-		this.imgs = imgs;
 	}
 
 	public Integer getId() {

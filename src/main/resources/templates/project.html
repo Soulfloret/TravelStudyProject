@@ -46,10 +46,10 @@
                     <th scope="row"><input type="checkbox" /></th>
                     <td class="" th:id="${item.id}"><a th:href="@{toproject_xq(id=${item.id})}" style="color: white;" th:text="${item.pname}"></a></td>
                     <td th:text="${item.use.uname}"></td>
-                    <td th:text="${item.createtime}"></td>
-                    <td>
-                    	<td>开放</td>
-                    </td>
+                    <td th:text="${#dates.format(item.createtime, 'yyyy-MM-dd HH-mm-ss')}"></td>
+                    <td th:if="${item.pstatus eq '0'}">开放</td>
+                    <td th:if="${item.pstatus eq '1'}">维修</td>
+                    <td th:if="${item.pstatus eq '2'}">检测</td>
                     <td>
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>

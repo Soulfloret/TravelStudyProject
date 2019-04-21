@@ -26,15 +26,15 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 @Configuration
 public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 
-/*	@Autowired
-	MyInterceptor my;*/
-
+	/*@Autowired
+	MyInterceptor my;
+*/
 	/**
 	 * 闈欐�佽祫婧愯矾寰勯厤缃紝娉ㄦ剰锛氬鏋滀笉閰嶇疆锛屽垯浼�404
 	 */
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\");
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\").addResourceLocations("file:D:\\");
 
 	}
 
@@ -77,8 +77,8 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	/**
 	 * 拦截器
 	 */
-	/*protected void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(my).addPathPatterns("/**")
+/*	protected void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(my).addPathPatterns("/**").addPathPatterns("/login/mode")
 		.excludePathPatterns("/js/**")
 		.excludePathPatterns("/css/**")
 		.excludePathPatterns("/assets/**")
@@ -93,8 +93,10 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/js1/**")
 		.excludePathPatterns("/rev-slider/**")
 		.excludePathPatterns("/webfonts/**")
-		.excludePathPatterns("/Login/**")
-		.excludePathPatterns("/topagehome/**");
+		.excludePathPatterns("/fileupload/**")
+		.excludePathPatterns("/login/login")
+		.excludePathPatterns("/login/loginQuery")
+		.excludePathPatterns("/module/**");
 		super.addInterceptors(registry);
 	}*/
 
