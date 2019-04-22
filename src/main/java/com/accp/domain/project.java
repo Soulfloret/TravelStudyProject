@@ -56,9 +56,17 @@ public class project {
     
     private projectpl pllist;
     
+    private List<projectpl> pllistshh;
     
-    
-    public projectpl getPllist() {
+    public List<projectpl> getPllistshh() {
+		return pllistshh;
+	}
+
+	public void setPllistshh(List<projectpl> pllistshh) {
+		this.pllistshh = pllistshh;
+	}
+
+	public projectpl getPllist() {
 		return pllist;
 	}
 

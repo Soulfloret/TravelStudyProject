@@ -27,4 +27,6 @@ public interface menucommentMapper {
     int updateByPrimaryKeySelective(menucomment record);
 
     int updateByPrimaryKey(menucomment record);
+    
+    List<menucomment> AppMenuCommend(@Param("menuid")Integer menuid);
 }

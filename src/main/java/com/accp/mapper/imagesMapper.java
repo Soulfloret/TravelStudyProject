@@ -33,8 +33,8 @@ public interface imagesMapper {
     
     int insert_project(project pro);
 
-	   List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
+	List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
 	
-	   int insertimglist(dynamics dinameics);
+	int insertimglist(dynamics dinameics);
 
 }

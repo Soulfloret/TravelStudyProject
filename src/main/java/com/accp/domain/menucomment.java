@@ -18,8 +18,19 @@ public class menucomment {
     private String name4;
 
     private String name5;
+    
+    private users user;
+    
+    
+    public users getUser() {
+		return user;
+	}
 
-    public Integer getId() {
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

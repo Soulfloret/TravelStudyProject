@@ -12,6 +12,16 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.menucomment" id="resultMapAppMenuCommend" extends="BaseResultMap">
+  		<association property="user" column="userId" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <!-- App查询菜单评论 -->
+ 	<select id="AppMenuCommend" resultMap="resultMapAppMenuCommend">
+ 		SELECT * FROM `menucomment` WHERE menuId=#{menuid}
+ 	</select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

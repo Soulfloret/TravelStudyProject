@@ -46,7 +46,7 @@
     
   <!-- App查询活动详情 -->
   <resultMap type="com.accp.domain.product" id="AppResult" extends="BaseResultMap">
-  		<collection column="productId" property="pplist" ofType="com.accp.domain.productproject" select="queryByProdId">
+  		<collection column="id" property="pplist" ofType="com.accp.domain.productproject" select="com.accp.mapper.productprojectMapper.queryByProdId">
   		</collection>
   </resultMap>
   
