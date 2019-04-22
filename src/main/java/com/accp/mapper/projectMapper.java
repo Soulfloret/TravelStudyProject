@@ -44,4 +44,9 @@ public interface projectMapper {
     List<project> queryprojectAll(project project);
     
     List<project> queryprojectproductproject(@Param("id")Integer id);
+    
+    /**
+     * app项目查询详情
+     */
+    project AppProjectByid(@Param("id")Integer id);
 }

@@ -34,14 +34,15 @@ public class menu {
     
     private List<images> imgs;
     
+    private images image;
+    
     private String mename;
     
     private menutype mtype;
     
+    
     private recommend recommend;
-    
-    private images image;
-    
+        
     
     public images getImages() {
 		return image;
@@ -51,11 +52,11 @@ public class menu {
 		this.image = image;
 	}
 
+	public void setImgs(List<images> imgs) {
+		this.imgs=imgs;
+	}
 	public List<images> getImgs() {
 		return imgs;
-	}
-	public void setImgs(List<images> imgs) {
-		imgs=imgs;
 	}
 
 	public recommend getRecommend() {

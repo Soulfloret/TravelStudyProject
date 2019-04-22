@@ -27,7 +27,7 @@
 		JOIN `menu` ON `menu`.`id`=`orderson`.`iid`
 		WHERE typeid=#{typeid}
 		GROUP BY iid
-		HAVING COUNT(iid)>=2 AND SUM(`menu`.`likecount`)>30
+		HAVING COUNT(iid)>=2 or SUM(`menu`.`likecount`)>30
 		ORDER BY COUNT(iid) DESC
 		LIMIT 0,5
   </select>

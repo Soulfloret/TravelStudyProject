@@ -38,4 +38,5 @@ public interface productMapper {
     /*后台查询活动详情*/
     product queryByXqById(Integer id);
     
+    product AppProductByid(@Param("id")Integer id);
 }

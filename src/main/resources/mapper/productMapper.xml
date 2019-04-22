@@ -25,6 +25,7 @@
  	 SELECT * FROM `product`
   </select>
   
+<<<<<<< HEAD
     <!-- 后台查询活动详情 -->
     <resultMap type="com.accp.domain.product" id="result_productByXq" extends="BaseResultMap">
   	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" select="com.accp.mapper.productprojectMapper.queryByProdId">
@@ -44,11 +45,22 @@
   </select>
     
     
+=======
+  <!-- App查询活动详情 -->
+  <resultMap type="com.accp.domain.product" id="AppResult" extends="BaseResultMap">
+  		<collection column="productId" property="pplist" ofType="com.accp.domain.productproject" select="queryByProdId">
+  		</collection>
+  </resultMap>
+  
+  <select id="AppProductByid" resultMap="AppResult">
+  		SELECT * FROM `product` where id=#{id}
+  </select>
+>>>>>>> refs/remotes/origin/sunhuihui
   
   <select id="recommendByidproduct" resultType="com.accp.domain.recommend">
   		SELECT id,pname AS `name`,content AS pname,(SELECT SUM(`project`.`price`) FROM `productproject` JOIN `project`
 		ON `productproject`.`ProjectId`=`project`.`id`
-		WHERE `productproject`.`productId`=1
+		WHERE `productproject`.`productId`=#{id}
 		GROUP BY `productproject`.`productId`) AS price FROM `product`
 		WHERE id=#{id}
   </select>

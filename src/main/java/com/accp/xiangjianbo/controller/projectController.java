@@ -94,7 +94,7 @@ public class projectController {
 	public String file(MultipartFile [] file,project pro) {
 		String url="d:/fileupload/";
 		File filepath=new File(url);
-		if (!filepath.exists()) {//�ж��ļ������Ƿ������û�о����
+		if (!filepath.exists()) {
 			filepath.mkdirs();
 		}
 		List<images> ilist=new ArrayList<images>(); 
@@ -158,6 +158,5 @@ public class projectController {
 		}*/
 		model.addAttribute("list",list);
 		return "productInfo";
-	}
-	
+	}	
 }
