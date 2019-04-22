@@ -142,6 +142,18 @@ select * from staff where userid=#{userid}
 		staff.id
 	</select>
 
+
+
+	<!-- 新增项目订单查询安排人员 -->
+	<resultMap type="com.accp.domain.staff" id="result_projectOrder_queryUser" extends="BaseResultMap">
+		<collection property="user" column="userid" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.queryProjectOrderByUserId"></collection>
+	</resultMap>
+	
+	
+	<select id="projectOrder_queryUser" resultMap="result_projectOrder_queryUser">
+		select * from `staff` where id=#{id}
+	</select>
+
 	<sql id="Example_Where_Clause">
 		<where>
 			<foreach collection="oredCriteria" item="criteria"

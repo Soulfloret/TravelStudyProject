@@ -14,7 +14,7 @@
   
   <!-- 查询活动 -->
   <resultMap type="com.accp.domain.product" id="result_product" extends="BaseResultMap">
-  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" >
+  	<collection property="pplist" column="id" ofType="com.accp.domain.productproject" >
   		<!-- <id column="id" property="id"/>
   		 <result column="productId" property="productid"/>
    		 <result column="ProjectId" property="projectid"/> -->

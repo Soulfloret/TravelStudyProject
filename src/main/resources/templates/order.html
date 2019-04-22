@@ -176,14 +176,14 @@
 				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
 				<div class="modal-content" style="background: #435c70;color: white;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">填写团队人员</h5>
+						<h5 class="modal-title" id="myModalLabel">新增订单</h5>
 					</div>
 					<div class="modal-body" style="text-align: center;">
 							<div>
-								<span style="margin-left: 50px;margin-bottom:30px">选择活动</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">选择项目</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px; " />
+								<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
+								<input type="radio" name="productOrProject" xz="1" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
+								<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px; " />
 								<div name="hiddens"  hidden="hidden">
 								<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="活动名称"/>
 								<input type="button"  style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
@@ -192,27 +192,11 @@
 					                  <tr>
 					                    <th scope="col">&nbsp;</th>
 					                    <th scope="col">活动名称</th>
-					                    <th scope="col">活动人数</th>
-					                    <th scope="col">创建时间</th>
-					                    <th scope="col">状态</th>
-					                    <th scope="col">&nbsp;</th>
+					                    
 					                  </tr>
 					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">活动名称</td>
-					                    <td>1,450</td>
-					                    <td>28 March 2019</td>
-					                    <td>开放</td>
-					                    <td>
-					                      <a href="#" class="tm-product-delete-link">
-					                        <i class="fa fa-info"></i>
-					                      </a>
-					                    </td>
-					                  </tr>
-					                  <tr hidden="hidden">
-					                  </tr>
+					                <tbody class="proucttable" id="product_tbody">
+					                  
 					        		</tbody>
 					             </table>									
 								</div>
@@ -224,20 +208,16 @@
 					                  <tr>
 					                    <th scope="col">&nbsp;</th>
 					                    <th scope="col">项目名称</th>
-					                    <th scope="col">描述</th>
-					                    <th scope="col">状态</th>
 					                  </tr>
 					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">项目名称</td>
-					                    <td>项目描述</td>
-					                    <td>开放</td>
+					                <tbody class="proucttable" id="project_tbody">
+					                  
 					        		</tbody>
 					              </table>
 								</div>								
 							</div>
+							
+							
 							<div style="margin: 30px auto;" hidden="hidden" class="infoss">
 								<span style="margin-left: 50px;">团队</span>
 								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
@@ -245,82 +225,43 @@
 								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
 							</div>
 							<div id="hide_dd" style="display: none;">
-								<span style="margin-top: 20px;">请输入负责人</span>
+								<span style="margin-top: 20px;">请输入身份证号</span>
 								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
 								<br>
-								<span style="margin-top: 20px;">负责人身份证号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<span style="margin-top: 20px;">负责人手机号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" /><br>
-								<br>
-								<span>请输入人数</span>
-								<input  class="input-group-sm" style="width: 30%;margin-left: 20px;" /><br>
-								<br>
-								<button class="btn btn-primary"  data-toggle="modal" data-target="#xz_ddry" 
-									style="margin-top: 20px;border-radius: 30px;">填写团队人员</button>
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+								<button class="btn btn-primary show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
 									排班
 								</button>
 							</div>
 							<div id="hide_ry" style="display: none;margin-top: 30px;">
 								<div style="margin-top: 30px;">
-								<span>请输入姓名</span>
-								<input  class="input-group-sm" style="width: 30%;"/><br>
-								<br>
 								<span>请输入身份证号</span>
 								<input  class="input-group-sm" style="width: 30%;" /><br>
 								<br>
-								<span>请输入手机号</span>
-								<input  class="input-group-sm" style="width: 30%;" /><br>
 								
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+								<button class="btn btn-primary" calss="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
 									排班
 								</button>
 								</div>
 							</div>
 					</div>
-					<div id="hide_cc" style="display: none;">
-						<table class="table table-hover tm-table-smal	l tm-product-table" style="margin-top: 20px;">
-			                <thead>
-			                  <tr>
-			                  	<th>
-			                  		项目名称
-			                  	</th>
-			                  	<th>所属活动</th>
-			                  	<th>状态</th>	
-			                  	<th></th>
-			                  	<th></th>
-			                  </tr>	
-			                  <tr>
-			                    <td scope="col">骑马</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="1">+</a>
-			                      </div>
-			                    </td>
-			                     <td></td>
-			                 </tr>
-			                  <tr>
-			                    <td scope="col">射箭</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="2">+</a>
-			                      </div>
-			                    </td>
-			                    <td></td>
-			                  </tr>
-			                </thead>
-			               
-		             </table>
-					</div>
 					
+					<div id="hide_cc" style="display: none;margin-top: 30px">
+								<h5>活动项目</h5>
+								<table class="table table-hover tm-table-small tm-product-table"  style="margin-top: 20px;">
+					                <thead id="look_product_project_thead">
+					                  <tr>
+					                  	<th>
+					                  		项目名称
+					                  	</th>
+					                  	<th>状态</th>	
+					                  	<th></th>
+					                  	<th></th>
+					                  </tr>	
+					                 
+					                </thead>
+					               
+				             	</table>
+							</div>
 					<div id="hide_jd" style="margin-top: 50px;display: none;display: none;">
 						<div class="col-lg-6">
 							<h4>选择基地</h4>
@@ -333,34 +274,8 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>一区五号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区六号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区七号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
+								<tbody id="project_jd_table">
+									
 								</tbody>
 							</table>
 						</div>
@@ -382,25 +297,8 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>张三</td>
-										<td scope="col">
-					                    	 <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>李四</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>王五</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
+								<tbody id="look_Staff_tbody">
+									
 								</tbody>
 							</table>
 						</div>
@@ -800,25 +698,165 @@
 			}
 			$("#hide_dd").css("display","none");
 		});
-		$("#show_pb").click(function(){
-			$("#hide_cc").css("display","block");
+		
+		
+		
+		/* $(".show_project_time").click(function(){
+			
+			
+		}) */
+		
+		
+		
+		
+		
+		var xzid;
+		
+		$("[name=productOrProject]").click(function(){
+			xzid=$(this).attr("xz");
+			
+			if(xzid==1){
+				$.ajax({
+					url:"query_Product",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						console.log(result);
+						$("#product_tbody").html(""); 
+						$.each(result,function(i,obj){
+							var dt=$("<tr>"+
+				                    "<th scope='row'><input pid='"+obj.id+"' type='radio' name='look_product'/></th>"+
+				                    "<td class='tm-product-name'>"+obj.pname+"</td>"+
+				                  "</tr>"+
+				                  "<tr hidden='hidden'>"+
+				                  "</tr>");
+							$("#product_tbody").append(dt);
+						})
+					}
+				});
+			}else if(xzid==2){
+				$("#hide_cc").css("display","none");
+				$.ajax({
+					url:"query_Project",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						$("#project_tbody").html(""); 
+						$.each(result,function(i,obj){
+							var dt=$(" <tr>"+
+										"<td scope='row'><input type='radio' name='look_project'/></td>"+
+				                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
+				                    "</tr>")
+					                    $("#project_tbody").append(dt);
+						})
+					}
+				});
+			}
 		})
-		$(".show_jd").click(function(){
+		$("#product_tbody").on("click","[name=look_product]",function(){
+			var pid=$(this).attr("pid");
+			$(".infoss").removeAttr("hidden");
+			$.ajax({
+				url:"/xjb_productController/queryByProdId?productId="+pid,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					var product_project_dt;
+					$("#look_product_project_thead").html("");
+					$.each(result,function(i,obj){
+						if(obj.pro.pstatus==1){
+							product_project_dt=$("<tr>"+
+				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>开放</td>"+
+				                    "<td scope='col'>"+
+				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
+				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
+				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
+				                      "</div>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }else if(obj.pro.pstatus==2){
+	                    	product_project_dt=$("<tr>"+
+				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>维修</td>"+
+				                    "<td scope='col'>"+
+				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
+				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
+				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
+				                      "</div>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }else if(obj.pro.pstatus==3){
+	                    	product_project_dt=$("<tr>"+
+				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>检测</td>"+
+				                    "<td scope='col'>"+
+				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
+				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
+				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
+				                      "</div>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }
+						$("#look_product_project_thead").append(product_project_dt);
+					})
+				}
+			});
+		})
+		
+		$("#look_product_project_thead").on("click",".show_jd",function(){
 			$("#hide_jd").css("display","flex");
 			pid=$(this).attr("pid");
 			$(this).html("-");
+			$.ajax({
+				url:"/xjb_projectController/queryJd?pid="+pid,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					$.each(result,function(i,obj){
+						var jd_dt=$("<tr>"+
+								"<td>"+obj.area.aname+"</td>"+
+								"<td scope='col'>"+
+				                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
+				                      "border: 1px solid orange;background: orange;text-align: center;'>"+
+				                      "<a style='color: white;' class='show_project_time'>+</a>"+
+				                     "</div>"+
+				                   "</td>"+
+							"</tr>") 
+							
+						$("#project_jd_table").append(jd_dt);
+					})
+					
+				}
+			});
+			$.ajax({
+				url:"projectOrder_queryStaff",
+				type:"psot",
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					$.each(result,function(i,obj){
+						$.each(obj.stalist,function(k,obj1){
+									var dt=$("<tr>"+
+											"<td>"+obj1.user.uname+"</td>"+
+											"<td scope='col'>"+
+						                    	 "<input type='checkbox' name='ck_ry'/>"+
+						                    "</td>"+
+										"</tr>")
+									$("#look_Staff_tbody").append(dt);
+								
+							
+						})
+					})
+				}
+			});
 		})
 		
-		$(".show_project_time").click(function(){
-			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
-			
-		})
-		
-		$("[name=ck_ry]").click(function(){
+		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
 			if (this.checked) {
 				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
 				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
@@ -833,6 +871,27 @@
 					ry_dt.append(td);
 				}
 			}else{
+				
+			}
+			
+		})
+		
+		$("#project_jd_table").on("click",".show_project_time",function(){
+
+			jd_name=$(this).parents("tr").find("td:eq(0)").html();
+			
+			$("#hide_project_time").css("display","block");
+			$(this).html("-");
+		})
+			
+		/* 
+		$("#project_tbody").on("click","[name=look_project]",function(){
+			$(".infoss").removeAttr("hidden");
+		}) */
+		
+		$(".show_pb").click(function(){
+			if(xzid==1){
+				$("#hide_cc").css("display","block");
 				
 			}
 			
@@ -876,7 +935,6 @@
 			       	}
 				}
 			}else{
-				
 			       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
 			       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
 			       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);

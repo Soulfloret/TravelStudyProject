@@ -137,6 +137,11 @@
 	WHERE `TypeId`=1
   </select>
   
+  <!-- 活动项目订单查询工作人员 -->
+  <select id="queryProjectOrderByUserId" resultMap="BaseResultMap">
+  	SELECT * FROM `users` WHERE `id`=#{id}
+  </select>
+  
   <sql id="Example_Where_Clause" >
   
     <where >

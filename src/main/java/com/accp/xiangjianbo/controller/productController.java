@@ -34,6 +34,7 @@ public class productController {
 	@RequestMapping("query")
 	public String query(Model model) {
 		List<product> list=prod.queryAll();
+	
 		model.addAttribute("list", list);
 		return "products";
 	}		
