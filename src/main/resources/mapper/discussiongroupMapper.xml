@@ -14,6 +14,12 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+    <select id="selectAllDiscussionGroup" resultMap="BaseResultMap">
+	SELECT  *  FROM discussiongroup WHERE id IN (
+		SELECT  did FROM discussiongroupson WHERE userid=#{uid}
+	)
+  </select>
+  
    <!--  根据讨论组名称 模糊查询讨论组-->
   <select id="selectByname" resultMap="BaseResultMap">
   	select * from discussiongroup where groupName like CONCAT('%',#{name},'%')

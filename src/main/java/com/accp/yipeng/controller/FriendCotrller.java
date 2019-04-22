@@ -3,7 +3,6 @@ package com.accp.yipeng.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -98,10 +97,10 @@ public class FriendCotrller {
 	
 
 	@RequestMapping("upload")
-	public void goupload(MultipartFile file0,MultipartFile file1,MultipartFile file2,MultipartFile file3,String groupname,String uid,String groupdescribe,String [] ids) {
+	public void goupload(MultipartFile file0,MultipartFile file1,MultipartFile file2,String groupname,String uid,String groupdescribe, String   ids) {
 			String url = "f:/fileupload/";
 			List<images> list1=new ArrayList<images>();
-			MultipartFile []file= {file0,file1,file2,file3};
+			MultipartFile []file= {file0,file1,file2};
 			File filePath = new File(url);
 			if(!filePath.exists()) {
 				filePath.mkdirs();
@@ -126,12 +125,19 @@ public class FriendCotrller {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(ids);
 			discussiongroup dis=new discussiongroup(groupname, 30, groupdescribe, Integer.parseInt(uid));
 			DisService.add(dis,ids,list1);
 			
 	}
 	
+	@RequestMapping("selectAllDiscussionGroup")
+	public List<discussiongroup> selectAllDiscussionGroup(Integer uid) {
+		return DisService.selectAllDiscussionGroup(uid);
+	}
+	@RequestMapping("queryById")
+	public discussiongroup queryById(Integer did) {
+		return DisService.queryById(did);
+	}
 	
 	
 }

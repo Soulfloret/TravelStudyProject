@@ -14,6 +14,26 @@ public class discussiongroup {
     public discussiongroup() {
 	}
 
+    private message mess;
+    
+    private List<message> messList;
+    
+	public List<message> getMessList() {
+		return messList;
+	}
+
+	public void setMessList(List<message> messList) {
+		this.messList = messList;
+	}
+
+	public message getMess() {
+		return mess;
+	}
+
+	public void setMess(message mess) {
+		this.mess = mess;
+	}
+
 	private Integer groupmainid;
 
     private String name1;

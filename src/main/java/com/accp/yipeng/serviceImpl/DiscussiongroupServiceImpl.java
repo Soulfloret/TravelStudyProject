@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.accp.domain.discussiongroup;
 import com.accp.domain.discussiongroupson;
 import com.accp.domain.images;
+import com.accp.domain.message;
 import com.accp.domain.sendrequest;
 import com.accp.domain.users;
 import com.accp.mapper.discussiongroupMapper;
 import com.accp.mapper.discussiongroupsonMapper;
 import com.accp.mapper.friendMapper;
 import com.accp.mapper.imagesMapper;
+import com.accp.mapper.messageMapper;
 import com.accp.mapper.sendrequestMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.yipeng.service.DiscussiongroupService;
@@ -36,6 +38,10 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 	friendMapper frmapper;
 	@Autowired
 	sendrequestMapper sendmapper;
+	@Autowired
+	messageMapper messmapper;
+	
+	
 	@Override
 	public List<Object> query(String name,Integer Id) {
 		List<Object> list=new ArrayList<Object>();
@@ -80,19 +86,47 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 	}
 	@Override
 	public discussiongroup selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
 		return dismapper.selectByPrimaryKey(id);
 	}
 	@Override
-	public int add(discussiongroup record,String[] ids,List<images> list) {
+	public int add(discussiongroup record,String ids,List<images> list) {
 		int i=dismapper.insert(record);
-		Integer [] id=new Integer[ids.length];
-		for (int j = 0; j < ids.length; j++) {
-			id[j]=Integer.parseInt(ids[j]);
+		String [] args=ids.split(",");
+		Integer [] id=new Integer[args.length];
+		for (int j = 0; j < args.length; j++) {
+			id[j]=Integer.parseInt(args[j]);
 		}
+		discussiongroupson son=new discussiongroupson();
+		son.setDid(record.getId());
+		son.setUserid(record.getGroupmainid());
+		i=disSonmapper.insert(son);
 		i=disSonmapper.insertByarray(record.getId(), id);
 		i=imgmapper.insertByList(record.getId(), 8, list);
 		return i;
-		
+	}
+	@Override
+	public List<discussiongroup> selectAllDiscussionGroup(Integer uid) {
+		 List<discussiongroup>  list=dismapper.selectAllDiscussionGroup(uid);
+		 for (discussiongroup discussiongroup : list) {
+			 message mess=messmapper.queryLastMessageBydid(discussiongroup.getId());
+			 if(mess!=null) {
+				 mess.setUse(umapper.selectByPrimaryKey(mess.getUid()));
+			 }
+			 discussiongroup.setCount(messmapper.selectCountBydid(discussiongroup.getId()));
+			 discussiongroup.setMess(mess);
+			 discussiongroup.setImg(imgmapper.queryimg(discussiongroup.getId(), 8));
+		}
+		return list;
+	}
+	@Override
+	public discussiongroup queryById(Integer did) {
+		discussiongroup dis=dismapper.selectByPrimaryKey(did);
+		dis.setCount(messmapper.selectCountBydid(dis.getId()));
+		List<message> list=messmapper.queryMessageBydid(dis.getId());
+		for (message message : list) {
+			message.setUse(umapper.selectByPrimaryKey(message.getUid()));
+		}
+		dis.setMessList(list);
+		return dis;
 	}
 }

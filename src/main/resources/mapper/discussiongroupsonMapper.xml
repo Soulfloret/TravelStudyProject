@@ -14,7 +14,7 @@
   
 	<!--  批增讨论组成员--> 
   <insert id="insertByarray">
-  	insert into discussiongruopSon(did,userId) values 
+  	insert into discussiongroupson(did,userId) values 
   	<foreach collection="ids" item="p" separator=",">
   		(#{did},#{p})
   	</foreach>

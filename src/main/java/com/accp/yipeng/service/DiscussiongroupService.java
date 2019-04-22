@@ -10,6 +10,7 @@ public interface DiscussiongroupService {
     //模糊查询 查用户 或讨论组
     discussiongroup selectByPrimaryKey(Integer id);
     List<Object> query(String name,Integer Id);
-    int add(discussiongroup record,String [] ids,List<images> list);
-    
+    int add(discussiongroup record,String  ids,List<images> list);
+	public List<discussiongroup> selectAllDiscussionGroup(Integer uid);
+	public discussiongroup queryById(Integer did) ;
 }
