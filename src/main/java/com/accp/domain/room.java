@@ -29,11 +29,23 @@ public class room {
     
     private List<images> imgs;
     
+    
+    private images img;
+    
+    
     private recommend recommend;
     
     
     
-    public recommend getRecommend() {
+    public images getImg() {
+		return img;
+	}
+
+	public void setImg(images img) {
+		this.img = img;
+	}
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 

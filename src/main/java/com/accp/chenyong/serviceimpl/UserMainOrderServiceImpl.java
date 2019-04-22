@@ -21,6 +21,7 @@ import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.project;
+import com.accp.domain.room;
 import com.accp.domain.roomdestine;
 import com.accp.domain.roomorder;
 import com.accp.domain.staff;
@@ -302,7 +303,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							if(orderson.getTypeid()==3) {
 								roomdestine ro=new roomdestine();
 								ro=mapper19.selectByPrimaryKey(orderson.getIid());
-								ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
+								room r=new room();
+								r.setId(ro.getRoomid());
+								ro.setRoom(mapper20.queryByroom(r).get(0));
 								ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 								orderson.setIx(ro);
 							}
