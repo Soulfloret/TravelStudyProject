@@ -125,6 +125,18 @@
 	WHERE `uname`=#{name} AND `TypeId`=2
   </select>
   
+  <!-- 活动详情查询 -->
+  <resultMap type="com.accp.domain.users" id="result_queryByProductXq">
+  	<collection property="orders" column="id" ofType="com.accp.domain.userorder" select="">
+  		
+  	</collection>
+  </resultMap>
+  
+  <select id="queryByProductXq" resultMap="result_queryByProductXq">
+  	SELECT * FROM `users`
+	WHERE `TypeId`=1
+  </select>
+  
   <sql id="Example_Where_Clause" >
   
     <where >

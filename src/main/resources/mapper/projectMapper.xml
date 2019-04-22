@@ -136,6 +136,13 @@
 	    <result column="productId" property="productid" jdbcType="INTEGER" />
 	    <result column="AreaId" property="areaid" jdbcType="INTEGER" />
   	</collection>
+  	<collection property="pllist" column="id" ofType="com.accp.domain.projectpl" select="com.accp.mapper.projectplMapper.project_queryByPl">
+	  	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="content" property="content" jdbcType="VARCHAR" />
+	    <result column="projectid" property="projectid" jdbcType="INTEGER" />
+	    <result column="star" property="star" jdbcType="INTEGER" />
+	    <result column="userid" property="userid" jdbcType="INTEGER" />
+  	</collection>
   </resultMap>
   
   

@@ -23,9 +23,17 @@ public class product {
     
     private recommend recommend;
     
+    private orderson orderson;
     
-    
-    public recommend getRecommend() {
+    public orderson getOrderson() {
+		return orderson;
+	}
+
+	public void setOrderson(orderson orderson) {
+		this.orderson = orderson;
+	}
+
+	public recommend getRecommend() {
 		return recommend;
 	}
 

@@ -13,6 +13,32 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 后台项目详情查询评论 -->
+  <resultMap type="com.accp.domain.projectpl" id="result_project_queryByPl" extends="BaseResultMap">
+  	<collection property="user" column="userid" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="uName" property="uname" jdbcType="VARCHAR" />
+	    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
+	    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
+	    <result column="phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="height" property="height" jdbcType="DOUBLE" />
+	    <result column="width" property="width" jdbcType="DOUBLE" />
+	    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
+	    <result column="name1" property="name1" jdbcType="VARCHAR" />
+	    <result column="name2" property="name2" jdbcType="VARCHAR" />
+	    <result column="name3" property="name3" jdbcType="VARCHAR" />
+	    <result column="name4" property="name4" jdbcType="VARCHAR" />
+	    <result column="name5" property="name5" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <select id="project_queryByPl" resultMap="result_project_queryByPl">
+  	SELECT * FROM `projectpl` WHERE `projectid`=#{id}
+  </select>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

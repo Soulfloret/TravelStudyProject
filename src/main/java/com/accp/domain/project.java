@@ -54,9 +54,19 @@ public class project {
     
     private images img;
     
+    private projectpl pllist;
     
     
-    public images getImg() {
+    
+    public projectpl getPllist() {
+		return pllist;
+	}
+
+	public void setPllist(projectpl pllist) {
+		this.pllist = pllist;
+	}
+
+	public images getImg() {
 		return img;
 	}
 

@@ -13,6 +13,19 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 活动详情查询参加活动人员 -->
+  <resultMap type="com.accp.domain.Usermainorder" id="result_QueryProductXq" extends="BaseResultMap">
+  	<collection property="list" column="orderuser" ofType="com.accp.domain.users" select="">
+  		
+  	</collection>
+  </resultMap>
+  
+  <select id="QueryProductXq" resultMap="result_QueryProductXq">
+  	SELECT * FROM `usermainorder`
+  </select>
+  
+  
   <select id="query" resultMap="BaseResultMap">
 		select * from usermainorder 
 		<where>

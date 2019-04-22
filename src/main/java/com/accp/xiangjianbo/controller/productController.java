@@ -64,7 +64,10 @@ public class productController {
 	
 	/*活动查看详情*/
 	@RequestMapping("look_productxq")
-	public String look_productxq() {
+	public String look_productxq(Model model,Integer id) {
+		product product=prod.queryByXqById(id);
+		System.out.println(JSON.toJSONString(product));
+		model.addAttribute("product", product);
 		return "edit-product";
 	}
 	
