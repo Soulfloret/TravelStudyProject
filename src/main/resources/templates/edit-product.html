@@ -36,7 +36,7 @@
 								<div class="form-group mb-3">
 									<label for="name">活动名称
                     </label>
-									<input id="name" name="name" type="text" value="我爱劳动" class="form-control validate" />
+									<input id="name" name="name" type="text" th:value="${product.pname}" class="form-control validate" />
 								</div>
 								<div class="form-group mb-3">
 									<label for="description">活动内容</label
@@ -45,7 +45,7 @@
                       class="form-control validate tm-small"
                       rows="5"
                       required
-                    >强身健体
+                     th:text="${product.content}">
                     </textarea>
                  </div>
                   <div class="row">
@@ -77,50 +77,21 @@
                   <tr>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">项目名称</th>
-                    <th scope="col">建成金额</th>
+                    
                     <th scope="col">创建时间</th>
                     <th scope="col">状态</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr th:each="project_item : ${product.pplist}">
                     <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-                 	<tr>
-                    <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-                  <tr>
-                    <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-               
+                    <td class=""><a href="edit-project.html" style="color: white;" th:text="${project_item.pro.pname}"></a></td>
+                   
+                     <td th:text="${#dates.format(project_item.pro.createtime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                     <td th:if="${project_item.pro.pstatus} eq '1' ">开放</td>
+                    <td th:if="${project_item.pro.pstatus} eq '2' ">维修</td>
+                    <td th:if="${project_item.pro.pstatus} eq '3' ">检测</td>
                 </tbody>
               </table>
 			      </div>

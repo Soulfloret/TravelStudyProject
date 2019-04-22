@@ -32,8 +32,6 @@ public class Usermainorder {
     
     private Double price;
     
-    
-
 	public Double getPrice() {
 		return price;
 	}

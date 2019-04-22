@@ -15,6 +15,16 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 活动详情查询参与人员 -->
+  <resultMap type="com.accp.domain.userorder" id="result_QueryByProductXq" extends="BaseResultMap">
+  	<collection property="list" column="id" ofType="com.accp.domain.orderson"></collection>
+  </resultMap>
+  
+  <select id="QueryByProductXq" resultMap="result_QueryByProductXq">
+  	SELECT * FROM `orderson`
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

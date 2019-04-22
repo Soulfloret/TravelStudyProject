@@ -41,7 +41,7 @@
 	                <tbody>
 	                  <tr th:each="item : ${list}">
 	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td class="tm-product-name" th:id="${item.id}"><a href="look_productxq" th:text="${item.pname}" style="color:white;"></a></td>
+	                    <td class="tm-product-name" th:id="${item.id}"><a th:href="@{look_productxq(id=${item.id})}" th:text="${item.pname}" style="color:white;"></a></td>
 	                    <td>
 	                    	<a href="javascript:void(0)" style="font-size: 20px" onclick="look_project(this)">项目 →</a>
 	                    </td>

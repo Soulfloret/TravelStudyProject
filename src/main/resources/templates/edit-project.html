@@ -153,8 +153,7 @@
               </div>
             </form>
             </div>
-            
-            		<label for="stock" style="color:white;font-size:20px;">已有基地</label>
+            	<label for="stock" style="color:white;font-size:20px;">已有基地</label>
             
             <div>
                 	<table class="table table-hover tm-table-small tm-product-table">
@@ -189,15 +188,15 @@
 						<h4 class="modal-title" id="myModalLabel">评论</h4>
 					</div>
 					<div class="modal-body">
-						<input type="text" placeholder="回复内容"/>
+						<input type="text" placeholder="评论内容"/>
 						<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
 						<ul style="list-style: none;margin-top: 20px;">
-							<li>
+							<li th:each="plitem : ${list.pllist}">
 								<div style="display: flex;">
 									<div style="width: 60px;height: 60px;border-radius: 50%;border: 1px solid white;"></div>
 									<div style="margin-left: 20px;">
-										<p>姓名</p>
-										<p>时间</p>
+										<p th:text="${plitem.user.uname}"></p>
+										<p>⭐⭐⭐⭐⭐</p>
 									</div>
 									
 								</div>
@@ -208,7 +207,7 @@
 								        </a>
 									</div>
 								<div>
-									<p>评论内容</p>
+									<p th:text="${plitem.content}"></p>
 									<p>
 										<a style="color: orange;" id="look_hf">查看回复</a>
 										<a style="color: orange;display: none;" id="hide_hf_a">隐藏回复</a>
@@ -240,65 +239,7 @@
 												
 											</div>
 										</li>
-										<li>
-											<div style="display: flex;">
-												<div style="width: 60px;height: 60px;border-radius: 50%;border: 1px solid white;"></div>
-												<div style="margin-left: 20px;">
-													<p>姓名</p>
-													<p>时间</p>
-												</div>
-											</div>
-											<div style="float: right;">
-										<a href="#" class="tm-product-delete-link">
-										
-								            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-								        </a>
-									</div>
-											<div>
-												<p>回复内容</p>
-												
-											</div>
-										</li>
-							
 									</ul>
-								</div>
-							</li>
-							<li>
-								<div style="display: flex;">
-									<div style="width: 60px;height: 60px;border-radius: 50%;border: 1px solid white	;"></div>
-									<div style="margin-left: 20px;">
-										<p>姓名</p>
-										<p>时间</p>
-									</div>
-								</div>
-								<div style="float: right;">
-										<a href="#" class="tm-product-delete-link">
-										
-								            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-								        </a>
-									</div>
-								<div>
-									<p>评论内容</p>
-									<p><a style="color: orange;" href="">查看回复</a></p>
-								</div>
-							</li>
-							<li>
-								<div style="display: flex;">
-									<div style="width: 60px;height: 60px;border-radius: 50%;border: 1px solid white;"></div>
-									<div style="margin-left: 20px;">
-										<p>姓名</p>
-										<p>时间</p>
-									</div>
-								</div>
-								<div style="float: right;">
-										<a href="#" class="tm-product-delete-link">
-										
-								            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-								        </a>
-									</div>
-								<div>
-									<p>评论内容</p>
-									<p><a style="color: orange;" href="">查看回复</a></p>
 								</div>
 							</li>
 							

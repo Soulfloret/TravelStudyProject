@@ -21,7 +21,19 @@ public class projectpl {
 
     private String name5;
 
-    public Integer getId() {
+    private users user;
+    
+    
+    
+    public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

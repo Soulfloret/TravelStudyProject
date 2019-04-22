@@ -12,6 +12,8 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+ 
+  
   <resultMap type="com.accp.domain.productproject" id="result_queryByProdId" extends="BaseResultMap">
   	<collection property="pro" column="projectid" ofType="com.accp.domain.project" select="com.accp.mapper.projectMapper.queryByProjectId">
   		<id column="id" property="id" jdbcType="INTEGER" />
