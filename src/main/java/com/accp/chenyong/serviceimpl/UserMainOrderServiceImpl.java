@@ -21,6 +21,7 @@ import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.project;
+import com.accp.domain.roomdestine;
 import com.accp.domain.roomorder;
 import com.accp.domain.staff;
 import com.accp.domain.team;
@@ -40,6 +41,8 @@ import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
 import com.accp.mapper.projecttypeMapper;
+import com.accp.mapper.roomMapper;
+import com.accp.mapper.roomdestineMapper;
 import com.accp.mapper.roomorderMapper;
 import com.accp.mapper.staffMapper;
 import com.accp.mapper.teamMapper;
@@ -89,6 +92,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	worduserMapper mapper17;
 	@Autowired
 	menuorderMapper mapper18;
+	@Autowired
+	roomdestineMapper mapper19;
+	@Autowired
+	roomMapper mapper20;
 	
 	public int countByExample(UsermainorderExample example) {
 		// TODO Auto-generated method stub
@@ -293,8 +300,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								orderson.setIx(m);
 							}
 							if(orderson.getTypeid()==3) {
-								roomorder ro=new roomorder();
-								ro=mapper8.query(orderson.getIid()).get(0);
+								roomdestine ro=new roomdestine();
+								ro=mapper19.selectByPrimaryKey(orderson.getIid());
+								ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 								ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 								orderson.setIx(ro);
 							}
@@ -328,6 +336,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										mx.setIx(mapper7.QueryMenu(mu).get(0));
 									}
 									if(mx.getTypeid()==3) {
+										roomdestine ro=new roomdestine();
+										ro=mapper19.selectByPrimaryKey(orderson.getIid());
+										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
+										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										orderson.setIx(ro);
 										mx.setIx(mapper8.query(mx.getIid()).get(0));
 									}
 									if(mx.getTypeid()==4) {
@@ -373,8 +386,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									orderson.setIx(m);
 								}
 								if(orderson.getTypeid()==3) {
-									roomorder ro=new roomorder();
-									ro=mapper8.query(orderson.getIid()).get(0);
+									roomdestine ro=new roomdestine();
+									ro=mapper19.selectByPrimaryKey(orderson.getIid());
+									ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 									orderson.setIx(ro);
 								}
@@ -408,6 +422,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 											mx.setIx(mapper7.QueryMenu(mu).get(0));
 										}
 										if(mx.getTypeid()==3) {
+											roomdestine ro=new roomdestine();
+											ro=mapper19.selectByPrimaryKey(orderson.getIid());
+											ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
+											ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+											orderson.setIx(ro);
 											mx.setIx(mapper8.query(mx.getIid()).get(0));
 										}
 										if(mx.getTypeid()==4) {
