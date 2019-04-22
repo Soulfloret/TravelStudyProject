@@ -49,38 +49,10 @@
 		   	<div class="col-md-3">
 		   	   <ul class="product_reviews">
 		   	   	<h3><i class="arrow"> </i><span>销售排行榜</span></h3>
-		   	   	<li>
+		   	   	<li th:each="li,stackss:${olist}">
 		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
-		   	   			<div class="clearfix"> </div>
-		   	   		</ul>
-		   	   	</li>
-		   	   	<li>
-		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
-		   	   			<div class="clearfix"> </div>
-		   	   		</ul>
-		   	   	</li>
-		   	   	<li>
-		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
-		   	   			<div class="clearfix"> </div>
-		   	   		</ul>
-		   	   	</li>
-		   	   	<li>
-		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
-		   	   			<div class="clearfix"> </div>
-		   	   		</ul>
-		   	   	</li>
-		   	   	<li>
-		   	   		<ul class="review1">
-		   	   			<li class="review1_img"><img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a href="#">鱼香肉丝</a><span class="badge" style="color: white; background-color: red;">1</span></h3><p><span class="actual1" style="color: red;">$12.00</span></p></li>
+		   	   			<li class="review1_img"><img  th:src="${li.menus.url}" class="img-responsive" alt=""/></li>
+		   	   			<li class="review1_desc"><h3><a th:href="@{/menu/toquerymenu1Byid(id=${li.menus.id},type='2')}" th:text="${li.menus.mname}"></a><span class="badge" style="color: white; background-color: red;" th:text="${stackss.index+1}"></span></h3><p><span class="actual1" style="color: red;" th:text="'$'+${li.menus.price}"></span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
@@ -118,6 +90,9 @@
 								$(function(){
 									var yj1=$(".yj").html();
 									var xj1=$(".xj").html();
+									if(yj1=="" || yj1==null){
+										yj1="$0";
+									}
 									$(".jia").click(function(){
 										var yj=yj1;
 										var xj=xj1;
@@ -135,7 +110,7 @@
 										var yj=yj1;
 										var xj=xj1;
 										var num=$(this).next().html();
-										if(num>0){
+										if(num>1){
 											num=parseInt(num)-1;
 											$(this).next().html(num);
 											yj=yj.substring(1);
@@ -174,7 +149,7 @@
 					  <li class="media" th:each="pitem : ${plist}">
 					    <div class="media-left">
 					      <a href="#">
-					        <img class="media-object" th:src="${pitem.muser.name2}" alt="...">
+					        <img class="media-object" th:src="${pitem.muser.name2}" width="30px" height="30px" alt="...">
 					      </a>
 					    </div>
 					    <div class="media-body"  style="border: 1px solid #fff;">

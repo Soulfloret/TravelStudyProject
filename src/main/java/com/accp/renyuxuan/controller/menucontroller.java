@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.Shopcart;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.domain.menucomment;
@@ -21,6 +24,7 @@ import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.impl.Shopcartserviceimpl;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
@@ -62,6 +66,9 @@ public class menucontroller {
 	//用户订单
 	@Autowired
 	userorderserviceimpl uo;
+	//购物车
+	@Autowired
+	Shopcartserviceimpl sc;
 	
 	
 	//查询后台菜单
@@ -228,9 +235,35 @@ public class menucontroller {
 		menucomments.setName1(type);
 		List<menucomment> plist=mm.selectmenucommentByid(menucomments);
 		model.addAttribute("plist", plist);
+		List<orderson> olist= oo.querytj(null);
+		model.addAttribute("olist", olist);
 		return "single1";
 	}
 	
+	
+	//加入购物车
+	@RequestMapping("/shopcartadd")
+	@ResponseBody
+	public String shopcartadd(Integer iid,Integer typeid,String name1,HttpSession session) {
+		users use= (users) session.getAttribute("use");
+		
+		Shopcart shopcart=new Shopcart();
+		shopcart.setIid(iid);
+		shopcart.setTypeid(typeid);
+		shopcart.setName1(name1);
+		shopcart.setUserid(1);//目前没有登录所以暂时用1
+		Shopcart  Shopcarts =sc.selectshopcartByid(shopcart);
+		if(Shopcarts==null) {
+			sc.insertSelective(shopcart);
+		}else {
+			Shopcart shopcart1=new Shopcart();
+			shopcart1.setId(Shopcarts.getId());
+			Integer num= Integer.parseInt(Shopcarts.getName1())+Integer.parseInt(name1);
+			shopcart1.setName1(num.toString());
+			sc.updateByPrimaryKeySelective(shopcart1);
+		}
+		return "加入成功！";
+	}
 	
 	
 	

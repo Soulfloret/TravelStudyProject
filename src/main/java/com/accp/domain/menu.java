@@ -46,9 +46,19 @@ public class menu {
     
     private images image;
     
+    private String url ;
     
     
-    public images getImage() {
+    
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public images getImage() {
 		return image;
 	}
 

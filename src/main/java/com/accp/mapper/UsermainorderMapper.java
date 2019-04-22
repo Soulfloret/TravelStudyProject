@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UsermainorderMapper {
+	
+	Usermainorder queryorderCustomer(@Param("id")Integer id,@Param("lb")String lb);
+	
     int countByExample(UsermainorderExample example);
 
     int deleteByPrimaryKey(Integer id);

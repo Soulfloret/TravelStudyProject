@@ -18,6 +18,10 @@
   	</association>
   </resultMap>
   
+  <select id="selectBymainiUserId" resultMap="BaseResultMap">
+  		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
+  </select>
+  
   <select id="selectAllTeam" resultMap="MapYp">
   	 SELECT t.*,uname  FROM team AS t INNER JOIN users AS u ON t.`mainiUserId`=u.`id`
   	 <where>

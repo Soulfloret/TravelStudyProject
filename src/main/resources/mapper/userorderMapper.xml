@@ -18,7 +18,10 @@
   
   <select id="selectByuid" resultMap="BaseResultMap">
   	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
+  </select>
   
+  <select id="selectByuidinlist" resultMap="BaseResultMap">
+  	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
   </select>
   
   

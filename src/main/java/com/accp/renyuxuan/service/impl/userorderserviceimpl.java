@@ -24,4 +24,10 @@ public class userorderserviceimpl implements userorderservice{
 		return u.selectByuid(id);
 	}
 
+	@Override
+	public List<userorder> selectByuidinlist(Integer id) {
+		// TODO Auto-generated method stub
+		return u.selectByuidinlist(id);
+	}
+
 }
