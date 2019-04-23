@@ -292,6 +292,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										}
 									}
 								}
+								if(orderson.getTypeid()==1) {
+									p.setName6(mapper4.selectByPrimaryKey(orderson.getIid()).getPname());									
+								}else {
+									p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
+								}
 								orderson.setIx(p);
 							}
 							if(orderson.getTypeid()==2) {
@@ -377,6 +382,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 												wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
 											}
 										}
+									}
+									if(orderson.getTypeid()==1) {
+										p.setName6(mapper4.selectByPrimaryKey(orderson.getIid()).getPname());									
+									}else {
+										p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
 									}
 									orderson.setIx(p);
 								}

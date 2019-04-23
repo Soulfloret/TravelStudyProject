@@ -33,6 +33,8 @@ public interface productareaMapper {
     /*椤圭洰鏂板鍩哄湴*/
     int project_areas(project pro);
     
-    /*项目查询基地*/
+    /*椤圭洰鏌ヨ鍩哄湴*/
     List<productarea> queryByPid(Integer pid);
+    
+    productarea queryByArearId(productarea p);
 }

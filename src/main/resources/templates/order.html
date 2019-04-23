@@ -565,16 +565,14 @@
 														+"<th scope='col'>菜品总价</th>"
 														+"</thead>");
 													var divbody=$("<tbody></tbody>");
-													$.each(item2.list,function(item2,index2){
-														var tr=$("<tr>"
-														+"<th scope='row'><img src='/"+item.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
+													var tr=$("<tr>"
+														+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
 														+"<td><b>"+item2.ix.price+"</b></td>"
 														+"<td><b>"+item2.ix.intorduce+"</b></td>"
-														+"<td><b>"+item.ix.name2+"</b></td>"
-														+"<td><b>"+item.ix.name2*item.ix.price+"</b></td>"
+														+"<td><b>"+item2.ix.name2+"</b></td>"
+														+"<td><b>"+item2.ix.name2*item2.ix.price+"</b></td>"
 														+"</tr>");
 														$(divbody).append(tr);
-													})
 													$(divtable).append(divbody);
 													$(divs).append(divtable);
 													div3=divs;
@@ -694,18 +692,20 @@
 													+"<th scope='col'>菜品名称</th>"
 													+"<th scope='col'>菜品价格</th>"
 													+"<th scope='col'>菜品数据</th>"
+													+"<th scope='col'>菜品数量</th>"
 													+"<th scope='col'>菜品总价</th>"
 													+"</thead>");
 												var divbody=$("<tbody></tbody>");
-												$.each(item1.list,function(item2,index2){
-													var tr=$("<tr>"
-													+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
-													+"<td><b>{{item2.price}}</b></td>"
-													+"<td><b>{{item2.name2}}</b></td>"
-													+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
-													+"</tr>");
-													$(divbody).append(tr);
-												})
+												var tr=$("<tr>"
+														+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
+														+"<td><b>"+item2.ix.price+"</b></td>"
+														+"<td><b>"+item2.ix.intorduce+"</b></td>"
+														+"<td><b>"+item2.ix.name2+"</b></td>"
+														/* item2.ix.name2* */
+														+"<td><b>"+item2.ix.price+"</b></td>"
+														+"</tr>");
+														$(divbody).append(tr);
+												price+=item2.ix.price;
 												$(divtable).append(divbody);
 												$(divs).append(divtable);
 												div3=divs;
@@ -714,13 +714,26 @@
 											var div=$("<div class='content col-md-11'></div>");
 											var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
 											var tbody=$("<tbody></tbody>");
-											$.each(item1.list,function(item2,index){
+											$.each(item2.list,function(item3,index3){
+												var type="单人间";
+												if(item3.ix.room.typeid==2){
+													type="双人间";
+												}
+												if(item3.ix.room.typeid==3){
+													type="总统套房";
+												}
+												var status;
+												if(item3.ix.room.status==1){
+													status="正在入住";
+												}else{
+													status="已退房";
+												}
 												var tr=$("<tr>"
-												+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
-												+"<td><b>{{item2.price}}</b></td>"
-												+"<td><b>{{item2.name2}}</b></td>"
-												+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
-												+"</tr>");
+														+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
+														+"<td><b>"+item3.ix.room.price+"</b></td>"
+														+"<td><b>"+type+"</b></td>"
+														+"<td><b>"+status+"</b></td>"
+														+"</tr>");
 												$(tbody).append(tr);
 											})
 											$(table).append(tbody);

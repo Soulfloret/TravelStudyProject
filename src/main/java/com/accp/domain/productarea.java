@@ -21,8 +21,17 @@ public class productarea {
 
     private areas area;
     
-   
+    private project p;
     
+    
+	public project getP() {
+		return p;
+	}
+
+	public void setP(project p) {
+		this.p = p;
+	}
+
 	public areas getArea() {
 		return area;
 	}
