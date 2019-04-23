@@ -45,4 +45,10 @@ public class roomserviceimpl implements roomservice{
 		return ro.queryByroomData(begintime,endtime);
 	}
 
+	@Override
+	public List<room> queryByroomtypeid() {
+		// TODO Auto-generated method stub
+		return ro.queryByroomtypeid();
+	}
+
 }

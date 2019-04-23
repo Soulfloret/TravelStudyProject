@@ -15,6 +15,8 @@ public interface roomMapper {
 	
 	List<room> queryByroom(room r);
 	
+	List<room> queryByroomtypeid();
+	
     int countByExample(roomExample example);
 
     int deleteByExample(roomExample example);

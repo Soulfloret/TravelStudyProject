@@ -140,8 +140,14 @@ public class roomcontroller {
 	}
 	
 	@RequestMapping("/toqueryqtroom")
-	public String toqueryqtroom() {
-		
+	public String toqueryqtroom(Model model ,roomdestine ro) {
+		List<room> list=r.queryByroomData(ro.getBegintime(),ro.getEndtime());
+		List<orderson> olist=o.queryroomtj(null);
+		List<room> rlist=r.queryByroomtypeid();
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("olist", olist);
+		model.addAttribute("list", list);
+		model.addAttribute("ro", ro);
 		return "index1";
 	}
 	

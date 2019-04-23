@@ -27,7 +27,17 @@ public class orderson {
     
     private menu menus;
     
-    public menu getMenus() {
+    private room rooms;
+    
+    public room getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(room rooms) {
+		this.rooms = rooms;
+	}
+
+	public menu getMenus() {
 		return menus;
 	}
 

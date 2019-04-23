@@ -25,6 +25,7 @@
   
   
   
+  
   <select id="queryByroom" resultMap="BaseResultMap1">
   	SELECT r.*,i.`id` AS iid,i.`url` FROM room   r LEFT JOIN `images` i ON r.id=i.`iid` AND i.`typeId`=3
   	<where>
@@ -36,6 +37,15 @@
   		</if>
   	</where>
   </select>
+  
+  <select id="queryByroomtypeid" resultMap="BaseResultMap1">
+  		SELECT r.*,i.`id` AS iid,i.`url` FROM room   r LEFT JOIN `images` i ON r.id=i.`iid` AND i.`typeId`=3
+		WHERE r.`typeId`=3
+		LIMIT 0,3
+  </select>
+  
+  
+  
   
   <select id="recommendByidroom" resultType="com.accp.domain.recommend">
   		SELECT `rname` AS `name`,`introduce` AS pname,price AS price,id FROM `room` WHERE id=#{id}
