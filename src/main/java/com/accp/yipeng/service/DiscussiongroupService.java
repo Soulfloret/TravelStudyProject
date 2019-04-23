@@ -13,4 +13,8 @@ public interface DiscussiongroupService {
     int add(discussiongroup record,String  ids,List<images> list);
 	public List<discussiongroup> selectAllDiscussionGroup(Integer uid);
 	public discussiongroup queryById(Integer did) ;
+	public discussiongroup query(Integer did) ;
+	public int updateDisName(discussiongroup dis);
+    int deleteByPrimaryKey(Integer id);
+    int delDis(int did,int uid,int typeId);
 }

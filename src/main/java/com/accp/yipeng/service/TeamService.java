@@ -2,7 +2,6 @@ package com.accp.yipeng.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 
 import com.accp.domain.team;
 import com.accp.domain.teamExample;

@@ -12,6 +12,16 @@ public class users {
     public users() {
 		super();
 	}
+    private dynamics dynamic;
+
+    
+	public dynamics getDynamic() {
+		return dynamic;
+	}
+
+	public void setDynamic(dynamics dynamic) {
+		this.dynamic = dynamic;
+	}
 
 	public users(String uname, String idcardno, String phone, String address, Double height, Double width,
 			Integer typeid, String name1,String upassword1) {
@@ -34,6 +44,7 @@ public class users {
 	public void setSendreq(sendrequest sendreq) {
 		this.sendreq = sendreq;
 	}
+	
 	private discussiongroup dis;
 	
 	

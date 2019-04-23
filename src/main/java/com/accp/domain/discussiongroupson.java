@@ -17,7 +17,17 @@ public class discussiongroupson {
 
     private String name5;
 
-    public Integer getId() {
+    private users use;
+    
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -22,6 +22,16 @@ public class discussiongroup {
 		return messList;
 	}
 
+	public List<discussiongroupson> getDlist() {
+		return dlist;
+	}
+
+	public void setDlist(List<discussiongroupson> dlist) {
+		this.dlist = dlist;
+	}
+
+	private List<discussiongroupson> dlist;
+	
 	public void setMessList(List<message> messList) {
 		this.messList = messList;
 	}

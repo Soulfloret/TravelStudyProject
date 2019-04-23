@@ -1,7 +1,6 @@
 package com.accp.yipeng.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,8 +33,8 @@ public class FriendCotrller {
 	DiscussiongroupService DisService;
 	
 	@RequestMapping("queryAllFriend")
-	public List<friend> queryAllFriend(Integer id) {
-		return fservice.queryAllFriend(id);
+	public List<friend> queryAllFriend(Integer id,Integer did) {
+		return fservice.queryAllFriend(id,did);
 	}
 	
 	@RequestMapping("queryAllreq")
@@ -118,13 +117,9 @@ public class FriendCotrller {
 					list1.add(im);
 					}
 				}
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			discussiongroup dis=new discussiongroup(groupname, 30, groupdescribe, Integer.parseInt(uid));
 			DisService.add(dis,ids,list1);
 			
@@ -138,6 +133,52 @@ public class FriendCotrller {
 	public discussiongroup queryById(Integer did) {
 		return DisService.queryById(did);
 	}
+	
+	@RequestMapping("query")
+	public discussiongroup query(Integer did) {
+		return DisService.query(did);
+	}
+	 	
+	@RequestMapping("updateDisName")
+	public int updateDisName(Integer did,String  groupName) {
+		discussiongroup d=new discussiongroup();
+		d.setId(did);
+		d.setGroupname(groupName);
+		return DisService.updateDisName(d);
+	}
+	
+	@RequestMapping("queryAllusersBydid")
+	public discussiongroup queryAllusersBydid(Integer did) {
+		discussiongroup d=DisService.selectByPrimaryKey(did);
+		d.setDlist(DisSonService.selectAllusersBydid(did));
+		return d;
+	}
+	
+	@RequestMapping("removeUsersBydid")
+	public int removeUsersBydid(String did,String  ids) {
+		String []idss=ids.split(",");
+		Integer [] args=new Integer[idss.length];
+		for (int i = 0; i < idss.length; i++) {
+			args[i]=Integer.parseInt(idss[i]);
+		}
+		return DisSonService.delByarray(Integer.parseInt(did), args);
+	}
+	@RequestMapping("insertDisSonByarray")
+	public int insertDisSonByarray(String did,String  ids) {
+		String []idss=ids.split(",");
+		Integer [] args=new Integer[idss.length];
+		for (int i = 0; i < idss.length; i++) {
+			args[i]=Integer.parseInt(idss[i]);
+		}
+		return DisSonService.insertByarray(Integer.parseInt(did), args);
+	}
+
+	@RequestMapping("delDis")
+	public int delDis(String did,String uid,String typeId) {
+		return 	DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),Integer.parseInt(typeId));
+	}
+	 	
+	
 	
 	
 }
