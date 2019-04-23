@@ -34,9 +34,19 @@ public class bind {
     
     private List<menubind> blist;
     
+    private List<images> mlist;
+    
     
 
-    public List<menubind> getBlist() {
+    public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public List<menubind> getBlist() {
 		return blist;
 	}
 

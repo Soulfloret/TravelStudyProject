@@ -34,7 +34,6 @@ public class roomdestine {
     
     private room room;
     
-    
 
     public users getUser() {
 		return user;

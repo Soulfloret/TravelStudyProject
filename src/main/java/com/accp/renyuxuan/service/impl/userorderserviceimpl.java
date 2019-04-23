@@ -6,27 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.domain.orderson;
-import com.accp.mapper.ordersonMapper;
-import com.accp.renyuxuan.service.ordersonservice;
+import com.accp.domain.userorder;
+import com.accp.mapper.userorderMapper;
+import com.accp.renyuxuan.service.userorderservice;
 
 @Service
 @Transactional
-public class ordersonserviceimpl  implements ordersonservice{
+public class userorderserviceimpl implements userorderservice{
 
+	
 	@Autowired
-	ordersonMapper oo;
+	userorderMapper u;
 	
 	@Override
-	public int insertSelective(orderson record) {
+	public userorder selectByuid(Integer id) {
 		// TODO Auto-generated method stub
-		return oo.insertSelective(record);
+		return u.selectByuid(id);
 	}
 
 	@Override
-	public List<orderson> querytj(orderson o) {
+	public List<userorder> selectByuidinlist(Integer id) {
 		// TODO Auto-generated method stub
-		return oo.querytj(o);
+		return u.selectByuidinlist(id);
 	}
-	
+
 }

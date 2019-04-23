@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ordersonMapper {
+	
+	List<orderson> querytj(orderson o);
+	
     int countByExample(ordersonExample example);
 
     int deleteByExample(ordersonExample example);

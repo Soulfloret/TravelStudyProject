@@ -12,6 +12,28 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  <resultMap type="com.accp.domain.orderson" id="BaseResultMap1" extends="BaseResultMap">
+  	 <association property="menus" javaType="com.accp.domain.menu">
+  	 	<id column="mid" property="id" jdbcType="INTEGER" />
+     	<result column="mname" property="mname" jdbcType="VARCHAR" />
+     	<result column="price" property="price" jdbcType="DOUBLE" />
+     	<result column="likecount" property="likecount" jdbcType="INTEGER" />
+     	<result column="url" property="url" jdbcType="VARCHAR"/>
+  	 </association>
+  </resultMap>
+  
+  <select id="querytj" resultMap="BaseResultMap1">
+  		SELECT o.*,m.`mname`,m.`price`,m.`id` AS `mid`,m.`likecount`,i.`url` FROM `orderson` o
+		INNER JOIN `menu` m ON m.`id`=o.`iid`
+		INNER JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
+		WHERE o.typeid=2
+		GROUP BY o.iid
+		HAVING COUNT(o.iid)>=2 AND SUM(m.`likecount`)>30
+		ORDER BY COUNT(o.iid) DESC
+		LIMIT 0,5
+  </select>
+  
+  
    <!--  查询所有类型推荐-->
   <select id="recommdstatic" resultType="com.accp.domain.orderson">
   		SELECT COUNT(iid) as tjcount,iid,typeid FROM `orderson` WHERE typeid=#{typeid}

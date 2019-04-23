@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,19 +14,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.Shopcart;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menucomment;
 import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.userorder;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.impl.Shopcartserviceimpl;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
+import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
+import com.accp.renyuxuan.service.impl.userorderserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -52,6 +60,15 @@ public class menucontroller {
 	UsersService u;
 	@Autowired
 	ordersonserviceimpl oo;
+	//餐饮评论表
+	@Autowired
+	menucommentserviceimpl mm;
+	//用户订单
+	@Autowired
+	userorderserviceimpl uo;
+	//购物车
+	@Autowired
+	Shopcartserviceimpl sc;
 	
 	
 	//查询后台菜单
@@ -175,6 +192,7 @@ public class menucontroller {
 			m.setPrice(Double.parseDouble(vps[0].getName2()));
 			//调方法添加订单
 			mo.insertSelective(m);
+			userorder userorders =uo.selectByuid(us.getId());
 			for (int i = 0; i < vps.length; i++) {
 				ordershop o =new  ordershop();
 				o.setOrderid(m.getId());
@@ -186,12 +204,13 @@ public class menucontroller {
 				orderson ordersons=new orderson();
 				ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
 				ordersons.setIid(vps[i].getMenuid());
+				ordersons.setName1(userorders.getOrdermainid().toString());
 				oo.insertSelective(ordersons);//添加总订单从表
 			}
 		return "下单成功！";
 	}
 	
-	//前台
+	//前台查询所有餐饮
 	@RequestMapping("/toquerymenu1")
 	public String toquerymenu1(Model model) {
 		List<menutype> list=me.selectqueryTypemenu(null);
@@ -201,11 +220,49 @@ public class menucontroller {
 		return "menu1";
 	}
 	
-	
+	//根据普通餐饮编号或者套餐编号查询
 	@RequestMapping("/toquerymenu1Byid")
-	public String toquerymenu1Byid() {
-		
+	public String toquerymenu1Byid(Model model,Integer id,String type) {
+		if("2".equals(type)) {
+			List<menu> list=m.selectmenuByid(id);
+			model.addAttribute("list", list);
+		}else if("4".equals(type)) {
+			List<bind> list=b.selectbindByid(id);
+			model.addAttribute("list", list);
+		}
+		menucomment menucomments=new menucomment();
+		menucomments.setMenuid(id);
+		menucomments.setName1(type);
+		List<menucomment> plist=mm.selectmenucommentByid(menucomments);
+		model.addAttribute("plist", plist);
+		List<orderson> olist= oo.querytj(null);
+		model.addAttribute("olist", olist);
 		return "single1";
+	}
+	
+	
+	//加入购物车
+	@RequestMapping("/shopcartadd")
+	@ResponseBody
+	public String shopcartadd(Integer iid,Integer typeid,String name1,HttpSession session) {
+		users use= (users) session.getAttribute("use");
+		
+		Shopcart shopcart=new Shopcart();
+		shopcart.setIid(iid);
+		shopcart.setTypeid(typeid);
+		shopcart.setName1(name1);
+		shopcart.setUserid(1);//目前没有登录所以暂时用1
+		Shopcart  Shopcarts =sc.selectshopcartByid(shopcart);
+		if(Shopcarts==null) {
+			sc.insertSelective(shopcart);
+		}else {
+			Shopcart shopcart1=new Shopcart();
+			shopcart1.setId(Shopcarts.getId());
+			Integer num= Integer.parseInt(Shopcarts.getName1())+Integer.parseInt(name1);
+			shopcart1.setName1(num.toString());
+			sc.updateByPrimaryKeySelective(shopcart1);
+		}
+		return "加入成功！";
 	}
 	
 	

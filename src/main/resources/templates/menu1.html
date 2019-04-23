@@ -259,7 +259,7 @@
 					<span>实惠套餐</span>
 					<div class="order-top" th:each="bitem : ${blist}">
 						<li class="im-g">
-							<a th:href="@{/menu/toquerymenu1Bybid(id=${bitem.id})}"><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${bitem.id},type='4')}"><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${bitem.price}"></h3>
@@ -267,7 +267,9 @@
 							<p th:text="${bitem.name1}"></p>
 						</li>
 						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" >加入</a>
+							<a href="javascript:void(0)" class="jr hvr-shutter-in-horizontal button" >加入</a>
+							<span style="display: none;">4</span>
+							<span style="display: none;" th:text="${bitem.id}"></span>
 						</li>
 						<div class="clearfix"></div>
 					</div>
@@ -279,7 +281,7 @@
 					<span th:text="${item.tname}"></span>
 					<div class="order-top" th:each="items : ${item.list}">
 						<li class="im-g">
-							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id})}"><img th:if="${items.images!=null}" th:src="${items.images.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" th:src="${items.image.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${items.price}"></h3>
@@ -287,7 +289,9 @@
 							<p th:text="${items.name1}"></p>
 						</li>
 						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" >加入</a>
+							<a href="javascript:void(0)" class="jr hvr-shutter-in-horizontal button" >加入</a>
+							<span style="display: none;">2</span>
+							<span style="display: none;" th:text="${items.id}"></span>
 						</li>
 						<div class="clearfix"></div>
 					</div>
@@ -309,6 +313,26 @@
 				$().UItoTop({
 					easingType: 'easeOutQuart'
 				});
+				
+				$(".jr").click(function(){
+					var id=$(this).next().next().text();
+					var typeid=$(this).next().text();
+					var name1=1;
+					$.ajax({
+						url:"/menu/shopcartadd",
+						data:{
+							"iid":id,
+							"typeid":typeid,
+							"name1":name1
+							},
+						type:"post",
+						dataType:"text",
+						success:function(result){
+							alert(result);
+						}
+					})
+				})
+				
 			});
 		</script>
 		<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>

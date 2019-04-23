@@ -27,6 +27,9 @@
   <select id="QueryProductXq" resultMap="result_QueryProductXq">
   	SELECT * FROM `usermainorder`
   </select>
+  <select id="queryorderCustomer" resultMap="BaseResultMap">
+  		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb}
+  </select>
   
   
   <select id="query" resultMap="BaseResultMap">

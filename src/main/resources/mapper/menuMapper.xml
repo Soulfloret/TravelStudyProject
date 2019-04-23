@@ -31,6 +31,21 @@
 	  	</association>
   </resultMap>
   
+  <resultMap type="com.accp.domain.menu" id="BaseResultMap2" extends="BaseResultMap">
+  		<collection property="mlist" ofType="com.accp.domain.images">
+  			<id column="iiid" property="id" jdbcType="INTEGER" />
+		    <result column="url" property="url" jdbcType="VARCHAR" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+  		</collection>
+  		
+  </resultMap>
+  
+  <select id="selectmenuByid" resultMap="BaseResultMap2">
+  		SELECT m.*,i.`id`AS iiid ,i.`iid`,i.`url`,i.`typeId` FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
+		WHERE m.`id`=#{id}
+  </select>
+  
   
   <select id="QueryMenu" resultMap="BaseResultMap1">
   		SELECT m.*,i.`id` AS iiid,i.`iid`,i.`url`,i.`typeId` ,me.`id`AS `mid`,me.`tname`

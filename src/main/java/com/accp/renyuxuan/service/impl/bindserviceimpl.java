@@ -44,5 +44,12 @@ public class bindserviceimpl implements bindservice{
 		// TODO Auto-generated method stub
 		return b.insert(record);
 	}
+
+
+	@Override
+	public List<bind> selectbindByid(Integer id) {
+		// TODO Auto-generated method stub
+		return b.selectbindByid(id);
+	}
 	
 }

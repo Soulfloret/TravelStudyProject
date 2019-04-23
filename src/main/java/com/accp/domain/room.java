@@ -28,13 +28,11 @@ public class room {
     private String name5;
     
     private List<images> imgs;
-    
-    
-    private images img;
-    
+        
     
     private recommend recommend;
     
+    private images img;
     
     
     public images getImg() {

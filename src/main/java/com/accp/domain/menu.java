@@ -42,6 +42,10 @@ public class menu {
     
     private List<menucomment> menucommend;
     
+    private List<images> mlist;
+    
+    private List<Object> list;
+    
     private recommend recommend;
         
     
@@ -53,19 +57,32 @@ public class menu {
 		this.menucommend = menucommend;
 	}
 
-	public images getImages() {
-		return image;
-	}
-
-	public void setImage(images image) {
-		this.image = image;
-	}
 
 	public void setImgs(List<images> imgs) {
 		this.imgs=imgs;
 	}
 	public List<images> getImgs() {
 		return imgs;
+	}
+    
+    private String url ;
+    
+    
+    
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public images getImage() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
 	}
 
 	public recommend getRecommend() {
@@ -78,7 +95,23 @@ public class menu {
 
     
 
-    public menutype getMtype() {
+    public List<Object> getList() {
+		return list;
+	}
+
+	public void setList(List<Object> list) {
+		this.list = list;
+	}
+
+	public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public menutype getMtype() {
 		return mtype;
 	}
 

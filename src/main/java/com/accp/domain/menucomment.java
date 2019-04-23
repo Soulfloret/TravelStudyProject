@@ -25,9 +25,17 @@ public class menucomment {
     public users getUser() {
 		return user;
 	}
+    private users muser;
 
 	public void setUser(users user) {
 		this.user = user;
+	}
+	public users getMuser() {
+		return muser;
+	}
+
+	public void setMuser(users muser) {
+		this.muser = muser;
 	}
 
 	public Integer getId() {
