@@ -477,7 +477,7 @@
 		<script th:line="javascript" >
 			$(".info").click(function(){
 				var id=$(this).prev().val();
-				$.post("queryById?id="+id+"",function(data){
+				$.post("/order/queryById?id="+id+"",function(data){
 						$(".box").text("");
 						var div1=$("<div class='dingdanhead'></div>");
 						var h41=$("<h4></h4>");
@@ -561,15 +561,17 @@
 														+"<th scope='col'>菜品名称</th>"
 														+"<th scope='col'>菜品价格</th>"
 														+"<th scope='col'>菜品数据</th>"
+														+"<th scope='col'>菜品数量</th>"
 														+"<th scope='col'>菜品总价</th>"
 														+"</thead>");
 													var divbody=$("<tbody></tbody>");
 													$.each(item2.list,function(item2,index2){
 														var tr=$("<tr>"
-														+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
-														+"<td><b>{{item2.price}}</b></td>"
-														+"<td><b>{{item2.name2}}</b></td>"
-														+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
+														+"<th scope='row'><img src='/"+item.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
+														+"<td><b>"+item2.ix.price+"</b></td>"
+														+"<td><b>"+item2.ix.intorduce+"</b></td>"
+														+"<td><b>"+item.ix.name2+"</b></td>"
+														+"<td><b>"+item.ix.name2*item.ix.price+"</b></td>"
 														+"</tr>");
 														$(divbody).append(tr);
 													})

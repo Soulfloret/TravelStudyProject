@@ -131,7 +131,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				for (users u : record.getList()) {
 					teammember tm=new teammember();
 					tm.setMemberid(u.getId());
-					tm.setTeamid(record.getId());
+					tm.setTeamid(t.getId());
 					mapper13.insert(tm);					
 					for (userorder uo : u.getOrders()) {
 						try {
@@ -177,7 +177,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								mapper18.insert(mo);
 							}
 							if(os.getTypeid()==3) {
-								 
+								 roomdestine rd=new roomdestine();
 							}
 							if(os.getTypeid()==4) {
 								
@@ -343,8 +343,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										ro=mapper19.selectByPrimaryKey(orderson.getIid());
 										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
-										orderson.setIx(ro);
-										mx.setIx(mapper8.query(mx.getIid()).get(0));
+										mx.setIx(ro);
 									}
 									if(mx.getTypeid()==4) {
 										bind b=new bind();
@@ -361,7 +360,6 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
 				for (users u : umo.getList()) {
-					//if(u.getId()==1||umo.getUser().getId()==1)
 					for (userorder uo : u.getOrders()) {
 						uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
 						uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
@@ -392,7 +390,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									roomdestine ro=new roomdestine();
 									ro=mapper19.selectByPrimaryKey(orderson.getIid());
 									ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
-									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+									ro.setUser(umo.getUser());
 									orderson.setIx(ro);
 								}
 								if(orderson.getTypeid()==4) {
@@ -428,9 +426,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 											roomdestine ro=new roomdestine();
 											ro=mapper19.selectByPrimaryKey(orderson.getIid());
 											ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
-											ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
-											orderson.setIx(ro);
-											mx.setIx(mapper8.query(mx.getIid()).get(0));
+											ro.setUser(umo.getUser());
+											mx.setIx(ro);
 										}
 										if(mx.getTypeid()==4) {
 											bind b=new bind();
@@ -445,6 +442,80 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 			}
 		return list;
+	}
+	public Usermainorder QueryCunzai(Usermainorder o) {
+		return mapper.QueryCunzai(o);
+	}
+	@Override
+	public Usermainorder QueryCunzaiInsert(Usermainorder o) {
+		o=QueryCunzai(o);
+		if(o!=null) {
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
+			if(o.getList().size()>0) {
+				o.setName1("正在进行");
+				String date=new Date().toString();
+				o.setOrdertime(new Date());
+				try {
+					o.setOrderno(sdf.parse(date)+"yxlx");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				team t=new team();
+				t.setId(o.getUser().getId());
+				mapper12.insert(t);
+				o.setName2("团队");
+				o.setOrdercustomer(t.getId());
+				mapper.insert(o);
+				for(users u:o.getList()) {
+					teammember tm=new teammember();
+					tm.setMemberid(u.getId());
+					tm.setTeamid(t.getId());
+					mapper13.insert(tm);
+					userorder uo=new userorder();
+					try {
+						uo.setOrderno(sdf.parse(date)+"yxlx");
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					uo.setOrdertime(new Date());
+					uo.setOrderuser(o.getOrderuser());
+					uo.setOrdercustomer(t.getId());
+					uo.setOrdermainid(o.getId());
+					uo.setOrderstatus("正在进行");
+					mapper14.insert(uo);
+				}
+			}else {
+				o.setName1("正在进行");
+				String date=new Date().toString();
+				o.setOrdertime(new Date());
+				try {
+					o.setOrderno(sdf.parse(date)+"yxlx");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				o.setName2("个人");
+				o.setOrdercustomer(o.getOrdercustomer());
+				mapper.insert(o);
+				userorder uo=new userorder();
+				try {
+					uo.setOrderno(sdf.parse(date)+"yxlx");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				uo.setOrdertime(new Date());
+				uo.setOrderuser(o.getOrderuser());
+				uo.setOrdercustomer(o.getId());
+				uo.setOrdermainid(o.getId());
+				uo.setOrderstatus("正在进行");
+				mapper14.insert(uo);
+			}
+		}
+		return o;
 	}
 
 }

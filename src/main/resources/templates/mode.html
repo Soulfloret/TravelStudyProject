@@ -48,7 +48,6 @@
 		<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
 		<script th:line="javascript" >
 		$.post("/module/queryByUid",function(data){
-			console.log(data);
 			 $.each(data,function(index,item){
 				 var li;
 				 if(item.url==null||item.url==""){
@@ -75,7 +74,7 @@
 						+"<i class='fa fa-bars'></i>"+item.mname+""
 						+"</a>"
 						+"</li>");
-					$("#main").attr("src",item.url);
+					$("#main").attr("src","/"+item.url);
 				 }
 				 $(".mx-auto").append(li);
 			 })

@@ -13,6 +13,9 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="QueryCunzai" resultMap="BaseResultMap">
+  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and name1='正在进行'
+  </select>
   
   <!-- 活动详情查询参加活动人员 -->
   <resultMap type="com.accp.domain.Usermainorder" id="result_QueryProductXq" extends="BaseResultMap">

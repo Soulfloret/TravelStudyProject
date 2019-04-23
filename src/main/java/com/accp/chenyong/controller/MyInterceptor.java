@@ -24,7 +24,7 @@ public class MyInterceptor implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 		staff staff=(staff)request.getSession().getAttribute("staff");
 		String uri=request.getRequestURI();
-		uri=uri.replace(request.getContextPath()+"/","");
+		uri=uri.replaceFirst(request.getContextPath()+"/","");
 		if(staff==null) {
 			response.sendRedirect("/login/login");
 		}
@@ -40,7 +40,7 @@ public class MyInterceptor implements HandlerInterceptor {
 		if(map!=null) {
 			Map<String,module>maps=(Map<String,module>)request.getSession().getAttribute("urlMap");
 			for (String s : maps.keySet()) {
-				if(s.indexOf(uri)!=-1) {
+				if(s.indexOf(uri.substring(0,uri.indexOf("/")))!=-1) {
 					return true;
 				}
 			}
