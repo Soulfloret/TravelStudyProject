@@ -90,7 +90,7 @@ public class CustomerController {
 	 */
 	@RequestMapping("addCustomer")
 	public String addCustomer(users user,MultipartFile file,String team) {
-		int num=Use.addcustomer(user, file, team);
+		Use.addcustomer(user, file, team);
 			return "redirect:/customer/toCustomer";
 	}
 	
@@ -192,7 +192,7 @@ public class CustomerController {
 	 */
 	@RequestMapping("updateUsers")
 	public  String updateUsers(users use) {
-		int num=Use.updateByPrimaryKey(use);
+		Use.updateByPrimaryKey(use);
 		return "redirect:/customer/toPersonDetails";
 	}
 	

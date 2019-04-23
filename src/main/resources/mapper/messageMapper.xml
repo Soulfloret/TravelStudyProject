@@ -28,6 +28,10 @@
   	SELECT COUNT(*) FROM message WHERE did=#{did} 
   </select>
   
+  <delete id="delBydid">
+  	delete  FROM message WHERE did=#{did} 
+  </delete>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

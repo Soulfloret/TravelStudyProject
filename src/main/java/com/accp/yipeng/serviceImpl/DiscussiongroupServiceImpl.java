@@ -129,4 +129,37 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		dis.setMessList(list);
 		return dis;
 	}
+	@Override
+	public discussiongroup query(Integer did) {
+		discussiongroup dis=dismapper.selectByPrimaryKey(did);
+		dis.setCount(disSonmapper.selectCountBydid(did));
+		dis.setImg(imgmapper.queryimg(did, 8));
+		List<discussiongroupson> list=disSonmapper.selectAllusersBydid(did);
+		for (discussiongroupson discussiongroupson : list) {
+			discussiongroupson.setUse(umapper.selectByPrimaryKey(discussiongroupson.getUserid()));
+		}
+		dis.setDlist(list);
+		return dis;
+	}
+	@Override
+	public int updateDisName(discussiongroup dis) {
+		return dismapper.updateDisName(dis);
+	}
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return dismapper.deleteByPrimaryKey(id);
+	}
+	@Override
+	public int delDis(int did, int uid, int typeId) {
+		int num=0;
+		if(typeId==1) {
+			num=disSonmapper.delByuidAndDid(did,null);
+			num=messmapper.delBydid(did);
+			num=dismapper.deleteByPrimaryKey(did);
+		}else {
+			num=disSonmapper.delByuidAndDid(did, uid);
+		}
+		return num;
+	}
 }

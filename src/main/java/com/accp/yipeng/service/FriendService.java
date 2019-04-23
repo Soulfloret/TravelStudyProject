@@ -7,7 +7,7 @@ import com.accp.domain.friendExample;
 
 public interface FriendService {
 	
-	public List<friend> queryAllFriend(Integer id);
+	public List<friend> queryAllFriend(Integer id,Integer did);
 
 	 int deleteByPrimaryKey(Integer id);
 

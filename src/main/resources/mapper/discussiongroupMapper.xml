@@ -19,6 +19,14 @@
 		SELECT  did FROM discussiongroupson WHERE userid=#{uid}
 	)
   </select>
+  <!--  根据 用户id 查询用户是否存在该讨论组-->
+  <select id="selectDisBysonUidAndDid" resultType="com.accp.domain.discussiongroup">
+  	SELECT * FROM discussiongroup AS d WHERE d.id=(SELECT did FROM discussiongroupson WHERE userid=#{uid} AND did=#{did})
+  </select>
+  
+    <update id="updateDisName">
+    	update discussiongroup set groupName=#{groupname} where id=#{id}
+    </update>
   
    <!--  根据讨论组名称 模糊查询讨论组-->
   <select id="selectByname" resultMap="BaseResultMap">

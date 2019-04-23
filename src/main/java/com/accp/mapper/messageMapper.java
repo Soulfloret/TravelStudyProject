@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface messageMapper {
+	int delBydid(Integer did);
+	
 	List<message> queryMessageBydid(Integer did);
 	int selectCountBydid(Integer did);
 	message queryLastMessageBydid(Integer did);

@@ -12,6 +12,21 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  <delete id="delByarray">
+  	DELETE FROM discussiongroupson WHERE did=#{did} AND userId IN 
+  	<foreach collection="ids" item="p" open="(" close=")" separator="," >
+  		#{p}
+  	</foreach>
+  </delete>
+  
+  <delete id="delByuidAndDid">
+  	DELETE FROM discussiongroupson WHERE did=#{did} 
+  	<if test="uid!=null">
+  		AND userId = #{uid}
+  	</if>
+  	 
+  </delete>
+  
 	<!--  批增讨论组成员--> 
   <insert id="insertByarray">
   	insert into discussiongroupson(did,userId) values 
