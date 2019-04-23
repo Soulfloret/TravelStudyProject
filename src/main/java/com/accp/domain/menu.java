@@ -40,11 +40,20 @@ public class menu {
     
     private menutype mtype;
     
+    private List<menucomment> menucommend;
     
     private recommend recommend;
         
     
-    public images getImages() {
+    public List<menucomment> getMenucommend() {
+		return menucommend;
+	}
+
+	public void setMenucommend(List<menucomment> menucommend) {
+		this.menucommend = menucommend;
+	}
+
+	public images getImages() {
 		return image;
 	}
 

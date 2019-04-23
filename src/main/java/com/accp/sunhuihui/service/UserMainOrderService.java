@@ -17,6 +17,8 @@ import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.project;
+import com.accp.domain.room;
+import com.accp.domain.roomdestine;
 import com.accp.domain.roomorder;
 import com.accp.domain.staff;
 import com.accp.domain.userorder;
@@ -31,6 +33,8 @@ import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
 import com.accp.mapper.projecttypeMapper;
+import com.accp.mapper.roomMapper;
+import com.accp.mapper.roomdestineMapper;
 import com.accp.mapper.roomorderMapper;
 import com.accp.mapper.staffMapper;
 import com.accp.mapper.teamMapper;
@@ -65,7 +69,10 @@ public class UserMainOrderService {
 	productMapper mapper11;
 	@Autowired
 	teamMapper mapper12;
-	
+	@Autowired
+	roomdestineMapper mapper19;
+	@Autowired
+	roomMapper mapper20;
 	
 	
 	
@@ -111,11 +118,14 @@ public class UserMainOrderService {
 								umo.setPrice(umo.getPrice()+m.getPrice());
 							}
 							if(orderson.getTypeid()==3) {
-								roomorder ro=new roomorder();
-								ro=mapper8.query(orderson.getIid()).get(0);
+								roomdestine ro=new roomdestine();
+								ro=mapper19.selectByPrimaryKey(orderson.getIid());
+								room r=new room();
+								r.setId(ro.getRoomid());
+								ro.setRoom(mapper20.queryByroom(r).get(0));
 								ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 								orderson.setIx(ro);
-								umo.setPrice(umo.getPrice()+ro.getPrice());
+								umo.setPrice(umo.getPrice()+ro.getRoom().getPrice());
 							}
 							if(orderson.getTypeid()==4) {
 								bind b=new bind();
@@ -152,9 +162,15 @@ public class UserMainOrderService {
 										umo.setPrice(umo.getPrice()+mu.getPrice());
 									}
 									if(mx.getTypeid()==3) {
-										roomorder rm=mapper8.query(mx.getIid()).get(0);
-										mx.setIx(rm);
-										umo.setPrice(umo.getPrice()+rm.getPrice());
+										roomdestine ro=new roomdestine();
+										ro=mapper19.selectByPrimaryKey(orderson.getIid());
+										room r=new room();
+										r.setId(ro.getRoomid());
+										ro.setRoom(mapper20.queryByroom(r).get(0));
+										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										orderson.setIx(ro);
+										mx.setIx(ro);
+										umo.setPrice(umo.getPrice()+ro.getRoom().getPrice());
 									}
 									if(mx.getTypeid()==4) {
 										bind b=new bind();
@@ -205,11 +221,14 @@ public class UserMainOrderService {
 									umo.setPrice(umo.getPrice()+m.getPrice());
 								}
 								if(orderson.getTypeid()==3) {
-									roomorder ro=new roomorder();
-									ro=mapper8.query(orderson.getIid()).get(0);
+									roomdestine ro=new roomdestine();
+									ro=mapper19.selectByPrimaryKey(orderson.getIid());
+									room r=new room();
+									r.setId(ro.getRoomid());
+									ro.setRoom(mapper20.queryByroom(r).get(0));
 									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 									orderson.setIx(ro);
-									umo.setPrice(umo.getPrice()+ro.getPrice());
+									umo.setPrice(umo.getPrice()+ro.getRoom().getPrice());
 								}
 								if(orderson.getTypeid()==4) {
 									bind b=new bind();
@@ -246,9 +265,15 @@ public class UserMainOrderService {
 											umo.setPrice(umo.getPrice()+mu.getPrice());
 										}
 										if(mx.getTypeid()==3) {
-											roomorder rm=mapper8.query(mx.getIid()).get(0);
-											mx.setIx(rm);
-											umo.setPrice(umo.getPrice()+rm.getPrice());
+											roomdestine ro=new roomdestine();
+											ro=mapper19.selectByPrimaryKey(orderson.getIid());
+											room r=new room();
+											r.setId(ro.getRoomid());
+											ro.setRoom(mapper20.queryByroom(r).get(0));
+											ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+											orderson.setIx(ro);
+											mx.setIx(ro);
+											umo.setPrice(umo.getPrice()+ro.getRoom().getPrice());
 										}
 										if(mx.getTypeid()==4) {
 											bind b=new bind();

@@ -16,8 +16,10 @@ import com.accp.domain.recommend;
 import com.accp.domain.room;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
+import com.accp.mapper.menucommentMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
+import com.accp.mapper.projectplMapper;
 import com.accp.mapper.projecttypeMapper;
 import com.accp.mapper.roomMapper;
 import com.accp.mapper.usersMapper;
@@ -39,6 +41,9 @@ public class ProjectServiceshh {
 	productMapper pdmapper; 
 	@Autowired
 	usersMapper umapper;
+	@Autowired
+	projectplMapper plmapper;
+	@Autowired menucommentMapper mcmapper;
 	
 	
 	public  List<project> queryprojectAll(project project){
@@ -124,6 +129,7 @@ public class ProjectServiceshh {
 	public project AppProjectByid(@Param("id")Integer id) {
 		project p=mapper.AppProjectByid(id);
 		p.setIlist(imapper.queryimg(p.getId(), 1));
+		p.setPllistshh(plmapper.project_queryByPl(p.getId()));
 		return p;
 	}
 	
@@ -144,6 +150,7 @@ public class ProjectServiceshh {
 	public menu AppMenuByid(Integer id) {
 		menu m=mmapper.selectByPrimaryKey(id);
 		m.setImgs(imapper.queryimg(m.getId(), 2));
+		m.setMenucommend(mcmapper.AppMenuCommend(m.getId()));
 		return m;
 	}
 	

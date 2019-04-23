@@ -94,6 +94,7 @@ public class DynamicController {
 						f.transferTo(fileImg);
 						images im=new images();
 						im.setUrl("fileupload/"+fileImg.getName());
+						im.setTypeid(6);
 						list1.add(im);
 						}
 					}
@@ -118,9 +119,9 @@ public class DynamicController {
 		}
 		
 		
-		@RequestMapping("insertimglist")
+		/*@RequestMapping("insertimglist")
 		public int insertimglist(@RequestBody dynamics dinameics) {
 			int i=service.insertimglist(dinameics);
 			return 0;
-		}
+		}*/
 }

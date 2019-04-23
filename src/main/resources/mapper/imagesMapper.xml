@@ -22,6 +22,13 @@
 	<select id="queryByIid" resultType="com.accp.domain.images">
 		SELECT * FROM `images` WHERE `iid`=#{id}
 	</select>
+	
+	<insert id="insertimglist">
+		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
+		<foreach collection="img" separator="," item="im">
+				(#{im.url},#{id},#{im.typeid})
+		</foreach>
+	</insert>
 
   <sql id="Example_Where_Clause" >
     <where >

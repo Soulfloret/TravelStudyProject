@@ -79,7 +79,8 @@ public class ProjectControllershh {
 	 * 查询活动详情
 	 */
 	@RequestMapping("AppProductByid")
-	public product AppProductByid(@Param("id")Integer id) {
+	public product AppProductByid(Integer id) {
+		System.out.println(id);
 		product pd=service.AppProductByid(id);
 		return pd;
 	}
