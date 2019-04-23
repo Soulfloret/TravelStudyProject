@@ -2,6 +2,11 @@ package com.accp.domain;
 
 import java.util.Date;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class message {
     private Integer id;
 
@@ -11,6 +16,8 @@ public class message {
 
     private String content;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="MM-dd HH:mm:ss",timezone="GMT+8")
     private Date sendtime;
 
     private String name1;
@@ -23,7 +30,17 @@ public class message {
 
     private String name5;
 
-    public Integer getId() {
+    private users use;
+    
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+
+	public Integer getId() {
         return id;
     }
 
