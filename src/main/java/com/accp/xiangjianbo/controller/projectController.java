@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.projecttype;
 import com.accp.domain.users;
+
 import com.accp.xiangjianbo.service.areasService;
+import com.accp.xiangjianbo.service.project_PositionsService;
 import com.accp.xiangjianbo.service.productareasService;
 import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectTypeService;
@@ -24,6 +26,7 @@ import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
 import com.accp.domain.areas;
 import com.accp.domain.images;
+import com.accp.domain.positions;
 import com.accp.domain.productarea;
 import com.accp.domain.project;
 
@@ -46,6 +49,9 @@ public class projectController {
 	@Autowired
 	productareasService pas;
 	
+	@Autowired
+	project_PositionsService posservice;
+	
 	/*查询所有*/
 	@RequestMapping("query")
 	public String query(Model model,project pro) {
@@ -60,6 +66,8 @@ public class projectController {
 	public String toinsert(Model model,areas area,String name) {
 		List<projecttype> typelist=ptype.query();
 		List<areas> alist=areas.insery_project_query_area();
+		List<positions> pslist=posservice.queryPosition();
+		model.addAttribute("pslist", pslist);
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("alist", alist);
 		return "insert_project";
@@ -134,16 +142,17 @@ public class projectController {
 		return list;
 	}
 	
-	/*前台查询所有*/
+	/*跳转前台查询项目*/
 	@RequestMapping("query_Qt")
 	public String query_Qt(Model model,project pro) {
 		List<projecttype> type_list=ptype.query();
 		List<project> list=pros.queryAll(pro);
-		System.out.println(JSON.toJSONString(list));
 		model.addAttribute("type_list", type_list);
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		return "productList";
 	}
+	
+	
 	
 	/*前台查询详情*/
 	@RequestMapping("queryBy_Qt_Xq")

@@ -27,4 +27,6 @@ public interface productstaffMapper {
     int updateByPrimaryKeySelective(productstaff record);
 
     int updateByPrimaryKey(productstaff record);
+    
+    List<productstaff> projectOrder_queryStaff();
 }

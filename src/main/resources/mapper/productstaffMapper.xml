@@ -11,6 +11,17 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <!-- 新增项目订单查询安排人员 -->
+  <resultMap type="com.accp.domain.productstaff" id="result_projectOrder_queryStaff" extends="BaseResultMap">
+  	<collection property="stalist" column="staffid" ofType="com.accp.domain.staff" select="com.accp.mapper.staffMapper.projectOrder_queryUser"></collection>
+  </resultMap>
+  
+  <select id="projectOrder_queryStaff" resultMap="result_projectOrder_queryStaff">
+  	select * from `productstaff`
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

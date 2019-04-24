@@ -176,14 +176,14 @@
 				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
 				<div class="modal-content" style="background: #435c70;color: white;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">填写团队人员</h5>
+						<h5 class="modal-title" id="myModalLabel">新增订单</h5>
 					</div>
 					<div class="modal-body" style="text-align: center;">
 							<div>
-								<span style="margin-left: 50px;margin-bottom:30px">选择活动</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">选择项目</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px; " />
+								<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
+								<input type="radio" name="productOrProject" xz="1" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
+								<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px; " />
 								<div name="hiddens"  hidden="hidden">
 								<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="活动名称"/>
 								<input type="button"  style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
@@ -192,27 +192,11 @@
 					                  <tr>
 					                    <th scope="col">&nbsp;</th>
 					                    <th scope="col">活动名称</th>
-					                    <th scope="col">活动人数</th>
-					                    <th scope="col">创建时间</th>
-					                    <th scope="col">状态</th>
-					                    <th scope="col">&nbsp;</th>
+					                    
 					                  </tr>
 					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">活动名称</td>
-					                    <td>1,450</td>
-					                    <td>28 March 2019</td>
-					                    <td>开放</td>
-					                    <td>
-					                      <a href="#" class="tm-product-delete-link">
-					                        <i class="fa fa-info"></i>
-					                      </a>
-					                    </td>
-					                  </tr>
-					                  <tr hidden="hidden">
-					                  </tr>
+					                <tbody class="proucttable" id="product_tbody">
+					                  
 					        		</tbody>
 					             </table>									
 								</div>
@@ -224,103 +208,45 @@
 					                  <tr>
 					                    <th scope="col">&nbsp;</th>
 					                    <th scope="col">项目名称</th>
-					                    <th scope="col">描述</th>
-					                    <th scope="col">状态</th>
 					                  </tr>
 					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">项目名称</td>
-					                    <td>项目描述</td>
-					                    <td>开放</td>
+					                <tbody class="proucttable" id="project_tbody">
+					                  
 					        		</tbody>
 					              </table>
 								</div>								
 							</div>
-							<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-								<span style="margin-left: 50px;">团队</span>
-								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">个人</span>
-								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
-							</div>
-							<div id="hide_dd" style="display: none;">
-								<span style="margin-top: 20px;">请输入负责人</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<span style="margin-top: 20px;">负责人身份证号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<span style="margin-top: 20px;">负责人手机号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" /><br>
-								<br>
-								<span>请输入人数</span>
-								<input  class="input-group-sm" style="width: 30%;margin-left: 20px;" /><br>
-								<br>
-								<button class="btn btn-primary"  data-toggle="modal" data-target="#xz_ddry" 
-									style="margin-top: 20px;border-radius: 30px;">填写团队人员</button>
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
-							</div>
+							
+							
+							
 							<div id="hide_ry" style="display: none;margin-top: 30px;">
 								<div style="margin-top: 30px;">
-								<span>请输入姓名</span>
-								<input  class="input-group-sm" style="width: 30%;"/><br>
-								<br>
 								<span>请输入身份证号</span>
 								<input  class="input-group-sm" style="width: 30%;" /><br>
 								<br>
-								<span>请输入手机号</span>
-								<input  class="input-group-sm" style="width: 30%;" /><br>
 								
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
+								
 								</div>
 							</div>
 					</div>
-					<div id="hide_cc" style="display: none;">
-						<table class="table table-hover tm-table-smal	l tm-product-table" style="margin-top: 20px;">
-			                <thead>
-			                  <tr>
-			                  	<th>
-			                  		项目名称
-			                  	</th>
-			                  	<th>所属活动</th>
-			                  	<th>状态</th>	
-			                  	<th></th>
-			                  	<th></th>
-			                  </tr>	
-			                  <tr>
-			                    <td scope="col">骑马</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="1">+</a>
-			                      </div>
-			                    </td>
-			                     <td></td>
-			                 </tr>
-			                  <tr>
-			                    <td scope="col">射箭</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="2">+</a>
-			                      </div>
-			                    </td>
-			                    <td></td>
-			                  </tr>
-			                </thead>
-			               
-		             </table>
-					</div>
 					
+					<div id="hide_cc" style="display: none;margin-top: 30px">
+								<h5>活动项目</h5>
+								<table class="table table-hover tm-table-small tm-product-table"  style="margin-top: 20px;">
+					                <thead id="look_product_project_thead">
+					                  <tr>
+					                  	<th>
+					                  		项目名称
+					                  	</th>
+					                  	<th>状态</th>	
+					                  	<th></th>
+					                  	<th></th>
+					                  </tr>	
+					                 
+					                </thead>
+					               
+				             	</table>
+							</div>
 					<div id="hide_jd" style="margin-top: 50px;display: none;display: none;">
 						<div class="col-lg-6">
 							<h4>选择基地</h4>
@@ -333,34 +259,8 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>一区五号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区六号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区七号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
+								<tbody id="project_jd_table">
+									
 								</tbody>
 							</table>
 						</div>
@@ -382,25 +282,8 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>张三</td>
-										<td scope="col">
-					                    	 <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>李四</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>王五</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
+								<tbody id="look_Staff_tbody">
+									
 								</tbody>
 							</table>
 						</div>
@@ -452,15 +335,27 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					
 					<div id="show_time_yy">
-						<table>
-							
-						</table>
+						<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+									安排客户
+						</button>
+					</div>
+					<div style="margin: 30px auto;" hidden="hidden" class="infoss">
+								<span style="margin-left: 50px;">团队</span>
+								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;">个人</span>
+								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+							</div>
+							<div id="hide_dd" style="display: none;">
+								<span style="margin-top: 20px;">请输入身份证号</span>
+								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
+								<br>
+					</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">提交</button>
+						<button type="button" name="order_submit" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -477,7 +372,7 @@
 		<script th:line="javascript" >
 			$(".info").click(function(){
 				var id=$(this).prev().val();
-				$.post("/order/queryById?id="+id+"",function(data){
+				$.post("queryById?id="+id+"",function(data){
 						$(".box").text("");
 						var div1=$("<div class='dingdanhead'></div>");
 						var h41=$("<h4></h4>");
@@ -498,7 +393,6 @@
 								$.each(data.user.orders,function(index1,item1){
 										$.each(item1.list,function(index2,item2){
 											if(item2.typeid==1||item2.typeid==5){
-												var h4;
 												var divh2=$("<div class='content col-md-11'></div>");
 												var divhtable=$("<table class='table'><thead>"
 												+"<th scope='col'>项目名称</th>"
@@ -555,44 +449,25 @@
 												$(divh2).append(divhtable);
 												div2=divh2;
 											}
-											if(item2.typeid==2||item2.typeId==4){
-												var divs=$("<div class='content col-md-11'></div>");
-												if(item2.type==4){
-													var h4=$("<h4>"+item2.ix.mname+"</h4>");
-													$(divs).append(h4);
-												}
+											if(item2.typeid==2){
+												var divs=$("<div class='content col-md-11'></div>")
 													var divtable=$("<table class='table'>"
 													    +"<thead>"
 														+"<th scope='col'>菜品名称</th>"
 														+"<th scope='col'>菜品价格</th>"
 														+"<th scope='col'>菜品数据</th>"
-														+"<th scope='col'>菜品数量</th>"
 														+"<th scope='col'>菜品总价</th>"
 														+"</thead>");
 													var divbody=$("<tbody></tbody>");
-													var tr=$("<tr>"
-														+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
-														+"<td><b>"+item2.ix.price+"</b></td>"
-														+"<td><b>"+item2.ix.intorduce+"</b></td>"
-														+"<td><b>"+item2.name2+"</b></td>"
-														+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
+													$.each(item1.list,function(item2,index2){
+														var tr=$("<tr>"
+														+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+														+"<td><b>{{item2.price}}</b></td>"
+														+"<td><b>{{item2.name2}}</b></td>"
+														+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
 														+"</tr>");
 														$(divbody).append(tr);
-													if(item2.typeId==4){
-														$.each(item2.ix.list,function(index3,item3){
-															var tr=$("<tr>"
-																	+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"<td><b>"+item3.intorduce+"</b></td>"
-																	+"<td><b>1</b></td>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"</tr>");
-																	$(divbody).append(tr);
-																	price+=item3.price;
-														})
-													}if(item2.typeId==2){
-														price+=item2.ix.price;
-													}
+													})
 													$(divtable).append(divbody);
 													$(divs).append(divtable);
 													div3=divs;
@@ -601,42 +476,25 @@
 												var div=$("<div class='content col-md-11'></div>");
 												var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
 												var tbody=$("<tbody></tbody>");
-												var type="单人间";
-												if(item2.ix.room.typeid==2){
-													type="双人间";
-												}
-												if(item2.ix.room.typeid==3){
-													type="总统套房";
-												}
-												var status;
-												if(item2.ix.room.status==1){
-													status="正在入住";
-												}else{
-													status="已退房";
-												}
-												var tr=$("<tr>"
-													+"<th scope='row'><img src='/"+item2.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item2.ix.room.rname+"</b></th>"
-													+"<td><b>"+item2.ix.room.price+"</b></td>"
-													+"<td><b>"+type+"</b></td>"
-													+"<td><b>"+status+"</b></td>"
+												$.each(item1.list,function(item2,index){
+													var tr=$("<tr>"
+													+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+													+"<td><b>{{item2.price}}</b></td>"
+													+"<td><b>{{item2.name2}}</b></td>"
+													+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
 													+"</tr>");
 													$(tbody).append(tr);
+												})
 												$(table).append(tbody);
 												$(div).append(table);
 												div4=div;
-												price+=item2.ix.room.price;
-											}
-											if(item2.typeid==7){
-												
 											}
 										})
 									})
 									divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
 									divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
-									if(typeid==5){
-										h4=$("<h4>"+item2.ix.name6+"</h4>");
-									}
-									$(divh1).append(h4).append(div2).append(div3).append(div4);
+								
+									$(divh1).append(div2).append(div3).append(div4);
 									$(div).append(divh).append(divh1);
 			    					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 									$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
@@ -653,7 +511,6 @@
 								$.each(item.orders,function(index1,item1){
 									$.each(item1.list,function(index2,item2){
 										if(item2.typeid==1||item2.typeid==5){
-											var h4;
 											var divh2=$("<div class='content col-md-11'></div>");
 											var divhtable=$("<table class='table'><thead>"
 											+"<th scope='col'>项目名称</th>"
@@ -708,46 +565,27 @@
 											}
 											$(divhtable).append(divtbody);
 											$(divh2).append(divhtable);
-											$(div2).append(h4).append(divh2);
+											div2=divh2;
 										}
 										if(item2.typeid==2){
-											var divs=$("<div class='content col-md-11'></div>");
-											if(item2.type==4){
-												var h4=$("<h4>"+item2.ix.mname+"</h4>");
-												$(divs).append(h4);
-											}
-											var divtable=$("<table class='table'>"
+											var divs=$("<div class='content col-md-11'></div>")
+												var divtable=$("<table class='table'>"
 												    +"<thead>"
 													+"<th scope='col'>菜品名称</th>"
 													+"<th scope='col'>菜品价格</th>"
 													+"<th scope='col'>菜品数据</th>"
-													+"<th scope='col'>菜品数量</th>"
 													+"<th scope='col'>菜品总价</th>"
 													+"</thead>");
-											var divbody=$("<tbody></tbody>");
-											var tr=$("<tr>"
-													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
-													+"<td><b>"+item2.ix.price+"</b></td>"
-													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.name2+"</b></td>"
-													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
+												var divbody=$("<tbody></tbody>");
+												$.each(item1.list,function(item2,index2){
+													var tr=$("<tr>"
+													+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+													+"<td><b>{{item2.price}}</b></td>"
+													+"<td><b>{{item2.name2}}</b></td>"
+													+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
 													+"</tr>");
 													$(divbody).append(tr);
-												if(item2.typeId==4){
-													$.each(item2.ix.list,function(index3,item3){
-														var tr=$("<tr>"
-																+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"<td><b>"+item3.intorduce+"</b></td>"
-																+"<td><b>1</b></td>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"</tr>");
-																$(divbody).append(tr);
-																price+=item3.price;
-													})
-												}if(item2.typeId==2){
-													price+=item2.ix.price;
-												}
+												})
 												$(divtable).append(divbody);
 												$(divs).append(divtable);
 												div3=divs;
@@ -756,29 +594,15 @@
 											var div=$("<div class='content col-md-11'></div>");
 											var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
 											var tbody=$("<tbody></tbody>");
-											$.each(item2.list,function(item3,index3){
-												var type="单人间";
-												if(item3.ix.room.typeid==2){
-													type="双人间";
-												}
-												if(item3.ix.room.typeid==3){
-													type="总统套房";
-												}
-												var status;
-												if(item3.ix.room.status==1){
-													status="正在入住";
-												}else{
-													status="已退房";
-												}
+											$.each(item1.list,function(item2,index){
 												var tr=$("<tr>"
-														+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
-														+"<td><b>"+item3.ix.room.price+"</b></td>"
-														+"<td><b>"+type+"</b></td>"
-														+"<td><b>"+status+"</b></td>"
-														+"</tr>");
+												+"<th scope='row'><img src='img/product-image.jpg' width='50' height='50' alt='图片' /><b>{{item2.ix.mname}}</b></th>"
+												+"<td><b>{{item2.price}}</b></td>"
+												+"<td><b>{{item2.name2}}</b></td>"
+												+"<td><b>￥{{item2.name2*item2.price}}</b></td>"
+												+"</tr>");
 												$(tbody).append(tr);
 											})
-											price+=item2.ix.room.price;
 											$(table).append(tbody);
 											$(div).append(table);
 											div4=div;
@@ -840,6 +664,7 @@
       	var pid;
       	var ry_dt;
       	var jd_name;
+      	var jd_id;
         $("#expire_date").datepicker({
           defaultDate: "10/22/2020"
         });
@@ -871,32 +696,185 @@
 			}
 			$("#hide_dd").css("display","none");
 		});
-		$("#show_pb").click(function(){
-			$("#hide_cc").css("display","block");
-		})
-		$(".show_jd").click(function(){
-			$("#hide_jd").css("display","flex");
-			pid=$(this).attr("pid");
-			$(this).html("-");
+		
+		
+		
+		/* $(".show_project_time").click(function(){
+			
+			
+		}) */
+		
+		
+		$("[name=ap_user]").click(function(){
+			$(".infoss").removeAttr("hidden");
 		})
 		
-		$(".show_project_time").click(function(){
+		
+		
+		var xzid;
+		
+		$("[name=productOrProject]").click(function(){
+			xzid=$(this).attr("xz");
 			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
+			if(xzid==1){
+				$.ajax({
+					url:"query_Product",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+					
+						$("#product_tbody").html(""); 
+						$.each(result,function(i,obj){
+							var dt=$("<tr>"+
+				                    "<th scope='row'><input pid='"+obj.id+"' type='radio' name='look_product'/></th>"+
+				                    "<td class='tm-product-name'>"+obj.pname+"</td>"+
+				                  "</tr>"+
+				                  "<tr hidden='hidden'>"+
+				                  "</tr>");
+							$("#product_tbody").append(dt);
+						})
+					}
+				});
+			}else if(xzid==2){
+				$("#hide_cc").css("display","none");
+				$.ajax({
+					url:"query_Project",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						$("#project_tbody").html(""); 
+						$.each(result,function(i,obj){
+							var dt=$(" <tr>"+
+										"<td scope='row'><input type='radio' name='look_project'/></td>"+
+				                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
+				                    "</tr>")
+					                    $("#project_tbody").append(dt);
+						})
+					}
+				});
+			}
+		})
+		$("#product_tbody").on("click","[name=look_product]",function(){
+			if(xzid==1){
+				$("#hide_cc").css("display","block");
+			}
+			var pid=$(this).attr("pid");
+			$.ajax({
+				url:"/xjb_productController/queryByProdId?productId="+pid,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					var product_project_dt;
+					$("#look_product_project_thead").html("");
+					$.each(result,function(i,obj){
+						if(obj.pro.pstatus==1){
+							product_project_dt=$("<tr id='each_project_tr'>"+
+				                    "<td scope='col' iid="+obj.pro.id+">"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>开放</td>"+
+				                    "<td scope='col'>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }else if(obj.pro.pstatus==2){
+	                    	product_project_dt=$("<tr>"+
+				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>维修</td>"+
+				                    "<td scope='col'>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }else if(obj.pro.pstatus==3){
+	                    	product_project_dt=$("<tr>"+
+				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+				                    "<td scope='col'>检测</td>"+
+				                    "<td scope='col'>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+				                    "</td>"+
+				                     "<td></td>"+
+				                 "</tr>")
+	                    }
+						$("#look_product_project_thead").append(product_project_dt);
+					})
+				}
+			});
+		})
+		
+		$("#look_product_project_thead").on("click",".show_jd",function(){
+			/* var bool=true;
+			if($(this).parents("tr").find("[type=checkbox]").check==true){
+				alert(123)
+			} */
 			
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
+			/* $("#look_product_project_thead").each(function(){
+				if($(this).find("[type=checkbox]").prop("checked",true)){
+					bool=false;
+				}
+			}) */
+				
+					$("#hide_jd").css("display","flex");
+					pid=$(this).attr("pid");
+					$(this).html("-");
+					$.ajax({
+						url:"/xjb_projectController/queryJd?pid="+pid,
+						type:"post",
+						dataType:"json",
+						success:function(result){
+							
+							$("#project_jd_table").html("");
+							$.each(result,function(i,obj){
+								var jd_dt=$("<tr>"+
+										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
+										"<td scope='col'>"+
+						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
+						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
+						                      "<a style='color: white;' class='show_project_time'>+</a>"+
+						                     "</div>"+
+						                   "</td>"+
+									"</tr>") 
+									
+								$("#project_jd_table").append(jd_dt);
+							})
+							
+						}
+					});
+					$.ajax({
+						url:"projectOrder_queryStaff",
+						type:"psot",
+						dataType:"json",
+						success:function(result){
+							
+							$("#look_Staff_tbody").html("");
+							$.each(result,function(i,obj){
+								$.each(obj.stalist,function(k,obj1){
+											var dt=$("<tr>"+
+													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
+													"<td scope='col'>"+
+								                    	 "<input type='checkbox' name='ck_ry'/>"+
+								                    "</td>"+
+												"</tr>")
+											$("#look_Staff_tbody").append(dt);
+										
+									
+								})
+							})
+						}
+					});
+				
+			
 			
 		})
 		
-		$("[name=ck_ry]").click(function(){
+		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
 			if (this.checked) {
 				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
+				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
 				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
 				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr></tr>");
+					ry_dt=$("<tr name='order_ry_tr'></tr>");
 					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td>"+ry_name+"</td>");
+					ry_dt.append("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
 					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
 				}else{
 					ry_dt=$("[pid='"+pid+"x']");
@@ -906,6 +884,24 @@
 			}else{
 				
 			}
+			
+		})
+		
+		$("#project_jd_table").on("click",".show_project_time",function(){
+
+			jd_name=$(this).parents("tr").find("td:eq(0)").html();
+			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
+			$("#hide_project_time").css("display","block");
+			$(this).html("-");
+		})
+			
+		/* 
+		$("#project_tbody").on("click","[name=look_project]",function(){
+			$(".infoss").removeAttr("hidden");
+		}) */
+		
+		$(".show_pb").click(function(){
+			
 			
 		})
 		
@@ -927,8 +923,8 @@
 				}else{
 					if(this.checked){
 						$(this).parents("tr").find("td:eq(2)").html(kw1);
-						var dt=$("<tr tid='"+tid+"'>"+
-								"<td style='color: orange;'>"+jd_name+"</td>"+
+						var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
+								"<td style='color: orange;' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
 			                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
 			                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
 			                	"<td>"+kw1+"</td>"+
@@ -947,7 +943,6 @@
 			       	}
 				}
 			}else{
-				
 			       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
 			       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
 			       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
@@ -956,11 +951,58 @@
 			       		$(thead).find("tr[tid='"+tid+"']").remove();
 			}
 		})
+		
+		$("[name=order_submit]").click(function(){
+			/*订单从表*/
+			var orderson=[];
+			var typeid;
+			$(".show_jd").each(function(){
+				/*订单从表规格类型Id*/
+				if(xzid==1){
+					typeid=5;
+				}else if(xzid==2){
+					typeid=1;
+				}
+				orderson.push(typeid);
+				if(this.checked){
+					/*活动id或项目id*/
+					var iid=$(this).parents("tr").find("td:eq(0)").attr("iid");
+					orderson.push(iid);
+				}
+				
+			})
+			console.log(orderson);
+			/*订单项目排班表*/
+			var OrderProductWork=[];
+			$("[name=order_time_tr]").each(function(){
+				var ordertime={};
+				/*排班开始时间*/
+				ordertime.starttime=$(this).find("td:eq(1)").text();
+				/*排班结束时间*/
+				ordertime.endtime=$(this).find("td:eq(2)").text();
+				/*基地id*/
+				ordertime.name=$(this).find("td:eq(0)").attr("jd_id");
+				OrderProductWork.push(ordertime);
+			})
+			console.log(OrderProductWork);
+			/*排班人员*/
+			var WorkUser=[];
+			$("[name=order_ry_tr]").each(function(){
+				var wuser={};
+				/*排班安排人员id*/
+				wuser.productstaffid=$(this).find("td:eq(0)").attr("ry_id");
+				WorkUser.push(wuser);
+			})
+			var owork={};
+			owork.oProductWorfList=OrderProductWork;
+			owork.oProductWorfList.wUserList=WorkUser;
+			orderson.push(owork);
+			var oson=JSON.stringify(orderson);
+			console.log(oson);
+		})
      });
     </script>
-		<script th:line="javascript">
-			
-		</script>
+
 	</body>
 
 </html>

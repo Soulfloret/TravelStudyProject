@@ -12,9 +12,16 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  
+  
+  <!-- 活动推荐 -->
+  <select id="recommendByidProudct" resultType="com.accp.domain.recommend">
+  	SELECT `pname` 	AS `name` FROM `product`
+  </select>
+  
   <!-- 查询活动 -->
   <resultMap type="com.accp.domain.product" id="result_product" extends="BaseResultMap">
-  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" >
+  	<collection property="pplist" column="id" ofType="com.accp.domain.productproject" >
   		<!-- <id column="id" property="id"/>
   		 <result column="productId" property="productid"/>
    		 <result column="ProjectId" property="projectid"/> -->

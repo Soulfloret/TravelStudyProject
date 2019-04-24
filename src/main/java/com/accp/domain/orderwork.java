@@ -21,8 +21,6 @@ public class orderwork {
     
     private List<orderproductwork> list;
     
-    
-  
 
 	public String getName6() {
 		return name6;

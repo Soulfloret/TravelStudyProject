@@ -44,4 +44,6 @@ public interface staffMapper {
     int updateByPrimaryKeySelective(staff record);
 
     int updateByPrimaryKey(staff record);
+    
+    List<staff> projectOrder_queryUser(Integer id);
 }
