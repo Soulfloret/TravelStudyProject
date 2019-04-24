@@ -50,9 +50,9 @@
 											
 										</select>
 									</div>
-									<input type="submit" class="btn btn-info" value="查询">
+									<input type="submit" class="btn btn-info urls" uri="customer/toCustomer" value="查询">
 								</form>
-								<a th:href="@{/customer/toadd}" style="color: white;line-height: 62px;" >新增客户</a>
+								<a th:href="@{/customer/toadd}" class="urls" uri="customer/toadd" style="color: white;line-height: 62px;" >新增客户</a>
 							</div>
 							<div id="tab">
 								<table class="table">
@@ -85,7 +85,7 @@
 											</td>
 											<td><b th:text=${it.name1}></b></td>
 											<td>
-												<a th:href="@{/customer/toCustomerDetails(id=${it.id})}">查看</a>
+												<a class="urls" uri="customer/toCustomerDetails" th:href="@{/customer/toCustomerDetails(id=${it.id})}">查看</a>
 											</td>
 										</tr>
 									</tbody>

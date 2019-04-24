@@ -7,7 +7,8 @@ import com.accp.domain.team;
 import com.accp.domain.teamExample;
 
 public interface TeamService {
-
+	
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(team record);

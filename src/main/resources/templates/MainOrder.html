@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
-<!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
-<!--[if IE 9]><html class="ie ie9 lte9" lang="en-US"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html class="noIE" lang="en-US"><!--<![endif]-->
+<!DOCTYPE html >
+<html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
 	<title>订单</title>
 	<meta name="description" content=""/>
 	<meta name="keywords" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	
-	<!-- Favorite Icons -->
-	<link rel="icon" href="img1/favicon/favicon.html" type="image/x-icon" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img1/favicon/apple-touch-icon-144x144-precomposed.html">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img1/favicon/apple-touch-icon-72x72-precomposed.html">
-	<link rel="apple-touch-icon-precomposed" href="img1/favicon/apple-touch-icon-precomposed.html">
-	<link rel="stylesheet" href="css1/minified.css">
-
-	<script>window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');</script>
-	<script src="js1/modernizr.min.js"></script>	
-	<!-- PARTICULAR PAGES CSS FILES -->
-	<link rel="stylesheet" href="css1/innerpage.css">
-	<!-- // PARTICULAR PAGES CSS FILES -->
-	<link rel="stylesheet" href="css1/responsive.css">
+	<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
+		<link rel="stylesheet" th:href="@{/css1/minified.css}">
+		<script th:src="@{/js1/modernizr.min.js}"></script>
+		<script th:src="@{/js1/jquery.min.js}"></script>
+		<link th:href="@{/css1/innerpage.css}" rel="stylesheet">
+		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 </head>
 <style>
 	.panel-collapse>p{
@@ -65,7 +57,7 @@
 						</p>
 						<div class="panel-group col-md-11 " id="checkout-collapse">
 								<div class="panel panel-default">
-									<div class="panel-heading">
+									<div class="panel-heading"> 
 										<h4 class="panel-title">
 											<a data-toggle="collapse"  href="#checkout-collapse4">
 											<span class="step">01</span>
@@ -382,23 +374,15 @@
 				</div>
 						
 			</div>
+			
 		</div>
-<script src="js1/minified.js"></script>
-<!-- // Essential Javascripts -->
+		
+<script th:src="@{/js1/minified.js}"></script>
 
 <script>
-/*  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-27646173-3', 'themina.net');
-  ga('send', 'pageview');*/
 
 </script>
-	<!-- Particular Page Javascripts -->
-	<script src="js1/products.js"></script>
-	<!-- // Particular Page Javascripts -->
+	<script th:src="@{/js1/products.js}"></script>
 	
 </body>
 </html>

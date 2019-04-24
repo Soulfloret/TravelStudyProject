@@ -30,6 +30,7 @@ public class TeamController {
 	}
 	
 	public String toTeamDetails(Integer id) {
+		
 		return "";
 	}
 }

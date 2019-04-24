@@ -36,7 +36,9 @@ public interface imagesMapper {
 	List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
     
     int insertByList(@Param("iid")Integer iid,@Param("typeid")Integer typeid,@Param("images")List<images> images);
-    	
+
+    int delByiidAndTypeId(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
+    
 	int insertimglist(dynamics dinameics);
 
 }

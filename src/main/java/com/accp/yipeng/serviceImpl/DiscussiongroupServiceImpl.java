@@ -156,6 +156,7 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		if(typeId==1) {
 			num=disSonmapper.delByuidAndDid(did,null);
 			num=messmapper.delBydid(did);
+			num=imgmapper.delByiidAndTypeId(did, 8);
 			num=dismapper.deleteByPrimaryKey(did);
 		}else {
 			num=disSonmapper.delByuidAndDid(did, uid);
