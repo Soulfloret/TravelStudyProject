@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www/thymeleaf.org">
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,7 +143,7 @@
 										<td><b th:text="${item.staff.user.uname}"></b></td>
 										<td>
 											<input type="hidden" th:value="${item.id}">
-											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
+											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info urls" uri="query"></a>
 										</td>
 									</tr>
 								</tbody>
@@ -474,6 +473,7 @@
 		<script th:src="@{/js/bootstrap.min.js}"></script>
     	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     	<script th:src="@{/js/vue.js}"></script>
+    	<script th:src="@{/js/Url.js}"></script>
 		<script th:line="javascript" >
 			$(".info").click(function(){
 				var id=$(this).prev().val();
@@ -498,7 +498,6 @@
 								$.each(data.user.orders,function(index1,item1){
 										$.each(item1.list,function(index2,item2){
 											if(item2.typeid==1||item2.typeid==5){
-												var h4;
 												var divh2=$("<div class='content col-md-11'></div>");
 												var divhtable=$("<table class='table'><thead>"
 												+"<th scope='col'>项目名称</th>"
@@ -522,7 +521,7 @@
 													price+=item2.ix.list[0].project.price;
 													var divtr=$("<tr>"
 															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
-															+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+															+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 															+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 															+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 															+"<td>"+fzr+"</td>"
@@ -543,7 +542,7 @@
 														price+=item3.project.price;
 														var divtr=$("<tr>"
 																+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-																+"<td><b>"+item3.area.area.aname+"</b></td>"
+																+"<td><b>"+item3.area.aname+"</b></td>"
 																+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 																+"<td><b>"+item3.project.price+"</b></td>"
 																+"<td>"+fzr+"</td>"
@@ -555,12 +554,8 @@
 												$(divh2).append(divhtable);
 												div2=divh2;
 											}
-											if(item2.typeid==2||item2.typeId==4){
-												var divs=$("<div class='content col-md-11'></div>");
-												if(item2.type==4){
-													var h4=$("<h4>"+item2.ix.mname+"</h4>");
-													$(divs).append(h4);
-												}
+											if(item2.typeid==2){
+												var divs=$("<div class='content col-md-11'></div>")
 													var divtable=$("<table class='table'>"
 													    +"<thead>"
 														+"<th scope='col'>菜品名称</th>"
@@ -578,24 +573,11 @@
 														+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
 														+"</tr>");
 														$(divbody).append(tr);
-													if(item2.typeId==4){
-														$.each(item2.ix.list,function(index3,item3){
-															var tr=$("<tr>"
-																	+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"<td><b>"+item3.intorduce+"</b></td>"
-																	+"<td><b>1</b></td>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"</tr>");
-																	$(divbody).append(tr);
-																	price+=item3.price;
-														})
-													}if(item2.typeId==2){
-														price+=item2.ix.price;
-													}
 													$(divtable).append(divbody);
 													$(divs).append(divtable);
+													price+=item2.name2*item2.ix.price;
 													div3=divs;
+													
 											}
 											if(item2.typeid==3){
 												var div=$("<div class='content col-md-11'></div>");
@@ -626,17 +608,12 @@
 												div4=div;
 												price+=item2.ix.room.price;
 											}
-											if(item2.typeid==7){
-												
-											}
 										})
 									})
 									divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
 									divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
-									if(typeid==5){
-										h4=$("<h4>"+item2.ix.name6+"</h4>");
-									}
-									$(divh1).append(h4).append(div2).append(div3).append(div4);
+								
+									$(divh1).append(div2).append(div3).append(div4);
 									$(div).append(divh).append(divh1);
 			    					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 									$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
@@ -650,10 +627,10 @@
 								var div2;
 								var div3;
 								var div4;
+								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
 								$.each(item.orders,function(index1,item1){
 									$.each(item1.list,function(index2,item2){
 										if(item2.typeid==1||item2.typeid==5){
-											var h4;
 											var divh2=$("<div class='content col-md-11'></div>");
 											var divhtable=$("<table class='table'><thead>"
 											+"<th scope='col'>项目名称</th>"
@@ -670,14 +647,14 @@
 														fzr=is.staff.user.uname;
 													}
 												})
-												price+=item2.ix.project.price;
+												price+=item2.ix.list[0].project.price;
 												var timestamp4= new Date(item2.ix.list[0].starttime);
 												timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
 												var timestamp5= new Date(item2.ix.list[0].endtime);
 												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 												var divtr=$("<tr>"
-														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.project.pname+"</b></th>"
-														+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
+														+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 														+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 														+"<td>"+fzr+"</td>"
@@ -698,7 +675,7 @@
 													price+=item3.project.price;
 													var divtr=$("<tr>"
 															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-															+"<td><b>"+item3.area.area.aname+"</b></td>"
+															+"<td><b>"+item3.area.aname+"</b></td>"
 															+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 															+"<td><b>"+item3.project.price+"</b></td>"
 															+"<td>"+fzr+"</td>"
@@ -708,15 +685,12 @@
 											}
 											$(divhtable).append(divtbody);
 											$(divh2).append(divhtable);
-											$(div2).append(h4).append(divh2);
+											div2=divh2;
+											$(divh1).append(div2);
 										}
 										if(item2.typeid==2){
-											var divs=$("<div class='content col-md-11'></div>");
-											if(item2.type==4){
-												var h4=$("<h4>"+item2.ix.mname+"</h4>");
-												$(divs).append(h4);
-											}
-											var divtable=$("<table class='table'>"
+											var divs=$("<div class='content col-md-11'></div>")
+												var divtable=$("<table class='table'>"
 												    +"<thead>"
 													+"<th scope='col'>菜品名称</th>"
 													+"<th scope='col'>菜品价格</th>"
@@ -724,33 +698,20 @@
 													+"<th scope='col'>菜品数量</th>"
 													+"<th scope='col'>菜品总价</th>"
 													+"</thead>");
-											var divbody=$("<tbody></tbody>");
-											var tr=$("<tr>"
-													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
-													+"<td><b>"+item2.ix.price+"</b></td>"
-													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.name2+"</b></td>"
-													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
-													+"</tr>");
-													$(divbody).append(tr);
-												if(item2.typeId==4){
-													$.each(item2.ix.list,function(index3,item3){
-														var tr=$("<tr>"
-																+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"<td><b>"+item3.intorduce+"</b></td>"
-																+"<td><b>1</b></td>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"</tr>");
-																$(divbody).append(tr);
-																price+=item3.price;
-													})
-												}if(item2.typeId==2){
-													price+=item2.ix.price;
-												}
+												var divbody=$("<tbody></tbody>");
+												var tr=$("<tr>"
+														+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
+														+"<td><b>"+item2.ix.price+"</b></td>"
+														+"<td><b>"+item2.ix.intorduce+"</b></td>"
+														+"<td><b>"+item2.name2+"</b></td>"
+														+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
+														+"</tr>");
+														$(divbody).append(tr);
 												$(divtable).append(divbody);
 												$(divs).append(divtable);
 												div3=divs;
+												$(divh1).append(div3);
+												price+=item2.name2*item2.ix.price;
 										}
 										if(item2.typeid==3){
 											var div=$("<div class='content col-md-11'></div>");
@@ -778,30 +739,26 @@
 														+"</tr>");
 												$(tbody).append(tr);
 											})
-											price+=item2.ix.room.price;
 											$(table).append(tbody);
 											$(div).append(table);
 											div4=div;
+											$(divh1).append(div4);
 										}
 									})
 							})
 							if(item.id==data.user.id){
-								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapse0'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
-								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapse0'></div>");
-								$(divh1).append(div2).append(div3).append(div4);
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
 								$(div).append(divh).append(divh1);
 							}else{
 								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
-								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
-								$(divh1).append(div2).append(div3).append(div4);
 								$(div).append(divh).append(divh1);
 							}
-								var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
-								$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
-		    					$(div1).append(h41);
 								$(".box").append(div1);
 								$(".box").append(div);
 							})
+							var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
+							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+	    					$(div1).append(h41);
 						}
 						},"json");
 			})
@@ -836,131 +793,129 @@
 			})
 		</script>
 		<script>
-      $(function() {
-      	var pid;
-      	var ry_dt;
-      	var jd_name;
-        $("#expire_date").datepicker({
-          defaultDate: "10/22/2020"
-        });
-        $("[type=submit]").click(function(){
-			location.href="orders.html";
-		})
-		$("#tj").click(function(){
-			var new_sj=$(this).parents("tr").clone(true);
-			new_sj.find("[type=text]").val("");
-			$("#ry_tb_body").append(new_sj);
-		})
-		$("#yc").click(function(){
-			var tr_length=$(".ry_tb_body_tr").length;
-			if(tr_length==1){
-				alert("已经是最后一个了,不能删除");
-			}else{
-				$(this).parents("tr").remove();
-			}
-		});
-		$("[data=dd_radio]").click(function(){
-			if(true){
-				$("#hide_dd").css("display","block");
-			}
-			$("#hide_ry").css("display","none");
-		});
-		$("[data=gr_radio]").click(function(){
-			if(true){
-				$("#hide_ry").css("display","block");
-			}
-			$("#hide_dd").css("display","none");
-		});
-		$("#show_pb").click(function(){
-			$("#hide_cc").css("display","block");
-		})
-		$(".show_jd").click(function(){
-			$("#hide_jd").css("display","flex");
-			pid=$(this).attr("pid");
-			$(this).html("-");
-		})
-		
-		$(".show_project_time").click(function(){
-			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
-			
-		})
-		
-		$("[name=ck_ry]").click(function(){
-			if (this.checked) {
-				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
-				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
-				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr></tr>");
-					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td>"+ry_name+"</td>");
-					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
+	      $(function() {
+	      	var pid;
+	      	var ry_dt;
+	      	var jd_name;
+	        $("#expire_date").datepicker({
+	          defaultDate: "10/22/2020"
+	        });
+	        $("[type=submit]").click(function(){
+				location.href="orders.html";
+			})
+			$("#tj").click(function(){
+				var new_sj=$(this).parents("tr").clone(true);
+				new_sj.find("[type=text]").val("");
+				$("#ry_tb_body").append(new_sj);
+			})
+			$("#yc").click(function(){
+				var tr_length=$(".ry_tb_body_tr").length;
+				if(tr_length==1){
+					alert("已经是最后一个了,不能删除");
 				}else{
-					ry_dt=$("[pid='"+pid+"x']");
-					var td=$("<td>"+ry_name+"</td>");
-					ry_dt.append(td);
+					$(this).parents("tr").remove();
 				}
-			}else{
-				
-			}
+			});
+			$("[data=dd_radio]").click(function(){
+				if(true){
+					$("#hide_dd").css("display","block");
+				}
+				$("#hide_ry").css("display","none");
+			});
+			$("[data=gr_radio]").click(function(){
+				if(true){
+					$("#hide_ry").css("display","block");
+				}
+				$("#hide_dd").css("display","none");
+			});
+			$("#show_pb").click(function(){
+				$("#hide_cc").css("display","block");
+			})
+			$(".show_jd").click(function(){
+				$("#hide_jd").css("display","flex");
+				pid=$(this).attr("pid");
+				$(this).html("-");
+			})
 			
-		})
-		
-		$("[name=lr_time_ck]").click(function(){
-			var tid=$(this).parents("tr").attr("tid");
-			var thead=$("[pid='"+pid+"']").parents("thead"); 
-			var jia_tr=$(thead).find("tr[tid='"+tid+"']").html();
-			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
-			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
-			var kw=$(this).parents("tr").find("td:eq(2)").html();
-			var kw1=kw-rs;
-			if($(this).parent("td").prev("td").find("input").val()==""){
-				alert("您还没有输入人数");
-				this.checked=false;
-			}else if(jia_tr==null){
-				if(kw1<0){
-					alert("人数不能大于空位");
+			$(".show_project_time").click(function(){
+				
+				jd_name=$(this).parents("tr").find("td:eq(0)").html();
+				
+				$("#hide_project_time").css("display","block");
+				$(this).html("-");
+				
+			})
+			
+			$("[name=ck_ry]").click(function(){
+				if (this.checked) {
+					var ry_name=$(this).parents("tr").find("td:eq(0)").html();
+					/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
+					if(document.querySelector("tr[pid='"+pid+"x']")==null){
+						ry_dt=$("<tr></tr>");
+						ry_dt.attr("pid",pid+"x");
+						ry_dt.append("<td>"+ry_name+"</td>");
+						$("[pid='"+pid+"']").parents("tr").after(ry_dt);
+					}else{
+						ry_dt=$("[pid='"+pid+"x']");
+						var td=$("<td>"+ry_name+"</td>");
+						ry_dt.append(td);
+					}
+				}else{
+					
+				}
+				
+			})
+			
+			$("[name=lr_time_ck]").click(function(){
+				var tid=$(this).parents("tr").attr("tid");
+				var thead=$("[pid='"+pid+"']").parents("thead"); 
+				var jia_tr=$(thead).find("tr[tid='"+tid+"']").html();
+				var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
+				var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
+				var kw=$(this).parents("tr").find("td:eq(2)").html();
+				var kw1=kw-rs;
+				if($(this).parent("td").prev("td").find("input").val()==""){
+					alert("您还没有输入人数");
 					this.checked=false;
+				}else if(jia_tr==null){
+					if(kw1<0){
+						alert("人数不能大于空位");
+						this.checked=false;
+					}else{
+						if(this.checked){
+							$(this).parents("tr").find("td:eq(2)").html(kw1);
+							var dt=$("<tr tid='"+tid+"'>"+
+									"<td style='color: orange;'>"+jd_name+"</td>"+
+				                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
+				                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
+				                	"<td>"+kw1+"</td>"+
+				                	"<td>"+rs+"</td>"+
+				                "</tr>");
+				       		if(document.querySelector("[pid='"+pid+"y']")==null){
+								var ry_dt1=$("<tr></tr>");
+								ry_dt1.attr("pid",pid+"y");
+								$("[pid='"+pid+"x']").after(ry_dt1);
+								$(ry_dt1).after(dt);
+							}else{
+								
+								var ry_dt1=$("[pid='"+pid+"y']");
+								$(ry_dt1).after(dt);
+							}
+				       	}
+					}
 				}else{
-					if(this.checked){
-						$(this).parents("tr").find("td:eq(2)").html(kw1);
-						var dt=$("<tr tid='"+tid+"'>"+
-								"<td style='color: orange;'>"+jd_name+"</td>"+
-			                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
-			                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
-			                	"<td>"+kw1+"</td>"+
-			                	"<td>"+rs+"</td>"+
-			                "</tr>");
-			       		if(document.querySelector("[pid='"+pid+"y']")==null){
-							var ry_dt1=$("<tr></tr>");
-							ry_dt1.attr("pid",pid+"y");
-							$("[pid='"+pid+"x']").after(ry_dt1);
-							$(ry_dt1).after(dt);
-						}else{
-							
-							var ry_dt1=$("[pid='"+pid+"y']");
-							$(ry_dt1).after(dt);
-						}
-			       	}
+					
+				       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
+				       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
+				       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
+				       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
+				       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
+				       		$(thead).find("tr[tid='"+tid+"']").remove();
 				}
-			}else{
-				
-			       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
-			       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
-			       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
-			       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
-			       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
-			       		$(thead).find("tr[tid='"+tid+"']").remove();
-			}
-		})
-     });
+			})
+	     });
     </script>
-		<script th:line="javascript">
-			
-		</script>
+
 	</body>
 
 </html>
