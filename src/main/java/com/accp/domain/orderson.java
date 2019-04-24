@@ -25,7 +25,19 @@ public class orderson {
     
     private recommend recommend;
     
-    public Object getIx() {
+    private orderwork owork;
+    
+    
+    
+    public orderwork getOwork() {
+		return owork;
+	}
+
+	public void setOwork(orderwork owork) {
+		this.owork = owork;
+	}
+
+	public Object getIx() {
 		return ix;
 	}
 

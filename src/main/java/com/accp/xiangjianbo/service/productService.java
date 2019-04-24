@@ -36,4 +36,5 @@ public class productService {
 	public product queryByXqById(Integer id) {
 		return prod.queryByXqById(id);
 	}
+	
 }

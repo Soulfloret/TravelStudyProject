@@ -221,8 +221,11 @@
 										<div class="side-section-content">
 											<ul id="category-list" class="vmenu unstyled">
 												<li th:each="item : ${type_list}">
-													<input type="checkbox" name="query_ByTid" id="check-women" data-labelPosition="right" th:id="${item.id}" style="border:1px solid #ddd;width: 15px;height: 15px;background: white;"/>
-													<span th:text="${item.ptname}"></span>
+													<form action="query_Qt" method="post">
+														<input type="checkbox" name="tid" id="check-women" data-labelPosition="right" th:id="${item.id}" style="border:1px solid #ddd;width: 15px;height: 15px;background: white;"/>
+														<input type="submit" style="position: relative;right: 20px;">
+														<span th:text="${item.ptname}"></span>
+													</form>
 												</li>
 											</ul>
 										</div>
@@ -252,7 +255,7 @@
 											</div>
 											<div class="space30 visible-xs"></div>
 											<!-- PAGINATION -->
-											<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+											<!-- <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
 												<ul class="paginator li-m-r-l pull-right">
 													<li>
 														<a class="round-icon" href="#" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a>
@@ -276,7 +279,7 @@
 														<a class="round-icon" href="#" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a>
 													</li>
 												</ul>
-											</div>
+											</div> -->
 											<!-- // PAGINATION -->
 										</div>
 									</header>

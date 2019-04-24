@@ -218,29 +218,14 @@
 							</div>
 							
 							
-							<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-								<span style="margin-left: 50px;">团队</span>
-								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">个人</span>
-								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
-							</div>
-							<div id="hide_dd" style="display: none;">
-								<span style="margin-top: 20px;">请输入身份证号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<button class="btn btn-primary show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
-							</div>
+							
 							<div id="hide_ry" style="display: none;margin-top: 30px;">
 								<div style="margin-top: 30px;">
 								<span>请输入身份证号</span>
 								<input  class="input-group-sm" style="width: 30%;" /><br>
 								<br>
 								
-								<button class="btn btn-primary" calss="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
+								
 								</div>
 							</div>
 					</div>
@@ -350,15 +335,27 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					
 					<div id="show_time_yy">
-						<table>
-							
-						</table>
+						<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+									安排客户
+						</button>
+					</div>
+					<div style="margin: 30px auto;" hidden="hidden" class="infoss">
+								<span style="margin-left: 50px;">团队</span>
+								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
+								<span style="margin-left: 70px;">个人</span>
+								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+							</div>
+							<div id="hide_dd" style="display: none;">
+								<span style="margin-top: 20px;">请输入身份证号</span>
+								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
+								<br>
+					</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">提交</button>
+						<button type="button" name="order_submit" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -667,6 +664,7 @@
       	var pid;
       	var ry_dt;
       	var jd_name;
+      	var jd_id;
         $("#expire_date").datepicker({
           defaultDate: "10/22/2020"
         });
@@ -707,6 +705,9 @@
 		}) */
 		
 		
+		$("[name=ap_user]").click(function(){
+			$(".infoss").removeAttr("hidden");
+		})
 		
 		
 		
@@ -721,7 +722,7 @@
 					type:"post",
 					dataType:"json",
 					success:function(result){
-						console.log(result);
+					
 						$("#product_tbody").html(""); 
 						$.each(result,function(i,obj){
 							var dt=$("<tr>"+
@@ -754,8 +755,10 @@
 			}
 		})
 		$("#product_tbody").on("click","[name=look_product]",function(){
+			if(xzid==1){
+				$("#hide_cc").css("display","block");
+			}
 			var pid=$(this).attr("pid");
-			$(".infoss").removeAttr("hidden");
 			$.ajax({
 				url:"/xjb_productController/queryByProdId?productId="+pid,
 				type:"post",
@@ -765,14 +768,11 @@
 					$("#look_product_project_thead").html("");
 					$.each(result,function(i,obj){
 						if(obj.pro.pstatus==1){
-							product_project_dt=$("<tr>"+
-				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+							product_project_dt=$("<tr id='each_project_tr'>"+
+				                    "<td scope='col' iid="+obj.pro.id+">"+obj.pro.pname+"</td>"+
 				                    "<td scope='col'>开放</td>"+
 				                    "<td scope='col'>"+
-				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
-				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
-				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
-				                      "</div>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
 				                    "</td>"+
 				                     "<td></td>"+
 				                 "</tr>")
@@ -781,10 +781,7 @@
 				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
 				                    "<td scope='col'>维修</td>"+
 				                    "<td scope='col'>"+
-				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
-				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
-				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
-				                      "</div>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
 				                    "</td>"+
 				                     "<td></td>"+
 				                 "</tr>")
@@ -793,10 +790,7 @@
 				                    "<td scope='col'>"+obj.pro.pname+"</td>"+
 				                    "<td scope='col'>检测</td>"+
 				                    "<td scope='col'>"+
-				                    	 "<div style='height: 20px;width: 20px;border-radius: 50%;>"+
-				                      	"border: 1px solid orange;background: orange;text-align: center;'>"+
-				                      	"<a style='color: white;' class='show_jd' pid='"+obj.pro.id+"'>+</a>"+
-				                      "</div>"+
+				                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
 				                    "</td>"+
 				                     "<td></td>"+
 				                 "</tr>")
@@ -808,62 +802,79 @@
 		})
 		
 		$("#look_product_project_thead").on("click",".show_jd",function(){
-			$("#hide_jd").css("display","flex");
-			pid=$(this).attr("pid");
-			$(this).html("-");
-			$.ajax({
-				url:"/xjb_projectController/queryJd?pid="+pid,
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					console.log(result);
-					$.each(result,function(i,obj){
-						var jd_dt=$("<tr>"+
-								"<td>"+obj.area.aname+"</td>"+
-								"<td scope='col'>"+
-				                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-				                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-				                      "<a style='color: white;' class='show_project_time'>+</a>"+
-				                     "</div>"+
-				                   "</td>"+
-							"</tr>") 
-							
-						$("#project_jd_table").append(jd_dt);
-					})
-					
+			/* var bool=true;
+			if($(this).parents("tr").find("[type=checkbox]").check==true){
+				alert(123)
+			} */
+			
+			/* $("#look_product_project_thead").each(function(){
+				if($(this).find("[type=checkbox]").prop("checked",true)){
+					bool=false;
 				}
-			});
-			$.ajax({
-				url:"projectOrder_queryStaff",
-				type:"psot",
-				dataType:"json",
-				success:function(result){
-					console.log(result);
-					$.each(result,function(i,obj){
-						$.each(obj.stalist,function(k,obj1){
-									var dt=$("<tr>"+
-											"<td>"+obj1.user.uname+"</td>"+
-											"<td scope='col'>"+
-						                    	 "<input type='checkbox' name='ck_ry'/>"+
-						                    "</td>"+
-										"</tr>")
-									$("#look_Staff_tbody").append(dt);
-								
+			}) */
+				
+					$("#hide_jd").css("display","flex");
+					pid=$(this).attr("pid");
+					$(this).html("-");
+					$.ajax({
+						url:"/xjb_projectController/queryJd?pid="+pid,
+						type:"post",
+						dataType:"json",
+						success:function(result){
 							
-						})
-					})
-				}
-			});
+							$("#project_jd_table").html("");
+							$.each(result,function(i,obj){
+								var jd_dt=$("<tr>"+
+										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
+										"<td scope='col'>"+
+						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
+						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
+						                      "<a style='color: white;' class='show_project_time'>+</a>"+
+						                     "</div>"+
+						                   "</td>"+
+									"</tr>") 
+									
+								$("#project_jd_table").append(jd_dt);
+							})
+							
+						}
+					});
+					$.ajax({
+						url:"projectOrder_queryStaff",
+						type:"psot",
+						dataType:"json",
+						success:function(result){
+							
+							$("#look_Staff_tbody").html("");
+							$.each(result,function(i,obj){
+								$.each(obj.stalist,function(k,obj1){
+											var dt=$("<tr>"+
+													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
+													"<td scope='col'>"+
+								                    	 "<input type='checkbox' name='ck_ry'/>"+
+								                    "</td>"+
+												"</tr>")
+											$("#look_Staff_tbody").append(dt);
+										
+									
+								})
+							})
+						}
+					});
+				
+			
+			
 		})
 		
 		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
 			if (this.checked) {
 				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
+				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
 				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
 				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr></tr>");
+					ry_dt=$("<tr name='order_ry_tr'></tr>");
 					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td>"+ry_name+"</td>");
+					ry_dt.append("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
 					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
 				}else{
 					ry_dt=$("[pid='"+pid+"x']");
@@ -879,7 +890,7 @@
 		$("#project_jd_table").on("click",".show_project_time",function(){
 
 			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			
+			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
 			$("#hide_project_time").css("display","block");
 			$(this).html("-");
 		})
@@ -890,10 +901,7 @@
 		}) */
 		
 		$(".show_pb").click(function(){
-			if(xzid==1){
-				$("#hide_cc").css("display","block");
-				
-			}
+			
 			
 		})
 		
@@ -915,8 +923,8 @@
 				}else{
 					if(this.checked){
 						$(this).parents("tr").find("td:eq(2)").html(kw1);
-						var dt=$("<tr tid='"+tid+"'>"+
-								"<td style='color: orange;'>"+jd_name+"</td>"+
+						var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
+								"<td style='color: orange;' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
 			                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
 			                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
 			                	"<td>"+kw1+"</td>"+
@@ -942,6 +950,55 @@
 			       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
 			       		$(thead).find("tr[tid='"+tid+"']").remove();
 			}
+		})
+		
+		$("[name=order_submit]").click(function(){
+			/*订单从表*/
+			var orderson=[];
+			var typeid;
+			$(".show_jd").each(function(){
+				/*订单从表规格类型Id*/
+				if(xzid==1){
+					typeid=5;
+				}else if(xzid==2){
+					typeid=1;
+				}
+				orderson.push(typeid);
+				if(this.checked){
+					/*活动id或项目id*/
+					var iid=$(this).parents("tr").find("td:eq(0)").attr("iid");
+					orderson.push(iid);
+				}
+				
+			})
+			console.log(orderson);
+			/*订单项目排班表*/
+			var OrderProductWork=[];
+			$("[name=order_time_tr]").each(function(){
+				var ordertime={};
+				/*排班开始时间*/
+				ordertime.starttime=$(this).find("td:eq(1)").text();
+				/*排班结束时间*/
+				ordertime.endtime=$(this).find("td:eq(2)").text();
+				/*基地id*/
+				ordertime.name=$(this).find("td:eq(0)").attr("jd_id");
+				OrderProductWork.push(ordertime);
+			})
+			console.log(OrderProductWork);
+			/*排班人员*/
+			var WorkUser=[];
+			$("[name=order_ry_tr]").each(function(){
+				var wuser={};
+				/*排班安排人员id*/
+				wuser.productstaffid=$(this).find("td:eq(0)").attr("ry_id");
+				WorkUser.push(wuser);
+			})
+			var owork={};
+			owork.oProductWorfList=OrderProductWork;
+			owork.oProductWorfList.wUserList=WorkUser;
+			orderson.push(owork);
+			var oson=JSON.stringify(orderson);
+			console.log(oson);
 		})
      });
     </script>

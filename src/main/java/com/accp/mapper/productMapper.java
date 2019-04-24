@@ -38,4 +38,6 @@ public interface productMapper {
     /*后台查询活动详情*/
     product queryByXqById(Integer id);
     
+    /*查询活动推荐*/
+    List<product> recommendByidProudct(Integer id);
 }

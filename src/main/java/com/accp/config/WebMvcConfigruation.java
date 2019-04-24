@@ -34,7 +34,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	 */
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\");
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\").addResourceLocations("file:d:\\");
 
 	}
 

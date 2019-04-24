@@ -30,6 +30,7 @@ public class orderproductwork {
     
     private productarea area;
     
+    private List<worduser> wUserList;
 
     public project getProject() {
 		return project;

@@ -19,8 +19,17 @@ public class orderwork {
     
     private List<orderproductwork> list;
     
-
+    private List<orderproductwork> oProductWorfList;
   
+    
+
+	public List<orderproductwork> getoProductWorfList() {
+		return oProductWorfList;
+	}
+
+	public void setoProductWorfList(List<orderproductwork> oProductWorfList) {
+		this.oProductWorfList = oProductWorfList;
+	}
 
 	public List<orderproductwork> getList() {
 		return list;
