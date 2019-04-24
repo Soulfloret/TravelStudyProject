@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.users;
 import com.accp.yipeng.service.TeamService;
@@ -42,8 +41,7 @@ public class CustomerController {
 	TeamService TeamService;
 	@Autowired
 	TeammemberService TeammberService;
-	@Autowired
-	UserMainOrderService UmoService;
+	
 	/**
 	 * 
 	 * @return 客户查询页面
@@ -129,7 +127,7 @@ public class CustomerController {
 		use.setDay(Integer.parseInt(use.getIdcardno().substring(12, 14)));
 		use.setAge(AgeUtil.getage(use));
 		model.addAttribute("user", use);
-		//model.addAttribute("MainOrderlist",UmoService.query(1));
+		//model.addAttribute("list",UmoService.query(id));
 		return "CustomerCare";
 	}
 	
@@ -151,6 +149,15 @@ public class CustomerController {
 		return "pagehome";
 	}
 	
+	/**
+	 * 
+	 * @return 前台订单
+	 */
+	@RequestMapping("toOrders")
+	public  String toOrders(Model model) {
+		//model.addAttribute("list",UmoService.query(1));
+		return "NewMainOrder";
+	}
 	
 	
 	/**
@@ -197,9 +204,5 @@ public class CustomerController {
 	}
 	
 	
-	@RequestMapping("query")
-	@ResponseBody
-	public  List<Usermainorder> query() {
-		return UmoService.query(1);
-	}
+	
 }

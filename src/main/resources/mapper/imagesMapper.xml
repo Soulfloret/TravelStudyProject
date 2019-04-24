@@ -20,6 +20,10 @@
 		</foreach>
 	</insert>
 	
+	<delete id="delByiidAndTypeId">
+		delete from `images` where `iid`=#{iid} AND `typeId`=#{typeid}
+	</delete>
+	
 	<!-- 查询图片 -->
   <select id="queryimg" resultType="com.accp.domain.images">
   	SELECT * FROM `images` WHERE `iid`=#{iid} AND `typeId`=#{typeid}
