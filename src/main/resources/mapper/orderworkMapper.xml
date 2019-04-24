@@ -22,16 +22,7 @@
 	    <result column="opwname3" property="name3" jdbcType="VARCHAR" />
 	    <result column="opwname4" property="name4" jdbcType="VARCHAR" />
 	    <result column="opwname5" property="name5" jdbcType="VARCHAR" />
-  		<association property="area" javaType="com.accp.domain.productarea" column="opwname1">
-			<id column="paid" property="id" jdbcType="INTEGER" />
-		    <result column="paproducid" property="productid" jdbcType="INTEGER" />
-		    <result column="paAreaid" property="areaid" jdbcType="INTEGER" />
-		    <result column="paname1" property="name1" jdbcType="VARCHAR" />
-		    <result column="paname2" property="name2" jdbcType="VARCHAR" />
-		    <result column="paname3" property="name3" jdbcType="VARCHAR" />
-		    <result column="paname4" property="name4" jdbcType="VARCHAR" />
-		    <result column="paname5" property="name5" jdbcType="VARCHAR" />
-		    <association property="area" javaType="com.accp.domain.areas" column="paAreaId">
+		<association property="area" javaType="com.accp.domain.areas" column="paAreaId">
 		    	<id column="arsid" property="id" jdbcType="INTEGER" />
 			    <result column="arsaname" property="aname" jdbcType="VARCHAR" />
 			    <result column="arspistion" property="pistion" jdbcType="VARCHAR" />
@@ -40,8 +31,7 @@
 			    <result column="arsname3" property="name3" jdbcType="VARCHAR" />
 			    <result column="arsname4" property="name4" jdbcType="VARCHAR" />
 			    <result column="arsname5" property="name5" jdbcType="VARCHAR" />
-		    </association>
-  		</association>
+		</association>
   		<collection property="list" ofType="com.accp.domain.worduser" column="opwid">
   			<id column="wuid" property="id" jdbcType="INTEGER" />
 		    <result column="wuworkId" property="workid" jdbcType="INTEGER" />
@@ -61,15 +51,13 @@
 	opw.`name5` AS opwname5,opw.`orderWorkId` AS opworderworkid,opw.`startTime` AS opwstarttime,
 	wu.`id` AS wuid,wu.`name1` AS wuname1,wu.`name2` AS wuname2,wu.`name3` AS wuname3,wu.`name4` AS wuname4,
 	wu.`name5` AS wuname5,wu.`productStaffId` AS wuproductstaffid,wu.`workId` AS wuworkid,
-	pa.`AreaId` AS paareaid,pa.`id` AS paid,pa.`name1` AS paname1,pa.`name2` AS paname2,pa.`name3` AS paname3,
-	pa.`name4` AS paname4,pa.`name5` AS paname5,ars.`id` AS arsid,ars.`aName` AS arsaname,ars.`name1` AS name1,
+	ars.`id` AS arsid,ars.`aName` AS arsaname,ars.`name1` AS name1,
 	ars.`name2` AS arsname2,ars.`name3` AS arsname2,ars.`name3` AS arsname3,ars.`name4` AS arsname4,ars.`name5` AS arsname5,
 	ars.`pistion` AS arspistion
 	FROM orderwork AS ow 
 	INNER JOIN OrderProductWork AS opw ON ow.`id`=opw.`orderWorkId` 
 	INNER JOIN worduser AS wu ON opw.`id`=wu.`workId`
-	INNER JOIN productarea AS pa ON pa.`id`=opw.`name1`
-	INNER JOIN areas AS ars ON ars.`id`=pa.`AreaId` 
+	INNER JOIN areas AS ars ON ars.`id`=opw.`name1`
 	WHERE ow.`orderId`=#{id}
   </select>
   <sql id="Example_Where_Clause" >

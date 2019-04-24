@@ -28,10 +28,19 @@ public class orderproductwork {
     
     private List<worduser> list;
     
-    private productarea area;
+    private areas area;
     
 
-    public project getProject() {
+    
+    public areas getArea() {
+		return area;
+	}
+
+	public void setArea(areas area) {
+		this.area = area;
+	}
+
+	public project getProject() {
 		return project;
 	}
 
@@ -46,16 +55,6 @@ public class orderproductwork {
 	public void setList(List<worduser> list) {
 		this.list = list;
 	}
-
-	public productarea getArea() {
-		return area;
-	}
-
-	public void setArea(productarea area) {
-		this.area = area;
-	}
-
-
 
 	public Integer getId() {
         return id;
