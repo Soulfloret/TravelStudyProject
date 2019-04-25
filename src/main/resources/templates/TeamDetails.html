@@ -139,7 +139,6 @@
 												</tr>
 											</thead>
 											<tbody>
-												
 												<tr th:each="item:${list}" th:if="${#strings.trim(item.name2)=='团队' && item.ordercustomer==tid}" >
 													<th scope="row"><b th:text="${item.orderno}"></b></th>
 													<td  th:text="${item.name1}">
