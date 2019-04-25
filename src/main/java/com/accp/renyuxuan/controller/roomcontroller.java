@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
@@ -134,16 +137,46 @@ public class roomcontroller {
 				o.insertSelective(ordersons);
 			}
 		}
-		
-		
 		return "redirect:/room/roomorder";
 	}
 	
 	@RequestMapping("/toqueryqtroom")
-	public String toqueryqtroom() {
-		
+	public String toqueryqtroom(Model model ,roomdestine ro) {
+		List<room> list=r.queryByroomData(ro.getBegintime(),ro.getEndtime());
+		List<orderson> olist=o.queryroomtj(null);
+		List<room> rlist=r.queryByroomtypeid();
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("olist", olist);
+		model.addAttribute("list", list);
+		model.addAttribute("ro", ro);
 		return "index1";
 	}
+	
+	@RequestMapping("/toqueryqtroomByid")
+	public String toqueryqtroomByid(Model model,Integer id) {
+		List<orderson> olist=o.queryroomtj(null);
+		model.addAttribute("olist", olist);
+		room rooms=r.queryByroomid(id);
+		model.addAttribute("room", rooms);
+		List<roomdestine> dlist=rd.selectByroomid(id);
+		model.addAttribute("dlist", dlist);
+		return "detail";
+	}
+	
+	@RequestMapping("/queryByroomdestineid")
+	@ResponseBody
+	public String queryByroomdestineid(roomdestine rrr) {
+		room rr= r.queryByroomdestineid(rrr);
+		if(rr.getId()==null) {
+			return "该时间段已经被预订";
+		}else{
+			rrr.setName1("2");
+			rrr.setUserid(5);//根据session获取
+			rd.insertSelective(rrr);
+			return "预订成功，请在10分钟内去付款！";
+		}
+	}
+	
 	
 	
 	

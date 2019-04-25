@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8" />
@@ -237,27 +237,27 @@
 										<h1 class="page-header">特色物业</h1>
 										<div class="properties-grid">
 											<div class="row">
-												<div class="property span3">
+												<div class="property span3" th:each="ritem,rstack : ${rlist}">
 													<div class="image">
 														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-1.png}" alt="">
+															<a th:href="@{/room/toqueryqtroomByid(id=${ritem.id})}"></a>
+															<img th:if="${ritem.img !=null}" th:src="${ritem.img.url}" alt="" style="width: 270;height: 200px;">
 														</div>
 														<!-- /.content -->
 
-														<div class="price">1 250 000€</div>
+														<div class="price" th:text="${'$'+ritem.price}" style="color: red;"></div>
 														<!-- /.price -->
-														<div class="reduced">减少 </div>
+														<div class="reduced">总统套房 </div>
 														<!-- /.reduced -->
 													</div>
 													<!-- /.image -->
 
 													<div class="title">
-														<h2><a href="detail.html">太平洋海岸27523</a></h2>
+														<h2><a  th:text="${ritem.rname}"></a></h2>
 													</div>
 													<!-- /.title -->
 
-													<div class="location">Palo Alto CA</div>
+													<div class="location" th:text="'位置'+${ritem.introduce}"></div>
 													<!-- /.location -->
 													<div class="area">
 														<span class="key">面积:</span>
@@ -277,203 +277,6 @@
 												</div>
 												<!-- /.property -->
 
-												<div class="property span3">
-													<div class="image">
-														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-2.png}" alt="">
-														</div>
-														<!-- /.content -->
-														<div class="price">1 250 000€</div>
-														<!-- /.price -->
-														<div class="reduced">Reduced </div>
-														<!-- /.reduced -->
-													</div>
-													<!-- /.image -->
-
-													<div class="title">
-														<h2><a href="detail.html">27523 Pacific Coast</a></h2>
-													</div>
-													<!-- /.title -->
-
-													<div class="location">Palo Alto CA</div>
-													<!-- /.location -->
-													<div class="area">
-														<span class="key">Area:</span>
-														<!-- /.key -->
-														<span class="value">120</span>
-														<!-- /.value -->
-													</div>
-													<!-- /.area -->
-													<div class="bedrooms">
-														<div class="content">4</div>
-													</div>
-													<!-- /.bedrooms -->
-													<div class="bathrooms">
-														<div class="content">3</div>
-													</div>
-													<!-- /.bathrooms -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property span3">
-													<div class="image">
-														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-3.png}" alt="">
-														</div>
-														<!-- /.content -->
-
-														<div class="price">1 250 000€</div>
-														<!-- /.price -->
-														<div class="reduced">Reduced </div>
-														<!-- /.reduced -->
-													</div>
-													<!-- /.image -->
-
-													<div class="title">
-														<h2><a href="detail.html">27523 Pacific Coast</a></h2>
-													</div>
-													<!-- /.title -->
-
-													<div class="location">Palo Alto CA</div>
-													<!-- /.location -->
-													<div class="area">
-														<span class="key">Area:</span>
-														<!-- /.key -->
-														<span class="value">120</span>
-														<!-- /.value -->
-													</div>
-													<!-- /.area -->
-													<div class="bedrooms">
-														<div class="content">4</div>
-													</div>
-													<!-- /.bedrooms -->
-													<div class="bathrooms">
-														<div class="content">3</div>
-													</div>
-													<!-- /.bathrooms -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property span3">
-													<div class="image">
-														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-4.png}" alt="">
-														</div>
-														<!-- /.content -->
-														<div class="price">1 250 000€</div>
-														<!-- /.price -->
-														<div class="reduced">Reduced </div>
-														<!-- /.reduced -->
-													</div>
-													<!-- /.image -->
-
-													<div class="title">
-														<h2><a href="detail.html">27523 Pacific Coast</a></h2>
-													</div>
-													<!-- /.title -->
-
-													<div class="location">Palo Alto CA</div>
-													<!-- /.location -->
-													<div class="area">
-														<span class="key">Area:</span>
-														<!-- /.key -->
-														<span class="value">120</span>
-														<!-- /.value -->
-													</div>
-													<!-- /.area -->
-													<div class="bedrooms">
-														<div class="content">4</div>
-													</div>
-													<!-- /.bedrooms -->
-													<div class="bathrooms">
-														<div class="content">3</div>
-													</div>
-													<!-- /.bathrooms -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property span3">
-													<div class="image">
-														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-1.png}" alt="">
-														</div>
-														<!-- /.content -->
-
-														<div class="price">1 250 000€</div>
-														<!-- /.price -->
-														<div class="reduced">Reduced </div>
-														<!-- /.reduced -->
-													</div>
-													<!-- /.image -->
-
-													<div class="title">
-														<h2><a href="detail.html">27523 Pacific Coast</a></h2>
-													</div>
-													<!-- /.title -->
-
-													<div class="location">Palo Alto CA</div>
-													<!-- /.location -->
-													<div class="area">
-														<span class="key">Area:</span>
-														<!-- /.key -->
-														<span class="value">120</span>
-														<!-- /.value -->
-													</div>
-													<!-- /.area -->
-													<div class="bedrooms">
-														<div class="content">4</div>
-													</div>
-													<!-- /.bedrooms -->
-													<div class="bathrooms">
-														<div class="content">3</div>
-													</div>
-													<!-- /.bathrooms -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property span3">
-													<div class="image">
-														<div class="content">
-															<a href="detail.html"></a>
-															<img th:src="@{/assets/img/tmp/property-small-1.png}" alt="">
-														</div>
-														<!-- /.content -->
-
-														<div class="price">1 250 000€</div>
-														<!-- /.price -->
-														<div class="reduced">Reduced </div>
-														<!-- /.reduced -->
-													</div>
-													<!-- /.image -->
-
-													<div class="title">
-														<h2><a href="detail.html">27523 Pacific Coast</a></h2>
-													</div>
-													<!-- /.title -->
-
-													<div class="location">Palo Alto CA</div>
-													<!-- /.location -->
-													<div class="area">
-														<span class="key">Area:</span>
-														<!-- /.key -->
-														<span class="value">120</span>
-														<!-- /.value -->
-													</div>
-													<!-- /.area -->
-													<div class="bedrooms">
-														<div class="content">4</div>
-													</div>
-													<!-- /.bedrooms -->
-													<div class="bathrooms">
-														<div class="content">3</div>
-													</div>
-													<!-- /.bathrooms -->
-												</div>
-												<!-- /.property -->
 											</div>
 											<!-- /.row -->
 										</div>
@@ -487,168 +290,35 @@
 										<div class="hidden-tablet">
 											<div class="widget properties last">
 												<div class="title">
-													<h2>最新物业</h2>
+													<h2>火爆物业</h2>
 												</div>
 												<!-- /.title -->
 
 												<div class="content">
-													<div class="property">
+													<div class="property" th:each="oitem,ostack : ${olist}">
 														<div class="image">
 															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-4.png" alt="">
+															<img th:if="${oitem.rooms.url !=null}" th:src="${oitem.rooms.url}" style="width: 100px;height: 80px;" alt="">
 														</div>
 														<!-- /.image -->
 
 														<div class="wrapper">
 															<div class="title">
 																<h3>
-                        <a href="detail.html">太平洋海岸27523</a>
+                        						<a href="detail.html" th:text="${oitem.rooms.rname}"></a>
                     </h3>
 															</div>
 															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
+															<div class="location"><span th:if="${oitem.rooms.typeid==1}" th:text="单人间"></span><span th:if="${oitem.rooms.typeid==2}" th:text="双人间"></span><span th:if="${oitem.rooms.typeid==3}" th:text="总统套房"></span></div>
 															<!-- /.location -->
-															<div class="price">€2 300 000</div>
+															<div class="price" th:text="'$'+${oitem.rooms.price}" style="font-size: 20px ;color: red;"></div>
 															<!-- /.price -->
 														</div>
 														<!-- /.wrapper -->
 													</div>
 													<!-- /.property -->
 
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-5.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
-
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-6.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-6.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-6.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-6.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
-
-													<div class="property">
-														<div class="image">
-															<a href="detail.html"></a>
-															<img src="assets/img/tmp/property-small-2.png" alt="">
-														</div>
-														<!-- /.image -->
-
-														<div class="wrapper">
-															<div class="title">
-																<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-															</div>
-															<!-- /.title -->
-															<div class="location">Palo Alto CA</div>
-															<!-- /.location -->
-															<div class="price">€2 300 000</div>
-															<!-- /.price -->
-														</div>
-														<!-- /.wrapper -->
-													</div>
-													<!-- /.property -->
+													
 												</div>
 												<!-- /.content -->
 											</div>
@@ -657,29 +327,35 @@
 									</div>
 								</div>
 								<div class="carousel">
-									<h2 class="page-header">所有属性</h2>
-
+									<h2 class="page-header">所有房间</h2>
+									<form th:action="@{/room/toqueryqtroom}">
+									开始日期：<input type="date" name="begintime" th:value="${#dates.format(ro.begintime, 'yyyy-MM-dd')}" style="height: 30px">
+									结束日期：<input type="date" name="endtime"   th:value="${#dates.format(ro.endtime, 'yyyy-MM-dd')}" style="height: 30px">
+											<input type="submit" value="搜索" style="margin-bottom: 10px">
+									</form>
 									<div class="content">
 										<a class="carousel-prev" href="detail.html">Previous</a>
 										<a class="carousel-next" href="detail.html">Next</a>
 										<ul>
-											<li>
+											<li th:each="item,stack: ${list}">
 												<div class="image">
 													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-1.png" alt="">
+															<img th:if="${item.img!=null}" th:src="${item.img.url}" alt="" style="width: 270px;height: 200px">
 												</div>
 												<!-- /.image -->
 												<div class="title">
-													<h3><a href="detail.html">太平洋海岸27523</a></h3>
+													<h3><a href="detail.html" th:text="${item.rname}"></a></h3>
 												</div>
 												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
+												<div class="location" th:text="'$'+${item.price}" style="font-size: 20px ;color: red;"></div>
 												<!-- /.location-->
 												<div class="price">€2 300 000</div>
 												<!-- .price -->
 												<div class="area">
-													<span class="key">面积:</span>
-													<span class="value">750m<sup>2</sup></span>
+													<span class="key">位置:</span>
+													<span class="value" th:text="${item.location}"></span>
+													<span class="key">类型:</span>
+													<span th:if="${item.typeid==1}" th:text="单人间"></span><span th:if="${item.typeid==2}" th:text="双人间"></span><span th:if="${item.typeid==3}" th:text="总统套房"></span>
 												</div>
 												<!-- /.area -->
 												<div class="bathrooms">
@@ -691,266 +367,7 @@
 												</div>
 												<!-- /.bedrooms -->
 											</li>
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-2.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-3.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-4.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-5.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-6.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-1.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-2.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-3.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
-
-											<li>
-												<div class="image">
-													<a href="detail.html"></a>
-													<img src="assets/img/tmp/property-small-4.png" alt="">
-												</div>
-												<!-- /.image -->
-												<div class="title">
-													<h3><a href="detail.html">27523 Pacific Coast</a></h3>
-												</div>
-												<!-- /.title -->
-												<div class="location">Palo Alto CA</div>
-												<!-- /.location-->
-												<div class="price">€2 300 000</div>
-												<!-- .price -->
-												<div class="area">
-													<span class="key">Area:</span>
-													<span class="value">750m<sup>2</sup></span>
-												</div>
-												<!-- /.area -->
-												<div class="bathrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bathrooms -->
-												<div class="bedrooms">
-													<div class="inner">3</div>
-												</div>
-												<!-- /.bedrooms -->
-											</li>
+											
 										</ul>
 									</div>
 								</div>

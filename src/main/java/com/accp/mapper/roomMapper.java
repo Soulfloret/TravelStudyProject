@@ -11,9 +11,15 @@ import org.apache.ibatis.annotations.Param;
 
 public interface roomMapper {
 	
+	room queryByroomdestineid(roomdestine r);
+	
+	room queryByroomid(@Param("id") Integer id);
+	
 	List<room> queryByroomData(@Param("begintime")Date begintime ,@Param("endtime")Date endtime);
 	
 	List<room> queryByroom(room r);
+	
+	List<room> queryByroomtypeid();
 	
     int countByExample(roomExample example);
 

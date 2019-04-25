@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Shopcart;
+import com.accp.domain.Usermainorder;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.domain.menucomment;
@@ -22,9 +23,11 @@ import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.team;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.Shopcartserviceimpl;
+import com.accp.renyuxuan.service.impl.Usermainorderserviceimpl;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
@@ -32,6 +35,7 @@ import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
+import com.accp.renyuxuan.service.impl.teamserviceimpl;
 import com.accp.renyuxuan.service.impl.userorderserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
@@ -69,6 +73,10 @@ public class menucontroller {
 	//购物车
 	@Autowired
 	Shopcartserviceimpl sc;
+	@Autowired
+	Usermainorderserviceimpl umo;
+	@Autowired
+	teamserviceimpl te;
 	
 	
 	//查询后台菜单
@@ -179,34 +187,74 @@ public class menucontroller {
 	@ResponseBody
 	@RequestMapping("/orderadd")
 	public String orderadd(@RequestBody ordershop [] vps) {
-		menuorder m=new menuorder();
-			SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
-			String datetime = tempDate.format(new Date());
-			datetime=datetime+"cy";//订单编号
-			m.setOrderrreference(datetime);
-			m.setCreatetime(new Date());
-			m.setStatuss("1");
-			//身份证
-			users us=u.queryByIdCard(vps[0].getName3());//数据库没有
-			m.setUserid(us.getId());
-			m.setPrice(Double.parseDouble(vps[0].getName2()));
-			//调方法添加订单
-			mo.insertSelective(m);
-			userorder userorders =uo.selectByuid(us.getId());
-			for (int i = 0; i < vps.length; i++) {
-				ordershop o =new  ordershop();
-				o.setOrderid(m.getId());
-				o.setMenuid(vps[i].getMenuid());
-				o.setNum(vps[i].getNum());
-				o.setName1(vps[i].getName1());
-				o.setPrice(vps[i].getPrice());
-				os.insertSelective(o);//添加餐饮订单从表
-				orderson ordersons=new orderson();
-				ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
-				ordersons.setIid(vps[i].getMenuid());
-				ordersons.setName1(userorders.getOrdermainid().toString());
-				oo.insertSelective(ordersons);//添加总订单从表
+			String lb="";
+			if("1".equals(vps[0].getName4())) {
+				menuorder m=new menuorder();
+				SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+				String datetime = tempDate.format(new Date());
+				datetime=datetime+"cy";//订单编号
+				m.setOrderrreference(datetime);
+				m.setCreatetime(new Date());
+				m.setStatuss("1");
+				//身份证
+				users us=u.queryByIdCard(vps[0].getName3());
+				m.setUserid(us.getId());
+				m.setPrice(Double.parseDouble(vps[0].getName2()));
+				//调方法添加订单
+				mo.insertSelective(m);
+				lb="个人";
+				Usermainorder  usermainorder=umo.queryorderCustomer(us.getId(),lb);
+				userorder userorder=uo.selectByuid(usermainorder.getId());
+				for (int i = 0; i < vps.length; i++) {
+					ordershop o =new  ordershop();
+					o.setOrderid(m.getId());
+					o.setMenuid(vps[i].getMenuid());
+					o.setNum(vps[i].getNum());
+					o.setName1(vps[i].getName1());
+					o.setPrice(vps[i].getPrice());
+					os.insertSelective(o);//添加餐饮订单从表
+					orderson ordersons=new orderson();
+					ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+					ordersons.setIid(vps[i].getMenuid());
+					ordersons.setName1(userorder.getId().toString());
+					oo.insertSelective(ordersons);//添加总订单从表
+				}
+			}else {
+				lb="团队";
+				//身份证
+				users us=u.queryByIdCard(vps[0].getName3());
+				team t=te.selectBymainiUserId(us.getId());
+				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
+				for (userorder userorder : list) {
+					menuorder m=new menuorder();
+					SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+					String datetime = tempDate.format(new Date());
+					datetime=datetime+"cy";//订单编号
+					m.setOrderrreference(datetime);
+					m.setCreatetime(new Date());
+					m.setStatuss("1");
+					m.setUserid(userorder.getOrdercustomer());
+					m.setPrice(Double.parseDouble(vps[0].getName2()));
+					//调方法添加订单
+					mo.insertSelective(m);
+					for (int i = 0; i < vps.length; i++) {
+						ordershop o =new  ordershop();
+						o.setOrderid(m.getId());
+						o.setMenuid(vps[i].getMenuid());
+						o.setNum(vps[i].getNum());
+						o.setName1(vps[i].getName1());
+						o.setPrice(vps[i].getPrice());
+						os.insertSelective(o);//添加餐饮订单从表
+						orderson ordersons=new orderson();
+						ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+						ordersons.setIid(vps[i].getMenuid());
+						ordersons.setName1(userorder.getId().toString());
+						oo.insertSelective(ordersons);//添加总订单从表
+					}
+				}
 			}
+			
 		return "下单成功！";
 	}
 	
@@ -246,7 +294,6 @@ public class menucontroller {
 	@ResponseBody
 	public String shopcartadd(Integer iid,Integer typeid,String name1,HttpSession session) {
 		users use= (users) session.getAttribute("use");
-		
 		Shopcart shopcart=new Shopcart();
 		shopcart.setIid(iid);
 		shopcart.setTypeid(typeid);

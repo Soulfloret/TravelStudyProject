@@ -8,4 +8,6 @@ public interface ordersonservice {
 	int insertSelective(orderson record);
 	
 	List<orderson> querytj(orderson o);
+	
+	List<orderson> queryroomtj(orderson o);
 }
