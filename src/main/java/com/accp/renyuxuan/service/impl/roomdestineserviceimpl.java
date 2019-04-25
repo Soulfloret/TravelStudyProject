@@ -1,5 +1,7 @@
 package com.accp.renyuxuan.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,12 @@ public class roomdestineserviceimpl implements roomdestineservice{
 	public int insertSelective(roomdestine record) {
 		// TODO Auto-generated method stub
 		return r.insertSelective(record);
+	}
+
+	@Override
+	public List<roomdestine> selectByroomid(Integer id) {
+		// TODO Auto-generated method stub
+		return r.selectByroomid(id);
 	}
 
 }

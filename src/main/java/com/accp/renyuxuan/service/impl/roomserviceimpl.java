@@ -51,4 +51,16 @@ public class roomserviceimpl implements roomservice{
 		return ro.queryByroomtypeid();
 	}
 
+	@Override
+	public room queryByroomid(Integer id) {
+		// TODO Auto-generated method stub
+		return ro.queryByroomid(id);
+	}
+
+	@Override
+	public room queryByroomdestineid(roomdestine r) {
+		// TODO Auto-generated method stub
+		return ro.queryByroomdestineid(r);
+	}
+
 }

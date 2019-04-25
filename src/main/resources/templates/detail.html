@@ -1,30 +1,27 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="Aviators - byaviators.com">
 
-		<link rel="shortcut icon" href="assets/img/favicon.png" type="image/png">
-		<link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css">
-		<link rel="stylesheet" href="assets/css/bootstrap-responsive.css" type="text/css">
-		<link rel="stylesheet" href="assets/libraries/chosen/chosen.css" type="text/css">
-		<link rel="stylesheet" href="assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css" type="text/css">
-		<link rel="stylesheet" href="assets/libraries/jquery-ui-1.10.2.custom/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" type="text/css">
-		<link rel="stylesheet" href="assets/css/realia-blue.css" type="text/css" id="color-variant-default">
+		<link rel="stylesheet" th:href="@{/css1/minified.css}">
+		<link rel="shortcut icon" th:href="@{/assets/img/favicon.png}" type="image/png">
+		<link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/assets/css/bootstrap-responsive.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/assets/libraries/chosen/chosen.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/assets/libraries/bootstrap-fileupload/bootstrap-fileupload.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/assets/libraries/jquery-ui-1.10.2.custom/css/ui-lightness/jquery-ui-1.10.2.custom.min.css}" type="text/css">
+		<link rel="stylesheet" th:href="@{/assets/css/realia-blue.css}" type="text/css" id="color-variant-default">
 		<link rel="stylesheet" href="#" type="text/css" id="color-variant">
-		<link rel="stylesheet" href="css1/minified.css">
-		<script>
-			window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');
-		</script>
-		<script src="js1/modernizr.min.js"></script>
+		
+		<script th:src="@{/js1/modernizr.min.js}"></script>
 		<!-- PARTICULAR PAGES CSS FILES -->
-		<link rel="stylesheet" href="css1/owl.carousel.css">
-		<link rel="stylesheet" href="css1/owl.theme.css">
-		<link href="css1/flexslider.css" rel="stylesheet" />
-		<!-- // PARTICULAR PAGES CSS FILES -->
-		<link rel="stylesheet" href="css1/responsive.css">
+		<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
+		<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
+		<link th:href="@{/css1/flexslider.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 		<style>
 			#main-content .section {
 				padding-bottom: 30px;
@@ -153,7 +150,7 @@
 					<!-- SITE LOGO -->
 					<div class="logo-wrapper">
 						<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
-							<img src="images/logo2.png" alt="Logo" />
+							<img th:src="@{/images/logo2.png}" alt="Logo" />
 						</a>
 					</div>
 					<!-- // SITE LOGO -->
@@ -195,11 +192,11 @@
 							<div id="main"  style="width: 1185px;">
 								<div class="row">
 									<div class="span9">
-										<h1 class="page-header">太平洋海岸27523</h1>
+										<h1 class="page-header" th:text="${room.rname}"></h1>
 
 										<div class="carousel property">
 											<div class="preview">
-												<img src="assets/img/tmp/property-large-1.jpg" alt="">
+												<img th:src="@{/assets/img/tmp/property-large-1.jpg}" style="width:870px ;height: 420px;" alt="">
 											</div>
 											<!-- /.preview -->
 
@@ -208,47 +205,8 @@
 												<a class="carousel-prev" href="#">Previous</a>
 												<a class="carousel-next" href="#">Next</a>
 												<ul>
-													<li class="active">
-														<img src="assets/img/tmp/property-large-1.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-2.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-3.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-4.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-1.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-2.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-3.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-4.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-1.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-2.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-3.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-4.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-1.jpg" alt="">
-													</li>
-													<li>
-														<img src="assets/img/tmp/property-large-2.jpg" alt="">
+													<li class="active" th:each="iitem : ${room.imgs}">
+														<img th:src="${iitem.url}" alt="" style="width:155px ;height: 75px;">
 													</li>
 												</ul>
 											</div>
@@ -256,7 +214,7 @@
 										</div>
 										<!-- /.carousel -->
 
-										<div class="property-detail">
+										<div class="property-detail" style="height: 260px;">
 											<div class="pull-left overview">
 												<div class="row">
 													<div class="span3">
@@ -265,7 +223,7 @@
 														<table>
 															<tr>
 																<th>价钱:</th>
-																<td>€2 300 000</td>
+																<td th:text="${room.price}"></td>
 															</tr>
 															<tr>
 																<th>合同类型：</th>
@@ -273,11 +231,11 @@
 															</tr>
 															<tr>
 																<th>类型:</th>
-																<td>公寓</td>
+																<td><span th:if="${room.typeid==1}" th:text="单人间"></span><span th:if="${room.typeid==2}" th:text="双人间"></span><span th:if="${room.typeid==3}" th:text="总统套房"></span></td>
 															</tr>
 															<tr>
-																<th>地点:</th>
-																<td>中国</td>
+																<th>位置:</th>
+																<td  th:text="${room.location}"></td>
 															</tr>
 															<tr>
 																<th>浴室:</th>
@@ -298,12 +256,7 @@
 												<!-- /.row -->
 											</div>
 
-											<p><strong>
-                    	Lorem存有悲坐阿梅德，consectetur adipiscing ELIT。即使ullamcorper免费的，但笔者还是现在投资怀孕。
-                    	应力电视电视消费拉动消毒胡萝卜设置。怀孕NIBH疗箱的影响。桑达宝莱坞的质量。Mauris elementum腾邦暂准，ullamc
-                    	orper生活的SEM ultricies生活。Nullam consectetur lacinia iaculis QUIS laoreet麦格纳枕英寸 类由
-                    	我们的婚姻开始就业的扭曲，每himenaeos。再融资。当拉手光芒超级碗山瞬间。
-                    </strong> 也不要有阿梅德，consectetur adipiscing facilisis vehicula turpis SED Morbi欧盟SAPIEN。悲坐现在，电视上没有一个足球直播。该疗法是裙子，consectetur，三重我的足球。蛋白质伤 心的时候。Laoreet桑达长壶进了山谷，但质量裙子。乘客的南怀作者。智能手机。开发商现在饮料配方的拍摄时间。目前爱欲ELIT，interdum PO RTA ultricies坐阿梅德，iaculis中也不。在前面的或未来的时间，或有针对性的Nullam乌仁娜，有很多的帮助。就在入口 处于靶高中足球ultricies tincidunt。欧盟橙色茉莉便宜，但在其他方面你的软件是免费的</p>
+											<p th:text="${room.introduce}"> </p>
 
 										</div>
 
@@ -319,123 +272,50 @@
 										<!-- /.widget -->
 										<div class="widget properties last">
 											<div class="title">
-												<h2>最新物业</h2>
+												<h2>火爆物业</h2>
 											</div>
 											<!-- /.title -->
 
 											<div class="content">
-												<div class="property">
-													<div class="image">
-														<a href="detail.html"></a>
-														<img src="assets/img/tmp/property-small-4.png" alt="">
-													</div>
-													<!-- /.image -->
-
-													<div class="wrapper">
-														<div class="title">
-															<h3>
-                        <a href="detail.html">太平洋海岸27523</a>
-                    </h3>
+												<div class="property" th:each="oitem,ostack : ${olist}">
+														<div class="image">
+															<a href="detail.html"></a>
+															<img th:if="${oitem.rooms.url !=null}" th:src="${oitem.rooms.url}" style="width: 100px;height: 80px;" alt="">
 														</div>
-														<!-- /.title -->
-														<div class="location">Palo Alto CA</div>
-														<!-- /.location -->
-														<div class="price">€2 300 000</div>
-														<!-- /.price -->
-													</div>
-													<!-- /.wrapper -->
-												</div>
-												<!-- /.property -->
+														<!-- /.image -->
 
-												<div class="property">
-													<div class="image">
-														<a href="detail.html"></a>
-														<img src="assets/img/tmp/property-small-5.png" alt="">
-													</div>
-													<!-- /.image -->
-
-													<div class="wrapper">
-														<div class="title">
-															<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
+														<div class="wrapper">
+															<div class="title">
+																<h3>
+                        						<a href="detail.html" th:text="${oitem.rooms.rname}"></a>
                     </h3>
+															</div>
+															<!-- /.title -->
+															<div class="location"><span th:if="${oitem.rooms.typeid==1}" th:text="单人间"></span><span th:if="${oitem.rooms.typeid==2}" th:text="双人间"></span><span th:if="${oitem.rooms.typeid==3}" th:text="总统套房"></span></div>
+															<!-- /.location -->
+															<div class="price" th:text="'$'+${oitem.rooms.price}" style="font-size: 20px ;color: red;"></div>
+															<!-- /.price -->
 														</div>
-														<!-- /.title -->
-														<div class="location">Palo Alto CA</div>
-														<!-- /.location -->
-														<div class="price">€2 300 000</div>
-														<!-- /.price -->
+														<!-- /.wrapper -->
 													</div>
-													<!-- /.wrapper -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property">
-													<div class="image">
-														<a href="detail.html"></a>
-														<img src="assets/img/tmp/property-small-6.png" alt="">
-													</div>
-													<!-- /.image -->
-
-													<div class="wrapper">
-														<div class="title">
-															<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-														</div>
-														<!-- /.title -->
-														<div class="location">Palo Alto CA</div>
-														<!-- /.location -->
-														<div class="price">€2 300 000</div>
-														<!-- /.price -->
-													</div>
-													<!-- /.wrapper -->
-												</div>
-												<!-- /.property -->
-
-												<div class="property">
-													<div class="image">
-														<a href="detail.html"></a>
-														<img src="assets/img/tmp/property-small-2.png" alt="">
-													</div>
-													<!-- /.image -->
-
-													<div class="wrapper">
-														<div class="title">
-															<h3>
-                        <a href="detail.html">27523 Pacific Coast</a>
-                    </h3>
-														</div>
-														<!-- /.title -->
-														<div class="location">Palo Alto CA</div>
-														<!-- /.location -->
-														<div class="price">€2 300 000</div>
-														<!-- /.price -->
-													</div>
-													<!-- /.wrapper -->
-												</div>
-												<!-- /.property -->
+													<!-- /.property -->
 												<div>
 													<h2>预订房间</h2>
 													<div>
 														已被预订时间段：
-														<ol class="list-group">
-															<li class="list-group-item">2019-3-23到2019-3-24</li>
-															<li class="list-group-item">2019-3-23到2019-3-24</li>
-															<li class="list-group-item">2019-3-23到2019-3-24</li>
-															<li class="list-group-item">2019-3-23到2019-3-24</li>
+														<ol class="list-group" style="margin-left: 0px;">
+															<li class="list-group-item" th:each="ditem : ${dlist}"><span th:text="${#dates.format(ditem.begintime, 'yyyy-MM-dd')}"></span>到<span th:text="${#dates.format(ditem.endtime, 'yyyy-MM-dd')}"></span><span style="color: red;"></span></li>
 														</ol>
 													</div>
 													<div class="input-group">
-														选择开始时间(当天4点)：<input type="date" class="form-control"><br/> 选择结束时间(次天2点)：
-														<input type="date" class="form-control">
+														选择开始时间<input type="date" class="ks form-control" style="height: 30px"><br/> 
+														选择结束时间<input type="date"  class="jss form-control" style="height: 30px">
 													</div>
 													<!-- /input-group -->
 													<div>
-														<button class="btn btn-primary btn-block text-uppercase" onclick="location.href='dingdan.html'">
-	            	预订
-	            </button>
+														<input type="submit" id="yd" value="预订" class="btn btn-primary btn-block text-uppercase">
 													</div>
+													<input type="hidden" th:value="${room.id}" id="id">
 												</div>
 											</div>
 											<!-- /.content -->
@@ -470,18 +350,44 @@
 			<!-- /.inner -->
 		</div>
 		<!-- /.palette -->
-
-		<script type="text/javascript" src="assets/js/jquery.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.ezmark.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.currency.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
-		<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="assets/js/carousel.js"></script>
-		<script type="text/javascript" src="assets/libraries/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js"></script>
-		<script type="text/javascript" src="assets/libraries/chosen/chosen.jquery.min.js"></script>
-		<script type="text/javascript" src="assets/libraries/iosslider/_src/jquery.iosslider.min.js"></script>
-		<script type="text/javascript" src="assets/libraries/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-		<script type="text/javascript" src="assets/js/realia.js"></script>
+						<script type="text/javascript" th:src="@{/assets/js/jquery.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/jquery.ezmark.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/jquery.currency.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/jquery.cookie.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/carousel.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/libraries/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/libraries/chosen/chosen.jquery.min.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/libraries/iosslider/_src/jquery.iosslider.min.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/libraries/bootstrap-fileupload/bootstrap-fileupload.js}"></script>
+						<script type="text/javascript" th:src="@{/assets/js/realia.js}"></script>
 	</body>
-
+		<script type="text/javascript">
+			$(function(){
+				$("#yd").click(function(){
+					var kdate=$(".ks").val();
+					var jdate=$(".jss").val();
+					if(kdate==''||jdate==''){
+						alert("请选择时间");
+						return false;
+					}
+					var roomId=$("#id").val();
+					$.ajax({
+						url:"/room/queryByroomdestineid",
+						data:{
+							"roomid":roomId,
+							"begintime":kdate,
+							"endtime":jdate,
+						},
+						type:"post",
+						dataType:"text",
+						success:function(result){
+							alert(result);
+							window.location.reload();
+						}
+					})
+				})
+			})
+													
+		</script>
 </html>

@@ -23,7 +23,29 @@
   		</association>
   </resultMap>
   
+  <resultMap type="com.accp.domain.room" id="BaseResultMap2" extends="BaseResultMap">
+  		<collection property="imgs" ofType="com.accp.domain.images">
+  			<id column="iid" property="id" jdbcType="INTEGER" />
+    		<result column="url" property="url" jdbcType="VARCHAR" />
+  		</collection>
+  </resultMap>
   
+  
+  <select id="queryByroomid" resultMap="BaseResultMap2">
+  		SELECT r.*,i.`id` AS iid,i.`url`
+		FROM `room` r 
+		LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
+		WHERE r.`id`=#{id}
+  </select>
+  
+  <select id="queryByroomdestineid" resultMap="BaseResultMap">
+  		SELECT r.* FROM room AS r 
+		WHERE r.`id` NOT IN 
+		(SELECT rd.`roomId` FROM roomdestine AS rd 
+			WHERE	DATEDIFF(#{begintime},rd.`begintime`)&lt;=0  AND DATEDIFF(#{endtime},rd.`endTime`)&gt;=0
+		) 
+		AND r.`id`=#{roomid}
+  </select>
   
   
   <select id="queryByroom" resultMap="BaseResultMap1">
@@ -67,7 +89,7 @@
   	SELECT r.*,i.`id` AS iid,i.`url` FROM room AS r  LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
 	WHERE r.`id` NOT IN 
 	(SELECT rd.`roomId` FROM roomdestine AS rd 
-		where	DATEDIFF(#{begintime},rd.`begintime`)=0  AND DATEDIFF(#{endtime},rd.`endTime`)=0
+		where	DATEDIFF(#{begintime},rd.`begintime`)&lt;=0  AND DATEDIFF(#{endtime},rd.`endTime`)&gt;=0
 	) 
   	
   </select>

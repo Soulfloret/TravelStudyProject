@@ -240,7 +240,7 @@
 												<div class="property span3" th:each="ritem,rstack : ${rlist}">
 													<div class="image">
 														<div class="content">
-															<a href="detail.html"></a>
+															<a th:href="@{/room/toqueryqtroomByid(id=${ritem.id})}"></a>
 															<img th:if="${ritem.img !=null}" th:src="${ritem.img.url}" alt="" style="width: 270;height: 200px;">
 														</div>
 														<!-- /.content -->
@@ -253,7 +253,7 @@
 													<!-- /.image -->
 
 													<div class="title">
-														<h2><a href="detail.html" th:text="${ritem.rname}"></a></h2>
+														<h2><a  th:text="${ritem.rname}"></a></h2>
 													</div>
 													<!-- /.title -->
 

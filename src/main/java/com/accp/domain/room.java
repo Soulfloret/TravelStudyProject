@@ -27,7 +27,7 @@ public class room {
 
     private String name5;
     
-    
+    private List<roomdestine> dlist;
     
     private List<images> imgs;
         
@@ -39,7 +39,17 @@ public class room {
     private String url;
     
     
-    public String getUrl() {
+    
+    
+    public List<roomdestine> getDlist() {
+		return dlist;
+	}
+
+	public void setDlist(List<roomdestine> dlist) {
+		this.dlist = dlist;
+	}
+
+	public String getUrl() {
 		return url;
 	}
 
