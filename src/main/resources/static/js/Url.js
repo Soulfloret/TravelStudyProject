@@ -1,7 +1,6 @@
-hide();
-function hide(){
+(function($){
 	var urls=[];
-	$.each(".urls",function(index,item){
+	$.each($(".urls"),function(index,item){
 		console.log(item);
 		urls.push($(item).attr("uri"));
 	})
@@ -10,4 +9,4 @@ function hide(){
 			$("[url='"+obj+"']").remove();
 		})
 	},"json");
-}
+})(jQuery);

@@ -30,6 +30,7 @@
    			 <result column="mprice" property="price" jdbcType="DOUBLE" />
    			 <result column="mname1" property="name1" jdbcType="VARCHAR" />
    			 <result column="mename" property="mename" jdbcType="VARCHAR" />
+   			 <result column="intorduce" property="intorduce" jdbcType="VARCHAR"/>
 	  	</collection> 	
   </resultMap>
   
@@ -51,7 +52,8 @@
   
   <select id="selectbindByid" resultMap="BaseResultMap2">
 		SELECT b.*,i.`id`AS iiid ,i.`iid`,i.`url`,i.`typeId` 
-			,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename
+			,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename,
+			m.intorduce
 			FROM `bind` b LEFT JOIN `images` i ON b.`id`=i.`iid` AND i.`typeId`=4
 			INNER JOIN `menubind` me ON b.`id`=me.`BindId`
 			INNER JOIN `menu` m ON m.`id`=me.`menuId`
@@ -70,7 +72,8 @@
   
   
   <select id="querybind" resultMap="BaseResultMap1">
-  		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename
+  		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`,m.`id` AS `mid`,m.`mname` AS mnames,m.`name1` AS mname1,m.`price` AS mprice,me.name1 AS mename,
+  		m.intorduce
 		FROM `bind` b LEFT JOIN `images` i 
 		ON b.id=i.`iid` AND i.`typeId`=4
 		LEFT JOIN `menubind` me ON b.id=me.`BindId`
