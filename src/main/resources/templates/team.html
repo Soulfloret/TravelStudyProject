@@ -44,7 +44,7 @@
 										<label>负责人名称: </label>
 										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="负责人姓名">
 									</div>
-									<input type="submit" class="btn btn-info" value="查询">
+									<input type="submit" class="btn btn-info urls" value="查询" uri="team/toteam">
 								</form>
 							</div>
 							<div id="tab">
@@ -68,7 +68,7 @@
 												<span th:text="${it.use.uname}" ></span>
 											</td>
 											<td>
-												<a th:href="@{/team/toTeamDetails(id=${it.id})}">查看</a>
+												<a th:href="@{/team/toTeamDetails(id=${it.id})}" class="urls" uri="team/toTeamDetails">查看</a>
 											</td>
 										</tr>
 									</tbody>

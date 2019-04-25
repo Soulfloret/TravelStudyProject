@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>添加客户</title>
+		<title>团队成员新增</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
@@ -40,12 +40,12 @@
 						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 							<div class="row">
 								<div class="col-12">
-									<h2 class="tm-block-title d-inline-block">添加客户</h2>
+									<h2 class="tm-block-title d-inline-block">添加团队成员</h2>
 								</div>
 							</div>
 	
 							<div class="row" id="shuxing">
-								<form class="form-inline col-md-12" method="post" enctype="multipart/form-data" th:action="@{/customer/addCustomer}">
+								<form class="form-inline col-md-12" method="post" enctype="multipart/form-data" th:action="@{/team/addteam}">
 									<div class="form-group col-md-6">
 										<label for="" class="col-md-5">电话:</label>
 										<input type="text" class="form-control col-md-7" name="phone">
@@ -73,17 +73,14 @@
 									</div>
 									<div class="form-group col-md-12">
 										<label for="" class="col-md-3">选择报名方式:</label>
-										<div th:each="item,status : ${list}" th:if="${item.id!=3}" style="margin-left:10px;">
-											<input type="radio" name='team' th:checked="${item.id}==1"   th:value="${item.id}"  >
-											<span th:text="${item.tname}"></span>
+										<div style="margin-left:10px;">
+											<input type="radio" name="team" value="1" checked >
+											<span>个人</span>
 										</div>
 									</div>
-									<div class="form-group col-md-12" style="display: none;">
-										<label for="" class="col-md-3">导入团员信息:</label>
-										<a style="color: white;margin-right: 20px;" th:href="@{/customer/downloadTemple}" class="urls" uri="customer/downloadTemple" >下载导入模板</a>
-										<input type="file"  name="file" class="form-control" style="padding: 10px;">
-									</div>
-									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info urls" uri="customer/addCustomer" />
+									<input type="hidden" name="cid"  th:value="${Id}">
+									<input type="hidden" name='Mid'  th:value="${Mid}">
+									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info urls" uri="team/addteam" />
 								</form> 
 							</div>
 	
@@ -139,14 +136,7 @@
 					})
 					
 				})
-				//选中团队 即出现Excel导入 	
-				$("[name='team']").click(function() {
-					if($(this).val()=="1") {
-						$(this).parent().parent().next().hide();
-					} else {
-						$(this).parent().parent().next().show();
-					}
-				})
+				
 			</script>
 	</body>
 

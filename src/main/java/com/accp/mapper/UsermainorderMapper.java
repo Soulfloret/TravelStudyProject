@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UsermainorderMapper {
-	//yipeng 根据用户id 查询用户所有订单
-	List<Usermainorder> queryByorderCustomerId(Integer id);
 	
 	Usermainorder queryorderCustomer(@Param("id")Integer id,@Param("lb")String lb);
 	

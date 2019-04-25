@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,6 +108,9 @@
 			color: #99ff99;
 			margin-left: 10px;
 		}
+		a,a:hover{
+			color:white;
+		}
 	</style>
 	<body id="reportsPage">
 		<div class="" id="home">
@@ -133,18 +135,21 @@
 													<th scope="col">客户姓名</th>
 													<th scope="col">下单人</th>
 													<th scope="col">&nbsp;</th>	
+													<th scope="col">&nbsp;</th>	
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="item:${list}">
+												<tr th:each="item:${list}" th:if="${#strings.trim(item.name2)=='团队' && item.ordercustomer==tid}" >
 													<th scope="row"><b th:text="${item.orderno}"></b></th>
 													<td  th:text="${item.name1}">
-														<div class="tm-status-circle moving">
-														</div>
+														<div class="tm-status-circle moving"></div>
 													</td>
 													<td><b th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
 													<td><b th:text="${item.user.uname}"></b></td>
 													<td><b th:text="${item.staff.user.uname}"></b></td>
+													<td th:if="${item.name1=='未开始'}">
+														<a th:href="@{/team/toadd(id=${item.ordercustomer},Mid=${item.id})}" class="urls" uri="team/toadd" >新增团队成员</a>
+													</td>
 													<td>
 														<input type="hidden" th:value="${item.id}">
 														<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
@@ -166,33 +171,12 @@
 											</div>	
 										</div>
 										<div id="" class="modal-footer">
-											<a class="btn btn-dark">提交</a>
 											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						
-							<div class="row">
-								<div class="col-12">
-									<h2 class="tm-block-title d-inline-block">客户关怀</h2>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-12">
-									<form class="form-inline">
-										<div class="col-md-6 form-group">
-											<label for="inputPostcode" class="col-md-3 col-lg-4 control-label ">发送信息:</label>
-											<div class="col-md-9 col-lg-8">
-												<input type="text" class="form-control" />
-											</div>
-										</div>
-										<div class="col-md-6 form-group">
-											<input type="button" value="发送" class="btn btn-info" />
-										</div>
-									</form>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -262,7 +246,7 @@
 												price+=item2.ix.list[0].project.price;
 												var divtr=$("<tr>"
 														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
-														+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+														+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 														+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 														+"<td>"+fzr+"</td>"
@@ -283,7 +267,7 @@
 													price+=item3.project.price;
 													var divtr=$("<tr>"
 															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-															+"<td><b>"+item3.area.area.aname+"</b></td>"
+															+"<td><b>"+item3.area.aname+"</b></td>"
 															+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 															+"<td><b>"+item3.project.price+"</b></td>"
 															+"<td>"+fzr+"</td>"
@@ -310,12 +294,13 @@
 													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
 													+"<td><b>"+item2.ix.price+"</b></td>"
 													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.ix.name2+"</b></td>"
-													+"<td><b>"+item2.ix.name2*item2.ix.price+"</b></td>"
+													+"<td><b>"+item2.name2+"</b></td>"
+													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
 													+"</tr>");
 													$(divbody).append(tr);
 												$(divtable).append(divbody);
 												$(divs).append(divtable);
+												price+=item2.name2*item2.ix.price;
 												div3=divs;
 												
 										}
@@ -367,6 +352,7 @@
 							var div2;
 							var div3;
 							var div4;
+							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
 							$.each(item.orders,function(index1,item1){
 								$.each(item1.list,function(index2,item2){
 									if(item2.typeid==1||item2.typeid==5){
@@ -386,14 +372,14 @@
 													fzr=is.staff.user.uname;
 												}
 											})
-											price+=item2.ix.project.price;
+											price+=item2.ix.list[0].project.price;
 											var timestamp4= new Date(item2.ix.list[0].starttime);
 											timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
 											var timestamp5= new Date(item2.ix.list[0].endtime);
 											timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 											var divtr=$("<tr>"
-													+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.project.pname+"</b></th>"
-													+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+													+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
+													+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 													+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 													+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 													+"<td>"+fzr+"</td>"
@@ -414,7 +400,7 @@
 												price+=item3.project.price;
 												var divtr=$("<tr>"
 														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-														+"<td><b>"+item3.area.area.aname+"</b></td>"
+														+"<td><b>"+item3.area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 														+"<td><b>"+item3.project.price+"</b></td>"
 														+"<td>"+fzr+"</td>"
@@ -425,6 +411,7 @@
 										$(divhtable).append(divtbody);
 										$(divh2).append(divhtable);
 										div2=divh2;
+										$(divh1).append(div2);
 									}
 									if(item2.typeid==2){
 										var divs=$("<div class='content col-md-11'></div>")
@@ -441,15 +428,15 @@
 													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
 													+"<td><b>"+item2.ix.price+"</b></td>"
 													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.ix.name2+"</b></td>"
-													/* item2.ix.name2* */
-													+"<td><b>"+item2.ix.price+"</b></td>"
+													+"<td><b>"+item2.name2+"</b></td>"
+													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
 													+"</tr>");
 													$(divbody).append(tr);
-											price+=item2.ix.price;
 											$(divtable).append(divbody);
 											$(divs).append(divtable);
 											div3=divs;
+											$(divh1).append(div3);
+											price+=item2.name2*item2.ix.price;
 									}
 									if(item2.typeid==3){
 										var div=$("<div class='content col-md-11'></div>");
@@ -480,26 +467,23 @@
 										$(table).append(tbody);
 										$(div).append(table);
 										div4=div;
+										$(divh1).append(div4);
 									}
 								})
 						})
 						if(item.id==data.user.id){
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapse0'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
-							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapse0'></div>");
-							$(divh1).append(div2).append(div3).append(div4);
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
 							$(div).append(divh).append(divh1);
 						}else{
 							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
-							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
-							$(divh1).append(div2).append(div3).append(div4);
 							$(div).append(divh).append(divh1);
 						}
-							var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
-							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
-	    					$(div1).append(h41);
 							$(".box").append(div1);
 							$(".box").append(div);
 						})
+						var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
+						$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+    					$(div1).append(h41);
 					}
 					},"json");
 		})
