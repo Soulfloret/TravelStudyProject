@@ -161,7 +161,7 @@
 									</div>
 									<div class="form-group  col-md-6">
 										<label for="inputPostcode" class="col-md-4 col-lg-4 control-label ">爱好:</label>
-										<div class="col-md-8 col-lg-8">
+										<div class="col-md-8 col-lg-8">	
 											<p></p>
 										</div>
 									</div>
@@ -206,8 +206,8 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="item:${list}">
-													<th scope="row"><b th:text="${item.orderno}"></b></th>
+												<tr th:each="item:${list}" th:if="${#strings.trim(item.name2)=='个人' && item.ordercustomer==user.id}">
+													<th scope="row"><b th:text="${item.orderno}"></b></th>	
 													<td  th:text="${item.name1}">
 														<div class="tm-status-circle moving">
 														</div>
@@ -216,6 +216,36 @@
 													<td><b th:text="${item.user.uname}"></b></td>
 													<td><b th:text="${item.staff.user.uname}"></b></td>
 													<td>
+														<input type="hidden" th:value="${item.id}">
+														<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
+													</td>
+												</tr>
+												<tr th:each="item:${list}" th:if="${#strings.trim(item.name2)=='团队' && item.user.id==user.id}">
+													<th scope="row"><b th:text="${item.orderno}"></b></th>	
+													<td  th:text="${item.name1}">
+														<div class="tm-status-circle moving">
+														</div>
+													</td>
+													<td><b th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
+													<td><b th:text="${item.user.uname}"></b></td>
+													<td><b th:text="${item.staff.user.uname}"></b></td>
+													<td>
+														<input type="hidden" th:value="${item.id}">
+														<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
+													</td>
+												</tr>
+												<tr th:each="item,status:${list}">
+													<th scope="row" th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}" >
+														<b th:text="${item.orderno}">
+													</th>
+													<td  th:text="${item.name1}" th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}">
+														<div class="tm-status-circle moving">
+														</div>
+													</td>
+													<td th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}"><b th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
+													<td th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}"><b th:text="${item.user.uname}"></b></td>
+													<td th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}"><b th:text="${item.staff.user.uname}"></b></td>
+													<td th:each="ite:${item.list}" th:if="${#strings.trim(item.name2)=='团队' && ite.id==user.id && item.user.id!=user.id}">
 														<input type="hidden" th:value="${item.id}">
 														<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
 													</td>
@@ -236,7 +266,6 @@
 											</div>	
 										</div>
 										<div id="" class="modal-footer">
-											<a class="btn btn-dark">提交</a>
 											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 										</div>
 									</div>
@@ -289,6 +318,7 @@
 		$(".info").click(function(){
 			var id=$(this).prev().val();
 			$.post("/order/queryById?id="+id+"",function(data){
+					console.log(data);
 					$(".box").text("");
 					var div1=$("<div class='dingdanhead'></div>");
 					var h41=$("<h4></h4>");
@@ -329,10 +359,10 @@
 												timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
 												var timestamp5= new Date(item2.ix.list[0].endtime);
 												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-												price+=item2.ix.list[0].project.price;
+												price+=item2.ix.list[0].project.price;	
 												var divtr=$("<tr>"
 														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
-														+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+														+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 														+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 														+"<td>"+fzr+"</td>"
@@ -353,7 +383,7 @@
 													price+=item3.project.price;
 													var divtr=$("<tr>"
 															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-															+"<td><b>"+item3.area.area.aname+"</b></td>"
+															+"<td><b>"+item3.area.aname+"</b></td>"
 															+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 															+"<td><b>"+item3.project.price+"</b></td>"
 															+"<td>"+fzr+"</td>"
@@ -456,14 +486,14 @@
 													fzr=is.staff.user.uname;
 												}
 											})
-											price+=item2.ix.project.price;
+											price+=item2.ix.list[0].project.price;
 											var timestamp4= new Date(item2.ix.list[0].starttime);
 											timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
 											var timestamp5= new Date(item2.ix.list[0].endtime);
 											timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 											var divtr=$("<tr>"
-													+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.project.pname+"</b></th>"
-													+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
+													+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
+													+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 													+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 													+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
 													+"<td>"+fzr+"</td>"
@@ -484,7 +514,7 @@
 												price+=item3.project.price;
 												var divtr=$("<tr>"
 														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-														+"<td><b>"+item3.area.area.aname+"</b></td>"
+														+"<td><b>"+item3.area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 														+"<td><b>"+item3.project.price+"</b></td>"
 														+"<td>"+fzr+"</td>"
