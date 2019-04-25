@@ -343,9 +343,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									}
 									if(mx.getTypeid()==3) {
 										roomdestine ro=new roomdestine();
-										ro=mapper19.selectByPrimaryKey(orderson.getIid());
+										ro=mapper19.selectByPrimaryKey(mx.getIid());
 										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 										mx.setIx(ro);
 									}
 									if(mx.getTypeid()==4) {
@@ -354,6 +355,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										mx.setIx(mapper10.querybind(b).get(0));
 									}
 								}
+								orderson.setIx(m);
 							}
 						}
 				}
@@ -440,6 +442,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 											b.setId(mx.getIid());
 											mx.setIx(mapper10.querybind(b).get(0));
 										}
+										orderson.setIx(m);
 									}
 								}
 							}
