@@ -2,13 +2,14 @@ package com.accp.yipeng.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.accp.domain.staff;
 import com.accp.domain.team;
 import com.accp.domain.teamExample;
+import com.accp.domain.users;
 
 public interface TeamService {
-
+	public int insertTeamUsers(Integer cid,Integer Mid,users user,String team,staff staf);
+	
     int deleteByPrimaryKey(Integer id);
 
     int insert(team record);

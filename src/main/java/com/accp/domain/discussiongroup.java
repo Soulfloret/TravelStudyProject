@@ -11,13 +11,54 @@ public class discussiongroup {
 
     private String groupdescribe;
 
-    private Integer groupmainid;
+    public discussiongroup() {
+	}
+
+    private message mess;
+    
+    private List<message> messList;
+    
+	public List<message> getMessList() {
+		return messList;
+	}
+
+	public List<discussiongroupson> getDlist() {
+		return dlist;
+	}
+
+	public void setDlist(List<discussiongroupson> dlist) {
+		this.dlist = dlist;
+	}
+
+	private List<discussiongroupson> dlist;
+	
+	public void setMessList(List<message> messList) {
+		this.messList = messList;
+	}
+
+	public message getMess() {
+		return mess;
+	}
+
+	public void setMess(message mess) {
+		this.mess = mess;
+	}
+
+	private Integer groupmainid;
 
     private String name1;
 
     private String name2;
 
-    private String name3;
+    public discussiongroup(String groupname, Integer groupsize, String groupdescribe, Integer groupmainid) {
+		super();
+		this.groupname = groupname;
+		this.groupsize = groupsize;
+		this.groupdescribe = groupdescribe;
+		this.groupmainid = groupmainid;
+	}
+
+	private String name3;
 
     private String name4;
 
@@ -27,8 +68,17 @@ public class discussiongroup {
     private List<images> img;
     //讨论组现人数
     private Integer Count;
+    //用来保存请求 判断是当前登录用户对讨论组是否已发送请求
+    private sendrequest sendreq;
     
-   
+	public sendrequest getSendreq() {
+		return sendreq;
+	}
+
+	public void setSendreq(sendrequest sendreq) {
+		this.sendreq = sendreq;
+	}
+
 	public Integer getCount() {
 		return Count;
 	}

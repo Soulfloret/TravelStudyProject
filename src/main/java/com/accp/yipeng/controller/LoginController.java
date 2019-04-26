@@ -40,10 +40,10 @@ public class LoginController {
 		users use=sunService.queryByName(uname, upassword);
 		if(use!=null){
 			session.setAttribute("use", use);
+			return "redirect:/customer/topagehome";
 		}else {
 			return "redirect/Login/tologin";
 		}
-		return "redirect:/customer/topagehome";
 	}
 	@RequestMapping("toregister")
 	public String toregister(Model model) {

@@ -13,6 +13,25 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="queryLastMessageBydid" resultType="com.accp.domain.message">
+  	SELECT * FROM message WHERE sendTime=(
+		SELECT MAX(sendTime) FROM message WHERE  did=#{did}
+	)
+  </select>
+  
+  <select id="queryMessageBydid" resultMap="BaseResultMap">
+  	SELECT * FROM message WHERE   did=#{did} ORDER BY sendTime
+  </select>
+  
+  <select id="selectCountBydid" resultType="Integer">
+  	SELECT COUNT(*) FROM message WHERE did=#{did} 
+  </select>
+  
+  <delete id="delBydid">
+  	delete  FROM message WHERE did=#{did} 
+  </delete>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

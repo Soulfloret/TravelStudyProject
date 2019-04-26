@@ -12,10 +12,38 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  <delete id="delByarray">
+  	DELETE FROM discussiongroupson WHERE did=#{did} AND userId IN 
+  	<foreach collection="ids" item="p" open="(" close=")" separator="," >
+  		#{p}
+  	</foreach>
+  </delete>
+  
+  <delete id="delByuidAndDid">
+  	DELETE FROM discussiongroupson WHERE did=#{did} 
+  	<if test="uid!=null">
+  		AND userId = #{uid}
+  	</if>
+  	 
+  </delete>
+  
+	<!--  批增讨论组成员--> 
+  <insert id="insertByarray">
+  	insert into discussiongroupson(did,userId) values 
+  	<foreach collection="ids" item="p" separator=",">
+  		(#{did},#{p})
+  	</foreach>
+  </insert>
+  
   <!--  根据讨论组id 查询数量 -->
   <select id="selectCountBydid" resultType="Integer">
   	SELECT COUNT(*) FROM discussiongroupson	WHERE did=#{did}
   </select>
+  	<!-- 根据讨论组id 查询讨论组成员 -->
+    <select id="selectAllusersBydid" resultMap="BaseResultMap">
+  		SELECT * FROM discussiongroupson	WHERE did=#{did}
+  	</select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >

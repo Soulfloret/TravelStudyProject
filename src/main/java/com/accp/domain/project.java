@@ -2,6 +2,7 @@ package com.accp.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class project {
     private Integer id;
@@ -49,7 +50,9 @@ public class project {
     private String name4;
 
     private String name5;
-
+    
+    private Map<String,List<workTime>>worktimes;
+   
     private List<images> ilist;
     
     private images img;
@@ -58,7 +61,17 @@ public class project {
     
     private List<projectpl> pllistshh;
     
-    public List<projectpl> getPllistshh() {
+ 
+
+	public Map<String, List<workTime>> getWorktimes() {
+		return worktimes;
+	}
+
+	public void setWorktimes(Map<String, List<workTime>> worktimes) {
+		this.worktimes = worktimes;
+	}
+
+	public List<projectpl> getPllistshh() {
 		return pllistshh;
 	}
 

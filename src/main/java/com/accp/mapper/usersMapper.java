@@ -9,7 +9,7 @@ import com.accp.domain.users;
 import com.accp.domain.usersExample;
 
 public interface usersMapper {
-	public List<users> selectByUname(String uname);
+	public List<users> selectByUname(@Param("name") String uname,@Param("id")Integer id);
 	
 	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);
 	
@@ -44,4 +44,6 @@ public interface usersMapper {
     users queryByName(@Param("uname")String uname,@Param("upassword")String upassword);
     
     users project_queryByName(String name);
+    
+    users queryProjectOrderByUserId(Integer id);
 }

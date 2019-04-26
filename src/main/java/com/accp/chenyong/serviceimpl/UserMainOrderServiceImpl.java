@@ -292,6 +292,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										}
 									}
 								}
+								if(orderson.getTypeid()==5) {
+									p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
+								}
 								orderson.setIx(p);
 							}
 							if(orderson.getTypeid()==2) {
@@ -340,9 +343,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									}
 									if(mx.getTypeid()==3) {
 										roomdestine ro=new roomdestine();
-										ro=mapper19.selectByPrimaryKey(orderson.getIid());
+										ro=mapper19.selectByPrimaryKey(mx.getIid());
 										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 										mx.setIx(ro);
 									}
 									if(mx.getTypeid()==4) {
@@ -351,6 +355,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										mx.setIx(mapper10.querybind(b).get(0));
 									}
 								}
+								orderson.setIx(m);
 							}
 						}
 				}
@@ -377,6 +382,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 												wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
 											}
 										}
+									}
+									if(orderson.getTypeid()==5) {
+										p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
 									}
 									orderson.setIx(p);
 								}
@@ -434,6 +442,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 											b.setId(mx.getIid());
 											mx.setIx(mapper10.querybind(b).get(0));
 										}
+										orderson.setIx(m);
 									}
 								}
 							}

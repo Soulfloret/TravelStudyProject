@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface discountMapper {
+	
+	
+	
     int countByExample(discountExample example);
 
     int deleteByExample(discountExample example);

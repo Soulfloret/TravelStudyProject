@@ -8,7 +8,7 @@ import com.accp.domain.teammember;
 import com.accp.domain.teammemberExample;
 
 public interface TeammemberService {
-	public int insertBylist(@Param("teamId") Integer teamId,@Param("list") List<Integer> list);
+	public int insertBylist( Integer teamId,List<Integer> list);
 	
 	int deleteByPrimaryKey(Integer id);
 

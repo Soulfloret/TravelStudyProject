@@ -39,4 +39,6 @@ public interface productMapper {
     product queryByXqById(Integer id);
     
     product AppProductByid(@Param("id")Integer id);
+    /*查询活动推荐*/
+    List<product> recommendByidProudct(Integer id);
 }

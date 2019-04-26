@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class productstaff {
     private Integer id;
 
@@ -17,7 +19,19 @@ public class productstaff {
 
     private String name5;
 
-    public Integer getId() {
+    private List<staff> stalist; 
+    
+    
+    
+    public List<staff> getStalist() {
+		return stalist;
+	}
+
+	public void setStalist(List<staff> stalist) {
+		this.stalist = stalist;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -30,6 +30,7 @@ public class ModuleController {
 		List<module> list=service.queryModuleByUid(u.getUserid(),0);
 		return list;
 	}
+	@ResponseBody
 	@RequestMapping("hide")
 	public List<String> hide(String []urls,HttpServletRequest req) {
 		staff u=(staff)req.getSession().getAttribute("staff");
