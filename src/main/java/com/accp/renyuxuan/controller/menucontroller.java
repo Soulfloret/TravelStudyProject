@@ -160,7 +160,7 @@ public class menucontroller {
 	@RequestMapping("/updatemenu")
 	public String updatemenu(menu menus) {
 		m.updateByPrimaryKeySelective(menus);
-		im.deleteByiid(menus.getId());
+		im.delByiidAndTypeId(menus.getId(), 2);
 		im.insertmenuimglist(menus);
 		return "redirect:/menu/toquerymenu";
 	}

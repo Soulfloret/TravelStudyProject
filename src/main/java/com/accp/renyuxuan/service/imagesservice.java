@@ -17,6 +17,8 @@ public interface imagesservice {
 	
 	int deleteByiid(Integer id);
 	
+	int delByiidAndTypeId(Integer iid,Integer typeid);
+	
 	int insertroomimglist(room r);
 	
 	List<images> queryimg(Integer iid,Integer typeid);

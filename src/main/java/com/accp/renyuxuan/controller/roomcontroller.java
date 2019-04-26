@@ -97,7 +97,7 @@ public class roomcontroller {
 	@RequestMapping("/updateroom")
 	public String updateroom(room ro) {
 		r.updateByPrimaryKeySelective(ro);
-		im.deleteByiid(ro.getId());
+		im.delByiidAndTypeId(ro.getId(), 3);
 		im.insertroomimglist(ro);
 		return "redirect:/room/toqueryroom";
 	}

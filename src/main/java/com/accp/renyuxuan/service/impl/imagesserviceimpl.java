@@ -55,4 +55,11 @@ public class imagesserviceimpl implements imagesservice{
 		return i.insertbingimglist(b);
 	}
 
+
+	@Override
+	public int delByiidAndTypeId(Integer iid, Integer typeid) {
+		// TODO Auto-generated method stub
+		return i.delByiidAndTypeId(iid, typeid);
+	}
+
 }

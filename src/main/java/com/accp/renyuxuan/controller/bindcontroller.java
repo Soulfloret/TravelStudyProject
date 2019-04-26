@@ -111,7 +111,7 @@ public class bindcontroller {
 		binds.setLikecount(0);//修改之后点赞清0
 		b.updateByPrimaryKeySelective(binds);
 		b.insertmenubind(binds);
-		im.deleteByiid(binds.getId());
+		im.delByiidAndTypeId(binds.getId(), 42);
 		im.insertbingimglist(binds);
 		return "redirect:/bing/toQuerybind";
 	}
