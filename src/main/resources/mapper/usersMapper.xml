@@ -43,6 +43,11 @@
 	    </collection>
   	</collection>
   </resultMap>
+ 
+ <update id="accountsUpdate">
+ 	update users set name2=#{name2} where id=#{id}
+ </update> 
+  
  <!-- 订单查询接口 -->
   <select id="queryByMainOrderId" resultMap="ResultMapChen">
 	 SELECT u.*,uo.`id` AS uoid,uo.`name1` AS uoname1,uo.`name2` AS uoname2,

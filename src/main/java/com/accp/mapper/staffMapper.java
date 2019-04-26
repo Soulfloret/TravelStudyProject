@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface staffMapper {
 	
+	staff accountsQuery(Integer id);
+	
 	staff loginByuserid(Integer userid);
 	
 	int staffupdate(staff sta);
