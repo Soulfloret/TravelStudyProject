@@ -57,7 +57,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	 * 
 	 * @return
 	 */
-/*		  @Bean public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+		/*  @Bean public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
 		  //鍒涘缓FastJson淇℃伅杞崲瀵硅薄 
 			  FastJsonHttpMessageConverter fastJsonHttpMessageConverter= new FastJsonHttpMessageConverter();
 		  
@@ -103,7 +103,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	@Override
 	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());
-//		converters.add(fastJsonHttpMessageConverter());
+		//converters.add(fastJsonHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
 		converters.add(new ByteArrayHttpMessageConverter());
 		super.configureMessageConverters(converters);

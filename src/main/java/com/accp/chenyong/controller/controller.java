@@ -18,9 +18,9 @@ public class controller {
 	ProductAreaService service;
 	@RequestMapping("query")
 	@ResponseBody
-	public String query() {
+	public String query(Integer areaid) {
 		productarea p=new productarea();
-		p.setAreaid(1);;
+		p.setAreaid(areaid);
 		return JSON.toJSONString(service.queryByArearId(p, new Date(), new Date()));
 	}
 }

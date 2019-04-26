@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.orderproductwork;
 import com.accp.domain.orderproductworkExample;
+import com.accp.domain.orderwork;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,6 @@ public interface orderproductworkMapper {
     int updateByPrimaryKeySelective(orderproductwork record);
 
     int updateByPrimaryKey(orderproductwork record);
+    
+    int project_Order_Insert(orderwork ok);
 }

@@ -43,28 +43,31 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 		 for(int j=0;j<=daysBetween;j++) {
 			 Calendar cal = Calendar.getInstance();   
 		     cal.setTime(d1);  
-		     cal.add(Calendar.HOUR, j);
-		     cal.set(Calendar.HOUR, 8);
-		     cal.add(Calendar.MINUTE, 30);
-		     d1 = cal.getTime();
-		     Calendar cal2 = Calendar.getInstance();   
-		     cal2.setTime(d1);  
-		     cal2.add(Calendar.HOUR, j);
-		     cal2.set(Calendar.HOUR, 8);
-		     cal2.add(Calendar.MINUTE, 30);
-		     d2=cal2.getTime();
+		     cal.add(Calendar.DAY_OF_MONTH, j);
+		     cal.set(Calendar.HOUR, 7);
+		     cal.set(Calendar.MINUTE, 30);
+			 Calendar cal2 = Calendar.getInstance();   
+			 cal2.setTime(d1);  
+			 cal2.add(Calendar.DAY_OF_MONTH, j);
+			 cal2.set(Calendar.HOUR, 11);
+			 cal2.set(Calendar.MINUTE, 30);
 		     List<workTime> list=new ArrayList<workTime>();
-			 for(int i=1;i<=(480/Long.parseLong(p1.getP().getNeedtime()));i++) { 
+			 for(int i=1;i<=(600/Long.parseLong(p1.getP().getNeedtime()));i++) { 
 				 workTime worktime=new workTime();
-				 worktime.setStartTime(d1);
-				 cal.add(Calendar.MINUTE,i*(Integer.parseInt(p1.getP().getNeedtime())));
+				 worktime.setStartTime(cal.getTime());
+				 cal.add(Calendar.MINUTE,Integer.parseInt(p1.getP().getNeedtime()));
 				 worktime.setEndTime(cal.getTime());
 				 worktime.setCount(p1.getP().getGalleryful());
-				 list.add(worktime);
+				 long time1=cal2.getTimeInMillis()-cal.getTimeInMillis();
+				 long minu=time1/(3600*1000);
+				 if(minu>0||minu<-2) {
+					 list.add(worktime);
+				 }
 			 }
 			 if(p1.getP().getWorktimes()==null) {
 				 p1.getP().setWorktimes(new HashMap<String,List<workTime>>());
 			 }
+		     d1 = cal.getTime();
 			 p1.getP().getWorktimes().put(d1.toString()+d2.toString(),list);			
 		 }
 		 return p1.getP();

@@ -91,7 +91,7 @@ public class projectController {
 	@RequestMapping("toproject_xq")
 	public String toproject_xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		System.out.println(JSON.toJSONString(list));
+		
 		model.addAttribute("list",list);
 		return "edit-project";
 	}
@@ -138,7 +138,7 @@ public class projectController {
 	@ResponseBody
 	public List<productarea> queryJd(Integer pid){
 		List<productarea> list=pas.queryByPid(pid);
-		System.out.println(JSON.toJSONString(list));
+		
 		return list;
 	}
 	
@@ -158,7 +158,7 @@ public class projectController {
 	@RequestMapping("queryBy_Qt_Xq")
 	public String queryBy_Qt_Xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		System.out.println(JSON.toJSONString(list));
+		
 		/*for(int i=0;i<list.getIlist().size();i++) {
 			project plist=new project();
 			if(list.getIlist().get(i)!=null) {
