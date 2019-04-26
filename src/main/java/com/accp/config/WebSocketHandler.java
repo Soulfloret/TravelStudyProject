@@ -2,6 +2,7 @@ package com.accp.config;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +15,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	 * 存储所有握手成功的用户
 	 */
 	static Map<String,WebSocketSession> MAP=new HashMap<String,WebSocketSession>();
+	
+	/**
+	 * 存储所有握手成功的用户
+	 */
+	static Map<String,List<WebSocketSession>> MAP1=new HashMap<String,List<WebSocketSession>>();
 	//建立连接后
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String uid=session.getAttributes().get("uid")+"";
 		MAP.put(uid, session);
 		session.sendMessage(new TextMessage("建立连接成功，可以进行通信"));
 	}
-	public void sendMsg(String message,String[] ids) {
+	public void sendMsg(String message,String [] ids) {
 		for (String string : ids) {
 			WebSocketSession ws=MAP.get(string);
 			try {
@@ -31,4 +37,5 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			}
 		}
 	}
+
 }

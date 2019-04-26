@@ -7,6 +7,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import com.accp.sunhuihui.controller.WebScoketInteceptor;
 
 
+
 @Configuration
 public class WebSocketConfig implements WebSocketConfigurer{
 
