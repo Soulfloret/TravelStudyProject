@@ -38,10 +38,20 @@ public class room {
     
     private String url;
     
+    private List<images> mlist;
     
     
     
-    public List<roomdestine> getDlist() {
+    
+    public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public List<roomdestine> getDlist() {
 		return dlist;
 	}
 

@@ -49,6 +49,7 @@ public class menu {
     private recommend recommend;
         
     
+    
     public List<menucomment> getMenucommend() {
 		return menucommend;
 	}

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Usermainorder;
+import com.accp.domain.images;
+import com.accp.domain.menu;
 import com.accp.domain.orderson;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
@@ -22,6 +24,7 @@ import com.accp.domain.roomorderson;
 import com.accp.domain.team;
 import com.accp.domain.userorder;
 import com.accp.renyuxuan.service.impl.Usermainorderserviceimpl;
+import com.accp.renyuxuan.service.impl.imagesserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomdestineserviceimpl;
 import com.accp.renyuxuan.service.impl.roomorderserviceimpl;
@@ -54,6 +57,8 @@ public class roomcontroller {
 	Usermainorderserviceimpl umo;
 	@Autowired
 	teamserviceimpl te;
+	@Autowired
+	imagesserviceimpl im;
 	
 	
 	
@@ -72,9 +77,11 @@ public class roomcontroller {
 		return "HotelAdd";
 	}
 	
+	//住宿添加
 	@RequestMapping("/addroom")
 	public String addroom(room ro) {
 		r.insertSelective(ro);
+		im.insertroomimglist(ro);
 		return "redirect:/room/toqueryroom";
 	}
 	
@@ -82,6 +89,7 @@ public class roomcontroller {
 	@RequestMapping("/toupdateroom")
 	public String toupdateroom(Model model,room ro) {
 		model.addAttribute("list", r.queryByroom(ro));
+		model.addAttribute("mlist",im.queryimg(ro.getId(), 3));
 		return "HotelUpdate";
 	}
 	
@@ -89,6 +97,8 @@ public class roomcontroller {
 	@RequestMapping("/updateroom")
 	public String updateroom(room ro) {
 		r.updateByPrimaryKeySelective(ro);
+		im.deleteByiid(ro.getId());
+		im.insertroomimglist(ro);
 		return "redirect:/room/toqueryroom";
 	}
 	
@@ -177,7 +187,25 @@ public class roomcontroller {
 		}
 	}
 	
-	
+		//菜单上架下架
+		@RequestMapping("/sjxj")
+		@ResponseBody
+		public String sjxj(String type,Integer id) {
+			if("可租".equals(type)) {
+				room rooms=new room();
+				rooms.setId(id);
+				rooms.setState("2");
+				r.updateByPrimaryKeySelective(rooms);
+				return "修改成功！";
+			}else if("维修中".equals(type)) {
+				room rooms=new room();
+				rooms.setId(id);
+				rooms.setState("1");
+				r.updateByPrimaryKeySelective(rooms);
+				return "修改成功！";
+			}
+			return "";
+		}
 	
 	
 }

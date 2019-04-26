@@ -66,6 +66,15 @@
 				margin: -5px 8px 10px 10px;
 				color: #999;
 			}
+			
+			img {
+			    max-width: 100%;
+			    width: 273px;
+			    height: 168px;
+			    vertical-align: middle;
+			    border: 0;
+			    -ms-interpolation-mode: bicubic;
+			}
 		</style>
 	</head>
 
@@ -281,7 +290,7 @@
 					<span th:text="${item.tname}"></span>
 					<div class="order-top" th:each="items : ${item.list}">
 						<li class="im-g">
-							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" th:src="${items.image.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" th:src="${items.image.url}" width="273" height="169"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${items.price}"></h3>

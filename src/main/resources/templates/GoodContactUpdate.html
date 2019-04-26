@@ -138,21 +138,19 @@
                   
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                <div class="tm-product-img-dummy mx-auto">
-                  <i
-                    class="fas fa-cloud-upload-alt tm-upload-icon"
-                    onclick="document.getElementById('fileInput').click();"
-                  ></i>
+                <div id="imgadd">
+                	<img th:each="iitem : ${mlist}" th:src="${iitem.url}"  width="100" height="80">
                 </div>
                 <div class="custom-file mt-3 mb-3">
                   <input id="fileInput" type="file" multiple="multiple" style="display:none;" />
                   <input
+                  	id="sc"
                     type="button"
                     class="btn btn-primary btn-block mx-auto"
                     value="上传图片"
                     onclick="document.getElementById('fileInput').click();"
                   />
-                </div>
+                </div> 
                 
                   
                   
@@ -234,6 +232,41 @@
     		 })
     		
     		
+    		 $("#sc").click(function(){
+     			$("[type=file]").change(function(){
+     				var formData = new FormData(); 
+    				var fileArr;
+    				$("[type=file]").each(function(i,obj){
+    					fileArr = this.files;
+    				})
+    				if(fileArr.length>3){
+    					alert("不好意思,最多选择三张图片");
+    					return false;
+    				}
+    				for(var i = 0;i < fileArr.length;i++){
+						formData.append("file",fileArr[i]);
+					}
+    				$.ajax({
+						url:"/menu/fileadd",
+						type:"post",
+						data:formData,
+						processData:false,
+						contentType:false,
+						dataType:"json",
+						success:function(result){
+							$("#imgadd").html("");
+							$.each(result,function(i,obj){
+								var img=$("<img src='/"+obj.url+"' width='100' height='80'>")
+								var input=$("<input type='hidden' name='mlist["+i+"].url' value='/"+obj.url+"'>")
+								var input1=$("<input type='hidden' name='mlist["+i+"].typeid' value='4'>")
+								$("#imgadd").append(input);
+								$("#imgadd").append(input1);
+								$("#imgadd").append(img);
+							})
+						}
+					});
+     			})
+     		})
     		
     		
         	function query(id){
@@ -247,7 +280,7 @@
             			$.each(result,function(i,obj){
             				var tr=$("<tr>");
             				var td1=$("<td scope='row'><input type='checkbox'  value="+obj.id+"></td>");
-            				var td2=$("<td><img src="+obj.images.url+" width='65px' height='65px'/></td>")
+            				var td2=$("<td><img src="+obj.image.url+" width='65px' height='65px'/></td>")
             				var td3=$("<td class='tm-product-name'>"+obj.mname+"</td>")
             				var td4=$("<td class='tm-product-name'>"+obj.price+"</td>")
             				tr.append(td1);

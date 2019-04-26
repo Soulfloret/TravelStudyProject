@@ -6,6 +6,7 @@ import com.accp.domain.bind;
 
 public interface bindservice {
 	
+	
 	List<bind> selectbindByid(Integer id);
 	
 	List<bind> querybind(bind bi);

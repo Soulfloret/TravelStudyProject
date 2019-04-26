@@ -52,8 +52,9 @@
 										<td><span th:if="${item.typeid==1}" th:text="单人间"></span><span th:if="${item.typeid==2}" th:text="双人间"></span><span th:if="${item.typeid==3}" th:text="总统套房"></span></td>
 										<td th:text="${item.price}"></td>
 										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="可租" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="维修中" style="color: red;"></a></td>
+										<td style="display: none;" th:text="${item.id}"></td>
 										<td>
-											<a href="#" class="tm-product-delete-link">
+											<a href="javascript:void(0)" class="tm-product-delete-link">
 												<i class="far fa-trash-alt tm-product-delete-icon"></i>
 											</a>
 										</td>
@@ -74,7 +75,49 @@
 		<script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- https://getbootstrap.com/ -->
 		<script>
-		
+			$(function(){
+				$(".sj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					alert(type);
+					alert(id);
+					var res = confirm("确定要下架该房间吗？");
+					if(res==true){
+						$.ajax({
+							url:"/room/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+				
+				$(".xj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					var res = confirm("确定要上架该房间吗？");
+					if(res==true){
+						$.ajax({
+							url:"/room/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+			})
 		</script>
 	</body>
 
