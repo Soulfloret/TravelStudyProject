@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.mapper.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Notice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="nwid" property="nwid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="file1" property="file1" jdbcType="VARCHAR" />
+    <result column="file2" property="file2" jdbcType="VARCHAR" />
+    <result column="file3" property="file3" jdbcType="VARCHAR" />
+    <result column="file4" property="file4" jdbcType="VARCHAR" />
+    <result column="name1" property="name1" jdbcType="VARCHAR" />
+    <result column="name2" property="name2" jdbcType="VARCHAR" />
+    <result column="name3" property="name3" jdbcType="VARCHAR" />
+    <result column="name4" property="name4" jdbcType="VARCHAR" />
+    <result column="name5" property="name5" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fid, time, content, sid, nwid, pid, gid, file1, file2, file3, file4, name1, name2, 
+    name3, name4, name5, reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.NoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.accp.domain.NoticeExample" >
+    delete from notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Notice" >
+    insert into notice (id, fid, time, content, 
+      sid, nwid, pid, gid, 
+      file1, file2, file3, 
+      file4, name1, name2, 
+      name3, name4, name5, 
+      reason)
+    values (#{id,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, #{time,jdbcType=DATE}, #{content,jdbcType=VARCHAR}, 
+      #{sid,jdbcType=INTEGER}, #{nwid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, 
+      #{file1,jdbcType=VARCHAR}, #{file2,jdbcType=VARCHAR}, #{file3,jdbcType=VARCHAR}, 
+      #{file4,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, 
+      #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Notice" >
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="nwid != null" >
+        nwid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="file1 != null" >
+        file1,
+      </if>
+      <if test="file2 != null" >
+        file2,
+      </if>
+      <if test="file3 != null" >
+        file3,
+      </if>
+      <if test="file4 != null" >
+        file4,
+      </if>
+      <if test="name1 != null" >
+        name1,
+      </if>
+      <if test="name2 != null" >
+        name2,
+      </if>
+      <if test="name3 != null" >
+        name3,
+      </if>
+      <if test="name4 != null" >
+        name4,
+      </if>
+      <if test="name5 != null" >
+        name5,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="nwid != null" >
+        #{nwid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="file1 != null" >
+        #{file1,jdbcType=VARCHAR},
+      </if>
+      <if test="file2 != null" >
+        #{file2,jdbcType=VARCHAR},
+      </if>
+      <if test="file3 != null" >
+        #{file3,jdbcType=VARCHAR},
+      </if>
+      <if test="file4 != null" >
+        #{file4,jdbcType=VARCHAR},
+      </if>
+      <if test="name1 != null" >
+        #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        #{name5,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.NoticeExample" resultType="java.lang.Integer" >
+    select count(*) from notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update notice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=DATE},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nwid != null" >
+        nwid = #{record.nwid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.file1 != null" >
+        file1 = #{record.file1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file2 != null" >
+        file2 = #{record.file2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file3 != null" >
+        file3 = #{record.file3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.file4 != null" >
+        file4 = #{record.file4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name1 != null" >
+        name1 = #{record.name1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name2 != null" >
+        name2 = #{record.name2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name3 != null" >
+        name3 = #{record.name3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name4 != null" >
+        name4 = #{record.name4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name5 != null" >
+        name5 = #{record.name5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update notice
+    set id = #{record.id,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=DATE},
+      content = #{record.content,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER},
+      nwid = #{record.nwid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      file1 = #{record.file1,jdbcType=VARCHAR},
+      file2 = #{record.file2,jdbcType=VARCHAR},
+      file3 = #{record.file3,jdbcType=VARCHAR},
+      file4 = #{record.file4,jdbcType=VARCHAR},
+      name1 = #{record.name1,jdbcType=VARCHAR},
+      name2 = #{record.name2,jdbcType=VARCHAR},
+      name3 = #{record.name3,jdbcType=VARCHAR},
+      name4 = #{record.name4,jdbcType=VARCHAR},
+      name5 = #{record.name5,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.Notice" >
+    update notice
+    <set >
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="nwid != null" >
+        nwid = #{nwid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="file1 != null" >
+        file1 = #{file1,jdbcType=VARCHAR},
+      </if>
+      <if test="file2 != null" >
+        file2 = #{file2,jdbcType=VARCHAR},
+      </if>
+      <if test="file3 != null" >
+        file3 = #{file3,jdbcType=VARCHAR},
+      </if>
+      <if test="file4 != null" >
+        file4 = #{file4,jdbcType=VARCHAR},
+      </if>
+      <if test="name1 != null" >
+        name1 = #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="name2 != null" >
+        name2 = #{name2,jdbcType=VARCHAR},
+      </if>
+      <if test="name3 != null" >
+        name3 = #{name3,jdbcType=VARCHAR},
+      </if>
+      <if test="name4 != null" >
+        name4 = #{name4,jdbcType=VARCHAR},
+      </if>
+      <if test="name5 != null" >
+        name5 = #{name5,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.accp.domain.Notice" >
+    update notice
+    set fid = #{fid,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      content = #{content,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER},
+      nwid = #{nwid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER},
+      file1 = #{file1,jdbcType=VARCHAR},
+      file2 = #{file2,jdbcType=VARCHAR},
+      file3 = #{file3,jdbcType=VARCHAR},
+      file4 = #{file4,jdbcType=VARCHAR},
+      name1 = #{name1,jdbcType=VARCHAR},
+      name2 = #{name2,jdbcType=VARCHAR},
+      name3 = #{name3,jdbcType=VARCHAR},
+      name4 = #{name4,jdbcType=VARCHAR},
+      name5 = #{name5,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
