@@ -20,8 +20,22 @@ public class ordershop {
     private String name4;
 
     private String name5;
+    
+    
 
-    public Integer getId() {
+    public ordershop(Integer menuid, Integer orderid, Integer num, Double price) {
+		super();
+		this.menuid = menuid;
+		this.orderid = orderid;
+		this.num = num;
+		this.price = price;
+	}
+
+	public ordershop() {
+		super();
+	}
+
+	public Integer getId() {
         return id;
     }
 

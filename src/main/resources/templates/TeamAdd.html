@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>团队成员新增</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}" >
+
+	</head>
+	<style>
+		#shuxing .form-group {
+			padding-bottom: 10px;
+		}
+		
+		.form-group p select {}
+		
+		.form-group p {
+			color: white;
+			margin-right: 10px;
+		}
+		
+		.form-group select {
+			padding: 5px 5px 5px 5px;
+		}
+		
+		.form-group [type='radio']+span {
+			color: white;
+		}
+	</style>
+
+	<body id="reportsPage">
+			<div class="" id="home">
+				<div class="row">
+					<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+							<div class="row">
+								<div class="col-12">
+									<h2 class="tm-block-title d-inline-block">添加团队成员</h2>
+								</div>
+							</div>
+	
+							<div class="row" id="shuxing">
+								<form class="form-inline col-md-12" method="post" enctype="multipart/form-data" th:action="@{/team/addteam}">
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">电话:</label>
+										<input type="text" class="form-control col-md-7" name="phone">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">性别:</label>
+										<input type="radio" checked name="name1" value="男"><span>男</span>
+										<input type="radio" name="name1" style="margin-left: 10px;" value="女"><span>女</span>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">身高(cm):</label>
+										<input type="text" name="height" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">体重:</label>
+										<input type="text" name="width" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6" >
+										<label for="" class="col-md-5">身份证号:</label>
+										<input type="text" required  name="idcardno" id="idCardNo" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="" class="col-md-5">居住地址:</label>
+										<input type="text" name="address" class="form-control col-md-7">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="" class="col-md-3">选择报名方式:</label>
+										<div style="margin-left:10px;">
+											<input type="radio" name="team" value="1" checked >
+											<span>个人</span>
+										</div>
+									</div>
+									<input type="hidden" name="cid"  th:value="${Id}">
+									<input type="hidden" name='Mid'  th:value="${Mid}">
+									<input type="submit" value="新增客户" style="margin-left: 120px;" class="btn btn-info urls" uri="team/addteam" />
+								</form> 
+							</div>
+	
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+			<!-- https://jquery.com/download/ -->
+			<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+			<!-- https://jqueryui.com/download/ -->
+			<script th:src="@{/js/bootstrap.min.js}"></script>
+			<!-- https://getbootstrap.com/ -->
+			<script>
+				$("#idCardNo").blur(function(){
+					var IdCardNo=$(this).val();
+					var reg=/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i ;
+      				if(!reg.test(IdCardNo)){
+						alert("你输入的身份证格式有误");
+						$("[type='submit']").attr("disabled",true);
+						return;
+      				}
+					var now=new Date();
+					var nowyear=now.getFullYear();
+					var nowmonth=now.getMonth()+1;
+					var nowday=now.getDate();
+					if(nowmonth<10){
+						nowmonth="0"+nowmonth;
+					}
+					if(nowday<10){
+						nowday+="0";
+					}
+					var s="";
+					s=s+nowyear+nowmonth+nowday;
+					var nows=parseInt(s);
+					var bri=parseInt(IdCardNo.substring(6,14));
+					if(nows<bri){
+						alert("你输入的时间超过当前时间");
+						$("[type='submit']").attr("disabled",true);
+					}else{
+						$("[type='submit']").attr("disabled",false);
+					}
+					$.ajax({
+						url:"/customer/queryByIdCard",
+						data:{"IdCardNo":IdCardNo},
+						type:"post",
+						success:function(data){
+							if(data!=""){
+								alert("你已注册过了");
+							}
+						}
+					})
+					
+				})
+				
+			</script>
+	</body>
+
+</html>

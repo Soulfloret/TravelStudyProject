@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import java.util.List;
 
 public class room {
     private Integer id;
@@ -26,14 +27,59 @@ public class room {
 
     private String name5;
     
+    private List<roomdestine> dlist;
+    
+    private List<images> imgs;
+        
+    
+    private recommend recommend;
+    
     private images img;
+    
+    private String url;
+    
+    
+    
+    
+    public List<roomdestine> getDlist() {
+		return dlist;
+	}
 
-    public images getImg() {
+	public void setDlist(List<roomdestine> dlist) {
+		this.dlist = dlist;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public images getImg() {
 		return img;
 	}
 
 	public void setImg(images img) {
 		this.img = img;
+	}
+
+	public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+
+    public List<images> getImgs() {
+		return imgs;
+	}
+
+	public void setImgs(List<images> imgs) {
+		this.imgs = imgs;
 	}
 
 	public Integer getId() {

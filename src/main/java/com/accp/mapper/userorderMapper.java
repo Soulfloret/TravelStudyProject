@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface userorderMapper {
+	
+	userorder selectByuid(Integer id);
+	
+	List<userorder> selectByuidinlist(Integer id);
+	
     int countByExample(userorderExample example);
 
     int deleteByExample(userorderExample example);

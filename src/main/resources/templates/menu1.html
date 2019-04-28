@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<title>Menu</title>
 		<!--fonts-->
-		<link href="css1/bootstrap.css" rel="stylesheet">
-		<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
+		<link th:href="@{/css1/bootstrap.css}" rel="stylesheet">
+		<link th:href="@{/css1/style.css}" rel="stylesheet" type="text/css" media="all" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="Favorites Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -19,11 +19,10 @@
 				window.scrollTo(0, 1);
 			}
 		</script>
-		<script type="text/javascript" src="js1/jquery.min.js"></script>
-		<script src="js1/simpleCart.min.js">
-		</script>
-		<script type="text/javascript" src="js1/move-top.js"></script>
-		<script type="text/javascript" src="js1/easing.js"></script>
+		<script type="text/javascript" th:src="@{/js1/jquery.min.js}"></script>
+		<script th:src="@{/js1/simpleCart.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js1/move-top.js}"></script>
+		<script type="text/javascript" th:src="@{/js1/easing.js}"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {
@@ -42,19 +41,19 @@
 			});
 		</script>
 		<link rel="icon" href="img1/favicon/favicon.html" type="image/x-icon" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img1/favicon/apple-touch-icon-144x144-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img1/favicon/apple-touch-icon-72x72-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" href="img1/favicon/apple-touch-icon-precomposed.html">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
 		<link href='http://fonts.useso.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css1/minified.css">
+		<link rel="stylesheet" th:href="@{/css1/minified.css}">
 		<script>
 			window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');
 		</script>
 		<script src="js1/modernizr.min.js"></script>
-		<link rel="stylesheet" href="css1/owl.carousel.css">
-		<link rel="stylesheet" href="css1/owl.theme.css">
-		<link href="css1/flexslider.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css1/responsive.css">
+		<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
+		<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
+		<link th:href="@{/css1/flexslider.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 		<style>
 			#main-content .section {
 				padding-bottom: 30px;
@@ -218,7 +217,7 @@
 						<!-- SITE LOGO -->
 						<div class="logo-wrapper">
 							<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
-								<img src="images/logo2.png" alt="Logo" />
+								<img th:src="@{/images/logo2.png}" alt="Logo" />
 							</a>
 						</div>
 						<!-- // SITE LOGO -->
@@ -257,211 +256,47 @@
 					<div class="strip-line"></div>
 				</div>
 				<div class="our-menu-grids">
-					<span>类型一</span>
-					<div class="order-top">
+					<span>实惠套餐</span>
+					<div class="order-top" th:each="bitem : ${blist}">
 						<li class="im-g">
-							<a href="single1.html"><img src="images/k1.jpg" class="img-responsive" alt=""></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${bitem.id},type='4')}"><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
-							<h3>$5</h3>
-							<h4>Bread Crumbs Soup</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+							<h3 th:text="${bitem.price}"></h3>
+							<h4 th:text="${bitem.mname}"></h4>
+							<p th:text="${bitem.name1}"></p>
 						</li>
 						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" >EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k2.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$6</h3>
-							<h4>Delicious Carrot Bread</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k3.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$8</h3>
-							<h4>Yummy Noodles</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k4.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$9</h3>
-							<h4>Vegetable Pasta</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k5.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$15</h3>
-							<h4>Mixed Veg Salad</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k6.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$11</h3>
-							<h4>BreakFast Special</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k7.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$2</h3>
-							<h4>Healthy Tomato Soup</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+							<a href="javascript:void(0)" class="jr hvr-shutter-in-horizontal button" >加入</a>
+							<span style="display: none;">4</span>
+							<span style="display: none;" th:text="${bitem.id}"></span>
 						</li>
 						<div class="clearfix"></div>
 					</div>
 				</div>
-				<div class="our-menu-grids">
-					<span>类型二</span>
-					<div class="order-top">
+				
+				
+				
+				<div class="our-menu-grids" th:each="item : ${list}">
+					<span th:text="${item.tname}"></span>
+					<div class="order-top" th:each="items : ${item.list}">
 						<li class="im-g">
-							<a href="single1.html"><img src="images/k1.jpg" class="img-responsive" alt=""></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" th:src="${items.image.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
-							<h3>$5</h3>
-							<h4>Bread Crumbs Soup</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
+							<h3 th:text="${items.price}"></h3>
+							<h4 th:text="${items.mname}"></h4>
+							<p th:text="${items.name1}"></p>
 						</li>
 						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k2.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$6</h3>
-							<h4>Delicious Carrot Bread</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k3.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$8</h3>
-							<h4>Yummy Noodles</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k4.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$9</h3>
-							<h4>Vegetable Pasta</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k5.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$15</h3>
-							<h4>Mixed Veg Salad</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k6.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$11</h3>
-							<h4>BreakFast Special</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
-						</li>
-						<div class="clearfix"></div>
-					</div>
-
-					<div class="order-top">
-						<li class="im-g">
-							<a href="#"><img src="images/k7.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li class="data">
-							<h3>$2</h3>
-							<h4>Healthy Tomato Soup</h4>
-							<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit </p>
-						</li>
-						<li class="bt-nn">
-							<a class="hvr-shutter-in-horizontal button" href="checkout.html">EXPLORE</a>
+							<a href="javascript:void(0)" class="jr hvr-shutter-in-horizontal button" >加入</a>
+							<span style="display: none;">2</span>
+							<span style="display: none;" th:text="${items.id}"></span>
 						</li>
 						<div class="clearfix"></div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 
@@ -478,6 +313,26 @@
 				$().UItoTop({
 					easingType: 'easeOutQuart'
 				});
+				
+				$(".jr").click(function(){
+					var id=$(this).next().next().text();
+					var typeid=$(this).next().text();
+					var name1=1;
+					$.ajax({
+						url:"/menu/shopcartadd",
+						data:{
+							"iid":id,
+							"typeid":typeid,
+							"name1":name1
+							},
+						type:"post",
+						dataType:"text",
+						success:function(result){
+							alert(result);
+						}
+					})
+				})
+				
 			});
 		</script>
 		<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>

@@ -1,7 +1,6 @@
 package com.accp.yipeng.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -97,16 +96,19 @@ public class UserServiceImpl implements UsersService {
 			}
 		}else if(team.equals("2")){
 			try {
+				XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
+				String filename=file.getOriginalFilename().substring(0, file.getOriginalFilename().indexOf("."));
 				team t=new team();
 				if(us!=null) {
 					mapper.updateTypeIdById(us.getId(),Integer.parseInt(team));
 					t.setMainiuserid(us.getId());
+					t.setName1(filename);
 				}else {
 					mapper.insert(user);
 					t.setMainiuserid(user.getId());
+					t.setName1(filename);
 				}
 				TeamMapper.insert(t);
-				XSSFWorkbook workbook=new XSSFWorkbook(file.getInputStream());
 				Sheet sheet=workbook.getSheetAt(0);
 				//获取所有行
 				int rows=sheet.getPhysicalNumberOfRows();

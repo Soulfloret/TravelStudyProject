@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface bindMapper {
 	
+	List<bind> selectbindByid(Integer id);
+	
 	int insertmenubind(bind bi);
 	
 	List<bind> querybind(bind bi);

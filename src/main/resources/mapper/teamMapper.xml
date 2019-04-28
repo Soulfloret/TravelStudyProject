@@ -10,6 +10,30 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.team" id="MapYp" extends="BaseResultMap">
+  	<association property="use" javaType="com.accp.domain.users">
+  		<id property="id" column="mainiUserId"/>
+  		<result property="uname" column="uname"/>
+  	</association>
+  </resultMap>
+  
+  <select id="selectBymainiUserId" resultMap="BaseResultMap">
+  		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
+  </select>
+  
+  <select id="selectAllTeam" resultMap="MapYp">
+  	 SELECT t.*,uname  FROM team AS t INNER JOIN users AS u ON t.`mainiUserId`=u.`id`
+  	 <where>
+  	 	<if test="tname!=null and tname!=''">
+  	 	 	and t.name1 LIKE CONCAT('%',#{tname},'%')
+  	 	</if>
+  	 	<if test="uname!=null and uname!=''">
+  	 	 	and u.`uName` LIKE CONCAT('%',#{uname},'%')
+  	 	</if>
+  	 </where>
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -1,25 +1,16 @@
 package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
-import com.accp.domain.team;
 import com.accp.domain.users;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
@@ -100,7 +90,7 @@ public class CustomerController {
 	 */
 	@RequestMapping("addCustomer")
 	public String addCustomer(users user,MultipartFile file,String team) {
-		int num=Use.addcustomer(user, file, team);
+		Use.addcustomer(user, file, team);
 			return "redirect:/customer/toCustomer";
 	}
 	
@@ -139,7 +129,8 @@ public class CustomerController {
 		use.setDay(Integer.parseInt(use.getIdcardno().substring(12, 14)));
 		use.setAge(AgeUtil.getage(use));
 		model.addAttribute("user", use);
-		//model.addAttribute("MainOrderlist",UmoService.query(1));
+		List<Usermainorder> list=UmoService.query(null);
+		model.addAttribute("list",list);
 		return "CustomerCare";
 	}
 	
@@ -161,6 +152,15 @@ public class CustomerController {
 		return "pagehome";
 	}
 	
+	/**
+	 * 
+	 * @return 前台订单
+	 */
+	@RequestMapping("toOrders")
+	public  String toOrders(Model model) {
+		//model.addAttribute("list",UmoService.query(1));
+		return "NewMainOrder";
+	}
 	
 	
 	/**
@@ -202,14 +202,10 @@ public class CustomerController {
 	 */
 	@RequestMapping("updateUsers")
 	public  String updateUsers(users use) {
-		int num=Use.updateByPrimaryKey(use);
+		Use.updateByPrimaryKey(use);
 		return "redirect:/customer/toPersonDetails";
 	}
 	
 	
-	@RequestMapping("query")
-	@ResponseBody
-	public  List<Usermainorder> query() {
-		return UmoService.query(1);
-	}
+	
 }

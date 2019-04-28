@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class productproject {
     private Integer id;
 
@@ -19,6 +21,16 @@ public class productproject {
     
     private project pro;
     
+    private List<project> projects;
+    
+    
+    public List<project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<project> projects) {
+		this.projects = projects;
+	}
     
     public project getPro() {
 		return pro;

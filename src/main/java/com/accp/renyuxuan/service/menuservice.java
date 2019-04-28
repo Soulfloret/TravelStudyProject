@@ -5,6 +5,9 @@ import java.util.List;
 import com.accp.domain.menu;
 
 public interface menuservice {
+	
+	List<menu> selectmenuByid(Integer id);
+	
 	List<menu> QueryMenu(menu me);
 	
 	int updateByPrimaryKeySelective(menu record);

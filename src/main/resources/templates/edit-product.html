@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>活动设置</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
-		<!-- https://fonts.google.com/specimen/Roboto -->
-		<link rel="stylesheet" href="css/fontawesome.min.css" />
-		<!-- https://fontawesome.com/ -->
-		<link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
-		<!-- http://api.jqueryui.com/datepicker/ -->
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<!-- https://getbootstrap.com/ -->
-		<link rel="stylesheet" href="css/templatemo-style.css">
+		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}"/>
+		<link rel="stylesheet" th:href="@{/jquery-ui-datepicker/jquery-ui.min.css}" type="text/css" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 
 		<style>
 			#hide_ry span,
@@ -41,7 +36,7 @@
 								<div class="form-group mb-3">
 									<label for="name">活动名称
                     </label>
-									<input id="name" name="name" type="text" value="我爱劳动" class="form-control validate" />
+									<input id="name" name="name" type="text" th:value="${product.pname}" class="form-control validate" />
 								</div>
 								<div class="form-group mb-3">
 									<label for="description">活动内容</label
@@ -50,7 +45,7 @@
                       class="form-control validate tm-small"
                       rows="5"
                       required
-                    >强身健体
+                     th:text="${product.content}">
                     </textarea>
                  </div>
                   <div class="row">
@@ -63,15 +58,15 @@
 						</div>
 
 					</div>
-					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+					<!-- <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
 						<div class="tm-product-img-edit mx-auto">
 							<img src="img/product-image.jpg" alt="Product image" class="img-fluid d-block mx-auto">
 							<i class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById(" fileInput ').click();"
                   ></i>
-                </div>
-                <div class="custom-file mt-3 mb-3">
+                </div> -->
+                <!-- <div class="custom-file mt-3 mb-3">
                   <input id="fileInput" type="file" style="display:none;" />
-                </div>
+                </div> -->
               </div>
               <div id="show_xm" class="col-12">
 				              <h5 style="color: white;">
@@ -82,50 +77,21 @@
                   <tr>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">项目名称</th>
-                    <th scope="col">建成金额</th>
+                    
                     <th scope="col">创建时间</th>
                     <th scope="col">状态</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr th:each="project_item : ${product.pplist}">
                     <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-                 	<tr>
-                    <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-                  <tr>
-                    <th scope="row"></th>
-                    <td class=""><a href="edit-project.html" style="color: white;">活动名称</a></td>
-                    <td>1,450</td>
-                    <td>28 March 2019</td>
-                    <td>开放</td>
-                    <!--<td>
-                      <a href="#" class="tm-product-delete-link">
-                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                      </a>
-                    </td>-->
-                  </tr>
-               
+                    <td class=""><a href="edit-project.html" style="color: white;" th:text="${project_item.pro.pname}"></a></td>
+                   
+                     <td th:text="${#dates.format(project_item.pro.createtime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                     <td th:if="${project_item.pro.pstatus} eq '1' ">开放</td>
+                    <td th:if="${project_item.pro.pstatus} eq '2' ">维修</td>
+                    <td th:if="${project_item.pro.pstatus} eq '3' ">检测</td>
                 </tbody>
               </table>
 			      </div>
@@ -194,8 +160,8 @@
         </div>
       </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
   </body>
 </html>

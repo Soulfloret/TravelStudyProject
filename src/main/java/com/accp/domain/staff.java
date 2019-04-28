@@ -30,6 +30,15 @@ public class staff {
 
     private users user;
     
+    private List<users> ulists;
+    
+    public List<users> getUlists() {
+		return ulists;
+	}
+
+	public void setUlists(List<users> ulists) {
+		this.ulists = ulists;
+	}
 
     public users getUser() {
 		return user;

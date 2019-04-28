@@ -24,4 +24,16 @@ public class OrderController {
 	public Usermainorder queryById(Integer id) {
 		return service.query(id).get(0);
 	}
+	@RequestMapping("godaychart")
+	public String daychart(Model mo) {
+		return "dayChart";
+	}
+	@RequestMapping("goweekendchart")
+	public String weekendchart(Model mo) {
+		return "weekendChart";
+	}
+	@RequestMapping("gomonthchart")
+	public String monthchart(Model mo) {
+		return "monthChart";
+	}
 }

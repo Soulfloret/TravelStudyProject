@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.recommend;
 import com.accp.domain.room;
 import com.accp.domain.roomExample;
 import com.accp.domain.roomdestine;
@@ -10,9 +11,15 @@ import org.apache.ibatis.annotations.Param;
 
 public interface roomMapper {
 	
+	room queryByroomdestineid(roomdestine r);
+	
+	room queryByroomid(@Param("id") Integer id);
+	
 	List<room> queryByroomData(@Param("begintime")Date begintime ,@Param("endtime")Date endtime);
 	
 	List<room> queryByroom(room r);
+	
+	List<room> queryByroomtypeid();
 	
     int countByExample(roomExample example);
 
@@ -35,4 +42,8 @@ public interface roomMapper {
     int updateByPrimaryKeySelective(room record);
 
     int updateByPrimaryKey(room record);
+    
+    recommend recommendByidroom(@Param("id")Integer id);
+    
+    List<room> queryRoomAll(room room);
 }

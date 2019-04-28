@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ShopcartMapper {
+	
+	Shopcart selectshopcartByid(Shopcart s);
+	
     int countByExample(ShopcartExample example);
 
     int deleteByExample(ShopcartExample example);

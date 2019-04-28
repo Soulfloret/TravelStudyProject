@@ -14,17 +14,20 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap type="com.accp.domain.module" id="BaseResultMap1" extends="BaseResultMap">
-  	<collection property="mlist"  column="{id=pid,uid=uid}" ofType="BaseResultMap1" select="queryModuleByUid"></collection>
+  	<collection property="mlist"  column="{id=id,uid=uid}" ofType="BaseResultMap1" select="queryModuleByUid"></collection>
   </resultMap>
     <select id="queryModuleByUid" resultMap="BaseResultMap1">
-		SELECT m.*,ur.`userId` FROM module AS m,rolemodule AS rm,
+		SELECT m.*,ur.`userId` as uid FROM module AS m,rolemodule AS rm,
 	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
-	  	rm.moduleId=m.id AND ur.`userId`=#{uid} AND m.parentId=#{id}
+	  	rm.moduleId=m.id
+	  	AND ur.`userId`=#{uid} 
+	  	AND m.parentId=#{id}
   	</select>
   	<select id="queryModuleByUidToMap" resultMap="BaseResultMap">
   		SELECT m.* FROM module AS m,rolemodule AS rm,
 	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
-	  	rm.moduleId=m.id AND ur.`userId`=#{uid}
+	  	rm.moduleId=m.id
+	  	 AND ur.`userId`=#{uid}
   	</select>
   <sql id="Example_Where_Clause" >
     <where >

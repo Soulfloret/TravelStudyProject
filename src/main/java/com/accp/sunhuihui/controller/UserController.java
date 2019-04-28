@@ -31,4 +31,10 @@ public class UserController {
 			List<actionimages> list=service.query();
 			return list;
 		}
+		
+		@RequestMapping("userByid")
+		public users userByid(Integer id) {
+			users user=service.userByid(id);
+			return user;
+		}
 }

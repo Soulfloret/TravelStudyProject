@@ -31,4 +31,10 @@ public class productService {
 	public List<product> queryAll(){
 		return prod.queryAll();
 	}
+	
+	/*后台查询活动详情*/
+	public product queryByXqById(Integer id) {
+		return prod.queryByXqById(id);
+	}
+	
 }

@@ -36,7 +36,7 @@ public class DynamicController {
 		
 		@RequestMapping("query")
 		public PageInfo<dynamics> query(Integer uid){
-			PageInfo<dynamics> page=service.query(1, 3,3,uid);
+			PageInfo<dynamics> page=service.query(1, 3,6,uid);
 			String json=JSON.toJSONString(page);
 			
 			return page;
@@ -93,7 +93,8 @@ public class DynamicController {
 						File fileImg = new File(url+uuid+suffix);
 						f.transferTo(fileImg);
 						images im=new images();
-						im.setUrl("http://192.168.43.139:8080/TravelStudyProject/fileupload/"+fileImg.getName());
+						im.setUrl("fileupload/"+fileImg.getName());
+						im.setTypeid(6);
 						list1.add(im);
 						}
 					}
@@ -118,9 +119,9 @@ public class DynamicController {
 		}
 		
 		
-		@RequestMapping("insertimglist")
+		/*@RequestMapping("insertimglist")
 		public int insertimglist(@RequestBody dynamics dinameics) {
 			int i=service.insertimglist(dinameics);
 			return 0;
-		}
+		}*/
 }

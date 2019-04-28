@@ -58,7 +58,14 @@
 			<result column="pid" property="pid" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
+<select id="staffquery" resultMap="Map">
+	SELECT staff.id,users.uname FROM staff
+	JOIN users ON
+	staff.userid=users.id
+	GROUP BY staff.`id`
+</select>	
 
+	
 <select id="accountsQuery" resultMap="Map">
 	SELECT users.*,staff.userid AS userid,staff.id as uid FROM staff
 	JOIN users ON staff.userid=users.id
@@ -82,9 +89,6 @@ select * from staff where userid=#{userid}
 		join salary on positions.id=salary.pid
 		WHERE signin.`staffId`=#{id}
 	</select>
-
-
-
 	<!-- 查询员工薪资列表 -->
 	<select id="salaryQuery" resultMap="Map">
 		SELECT
@@ -100,7 +104,6 @@ select * from staff where userid=#{userid}
 		JOIN salary ON salary.`pid`=positions.`id`
 		GROUP BY staff.`id`
 	</select>
-
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
@@ -150,6 +153,18 @@ select * from staff where userid=#{userid}
 		`users`.`id`=staff.`userId`
 		ORDER BY staff.state ASC,
 		staff.id
+	</select>
+
+
+
+	<!-- 新增项目订单查询安排人员 -->
+	<resultMap type="com.accp.domain.staff" id="result_projectOrder_queryUser" extends="BaseResultMap">
+		<collection property="user" column="userid" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.queryProjectOrderByUserId"></collection>
+	</resultMap>
+	
+	
+	<select id="projectOrder_queryUser" resultMap="result_projectOrder_queryUser">
+		select * from `staff` where id=#{id}
 	</select>
 
 	<sql id="Example_Where_Clause">

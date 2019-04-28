@@ -23,7 +23,7 @@ public interface ModuleService {
     
     Map<String,module> queryModuleByUidToMap(@Param("uid")Integer uid);
     
-    List<module> queryMapByUid(@Param("uid")Integer uid,@Param("id") Integer id);
+    List<module> queryModuleByUid(@Param("uid")Integer uid,@Param("id") Integer id);
 
 
 }

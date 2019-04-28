@@ -26,7 +26,6 @@ public class JJ_loginController {
 
 	@RequestMapping("/login")
 	public String login() {
-
 		return "/login";
 	}
 
@@ -51,12 +50,11 @@ public class JJ_loginController {
 			if (user.getTypeid()==3) {
 				staff staffid = st.loginByuserid(user.getId());
 				session.setAttribute("staff", staffid);
+				return "redirect:/login/mode";
 			}
-		}else {
-			return "redirect:/login/login";			
 		}
-		
-		return "redirect:/login/mode";
+		return "redirect:/login/login";			
+
 	}
 
 }

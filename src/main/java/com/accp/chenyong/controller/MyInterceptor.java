@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.accp.chenyong.service.ModuleService;
 import com.accp.domain.module;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 @Configuration
 public class MyInterceptor implements HandlerInterceptor {
@@ -21,19 +22,25 @@ public class MyInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		users user=(users)request.getSession().getAttribute("user");
+		staff staff=(staff)request.getSession().getAttribute("staff");
 		String uri=request.getRequestURI();
-		uri=uri.replace(request.getContextPath()+"/","");
+		uri=uri.replaceFirst(request.getContextPath()+"/","");
+		if(staff==null) {
+			response.sendRedirect("/login/login");
+		}
 		if(request.getSession().getAttribute("urlMap")==null)
 		{
-			Map<String,module> map=service.queryModuleByUidToMap(user.getId());
+			Map<String,module> map=service.queryModuleByUidToMap(staff.getUserid());
 			request.getSession().setAttribute("urlMap", map);
+		}
+		if(uri.indexOf("login")!=-1) {
+			return true;
 		}
 		Object map=request.getSession().getAttribute("urlMap");
 		if(map!=null) {
 			Map<String,module>maps=(Map<String,module>)request.getSession().getAttribute("urlMap");
-			if(maps.get(uri)!=null) {
-				return true;
+				if(maps.get(uri)!=null) {
+					return true;
 			}
 		}
 		return false;

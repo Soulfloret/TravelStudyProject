@@ -12,6 +12,17 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+	<!-- 新增讨论组图片 -->
+	<insert id="insertByList">
+		insert into images(url,iid,typeId) values 
+		<foreach collection="images" item="p" separator=",">
+			(#{p.url},#{iid},#{typeid})
+		</foreach>
+	</insert>
+	
+	<delete id="delByiidAndTypeId">
+		delete from `images` where `iid`=#{iid} AND `typeId`=#{typeid}
+	</delete>
 	
 	<!-- 查询图片 -->
   <select id="queryimg" resultType="com.accp.domain.images">
@@ -22,6 +33,13 @@
 	<select id="queryByIid" resultType="com.accp.domain.images">
 		SELECT * FROM `images` WHERE `iid`=#{id}
 	</select>
+	
+	<insert id="insertimglist">
+		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
+		<foreach collection="img" separator="," item="im">
+				(#{im.url},#{id},#{im.typeid})
+		</foreach>
+	</insert>
 
   <sql id="Example_Where_Clause" >
     <where >

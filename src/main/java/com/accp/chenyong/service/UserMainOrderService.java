@@ -24,5 +24,9 @@ public interface UserMainOrderService {
     int updateByPrimaryKey(Usermainorder record);
     
     List<Usermainorder> query(Integer id);
+    
+    Usermainorder QueryCunzai(Usermainorder o);
+    
+	public Usermainorder QueryCunzaiInsert(Usermainorder o);
 
 }

@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.friend;
 import com.accp.domain.friendExample;
+import com.accp.domain.users;
+import com.accp.mapper.discussiongroupMapper;
+import com.accp.mapper.dynamicsMapper;
 import com.accp.mapper.friendMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.yipeng.service.FriendService;
@@ -19,14 +22,29 @@ public class FriendServiceImpl  implements  FriendService{
 	usersMapper usemapper;
 	@Autowired
 	friendMapper mapper;
+	@Autowired
+	dynamicsMapper dynamapper;
+	@Autowired
+	discussiongroupMapper dismapper;
+	
 	@Override
-	public List<friend> queryAllFriend(Integer id) {
+	public List<friend> queryAllFriend(Integer id,Integer did) {
 		List<friend> list=mapper.queryAllFriend(id);
 		for (friend friend : list) {
 			if(friend.getUid()==id) {
-				friend.setUse(usemapper.selectByPrimaryKey(friend.getFid()));
+				users use=usemapper.selectByPrimaryKey(friend.getFid());
+				if(did!=null) {
+					use.setDis(dismapper.selectDisBysonUidAndDid(use.getId(), did));
+				}
+				use.setDynamic(dynamapper.queryLastById(use.getId()));
+				friend.setUse(use);
 			}else {
-				friend.setUse(usemapper.selectByPrimaryKey(friend.getUid()));
+				users use=usemapper.selectByPrimaryKey(friend.getUid());
+				if(did!=null) {
+					use.setDis(dismapper.selectDisBysonUidAndDid(use.getId(), did));
+				}
+				use.setDynamic(dynamapper.queryLastById(use.getId()));
+				friend.setUse(use);
 			}
 		}
 		

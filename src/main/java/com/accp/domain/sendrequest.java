@@ -11,7 +11,19 @@ public class sendrequest {
 
     private String sstatus;
 
-    private String content;
+    public sendrequest() {
+	}
+
+	public sendrequest(Integer uid, Integer did, Integer typeid, String sstatus, String content) {
+		super();
+		this.uid = uid;
+		this.did = did;
+		this.typeid = typeid;
+		this.sstatus = sstatus;
+		this.content = content;
+	}
+
+	private String content;
 
     private String name1;
 
@@ -23,11 +35,31 @@ public class sendrequest {
 
     private String name5;
 
+    private users use;
+    
+    private discussiongroup dis;
+    
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+
+	public discussiongroup getDis() {
+		return dis;
+	}
+
+	public void setDis(discussiongroup dis) {
+		this.dis = dis;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 

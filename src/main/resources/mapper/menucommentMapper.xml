@@ -12,6 +12,28 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap type="com.accp.domain.menucomment" id="resultMapAppMenuCommend" extends="BaseResultMap">
+  		<association property="user" column="userId" javaType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <!-- App查询菜单评论 -->
+ 	<select id="AppMenuCommend" resultMap="resultMapAppMenuCommend">
+ 		SELECT * FROM `menucomment` WHERE menuId=#{menuid}
+ 	</select>
+  <resultMap type="com.accp.domain.menucomment" id="BaseResultMap1" extends="BaseResultMap">
+  		<association property="muser" javaType="com.accp.domain.users">
+  			<id column="uid" property="id" jdbcType="INTEGER" />
+   		 	<result column="uName" property="uname" jdbcType="VARCHAR" />
+  			<result column="uname2" property="name2" jdbcType="VARCHAR" />
+  		</association>	
+  </resultMap>
+  
+  <select id="selectmenucommentByid" resultMap="BaseResultMap1">
+  		SELECT me.*,u.`id` AS uid ,u.`uName`,u.`name2` AS uname2 FROM `menucomment` me INNER JOIN `users` u ON me.`userId`=u.`id`
+		WHERE me.menuId=#{menuid}  AND me.name1=#{name1}
+  </select>
+   
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -28,6 +28,8 @@ public interface areasMapper {
 
     int updateByPrimaryKey(areas record);
     
-    /*ÏîÄ¿²éÑ¯»ùµØ*/
+    /*ï¿½ï¿½Ä¿ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½*/
     List<areas> queryById(Integer id);
+    
+    List<areas> insery_project_query_area();
 }

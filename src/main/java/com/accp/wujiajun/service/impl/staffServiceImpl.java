@@ -7,23 +7,25 @@ import com.accp.domain.staff;
 import com.accp.domain.staffExample;
 
 public interface staffServiceImpl {
-	//查询员工列表
+	//鏌ヨ鍛樺伐鍒楄〃
 	List<staff> query(staff sta);
-	//根据员工查询员工资料
+	//鏍规嵁鍛樺伐鏌ヨ鍛樺伐璧勬枡
 	staff queryById(Integer id);
-	//按条件查询员工列表
+	//鎸夋潯浠舵煡璇㈠憳宸ュ垪琛�
 	List<staff> queryLike(staff sta);
-	//先增加用户 在增加员工
+	//鍏堝鍔犵敤鎴� 鍦ㄥ鍔犲憳宸�
 	int insert(staff sta);
-	//查询员工薪资列表
+	//鏌ヨ鍛樺伐钖祫鍒楄〃
 	List<staff> salaryQuery(staff sta);
-	//根据员工查询员工薪资、打卡次数
+	//鏍规嵁鍛樺伐鏌ヨ鍛樺伐钖祫銆佹墦鍗℃鏁�
 	List<staff> salaryQueryId(Integer id);
-	//根据员工查询每个员工打卡的条数
+	//鏍规嵁鍛樺伐鏌ヨ姣忎釜鍛樺伐鎵撳崱鐨勬潯鏁�
 	List<signin> signinQuery(Integer id);
-	//修改员工在职状态(0,1)
+	//淇敼鍛樺伐鍦ㄨ亴鐘舵��(0,1)
 	int staffupdate(staff sta);
-	//登录时更用户id查询是否是员工
+	//鐧诲綍鏃舵洿鐢ㄦ埛id鏌ヨ鏄惁鏄憳宸�
 	staff loginByuserid(Integer userid);
+	
+	List<staff> staffquery(staff sta);
 	
 }

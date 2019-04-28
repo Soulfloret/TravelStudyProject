@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface roomdestineMapper {
 	
+	List<roomdestine> selectByroomid(Integer id);
 	
     int countByExample(roomdestineExample example);
 

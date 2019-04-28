@@ -40,4 +40,10 @@ public class menuserviceimpl implements menuservice{
 		return m.insertSelective(record);
 	}
 
+	@Override
+	public List<menu> selectmenuByid(Integer id) {
+		// TODO Auto-generated method stub
+		return m.selectmenuByid(id);
+	}
+
 }

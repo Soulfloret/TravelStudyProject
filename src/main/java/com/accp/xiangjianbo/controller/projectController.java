@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.projecttype;
 import com.accp.domain.users;
+
 import com.accp.xiangjianbo.service.areasService;
+import com.accp.xiangjianbo.service.project_PositionsService;
 import com.accp.xiangjianbo.service.productareasService;
 import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectTypeService;
@@ -24,6 +26,7 @@ import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
 import com.accp.domain.areas;
 import com.accp.domain.images;
+import com.accp.domain.positions;
 import com.accp.domain.productarea;
 import com.accp.domain.project;
 
@@ -46,55 +49,73 @@ public class projectController {
 	@Autowired
 	productareasService pas;
 	
+	@Autowired
+	project_PositionsService posservice;
+	
+	/*æŸ¥è¯¢æ‰€æœ‰*/
 	@RequestMapping("query")
 	public String query(Model model,project pro) {
 		List<project> list=pros.queryAll(pro);
-		System.out.println(JSON.toJSONString(list));
+		
 		model.addAttribute("list", list);
 		return "project";
 	}
 	
+	/*åˆ°é¡¹ç›®æ–°å¢é¡µé¢*/
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,areas area,String name) {
 		List<projecttype> typelist=ptype.query();
-		List<areas> alist=areas.selectByExample(area);
+		List<areas> alist=areas.insery_project_query_area();
+		List<positions> pslist=posservice.queryPosition();
+		model.addAttribute("pslist", pslist);
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("alist", alist);
 		return "insert_project";
 	}
 	
 	
-	
+	/*æ–°å¢é¡¹ç›®æŸ¥è¯¢è´Ÿè´£äººid*/
 	@RequestMapping("/queryName")
 	@ResponseBody
 	public users queryName(String name) {
 		users project_user=user.queryByName(name);
-		return project_user;
+		if(project_user!=null) {
+			
+			return project_user;
+		}else {
+			return null;
+		}
 	}
 	
+	/*æŸ¥è¯¢é¡¹ç›®è¯¦æƒ…*/
 	@RequestMapping("toproject_xq")
-	public String toproject_xq() {
+	public String toproject_xq(Model model,Integer id) {
+		project list=pros.projectXq_queryById(id);
+		System.out.println(JSON.toJSONString(list));
+		model.addAttribute("list",list);
 		return "edit-project";
 	}
 	
+	/*æ–°å¢é¡¹ç›®*/
 	@RequestMapping("file")
 	@ResponseBody
 	public String file(MultipartFile [] file,project pro) {
 		String url="d:/fileupload/";
 		File filepath=new File(url);
-		if (!filepath.exists()) {//ÅĞ¶ÏÎÄ¼ş¼ĞÖĞÊÇ·ñÓĞÈç¹ûÃ»ÓĞ¾ÍÌí¼Ó
+		if (!filepath.exists()) {
 			filepath.mkdirs();
 		}
 		List<images> ilist=new ArrayList<images>(); 
 		try {
 			for (MultipartFile f : file) {			
-				String uuid=UUID.randomUUID().toString();//Ëæ»úÉú³ÉÎÄ¼şÂ·¾¶
-				String name=f.getOriginalFilename();//»ñÈ¡µ½ÎÄ¼şµÄÃû×Ö
-				String suffix=name.substring(name.lastIndexOf("."),name.length());//»ñÈ¡µ½ÎÄ¼şµÄºó×ºÃû
-				File fileImg=new File(url+uuid+suffix);//Õû¸öÎÄ¼şÂ·¾¶
-				f.transferTo(fileImg);//·ÅÈëÎÄ¼ş
-				String img_json=JSON.toJSONString(fileImg);
+				String uuid=UUID.randomUUID().toString();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+				String name=f.getOriginalFilename();//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				String suffix=name.substring(name.lastIndexOf("."),name.length());//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½
+				File fileImg=new File(url+uuid+suffix);//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+				f.transferTo(fileImg);//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+				String img_json="fileupload/"+fileImg.getName();
 				images i=new images();
+				System.out.println(img_json);
 				i.setUrl(img_json);
 				i.setTypeid(1);
 				ilist.add(i);
@@ -112,12 +133,39 @@ public class projectController {
 		return "redirect:query";
 	}
 	
+	/*é¡¹ç›®æŸ¥è¯¢åŸºåœ°*/
 	@RequestMapping("queryJd")
 	@ResponseBody
 	public List<productarea> queryJd(Integer pid){
 		List<productarea> list=pas.queryByPid(pid);
+		System.out.println(JSON.toJSONString(list));
 		return list;
 	}
 	
+	/*è·³è½¬å‰å°æŸ¥è¯¢é¡¹ç›®*/
+	@RequestMapping("query_Qt")
+	public String query_Qt(Model model,project pro) {
+		List<projecttype> type_list=ptype.query();
+		List<project> list=pros.queryAll(pro);
+		model.addAttribute("type_list", type_list);
+		model.addAttribute("list", list);
+		return "productList";
+	}
 	
+	
+	
+	/*å‰å°æŸ¥è¯¢è¯¦æƒ…*/
+	@RequestMapping("queryBy_Qt_Xq")
+	public String queryBy_Qt_Xq(Model model,Integer id) {
+		project list=pros.projectXq_queryById(id);
+		System.out.println(JSON.toJSONString(list));
+		/*for(int i=0;i<list.getIlist().size();i++) {
+			project plist=new project();
+			if(list.getIlist().get(i)!=null) {
+				
+			}
+		}*/
+		model.addAttribute("list",list);
+		return "productInfo";
+	}	
 }

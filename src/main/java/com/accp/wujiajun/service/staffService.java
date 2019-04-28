@@ -88,6 +88,12 @@ public class staffService implements staffServiceImpl{
 		return s;
 	}
 
+	@Override
+	public List<staff> staffquery(staff sta) {
+		// TODO Auto-generated method stub
+		return mapper.staffquery(sta);
+	}
+
 	
 	
 

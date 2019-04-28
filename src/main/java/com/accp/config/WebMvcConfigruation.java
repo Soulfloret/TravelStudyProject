@@ -26,20 +26,20 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 @Configuration
 public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 
-/*	@Autowired
+	/*@Autowired
 	MyInterceptor my;*/
 
 	/**
-	 * 静态资源路径配置，注意：如果不配置，则会404
+	 * 闈欐�佽祫婧愯矾寰勯厤缃紝娉ㄦ剰锛氬鏋滀笉閰嶇疆锛屽垯浼�404
 	 */
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\");
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/").addResourceLocations("file:F:\\").addResourceLocations("file:D:\\");
+
 	}
 
 	/**
-	 * 解决普通字符串通过ajax字符串消息转换器中文乱码
+	 * 瑙ｅ喅鏅�氬瓧绗︿覆閫氳繃ajax瀛楃涓叉秷鎭浆鎹㈠櫒涓枃涔辩爜
 	 * 
 	 * @return
 	 */
@@ -53,33 +53,50 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		return new MappingJackson2HttpMessageConverter();
 	}
 	/**
-	 * 默认的jackson，改变成fastjson
+	 * 榛樿鐨刯ackson锛屾敼鍙樻垚fastjson
 	 * 
 	 * @return
 	 */
 /*		  @Bean public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-		  //创建FastJson信息转换对象 
+		  //鍒涘缓FastJson淇℃伅杞崲瀵硅薄 
 			  FastJsonHttpMessageConverter fastJsonHttpMessageConverter= new FastJsonHttpMessageConverter();
 		  
-		  //创建Fastjosn对象并设定序列化规则
+		  //鍒涘缓Fastjosn瀵硅薄骞惰瀹氬簭鍒楀寲瑙勫垯
 			  FastJsonConfig fastJsonConfig = new FastJsonConfig();
 		  fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat); 
-		 //中文乱码解决方案 
+		 //涓枃涔辩爜瑙ｅ喅鏂规 
 		  List<MediaType> mediaTypes = new ArrayList<>();
-		  mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);//设定json格式且编码为UTF-8
+		  mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);//璁惧畾json鏍煎紡涓旂紪鐮佷负UTF-8
 		  fastJsonHttpMessageConverter.setSupportedMediaTypes(mediaTypes);
-		  //规则赋予转换对象
+		  //瑙勫垯璧嬩簣杞崲瀵硅薄
 		  fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
 		  return fastJsonHttpMessageConverter;
 		  }*/
 		 
 
 	/**
-	 * 添加拦截器
+	 * 拦截器
 	 */
-/*	@Override
-	protected void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(my).addPathPatterns("/**").excludePathPatterns("/js/**");
+/*	protected void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(my).addPathPatterns("/**").addPathPatterns("/login/mode")
+		.excludePathPatterns("/js/**")
+		.excludePathPatterns("/css/**")
+		.excludePathPatterns("/assets/**")
+		.excludePathPatterns("/css1/**")
+		.excludePathPatterns("/font/**")
+		.excludePathPatterns("/fonts/**")
+		.excludePathPatterns("/images/**")
+		.excludePathPatterns("/img/**")
+		.excludePathPatterns("/img1/**")
+		.excludePathPatterns("/jquery-ui-datepicker/**")
+		.excludePathPatterns("/js/**")
+		.excludePathPatterns("/js1/**")
+		.excludePathPatterns("/rev-slider/**")
+		.excludePathPatterns("/webfonts/**")
+		.excludePathPatterns("/fileupload/**")
+		.excludePathPatterns("/login/login")
+		.excludePathPatterns("/login/loginQuery")
+		.excludePathPatterns("/module/**");
 		super.addInterceptors(registry);
 	}*/
 

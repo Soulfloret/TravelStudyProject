@@ -13,6 +13,25 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="QueryCunzai" resultMap="BaseResultMap">
+  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and name1='正在进行'
+  </select>
+  
+  <!-- 活动详情查询参加活动人员 -->
+  <resultMap type="com.accp.domain.Usermainorder" id="result_QueryProductXq" extends="BaseResultMap">
+  	<collection property="list" column="orderuser" ofType="com.accp.domain.users" select="">
+  		
+  	</collection>
+  </resultMap>
+  
+  <select id="QueryProductXq" resultMap="result_QueryProductXq">
+  	SELECT * FROM `usermainorder`
+  </select>
+  <select id="queryorderCustomer" resultMap="BaseResultMap">
+  		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb}
+  </select>
+  
+  
   <select id="query" resultMap="BaseResultMap">
 		select * from usermainorder 
 		<where>
@@ -112,7 +131,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.Usermainorder" >
+  <insert id="insert" parameterType="com.accp.domain.Usermainorder" keyProperty="id"  useGeneratedKeys="true">
     insert into usermainorder (id, orderNo, orderTime, 
       orderUser, orderCustomer, name1, 
       name2, name3, name4, 

@@ -18,8 +18,27 @@ public class menucomment {
     private String name4;
 
     private String name5;
+    
+    private users user;
+    
+    
+    public users getUser() {
+		return user;
+	}
+    private users muser;
 
-    public Integer getId() {
+	public void setUser(users user) {
+		this.user = user;
+	}
+	public users getMuser() {
+		return muser;
+	}
+
+	public void setMuser(users muser) {
+		this.muser = muser;
+	}
+
+	public Integer getId() {
         return id;
     }
 

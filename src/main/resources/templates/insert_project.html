@@ -138,6 +138,18 @@
 								<input type="button" class="btn btn-primary btn-block mx-auto"
 									value="选择基地" id="xz_jd_button" />
 							</div>
+							
+							<div hidden="hidden" id="show_zw" class="form-group mb-3">
+								<h5 style="color: white;">已选职位</h5>
+								<table class="table" id="show_zw_table">
+								</table>
+							</div>
+							
+							<div class="custom-file mt-3 mb-3">
+
+								<input type="button" class="btn btn-primary btn-block mx-auto"
+									value="选择职位" id="xz_zw_button" />
+							</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
 						<div class="tm-product-img-dummy mx-auto">
@@ -161,7 +173,7 @@
 		</div>
 	</div>
 	<div id="jd_tc"
-		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 670px; overflow-y: scroll; overflow-x: scroll; display: none;">
+		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 870px; overflow-y: scroll; overflow-x: scroll; display: none;">
 		<div style="background: #466675;">
 			<input type="text" name="anmae" placeholder="基地名称" class="form-group">
 			<input type="text" name="pistion" placeholder="基地位置"
@@ -191,6 +203,30 @@
 		</div>
 	</div>
 	
+	<div id="zw_tc"
+		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 0px; overflow-y: scroll; overflow-x: scroll; display: none;">
+		<div style="background: #466675;">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>职位名称</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="position_item : ${pslist}">
+						<td th:id="${position_item.id}" th:text="${position_item.postion}"></td>
+						<th><input type="checkbox" name="ck_zw" /></th>
+					</tr>
+				</tbody>
+			</table>
+			<input type="button" class=" btn-primary btn-block mx-auto"
+				value="确定"
+				style="width: 50px; height: 20px; text-align: center; margin-top: 20px; border-radius: 30px 30px 30px 30px; height: 30px; width: 80px;"
+				onclick="hide_zw(this)" />
+		</div>
+	</div>
+	
 
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<!-- https://jquery.com/download/ -->
@@ -208,6 +244,11 @@
 			$("#xz_jd_button").click(function() {
 				$("#jd_tc").css("display", "block");
 			})
+			
+			$("#xz_zw_button").click(function(){
+				$("#zw_tc").css("display", "block");
+			})
+			
 			$("[name=ck_jd]").click(function() {
 				if (this.checked) {
 					var xm = $(this).parents("tr").clone();
@@ -218,39 +259,17 @@
 					$("#show_jd_table").append(xm);
 				}
 			})
-			/* $("#insert_project").click(function(){
-				var ilist=[];
-				$("#show_jd_table tr").each(function(){
-					var a={};
-					a.areaid=$(this).find("td:eq(0)").attr("id");
-					ilist.push(a);
-				})
-				var pro={};
-				pro.name=$("[name=name]").val();
-				pro.descirption=$("[name=descirption]").val();
-				pro.remark=$("[name=remark]").val();
-				pro.leadingofficial=$("[name=leadingofficial]").attr("sid");
-				pro.price=$("[name=Price]").val();
-				pro.safe_time=$("[name=safe_time]").val();
-				pro.needTime=$("[name=needTime]").val();
-				pro.galleryful=$("[name=galleryful]").val();
-				pro.Cost=$("[name=Cost]").val();
-				pro.minheight=$("[name=minheight]").val();
-				pro.maxheight=$("[name=maxheight]").val();
-				pro.palist=ilist;
-				var pro=JSON.stringify(pro);
-				console.log(pro); 
-				$.ajax({
-					url:"insert",
-					type:"post",
-					data:pro,
-					processData:false,
-					contentType:"application/json;charset=UTF-8",
-					success:function(){
-						alert("新增成功");
-					}
-				})   
-			}) */
+			$("[name=ck_zw]").click(function() {
+				if (this.checked) {
+					var xm = $(this).parents("tr").clone();
+					xm.find("input").remove();
+					var remove_xm = $("<td><a href='javascript:void(0)' style='color: red;' id='yc_zw_a' onclick='yc_zw(this)'>移除</a></td>");
+					$(xm).append(remove_xm);
+					$("#show_zw").removeAttr("hidden");
+					$("#show_zw_table").append(xm);
+				}
+			})
+			
 			
 			$("#insert_project").click(function(){
 				/* var form=$("form"); */
@@ -259,81 +278,76 @@
 				$("[type=file]").each(function(i,obj){
 					fileArr = this.files;
 				})
-				for(var i = 0;i < fileArr.length;i++){
-					formData.append("file",fileArr[i]);
-				}
-				console.log(fileArr)
-			 	/* var ilist=[]; */
-				$("#show_jd_table tr").each(function(i,obj){
-					/* var a={};
-					a.areaid=$(this).find("td:eq(0)").attr("id");
-					ilist.push(a); */
-					formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
-				})
-				
-				var myDate = new Date();
-				//获取当前年
-				var year=myDate.getFullYear();
-				//获取当前月
-				var month=myDate.getMonth()+1;
-				//获取当前日
-				var date=myDate.getDate(); 
-				var h=myDate.getHours();       //获取当前小时数(0-23)
-				var m=myDate.getMinutes();     //获取当前分钟数(0-59)
-				var s=myDate.getSeconds();  
-				
-				var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-				
-				var dt = new Date(now.replace(/-/,"/")) 
-				formData.append("pname",$("[name=name]").val());
-				formData.append("createtime",dt);
-				formData.append("tid",$("[name=ttype]").attr("id"));
-				formData.append("description",$("[name=descirption]").val());
-				formData.append("remark",$("[name=remark]").val());
-				formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
-				formData.append("price",$("[name=price]").val());
-				formData.append("safetime",$("[name=safe_time]").val());
-				formData.append("needtime",$("[name=needTime]").val());
-				formData.append("galleryful",$("[name=galleryful]").val());
-				formData.append("cost",$("[name=Cost]").val());
-				formData.append("minheight",$("[name=minheight]").val());
-				formData.append("maxheight",$("[name=maxheight]").val());
-				formData.append("mincrowd",$("[name=mincrowd]").val());
-				formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
-				/* formData.append("palist",ilist); */
-				/* var pro={};
-				pro.name=$("[name=name]").val();
-				pro.descirption=$("[name=descirption]").val();
-				pro.remark=$("[name=remark]").val();
-				pro.leadingofficial=$("[name=leadingofficial]").attr("sid");
-				pro.price=$("[name=Price]").val();
-				pro.safe_time=$("[name=safe_time]").val();
-				pro.needTime=$("[name=needTime]").val();
-				pro.galleryful=$("[name=galleryful]").val();
-				pro.Cost=$("[name=Cost]").val();
-				pro.minheight=$("[name=minheight]").val();
-				pro.maxheight=$("[name=maxheight]").val();
-				pro.palist=ilist;
-				var pro=JSON.stringify(pro);
-				console.log(pro); 
-				
-				formData.append("pro",pro); */
-				
-				$.ajax({
-					url:"file",
-					type:"post",
-					data:formData,
-					processData:false,
-					contentType:false,
-					dataType:"json",
-					success:function(result){
-						console.log(123);
-						console.log(result);
+				if(fileArr.length>3){
+					alert("不好意思,最多选择三张图片");	
+				}else{
+					for(var i = 0;i < fileArr.length;i++){
+						formData.append("file",fileArr[i]);
 					}
-				});     
+					console.log(fileArr)
+				 	/* var ilist=[]; */
+					$("#show_jd_table tr").each(function(i,obj){
+						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
+					})
+						var pj="-1";
+					$("#show_zw_table tr").each(function(i,obj){
+						console.log($(this).find("td:eq(0)").attr("id"));
+						var id=$(this).find("td:eq(0)").attr("id");
+						pj+=","+id;
+						/* 
+						var name1;
+						for(var k=0;k<obj.length;k++){
+							name1=$(this).find("td:eq(0)").attr("id")+",";
+						}	
+						console.log(name1); */
+						
+					})
+					
+					var myDate = new Date();
+					//获取当前年
+					var year=myDate.getFullYear();
+					//获取当前月
+					var month=myDate.getMonth()+1;
+					//获取当前日
+					var date=myDate.getDate(); 
+					var h=myDate.getHours();       //获取当前小时数(0-23)
+					var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+					var s=myDate.getSeconds();  
+					var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+					var dt = new Date(now.replace(/-/,"/")) 
+					formData.append("pname",$("[name=name]").val());
+					formData.append("createtime",dt);
+					formData.append("tid",$("[name=ttype]").attr("id"));
+					formData.append("description",$("[name=descirption]").val());
+					formData.append("remark",$("[name=remark]").val());
+					formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+					formData.append("price",$("[name=price]").val());
+					formData.append("safetime",$("[name=safe_time]").val());
+					formData.append("needtime",$("[name=needTime]").val());
+					formData.append("galleryful",$("[name=galleryful]").val());
+					formData.append("cost",$("[name=Cost]").val());
+					formData.append("minheight",$("[name=minheight]").val());
+					formData.append("maxheight",$("[name=maxheight]").val());
+					formData.append("mincrowd",$("[name=mincrowd]").val());
+					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
+					formData.append("name1",pj);
+					/* $.ajax({
+						url:"file",
+						type:"post",
+						data:formData,
+						processData:false,
+						contentType:false,
+						dataType:"json",
+						success:function(result){
+							console.log(123);
+							console.log(result);
+						}
+					});  */    
+				}
+				 
 			})
 			
-			$("[name=leadingofficial]").blur(function(){
+			$("[name=leadingofficial]").change(function(){
 				var name=$(this).val();
 				var th=this;
 				$.ajax({
@@ -342,7 +356,11 @@
 					dataType:"json",
 					success:function(result){
 						console.log(result);
-						$(th).attr("sid",result.sta.id);
+						$(th).attr("sid",result.sta.id);	
+					},error(result){
+						if(result!=null){
+							alert("您输入的不是负责人,请重新输入");
+						}
 					}
 				})
 			})
@@ -374,11 +392,46 @@
 			}
 		}
 
+		function yc_zw(th) {
+			var show_zw_length = $("#show_zw_table").find("tr").length;
+			if (show_zw_length == 2) {
+				$("#show_zw").hide();
+			}
+			$(th).parents("tr").remove();
+			var zw_sz = [];
+			var zw_id = $(th).parents("tr").find("td:eq(0)").attr("xmid");
+			var zw_id2;
+			var id;
+			$("#zw_tc").each(function() {
+				id = $(this).find("td:nth-of-type(1)");
+				$.each(id, function(i, obj) {
+					zw_id2 = $(obj).attr("xmid");
+					zw_sz.push(zw_id2);
+				});
+			})
+			for (var i = 0; i < zw_sz.length; i++) {
+				console.log(zw_sz[i]);
+				if (xm_id == xm_sz[i]) {
+					var zwtd = $("#jd_tc").find("[xmid='" + xm_id + "']");
+					zwtd.next().find("input").prop("checked", false);
+				}
+			}
+		}
+		
+		
 		function hide_jd(th) {
 			$("#jd_tc").css("display", "none");
 			var show_jd_length = $("#show_jd_table").find("tr").length;
 			if (show_jd_length == 1) {
 				$("#show_jd").hide();
+			}
+		}
+		
+		function hide_zw(th) {
+			$("#zw_tc").css("display", "none");
+			var show_zw_length = $("#show_zw_table").find("tr").length;
+			if (show_zw_length == 1) {
+				$("#show_zw").hide();
 			}
 		}
 	</script>

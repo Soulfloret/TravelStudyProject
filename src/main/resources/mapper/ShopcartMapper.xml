@@ -12,6 +12,13 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="selectshopcartByid" resultMap="BaseResultMap">
+  		SELECT * FROM `shopcart` WHERE iid=#{iid} AND typeId=#{typeid} AND userId=#{userid}
+  </select>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

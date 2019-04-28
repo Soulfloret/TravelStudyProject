@@ -15,6 +15,23 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 活动详情查询参与人员 -->
+  <resultMap type="com.accp.domain.userorder" id="result_QueryByProductXq" extends="BaseResultMap">
+  	<collection property="list" column="id" ofType="com.accp.domain.orderson"></collection>
+  </resultMap>
+  
+  <select id="QueryByProductXq" resultMap="result_QueryByProductXq">
+  	SELECT * FROM `orderson`
+  </select>
+  <select id="selectByuid" resultMap="BaseResultMap">
+  	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
+  </select>
+  
+  <select id="selectByuidinlist" resultMap="BaseResultMap">
+  	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
+  </select>
+    
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -107,7 +124,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.userorder" >
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.userorder" >
     insert into userorder (id, OrderNo, orderTime, 
       orderUser, orderCustomer, orderMainId, 
       orderStatus, name1, name2, 

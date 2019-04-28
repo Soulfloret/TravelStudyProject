@@ -12,9 +12,16 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
+  
+  
+  <!-- 活动推荐 -->
+  <select id="recommendByidProudct" resultType="com.accp.domain.recommend">
+  	SELECT `pname` 	AS `name` FROM `product`
+  </select>
+  
   <!-- 查询活动 -->
   <resultMap type="com.accp.domain.product" id="result_product" extends="BaseResultMap">
-  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" >
+  	<collection property="pplist" column="id" ofType="com.accp.domain.productproject" >
   		<!-- <id column="id" property="id"/>
   		 <result column="productId" property="productid"/>
    		 <result column="ProjectId" property="projectid"/> -->
@@ -24,6 +31,47 @@
   <select id="queryAll" resultMap="result_product">
  	 SELECT * FROM `product`
   </select>
+  
+    <!-- 后台查询活动详情 -->
+    <resultMap type="com.accp.domain.product" id="result_productByXq" extends="BaseResultMap">
+  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" select="com.accp.mapper.productprojectMapper.queryByProdId">
+  		<id column="id" property="id"/>
+  		 <result column="productId" property="productid"/>
+   		 <result column="ProjectId" property="projectid"/> 
+  	</collection>
+  	<collection property="orderson" ofType="com.accp.domain.orderson" column="id">
+  		 <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="iid" property="iid" jdbcType="INTEGER" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+  	</collection>
+  </resultMap>
+  
+  <select id="queryByXqById" resultMap="result_productByXq">
+ 	 SELECT * FROM `product` where id=#{id}
+  </select>
+    
+    
+  <!-- App查询活动详情 -->
+  <resultMap type="com.accp.domain.product" id="AppResult" extends="BaseResultMap">
+  		<collection column="id" property="pplist" ofType="com.accp.domain.productproject" select="com.accp.mapper.productprojectMapper.queryByProdId">
+  		</collection>
+  </resultMap>
+  
+  <select id="AppProductByid" resultMap="AppResult">
+  		SELECT * FROM `product` where id=#{id}
+  </select>
+  
+  <select id="recommendByidproduct" resultType="com.accp.domain.recommend">
+  		SELECT id,pname AS `name`,content AS pname,(SELECT SUM(`project`.`price`) FROM `productproject` JOIN `project`
+		ON `productproject`.`ProjectId`=`project`.`id`
+		WHERE `productproject`.`productId`=#{id}
+		GROUP BY `productproject`.`productId`) AS price FROM `product`
+		WHERE id=#{id}
+  </select>
+  
+
+  
+  
   
   
   <sql id="Example_Where_Clause" >

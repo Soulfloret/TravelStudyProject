@@ -43,7 +43,7 @@
 	    </collection>
   	</collection>
   </resultMap>
- 
+
  <update id="updateById">
  update users set uname=#{uname},phone=#{phone},upassword=#{upassword} where id=#{id}
  </update>
@@ -51,6 +51,14 @@
  <update id="accountsUpdate">
  	update users set name2=#{name2} where id=#{id}
  </update> 
+  
+  <!--  根据输入用户名的 模糊查询不是好友的用户-->
+  <select id="selectByUname" resultMap="BaseResultMap">
+  	SELECT * FROM users WHERE uname LIKE CONCAT('%',#{name},'%') AND id
+ 	NOT IN(SELECT u.id FROM friend AS f,users AS u WHERE (u.id=f.uid OR u.id=f.fid) AND (uid=#{id} OR fid=#{id}))
+ 	and id!=#{id}
+  </select>
+  
   
  <!-- 订单查询接口 -->
   <select id="queryByMainOrderId" resultMap="ResultMapChen">
@@ -120,11 +128,28 @@
   </resultMap>
   
   <!-- 新增项目查询负责人 -->
-  <select id="project_queryByName" resultMap="BaseResultMap">
+  <select id="project_queryByName" resultMap="result_ByName">
   	SELECT * FROM `users` AS `u`
 	INNER JOIN `staff` AS `s`
 	ON `u`.`id`=`s`.`userId`  
-	WHERE `uname`=#{name}
+	WHERE `uname`=#{name} AND `TypeId`=2
+  </select>
+  
+  <!-- 活动详情查询 -->
+  <resultMap type="com.accp.domain.users" id="result_queryByProductXq">
+  	<collection property="orders" column="id" ofType="com.accp.domain.userorder" select="">
+  		
+  	</collection>
+  </resultMap>
+  
+  <select id="queryByProductXq" resultMap="result_queryByProductXq">
+  	SELECT * FROM `users`
+	WHERE `TypeId`=1
+  </select>
+  
+  <!-- 活动项目订单查询工作人员 -->
+  <select id="queryProjectOrderByUserId" resultMap="BaseResultMap">
+  	SELECT * FROM `users` WHERE `id`=#{id}
   </select>
   
   <sql id="Example_Where_Clause" >

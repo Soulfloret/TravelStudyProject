@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class menu {
     private Integer id;
@@ -31,16 +32,86 @@ public class menu {
 
     private String name5;
     
+    private List<images> imgs;
+    
     private images image;
     
     private String mename;
     
     private menutype mtype;
     
+    private List<menucomment> menucommend;
     
+    private List<images> mlist;
+    
+    private List<Object> list;
+    
+    private recommend recommend;
+        
+    
+    public List<menucomment> getMenucommend() {
+		return menucommend;
+	}
+
+	public void setMenucommend(List<menucomment> menucommend) {
+		this.menucommend = menucommend;
+	}
+
+
+	public void setImgs(List<images> imgs) {
+		this.imgs=imgs;
+	}
+	public List<images> getImgs() {
+		return imgs;
+	}
+    
+    private String url ;
+    
+    
+    
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public images getImage() {
+		return image;
+	}
+
+	public void setImage(images image) {
+		this.image = image;
+	}
+
+	public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
     
 
-    public menutype getMtype() {
+    public List<Object> getList() {
+		return list;
+	}
+
+	public void setList(List<Object> list) {
+		this.list = list;
+	}
+
+	public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public menutype getMtype() {
 		return mtype;
 	}
 
@@ -54,14 +125,6 @@ public class menu {
 
 	public void setMename(String mename) {
 		this.mename = mename;
-	}
-
-	public images getImages() {
-		return image;
-	}
-
-	public void setImage(images image) {
-		this.image = image;
 	}
 
 	public Integer getId() {

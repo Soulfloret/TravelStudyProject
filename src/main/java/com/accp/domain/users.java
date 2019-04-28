@@ -12,6 +12,16 @@ public class users {
     public users() {
 		super();
 	}
+    private dynamics dynamic;
+
+    
+	public dynamics getDynamic() {
+		return dynamic;
+	}
+
+	public void setDynamic(dynamics dynamic) {
+		this.dynamic = dynamic;
+	}
 
 	public users(String uname, String idcardno, String phone, String address, Double height, Double width,
 			Integer typeid, String name1,String upassword1) {
@@ -27,6 +37,27 @@ public class users {
 		this.upassword=upassword1;
 	}
 
+	public sendrequest getSendreq() {
+		return sendreq;
+	}
+
+	public void setSendreq(sendrequest sendreq) {
+		this.sendreq = sendreq;
+	}
+	
+	private discussiongroup dis;
+	
+	
+	public discussiongroup getDis() {
+		return dis;
+	}
+
+	public void setDis(discussiongroup dis) {
+		this.dis = dis;
+	}
+	//用来保存请求 判断是当前登录用户对用户是否已发送请求
+	private sendrequest sendreq;
+	
 	private String idcardno;
 
     private String phone;

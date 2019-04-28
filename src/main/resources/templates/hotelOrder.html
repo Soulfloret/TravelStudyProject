@@ -91,6 +91,9 @@
 						
 					</div>
 					<form th:action="@{/room/RoomDestineadd}" method="post">
+					
+					
+					
 					<div class="modal-body">
 						<div>
 						<input type="date" name="begintime" readonly="readonly" class="data1">到<input name="endtime" readonly="readonly" class="data2" type="date">
@@ -101,6 +104,12 @@
 					    <div> 类型：<input type="text"readonly="readonly" class="lx" style="color: red;"></div>
 					    <div> 身份证号码：<input type="text" name="sfz" placeholder="请输入"></div>
 					     <input type="hidden" name="roomid" class="id">
+					     <div> 类型：
+					     	<select name="lx">
+					     		<option value="1">个人</option>
+					     		<option value="2">团队</option>
+					     	</select>
+					     </div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -178,10 +187,7 @@
     					alert("请至少选择一天时间");
     					return false;
     				}
-    				if(ksdata<jsdata){
-    					alert("开始时间不能小于结束时间");
-    					return false;
-    				}
+    				
     				var date = new Date();
     				var n=date.getFullYear();
     				var y=date.getMonth();

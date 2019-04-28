@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.product;
 import com.accp.domain.productExample;
+import com.accp.domain.recommend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +32,13 @@ public interface productMapper {
     
     /*查询所有*/
     List<product> queryAll();
+    
+    recommend recommendByidproduct(@Param("id")Integer id);
+    
+    /*后台查询活动详情*/
+    product queryByXqById(Integer id);
+    
+    product AppProductByid(@Param("id")Integer id);
+    /*查询活动推荐*/
+    List<product> recommendByidProudct(Integer id);
 }

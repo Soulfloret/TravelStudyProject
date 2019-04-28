@@ -26,7 +26,7 @@
 					<select class="input-group-sm" name="menutypeid" style="width: 150px;height: 33px;">
 						<option value="0" th:selected="${menus.menutypeid==0 || menus.menutypeid=='' }" >请选择</option>
 						<option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" th:selected="${menus.menutypeid==itemtype.id }" ></option>
-					</<select>
+					</select>
 					<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
 					</form>
 					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top:30px ;">
@@ -50,7 +50,7 @@
 								<tbody>
 									<tr th:each="item,state : ${list}">
 										
-										<td><img th:if="${item.images!=null}" th:src="${item.images.url}" width="65px" height="65px" /></td>
+										<td><img th:if="${item.image!=null}" th:src="${item.image.url}" width="65px" height="65px" /></td>
 										<td class="tm-product-name"><a style="color: white;" th:href="@{/menu/toupdatemenu(id=${item.id})}" th:text="${item.mname}"></a></td>
 										<td th:text="${item.mtype.tname}"></td>
 										<td th:text="${item.price}"></td>

@@ -33,35 +33,27 @@
 				<div class="row tm-content-row">
 					<div class="col-12 tm-block-col">
 						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-							<h2 class="tm-block-title">客户列表</h2>
+							<h2 class="tm-block-title">团队列表</h2>
 							<div class="row">
-								<form class="form-inline col-md-11" style="margin-bottom: 10px;" th:action="@{/customer/toCustomer}">
+								<form class="form-inline col-md-11" method="post" style="margin-bottom: 10px;" th:action="@{/team/toteam}">
 									<div class="form-group" style="margin:0px 10px 0px 0px;">
-										<label for="exampleInputName2">图队名称:</label>
-										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="客户姓名">
+										<label for="exampleInputName2">团队名称:</label>
+										<input type="text" th:value="${tname}" name="tname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="团队姓名">
 									</div>
 									<div class="form-group" style="margin:0px 10px 0px 0px;">
-										<label>客户类别: </label>
-										<select name="typeId" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
-											<option value="-1">请选择</option>
-											<option
-											 th:each="item,state : ${listUserType}" th:value="${item.id}" th:selected="${item.id}==${typeId}" th:text="${item.tname}"   
-											></option>
-											
-										</select>
+										<label>负责人名称: </label>
+										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="负责人姓名">
 									</div>
-									<input type="submit" class="btn btn-info" value="查询">
+									<input type="submit" class="btn btn-info urls" value="查询" uri="team/toteam">
 								</form>
-								<a th:href="@{/customer/toadd}" style="color: white;line-height: 62px;" >新增客户</a>
 							</div>
 							<div id="tab">
 								<table class="table">
 									<thead>
 										<tr>
-											<th scope="col">客户ID</th>
-											<th scope="col">客户姓名</th>
-											<th scope="col">客户类型</th>
-											<th scope="col">客户性别</th>
+											<th scope="col">团队ID</th>
+											<th scope="col">团队名称</th>
+											<th scope="col">团队负责人</th>
 											<th scope="col">操作</th>
 										</tr>
 									</thead>
@@ -69,23 +61,14 @@
 										<tr th:each="it,indexs :${list}">
 											<th scope="row"><b th:text="${it.id}"></b></th>
 											<td>
-												<b th:text="${it.uname}"></b>
+												<b th:text="${it.name1}"></b>
 											</td>	
-											<td  th:if="${it.usetype.id==1}" >
-												<div class="tm-status-circle  moving" ></div>
-												<span th:text="${it.usetype.tname}" ></span>
-											</td>
-											<td  th:if="${it.usetype.id==2}" >
-												<div class="tm-status-circle  pending" ></div>
-												<span th:text="${it.usetype.tname}" ></span>
-											</td>
-											<td  th:if="${it.usetype.id==3}" >
-												<div class="tm-status-circle  moving" ></div>
-												<span th:text="${it.usetype.tname}" ></span>
-											</td>
-											<td><b th:text=${it.name1}></b></td>
 											<td>
-												<a th:href="@{/customer/toCustomerDetails(id=${it.id})}">查看</a>
+												<div class="tm-status-circle  moving" ></div>
+												<span th:text="${it.use.uname}" ></span>
+											</td>
+											<td>
+												<a th:href="@{/team/toTeamDetails(id=${it.id})}" class="urls" uri="team/toTeamDetails">查看</a>
 											</td>
 										</tr>
 									</tbody>

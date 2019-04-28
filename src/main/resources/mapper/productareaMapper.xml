@@ -11,11 +11,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
-  
+  <select id="queryByArearId" parameterType="com.accp.domain.productarea" resultMap="BaseResultMap">
+  	select * from productarea where areaid=#{areaid}
+  </select>
    <!-- 项目查询基地 map-->
   <resultMap type="com.accp.domain.productarea" id="result_queryByPid" extends="BaseResultMap">
-  	<collection property="alist" column="id" ofType="com.accp.domain.productarea" select="com.accp.mapper.areasMapper.queryById">
+  	<collection property="area" column="areaid" ofType="com.accp.domain.areas" select="com.accp.mapper.areasMapper.queryById">
 	  	<id column="id" property="id" jdbcType="INTEGER" />
 	    <result column="aName" property="aname" jdbcType="VARCHAR" />
 	    <result column="pistion" property="pistion" jdbcType="VARCHAR" />

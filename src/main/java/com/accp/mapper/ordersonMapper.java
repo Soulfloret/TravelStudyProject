@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ordersonMapper {
+	
+	List<orderson> queryroomtj(orderson o);
+	
+	List<orderson> querytj(orderson o);
+	
     int countByExample(ordersonExample example);
 
     int deleteByExample(ordersonExample example);
@@ -29,4 +34,6 @@ public interface ordersonMapper {
     int updateByPrimaryKey(orderson record);
     
     List<orderson> recommdstatic(@Param("typeid")Integer typeid);
+    
+    List<orderson> recommdstaticmenu(@Param("typeid")Integer typeid);
 }

@@ -30,12 +30,14 @@ public class productController {
 	@Autowired
 	productprojectService prop;
 	
+	/*后台查询所有*/
 	@RequestMapping("query")
 	public String query(Model model) {
 		List<product> list=prod.queryAll();
+	
 		model.addAttribute("list", list);
 		return "products";
-	}
+	}		
 	
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,project pro) {
@@ -60,4 +62,17 @@ public class productController {
 		System.out.println(JSON.toJSONString(list));
 		return list;
 	}
+	
+	/*活动查看详情*/
+	@RequestMapping("look_productxq")
+	public String look_productxq(Model model,Integer id) {
+		product product=prod.queryByXqById(id);
+		System.out.println(JSON.toJSONString(product));
+		model.addAttribute("product", product);
+		return "edit-product";
+	}
+	
+	
+	
+	
 }

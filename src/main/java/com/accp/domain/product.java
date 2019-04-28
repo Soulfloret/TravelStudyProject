@@ -21,9 +21,27 @@ public class product {
 
     private List<productproject> pplist;
     
+    private recommend recommend;
     
+    private orderson orderson;
     
-    public List<productproject> getPplist() {
+    public orderson getOrderson() {
+		return orderson;
+	}
+
+	public void setOrderson(orderson orderson) {
+		this.orderson = orderson;
+	}
+
+	public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public List<productproject> getPplist() {
 		return pplist;
 	}
 

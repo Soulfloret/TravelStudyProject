@@ -1,18 +1,43 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class team {
     private Integer id;
 
     private Integer mainiuserid;
 
-    public team( Integer mainiuserid) {
+    public team( Integer mainiuserid,String name1) {
+    	this.name1=name1;
 		this.mainiuserid = mainiuserid;
 	}
+    private users use;
+        
+    
+    private List<teammember> teams;
+    
+    
+    
+    public List<teammember> getTeams() {
+		return teams;
+	}
 
+	public void setTeams(List<teammember> teams) {
+		this.teams = teams;
+	}
+
+	public users getUse() {
+		return use;
+	}
+
+	public void setUse(users use) {
+		this.use = use;
+	}
+	//团队名称
 	private String name1;
 
     public team() {
-		super();
+		
 	}
 
 	private String name2;

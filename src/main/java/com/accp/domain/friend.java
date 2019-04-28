@@ -13,11 +13,10 @@ public class friend {
 
     private String name3;
 
-    private String name4;
+	private String name4;
 
     private String name5;
     private users use;
-    
 
     public users getUse() {
 		return use;

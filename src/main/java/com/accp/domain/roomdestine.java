@@ -29,11 +29,21 @@ public class roomdestine {
 
     private String name5;
     
+    private users user;
+    
+    
     private room room;
     
-    
 
-    public room getRoom() {
+    public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public room getRoom() {
 		return room;
 	}
 

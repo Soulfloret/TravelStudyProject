@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menucommentMapper {
+	
+	List<menucomment> selectmenucommentByid(menucomment m);
+	
     int countByExample(menucommentExample example);
 
     int deleteByExample(menucommentExample example);
@@ -27,4 +30,6 @@ public interface menucommentMapper {
     int updateByPrimaryKeySelective(menucomment record);
 
     int updateByPrimaryKey(menucomment record);
+    
+    List<menucomment> AppMenuCommend(@Param("menuid")Integer menuid);
 }
