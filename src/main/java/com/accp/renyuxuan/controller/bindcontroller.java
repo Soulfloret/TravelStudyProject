@@ -40,6 +40,14 @@ public class bindcontroller {
 	//去套餐页面
 	@RequestMapping("/toQuerybind")
 	public String toQuerybind(Model model,bind bi) {
+		if(bi.getZdprice()!=null && bi.getZgprice()!=null) {
+			Double a=bi.getZdprice();
+			Double b=bi.getZgprice();
+			if(a>b) {
+				bi.setZdprice(b);
+				bi.setZgprice(a);
+			}
+		}
 		List<bind> list=b.querybind(bi);
 		model.addAttribute("list",list);
 		model.addAttribute("binds",bi);
@@ -111,7 +119,7 @@ public class bindcontroller {
 		binds.setLikecount(0);//修改之后点赞清0
 		b.updateByPrimaryKeySelective(binds);
 		b.insertmenubind(binds);
-		im.delByiidAndTypeId(binds.getId(), 42);
+		im.delByiidAndTypeId(binds.getId(), 4);
 		im.insertbingimglist(binds);
 		return "redirect:/bing/toQuerybind";
 	}

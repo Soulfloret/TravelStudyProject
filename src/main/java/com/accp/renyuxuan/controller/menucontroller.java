@@ -90,6 +90,14 @@ public class menucontroller {
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
 	public String toquerymenu(Model model,menu men) {
+		if(men.getZdprice()!=null &&men.getZgprice()!=null) {
+			Double a=men.getZdprice();
+			Double b=men.getZgprice();
+			if(a>b) {
+				men.setZdprice(b);
+				men.setZgprice(a);
+			}
+		}
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
 		model.addAttribute("listtype",me.selectByExample(null));
@@ -168,30 +176,54 @@ public class menucontroller {
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder(Model model,String lx) {
+	public String tomenuorder(Model model,String lx,String mname,Double zdprice,Double zgprice) {
 		if(lx==null || lx=="") {
 			lx="0";
 		}
+		bind binds=new bind();
+		menu menus=new menu();
+		if(zdprice!=null && zgprice!=null) {
+			if(zdprice>zgprice) {
+				binds.setZdprice(zgprice);
+				binds.setZgprice(zdprice);
+				menus.setZdprice(zgprice);
+				menus.setZgprice(zdprice);
+			}else {
+				binds.setZdprice(zdprice);
+				binds.setZgprice(zgprice);
+				menus.setZdprice(zdprice);
+				menus.setZgprice(zgprice);
+			}
+		}else {
+			binds.setZdprice(zdprice);
+			binds.setZgprice(zgprice);
+			menus.setZdprice(zdprice);
+			menus.setZgprice(zgprice);
+		}
+		binds.setMname(mname);
+		menus.setMname(mname);
 		if("0".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("1".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("2".equals(lx)) {
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}
 		return "";

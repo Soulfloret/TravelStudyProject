@@ -61,6 +61,12 @@
 			<if test="id!=null and id!=''">
 				and m.id=#{id}
 			</if>
+			<if test="zdprice!=null and zdprice!='' ">
+				and m.`price`&gt;=#{zdprice} 
+			</if>
+			<if test="zgprice!=null and zgprice!=''">
+				AND m.`price` &lt;=#{zgprice}
+			</if>
 		</where>
   </select>
 

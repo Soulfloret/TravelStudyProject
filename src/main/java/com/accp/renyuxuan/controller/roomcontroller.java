@@ -67,7 +67,7 @@ public class roomcontroller {
 	public String toqueryroom(Model model ,room ro) {
 		List<room> list =r.queryByroom(ro);
 		model.addAttribute("list", list);
-		model.addAttribute("typeid", ro.getTypeid());
+		model.addAttribute("ro", ro);
 		return "/HotelManager";
 	}
 	
@@ -105,8 +105,8 @@ public class roomcontroller {
 	
 	//查询出可以预订房间  去住宿后台下订单页面
 	@RequestMapping("/roomorder")
-	public String roomorder(Model model ,roomdestine ro) {
-		List<room> list=r.queryByroomData(ro.getBegintime(),ro.getEndtime());
+	public String roomorder(Model model ,room ro) {
+		List<room> list=r.queryByroomData(ro);
 		model.addAttribute("list", list);
 		model.addAttribute("ro", ro);
 		return "hotelOrder";
@@ -151,8 +151,8 @@ public class roomcontroller {
 	}
 	
 	@RequestMapping("/toqueryqtroom")
-	public String toqueryqtroom(Model model ,roomdestine ro) {
-		List<room> list=r.queryByroomData(ro.getBegintime(),ro.getEndtime());
+	public String toqueryqtroom(Model model ,room ro) {
+		List<room> list=r.queryByroomData(ro);
 		List<orderson> olist=o.queryroomtj(null);
 		List<room> rlist=r.queryByroomtypeid();
 		model.addAttribute("rlist", rlist);
@@ -173,6 +173,13 @@ public class roomcontroller {
 		return "detail";
 	}
 	
+	@RequestMapping("/AjaxQuerydid")
+	@ResponseBody
+	public String AjaxQuerydid(Integer id) {
+		List<roomdestine> list= rd.selectByroomid(id);		
+		return JSON.toJSONString(list);
+	}
+	
 	@RequestMapping("/queryByroomdestineid")
 	@ResponseBody
 	public String queryByroomdestineid(roomdestine rrr) {
@@ -187,7 +194,7 @@ public class roomcontroller {
 		}
 	}
 	
-		//菜单上架下架
+		//住宿上架下架
 		@RequestMapping("/sjxj")
 		@ResponseBody
 		public String sjxj(String type,Integer id) {

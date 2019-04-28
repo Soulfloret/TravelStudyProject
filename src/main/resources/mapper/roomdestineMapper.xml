@@ -14,9 +14,15 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="selectByroomid" resultMap="BaseResultMap">
-  	SELECT * FROM `roomdestine`
-	WHERE `roomId`=#{id} AND `begintime` >=NOW()
+  <resultMap type="com.accp.domain.roomdestine" id="BaseResultMap1" extends="BaseResultMap">
+  	<association property="user" javaType="com.accp.domain.users">
+  		<result column="uName" property="uname" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  
+  <select id="selectByroomid" resultMap="BaseResultMap1">
+  	SELECT r.*,u.`uName` FROM `roomdestine` r INNER JOIN `users` u ON r.`userId`=u.`id`
+	WHERE `roomId`=#{id} AND `begintime` >=DATEDIFF(NOW(),`begintime`)
   
   </select>
   

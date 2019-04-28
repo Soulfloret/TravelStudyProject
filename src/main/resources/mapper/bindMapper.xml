@@ -79,11 +79,18 @@
 		LEFT JOIN `menubind` me ON b.id=me.`BindId`
 		inner JOIN `menu` m ON me.`menuId`=m.`id`
 		<where>
+		
 			<if test="mname!=null and mname!=''">
 				b.`mName` like CONCAT('%',#{mname},'%')
 			</if>
 			<if test="id!=null and id !=''">
 				b.`id`=#{id}
+			</if>
+			<if test="zdprice !=null and zdprice !='' ">
+				and b.`price`&gt;=#{zdprice} 
+			</if>
+			<if test="zgprice!=null and zgprice!='' ">
+				AND b.`price` &lt;=#{zgprice}
 			</if>
 		</where>
   </select>

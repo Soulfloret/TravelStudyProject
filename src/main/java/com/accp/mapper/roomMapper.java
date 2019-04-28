@@ -15,7 +15,7 @@ public interface roomMapper {
 	
 	room queryByroomid(@Param("id") Integer id);
 	
-	List<room> queryByroomData(@Param("begintime")Date begintime ,@Param("endtime")Date endtime);
+	List<room> queryByroomData(room ro);
 	
 	List<room> queryByroom(room r);
 	

@@ -91,7 +91,11 @@
               <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
               	
                 <div id="imgadd">
-                	<img th:each="iitem : ${mlist}" th:src="${iitem.url}"  width="100" height="80">
+                	<span th:each="iitem,stack : ${mlist}" >
+                	<img th:src="${iitem.url}"  width="100" height="80">
+                	<input type="hidden" th:name="mlist[+${stack.index}+].typeid" value="3">
+                	<input type='hidden' th:name='mlist[+${stack.index}+].url' th:value="${iitem.url}">
+                	</span>
                 </div>
                 <div class="custom-file mt-3 mb-3">
                   <input id="fileInput" type="file" multiple="multiple" style="display:none;" />
@@ -99,7 +103,7 @@
                   	id="sc"
                     type="button"
                     class="btn btn-primary btn-block mx-auto"
-                    value="上传图片"
+                    value="修改图片"
                     onclick="document.getElementById('fileInput').click();"
                   />
                 </div>  
