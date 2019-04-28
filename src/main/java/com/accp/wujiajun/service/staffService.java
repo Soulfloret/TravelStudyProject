@@ -26,6 +26,8 @@ public class staffService implements staffServiceImpl{
 	@Autowired
 	signinMapper smapper;
 	
+	@Autowired
+	positionsMapper pmapper;
 	
 	@Override
 	public List<staff> query(staff sta) {
@@ -82,6 +84,7 @@ public class staffService implements staffServiceImpl{
 	public staff loginByuserid(Integer userid) {
 		staff s=mapper.loginByuserid(userid);
 		s.setUser(umapper.selectByPrimaryKey(s.getUserid()));
+		s.setPlist(pmapper.selectByPrimaryKey(s.getPostionid()));
 		return s;
 	}
 

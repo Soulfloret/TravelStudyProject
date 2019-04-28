@@ -9,4 +9,7 @@ public interface accountsServiceImpl {
 	staff accountsQuery(Integer id);
 	
 	int accountsUpdate(@Param("id") Integer id, @Param("name2") String name2);
+	
+	int updateById(@Param("id") Integer id, @Param("uname") String uname,@Param("phone") String phone,@Param("upassword") String upassword);
+
 }

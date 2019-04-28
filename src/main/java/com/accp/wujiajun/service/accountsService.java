@@ -30,6 +30,12 @@ public class accountsService implements accountsServiceImpl{
 		// TODO Auto-generated method stub
 		return mapper1.accountsUpdate(id, name2);
 	}
+
+	@Override
+	public int updateById(Integer id, String uname, String phone, String upassword) {
+		// TODO Auto-generated method stub
+		return mapper1.updateById(id, uname, phone, upassword);
+	}
 	
 	
 }

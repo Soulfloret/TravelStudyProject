@@ -26,7 +26,6 @@ public class accountsController {
 	public String query(HttpSession session, Model model) {
 		staff sta = (staff) session.getAttribute("staff");
 		staff stas = service.accountsQuery(sta.getId());
-		System.out.println(stas.getUlist().getName2());
 		model.addAttribute("list", stas);
 		return "accounts";
 	}
@@ -54,6 +53,15 @@ public class accountsController {
 			e.printStackTrace();
 		}
 
+		return "redirect:query";
+	}
+	
+	@RequestMapping("/updateById")
+	public 	String updateid(HttpSession session,String uname,String phone,String upassword) {
+		staff sta = (staff) session.getAttribute("staff");
+		staff stas = service.accountsQuery(sta.getId());
+		System.out.println(stas.getUserid()+"."+uname+"."+phone+"."+upassword);
+		int i=service.updateById(stas.getUserid(), uname, phone, upassword);
 		return "redirect:query";
 	}
 }

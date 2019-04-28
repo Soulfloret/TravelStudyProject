@@ -10,6 +10,8 @@ import com.accp.domain.usersExample;
 
 public interface usersMapper {
 	
+	int updateById(@Param("id") Integer id, @Param("uname") String uname,@Param("phone") String phone,@Param("upassword") String upassword);
+	
 	int accountsUpdate(@Param("id") Integer id, @Param("name2") String name2);
 	
 	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);

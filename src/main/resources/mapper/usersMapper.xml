@@ -44,6 +44,10 @@
   	</collection>
   </resultMap>
  
+ <update id="updateById">
+ update users set uname=#{uname},phone=#{phone},upassword=#{upassword} where id=#{id}
+ </update>
+ 
  <update id="accountsUpdate">
  	update users set name2=#{name2} where id=#{id}
  </update> 
