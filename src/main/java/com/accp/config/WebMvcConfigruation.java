@@ -27,8 +27,8 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 
 	/*@Autowired
-	MyInterceptor my;
-*/
+	MyInterceptor my;*/
+
 	/**
 	 * 闈欐�佽祫婧愯矾寰勯厤缃紝娉ㄦ剰锛氬鏋滀笉閰嶇疆锛屽垯浼�404
 	 */
