@@ -1,6 +1,8 @@
 package com.accp.yipeng.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -8,9 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.accp.domain.discussiongroup;
 import com.accp.domain.users;
 import com.accp.sunhuihui.service.UserService;
+import com.accp.yipeng.service.DiscussiongroupService;
+import com.accp.yipeng.service.DiscussiongroupSonService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 
@@ -23,6 +30,10 @@ public class LoginController {
 	UserTypeService UsersType;
 	@Autowired
 	UserService sunService;
+	@Autowired 
+	DiscussiongroupService disService;
+	@Autowired 
+	DiscussiongroupSonService disSonService;
 	
 	@RequestMapping("tologin")
 	public String tologin() {
@@ -34,6 +45,22 @@ public class LoginController {
 		return "login-page";
 	}
 	
+	@RequestMapping("Applogin")
+	@ResponseBody
+	public boolean Applogin(String uname,String upassword,HttpSession session) {
+		users use=sunService.queryByName(uname, upassword);
+		if(use!=null){
+			List<discussiongroup> list= disService.selectAllDiscussionGroup(use.getId());
+			for (discussiongroup discussiongroup : list) {
+				discussiongroup.setDlist(disSonService.selectAllusersBydid(discussiongroup.getId()));
+			}
+			use.setDlist(list);
+			session.setAttribute("user", use);
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	@RequestMapping("login")
 	public String login(String uname,String upassword,HttpSession session) {

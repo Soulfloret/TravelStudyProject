@@ -20,21 +20,14 @@ public class WebSocketInterceptor implements HandshakeInterceptor{
 			Map<String, Object> attributes) throws Exception {
 		/**
 		 * 匹配用户(获取http session中的用户) 将用户存储在 ws:session 中 
-		 *//*
+		 */
 		ServletServerHttpRequest servletreq=(ServletServerHttpRequest)request;
-		//从http req 获取session中的用户对象 
-		//users use=(users)servletreq.getServletRequest().getSession().getAttribute("use");
+		users use=(users)servletreq.getServletRequest().getSession().getAttribute("user");
 		if(use!=null) {
-			attributes.put("uid", use.getId());
+			attributes.put("use", use);
 			return true;
 		}
-		String use=servletreq.getServletRequest().getParameter("id");
-		int useid=Integer.parseInt(use);
-		if(useid!=0) {
-			attributes.put("uid", useid);
-			return true;
-		}*/
-		return true;
+		return false;
 	}
 
 	@Override
