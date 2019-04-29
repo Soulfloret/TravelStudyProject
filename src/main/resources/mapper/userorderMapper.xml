@@ -20,6 +20,18 @@
   <resultMap type="com.accp.domain.userorder" id="result_QueryByProductXq" extends="BaseResultMap">
   	<collection property="list" column="id" ofType="com.accp.domain.orderson"></collection>
   </resultMap>
+  <!-- 根据用户id查询他所参加的用户订单  -->
+  <select id="selectAllUserOrderById" resultMap="BaseResultMap">
+  
+  	SELECT * FROM userorder WHERE orderCustomer=#{uid} AND orderMainId IN (
+		SELECT u.`id` FROM usermainorder AS u  WHERE name2='团队' AND orderCustomer IN 
+		(
+			SELECT t.id FROM team AS t INNER JOIN teammember AS tm ON t.`id`=tm.`teamId` WHERE tm.memberId=#{uid} AND t.`mainiUserId`!=#{uid}
+		)
+	)
+
+  </select>
+  
   
   <select id="QueryByProductXq" resultMap="result_QueryByProductXq">
   	SELECT * FROM `orderson`

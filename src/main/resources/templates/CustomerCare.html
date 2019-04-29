@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>客户详情</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
 		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}" >
@@ -315,6 +314,7 @@
 			})
 		</script>
 		<script  th:line="javascript" >
+		
 		$(".info").click(function(){
 			var id=$(this).prev().val();
 			$.post("/order/queryById?id="+id+"",function(data){
@@ -359,7 +359,7 @@
 												timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
 												var timestamp5= new Date(item2.ix.list[0].endtime);
 												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-												price+=item2.ix.list[0].project.price;	
+												price+=item2.ix.list[0].project.price;
 												var divtr=$("<tr>"
 														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
 														+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
@@ -410,12 +410,13 @@
 													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
 													+"<td><b>"+item2.ix.price+"</b></td>"
 													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.ix.name2+"</b></td>"
-													+"<td><b>"+item2.ix.name2*item2.ix.price+"</b></td>"
+													+"<td><b>"+item2.name2+"</b></td>"
+													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
 													+"</tr>");
 													$(divbody).append(tr);
 												$(divtable).append(divbody);
 												$(divs).append(divtable);
+												price+=item2.name2*item2.ix.price;
 												div3=divs;
 												
 										}
@@ -467,6 +468,7 @@
 							var div2;
 							var div3;
 							var div4;
+							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
 							$.each(item.orders,function(index1,item1){
 								$.each(item1.list,function(index2,item2){
 									if(item2.typeid==1||item2.typeid==5){
@@ -525,6 +527,7 @@
 										$(divhtable).append(divtbody);
 										$(divh2).append(divhtable);
 										div2=divh2;
+										$(divh1).append(div2);
 									}
 									if(item2.typeid==2){
 										var divs=$("<div class='content col-md-11'></div>")
@@ -541,15 +544,15 @@
 													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
 													+"<td><b>"+item2.ix.price+"</b></td>"
 													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.ix.name2+"</b></td>"
-													/* item2.ix.name2* */
-													+"<td><b>"+item2.ix.price+"</b></td>"
+													+"<td><b>"+item2.name2+"</b></td>"
+													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
 													+"</tr>");
 													$(divbody).append(tr);
-											price+=item2.ix.price;
 											$(divtable).append(divbody);
 											$(divs).append(divtable);
 											div3=divs;
+											$(divh1).append(div3);
+											price+=item2.name2*item2.ix.price;
 									}
 									if(item2.typeid==3){
 										var div=$("<div class='content col-md-11'></div>");
@@ -580,29 +583,28 @@
 										$(table).append(tbody);
 										$(div).append(table);
 										div4=div;
+										$(divh1).append(div4);
 									}
 								})
 						})
 						if(item.id==data.user.id){
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapse0'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
-							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapse0'></div>");
-							$(divh1).append(div2).append(div3).append(div4);
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
 							$(div).append(divh).append(divh1);
 						}else{
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
-							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
-							$(divh1).append(div2).append(div3).append(div4);
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>"+item.uname+"</span></a></h4></div>");
 							$(div).append(divh).append(divh1);
 						}
-							var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
-							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
-	    					$(div1).append(h41);
 							$(".box").append(div1);
 							$(".box").append(div);
 						})
+						var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
+						$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+    					$(div1).append(h41);
 					}
 					},"json");
 		})
+		
+		
 		</script>
 		<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
