@@ -313,10 +313,13 @@
 				}
 			})
 		</script>
-		<script  th:line="javascript" >
+		<script  th:inline="javascript" >
+		
 		
 		$(".info").click(function(){
+			 var user=[[${user}]];
 			var id=$(this).prev().val();
+			var path=[[@{/}]];
 			$.post("/order/queryById?id="+id+"",function(data){
 					console.log(data);
 					$(".box").text("");
@@ -361,7 +364,7 @@
 												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 												price+=item2.ix.list[0].project.price;
 												var divtr=$("<tr>"
-														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
+														+"<th scope='row'><img src='/img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
 														+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 														+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
@@ -382,7 +385,7 @@
 													timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 													price+=item3.project.price;
 													var divtr=$("<tr>"
-															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
+															+"<th scope='row'><img src='/img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
 															+"<td><b>"+item3.area.aname+"</b></td>"
 															+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 															+"<td><b>"+item3.project.price+"</b></td>"
@@ -451,7 +454,7 @@
 										}
 									})
 								})
-								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>1</span><span>个人订单</span></a></h4></div>");
 								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
 							
 								$(divh1).append(div2).append(div3).append(div4);
@@ -494,7 +497,7 @@
 											var timestamp5= new Date(item2.ix.list[0].endtime);
 											timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 											var divtr=$("<tr>"
-													+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
+													+"<th scope='row'><img src='/img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
 													+"<td><b>"+item2.ix.list[0].area.aname+"</b></td>"
 													+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
 													+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
@@ -515,7 +518,7 @@
 												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
 												price+=item3.project.price;
 												var divtr=$("<tr>"
-														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
+														+"<th scope='row'><img src='/img/product-image.jpg' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
 														+"<td><b>"+item3.area.aname+"</b></td>"
 														+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
 														+"<td><b>"+item3.project.price+"</b></td>"
@@ -588,11 +591,16 @@
 								})
 						})
 						if(item.id==data.user.id){
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
-							$(div).append(divh).append(divh1);
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>1</span><span>负责人订单</span></a></h4></div>");
+							$(div).append(divh).append(divh1); 
 						}else{
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>"+item.uname+"</span></a></h4></div>");
-							$(div).append(divh).append(divh1);
+							if(user.id==item.id){
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>"+(index+1)+"</span><span>"+item.uname+"</span><span class='team'>我的</span></a></h4></div>");
+								$(div).append(divh).append(divh1);
+							}else{
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>"+(index+1)+"</span><span>"+item.uname+"</span></a></h4></div>");
+								$(div).append(divh).append(divh1);
+							}
 						}
 							$(".box").append(div1);
 							$(".box").append(div);
@@ -601,7 +609,7 @@
 						$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
     					$(div1).append(h41);
 					}
-					},"json");
+					},"json"); 
 		})
 		
 		

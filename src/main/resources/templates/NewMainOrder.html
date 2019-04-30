@@ -374,7 +374,7 @@
 						}
 					})
 				})
-				divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
+				divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>1</span><span>个人订单</span></a></h4></div>");
 				divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
 			
 				$(divh1).append(div2).append(div3).append(div4);
@@ -521,7 +521,7 @@
 									}
 								})
 							})
-							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>1</span><span>个人订单</span></a></h4></div>");
 							divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
 						
 							$(divh1).append(div2).append(div3).append(div4);
@@ -658,10 +658,10 @@
 							})
 					})
 					if(item.id==data.user.id){
-						divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
+						divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>1</span><span>负责人订单</span></a></h4></div>");
 						$(div).append(divh).append(divh1);
 					}else{
-						divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>"+item.uname+"</span></a></h4></div>");
+						divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>"+(index+1)+"</span><span>"+item.uname+"</span></a></h4></div>");
 						$(div).append(divh).append(divh1);
 					}
 						$(".box").append(div1);
