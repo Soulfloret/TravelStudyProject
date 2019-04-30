@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -150,6 +152,7 @@ public class roomcontroller {
 		return "redirect:/room/roomorder";
 	}
 	
+	//前台住宿主页
 	@RequestMapping("/toqueryqtroom")
 	public String toqueryqtroom(Model model ,room ro) {
 		List<room> list=r.queryByroomData(ro);
@@ -162,6 +165,7 @@ public class roomcontroller {
 		return "index1";
 	}
 	
+	//详情
 	@RequestMapping("/toqueryqtroomByid")
 	public String toqueryqtroomByid(Model model,Integer id) {
 		List<orderson> olist=o.queryroomtj(null);
@@ -180,6 +184,7 @@ public class roomcontroller {
 		return JSON.toJSONString(list);
 	}
 	
+	//前台预订房间
 	@RequestMapping("/queryByroomdestineid")
 	@ResponseBody
 	public String queryByroomdestineid(roomdestine rrr) {
@@ -213,6 +218,21 @@ public class roomcontroller {
 			}
 			return "";
 		}
+		
+		
+		//前台临时订单页面
+		@RequestMapping("/querydingdan")
+		public String querydingdan(HttpSession session,Model model) {
+			//users us=(users) session.getAttribute("use");
+			int id=5;
+			List<roomdestine> list =rd.selectByrdId(id);
+			model.addAttribute("list", list);
+			return "dingdan";
+		}
+		
+		
+		
+		
 	
 	
 }

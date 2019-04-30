@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<title>Check Out</title>
 
-		<link href="css1/bootstrap.css" rel="stylesheet">
-		<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
-		<link rel="icon" href="img1/favicon/favicon.html" type="image/x-icon" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img1/favicon/apple-touch-icon-144x144-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img1/favicon/apple-touch-icon-72x72-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" href="img1/favicon/apple-touch-icon-precomposed.html">
-		<link rel="stylesheet" href="css1/minified.css">
-		<script>window.jQuery || document.write('<script src="js1/jquery.min.js"><\/script>');</script>
-		<script src="js1/modernizr.min.js"></script>	
-		<link rel="stylesheet" href="css1/owl.carousel.css">
-		<link rel="stylesheet" href="css1/owl.theme.css">
-		<link href="css1/flexslider.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css1/responsive.css">
+		<link th:href="@{/css1/bootstrap.css}" rel="stylesheet">
+		<link th:href="@{/css1/style.css}" rel="stylesheet" type="text/css" media="all" />
+		<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
+		<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
+		<link rel="stylesheet" th:href="@{/css1/minified.css}">
+		<script th:src="@{/js1/modernizr.min.js}"></script>	
+		<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
+		<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
+		<link th:href="@{/css1/flexslider.css}" rel="stylesheet" />
+		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="Favorites Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -30,15 +29,15 @@
 				window.scrollTo(0, 1);
 			}
 		</script>
-		<script type="text/javascript" src="js1/jquery.min.js"></script>
-		<script src="js1/simpleCart.min.js">
+		<script type="text/javascript" th:src="@{/js1/jquery.min.js}"></script>
+		<script th:src="@{/js1/simpleCart.min.js}">
 		</script>
-		<script type="text/javascript" src="js1/move-top.js"></script>
-		<script type="text/javascript" src="js1/easing.js"></script>
-		<script type="text/javascript" src="js1/bootstrap.min.js"></script>
-		<script src="js1/minified.js"></script>
-		<script src="js1/owl.carousel.js"></script>
-		<script src="js1/jquery.flexslider-min.js"></script>
+		<script type="text/javascript" th:src="@{/js1/move-top.js}"></script>
+		<script type="text/javascript" th:src="@{/js1/easing.js}"></script>
+		<script type="text/javascript" th:src="@{/js1/bootstrap.min.js}"></script>
+		<script th:src="@{/js1/minified.js}"></script>
+		<script th:src="@{/js1/owl.carousel.js}"></script>
+		<script th:src="@{/js1/jquery.flexslider-min.js}"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {
@@ -58,6 +57,10 @@
 			.input-icon >i{
 				margin-left: 10px;
 				margin-top: -5px;	
+			}
+			.btn-default.active, .btn-default:active, .btn-default:focus, .btn-default:hover {
+			    background: red;
+			    color: #fff;
 			}
 		</style>
 	</head>
@@ -183,7 +186,7 @@
 					<!-- SITE LOGO -->
 					<div class="logo-wrapper">
 						<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
-							<img src="images/logo2.png" alt="Logo" />
+							<img th:src="@{/images/logo2.png}" alt="Logo" />
 						</a>
 					</div>
 					<!-- // SITE LOGO -->
@@ -215,196 +218,101 @@
 		<!-- // MAIN HEADER -->
 	</header>
 
-		<div class="cart-items">
-			<div class="container">
-				<h1>我的订单(3)</h1>
-				<ul class="list-group">
-					<li class="list-group-item">
-						<div class="panel panel-success">
-							<!-- Default panel contents -->
-							<div class="panel-heading">
-								<span>订单编号：3456454322132</span>
-								<span style="margin-left: 150px;">下单时间：2019-09-09 12:31</span>
-								<span style="margin-left: 150px;">订单状态：<span style="color: red;">已付款</span></span>
-								<span style="margin-left: 150px;">订单总价：<span style="color: red;">$99</span></span>
-							</div>
-							<ul class="list-group">
-								<li class="list-group-item">
-									<div class="cart-header">
-										<div class="cart-sec simpleCart_shelfItem">
-											<div class="cart-item cyc">
-												<img src="images/k3.jpg" class="img-responsive" alt="">
-											</div>
-											<div class="row">
-												<div class="col-md-3">
-													<div class="cart-item-info row">
-														<h3><a href="#">名字</a><span></span></h3>
-														<ul class="qty">
-															<li>
-																<p>商品单价：<span class="dj">12.00</span></p>
+		<div id="wrapper-outer">
+			<div id="wrapper">
+				<div id="wrapper-inner">
+					<div id="content">
+						<div class="map-wrapper">
+							<div class="map">
+								<div id="map" class="map-inner"></div>
+								<div class="cart-items">
+										<div class="container">
+											<h1>我的订单</h1>
+											<ul class="list-group">
+												<li class="list-group-item" th:each="item , stack : ${list}">
+													<div class="panel panel-success">
+														<!-- Default panel contents -->
+														
+														<ul class="list-group">
+															<li class="list-group-item">
+																<div class="cart-header">
+																	<div class="cart-sec simpleCart_shelfItem">
+																		<div class="cart-item cyc">
+																			<img th:src="${item.room.url}" class="img-responsive" style="width: 215px; height: 133px;" alt="">
+																		</div>
+																		<div class="row">
+																			<div class="col-md-3">
+																				<div class="cart-item-info row">
+																					<h3><a href="javascript:void(0)" th:text="${item.room.rname}"></a><span></span></h3>
+																					<div>开始时间：<span th:text="${#dates.format(item.begintime, 'yyyy-MM-dd')}"></span></div>
+																					<div>结束时间：<span th:text="${#dates.format(item.endtime, 'yyyy-MM-dd')}"></span></div>
+																					<div>位置：<span th:text="${item.room.location}"></span></div>
+																					<div>价格：<span class="dj" th:text="${item.room.price}"></span></div>
+																				</div>
+																			</div>
+																			<div class="col-md-5 col-md-offset-1">
+																				<span style="color: red;">房屋介绍：</span>
+																				<div th:text="${item.room.introduce}">
+																					
+																				</div>
+																			</div>
+																			<div class="clearfix">
+							
+																			</div>
+																		</div>
+							
+																	</div>
+																</div>
 															</li>
+															
 														</ul>
-														<span>商品数量：12</span>
-														<div>小计：<span name="xj">12.00</span></div>
-														<div><span class="glyphicon glyphicon-thumbs-up">(123)</span></div>
-														<button type="button" class="btn btn-default" aria-label="Left Align" data-target="#md" data-toggle="modal">
-												  <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>评价
-												</button>
+														<div class="panel-footer" style="height: 60px;line-height: 50px;margin-top: -8px;">
+															<span style="position: absolute; left: 50px;bottom:30px;font-size:16px ;">离订单取消还有30s</span>
+															<div style="float: right;">
+																<button type="button" class="btn btn-default btn-lg" style="margin-left: 50px;margin-top: 5px;" data-target="#md" data-toggle="modal">
+																   马上付款
+																</button>
+															</div>
+														</div>
 													</div>
-												</div>
-												<div class="col-md-5 col-md-offset-1">
-													<span style="color: red;">菜品介绍：</span>
-													<div>
-														jssssssssssssss sjjjjjjjjjjjjjj kjssssssssssssss ksssssssssss 死就急急急急急急急急 急急急急急急急死就急 急急急急急急急急急急急 即使是事实上事实上事实上课看
+												</li>
+												
+												
+												<li class="list-group-item" style="height: 100px;">
+													<div style="float: right;">
+														
+														<h3>订单总价：<span style="color: red;" id="zongjia"></span></h4>
+														<div>
+																<button type="button" class="btn btn-default btn-lg" style="margin-left: 70px;margin-top: -15px;">
+																   全部付款
+																</button>
+														</div>
 													</div>
-												</div>
-												<div class="clearfix">
-
-												</div>
-											</div>
-
+												</li>
+											</ul>
+											
 										</div>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="cart-header">
-										<div class="cart-sec simpleCart_shelfItem">
-											<div class="cart-item cyc">
-												<img src="images/k3.jpg" class="img-responsive" alt="">
-											</div>
-											<div class="row">
-												<div class="col-md-3">
-													<div class="cart-item-info row">
-														<h3><a href="#">名字</a><span></span></h3>
-														<ul class="qty">
-															<li>
-																<p>商品单价：<span class="dj">12.00</span></p>
-															</li>
-														</ul>
-														<span>商品数量：12</span>
-														<div>小计：<span name="xj">12.00</span></div>
-														<div><span class="glyphicon glyphicon-thumbs-up">(123)</span></div>
-														<button type="button" class="btn btn-default" aria-label="Left Align" data-target="#md" data-toggle="modal">
-												  <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>评价
-												</button>
-													</div>
-												</div>
-												<div class="col-md-5 col-md-offset-1">
-													<span style="color: red;">菜品介绍：</span>
-													<div>
-														jssssssssssssss sjjjjjjjjjjjjjj kjssssssssssssss ksssssssssss 死就急急急急急急急急 急急急急急急急死就急 急急急急急急急急急急急 即使是事实上事实上事实上课看
-													</div>
-												</div>
-												<div class="clearfix">
+										
 
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</li>
-							</ul>
-							<div class="panel-footer" style="height: 60px;line-height: 50px;margin-top: -8px;">
-								<span style="position: absolute; left: 50px;bottom:30px;font-size:16px ;">离订单取消还有30s <a href="#" style="color: red;">立即付款</a></span>
-								<div style="float: right;">
-									<button type="button" class="pj btn btn-default btn-lg" style="margin-top: 0px;">
-							  我要评价
-							</button>
-									<button type="button" class="btn btn-default btn-lg" style="margin-left: 50px;margin-top: 0px;">
-							   马上付款
-							</button>
+										<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 								</div>
 							</div>
 						</div>
-					</li>
-					<li class="list-group-item">
-						<div class="panel panel-success">
-							<!-- Default panel contents -->
-							<div class="panel-heading">
-								<span>订单编号：3456454322132</span>
-								<span style="margin-left: 150px;">下单时间：2019-09-09 12:31</span>
-								<span style="margin-left: 150px;">订单状态：<span style="color: red;">已付款</span></span>
-								<span style="margin-left: 150px;">订单总价：<span style="color: red;">$99</span></span>
-							</div>
-							<ul class="list-group">
-								<li class="list-group-item">
-									<div class="cart-header">
-										<div class="cart-sec simpleCart_shelfItem">
-											<div class="cart-item cyc">
-												<img src="images/k3.jpg" class="img-responsive" alt="">
-											</div>
-											<div class="row">
-												<div class="col-md-3">
-													<div class="cart-item-info row">
-														<h3><a href="#">名字</a><span></span></h3>
-														<ul class="qty">
-															<li>
-																<p>商品单价：<span class="dj">12.00</span></p>
-															</li>
-														</ul>
-														<span>商品数量：12</span>
-														<div>小计：<span name="xj">12.00</span></div>
-													</div>
-												</div>
-												<div class="col-md-5 col-md-offset-1">
-													<span style="color: red;">菜品介绍：</span>
-													<div>
-														jssssssssssssss sjjjjjjjjjjjjjj kjssssssssssssss ksssssssssss 死就急急急急急急急急 急急急急急急急死就急 急急急急急急急急急急急 即使是事实上事实上事实上课看
-													</div>
-												</div>
-												<div class="clearfix">
-
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</li>
-							</ul>
-							<div class="panel-footer" style="height: 60px;line-height: 50px;margin-top: -8px;">
-								<span style="position: absolute; left: 50px;bottom:30px;font-size:16px ;">离订单取消还有30s <a href="#" style="color: red;">立即付款</a></span>
-								<div style="float: right;">
-									<button type="button" class="btn btn-default btn-lg" style="margin-top: 0px;">
-							  我要评价
-							</button>
-									<button type="button" class="btn btn-default btn-lg" style="margin-left: 50px;margin-top: 0px;">
-							   马上付款
-							</button>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
-			<script type="text/javascript">
-				$(document).ready(function() {
-					/*
-						var defaults = {
-						containerID: 'toTop', // fading element id
-						containerHoverID: 'toTopHover', // fading element hover id
-						scrollSpeed: 1200,
-						easingType: 'linear' 
-						};
-					*/
-					$().UItoTop({
-						easingType: 'easeOutQuart'
-					});
-				});
-			</script>
-			<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-			<!-- //smooth scrolling -->
 		</div>
-
+		
 		<div class="modal fade" id="md" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">评价商品</h4>
+						<h4 class="modal-title">确认订单</h4>
 					</div>
 					<div class="modal-body">
 						<div class="input-group">
-							<textarea type="text" class="form-control" placeholder="请输入商品评价" style="width: 100%; height: 100px;"></textarea>
+							
 						</div>
 						<!-- /input-group -->
 					</div>
@@ -417,6 +325,22 @@
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
-		</div>
+	
+		<script type="text/javascript">
+				
+				$(function(){
+					var dj=0.0;
+					dj=parseFloat(dj);
+					$(".dj").each(function(){
+						var price=$(this).text();
+						dj+=parseFloat(price);
+					})
+					$("#zongjia").html(dj.toFixed(1));
+				})
+				
+				
+				
+		</script>
+		
 	</body>
 </html>
