@@ -1,11 +1,11 @@
-package com.accp.mapper;
+package com.accp.chenyong.service;
+
+import java.util.List;
 
 import com.accp.domain.role;
 import com.accp.domain.roleExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface roleMapper {
+public interface RoleService {
 
     int deleteByPrimaryKey(Integer id);
 
@@ -20,4 +20,5 @@ public interface roleMapper {
     int updateByPrimaryKey(role record);
     
     int updateByPrimaryKeySelective(role record);
+
 }

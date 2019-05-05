@@ -26,4 +26,5 @@ public interface staffServiceImpl {
 	//登录时更用户id查询是否是员工
 	staff loginByuserid(Integer userid);
 	
+	
 }

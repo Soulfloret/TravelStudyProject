@@ -1,13 +1,18 @@
 package com.accp.domain;
 
+
+
 import java.util.Date;
-import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class staff {
 	private Integer id;
 
 	private Integer userid;
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date entrytime;
 
 	private Date departuretime;
@@ -30,8 +35,18 @@ public class staff {
 
     private users user;
     
+    private userrole ur;
+    
 
-    public users getUser() {
+    public userrole getUr() {
+		return ur;
+	}
+
+	public void setUr(userrole ur) {
+		this.ur = ur;
+	}
+
+	public users getUser() {
 		return user;
 	}
 

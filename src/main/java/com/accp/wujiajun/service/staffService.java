@@ -27,6 +27,9 @@ public class staffService implements staffServiceImpl{
 	signinMapper smapper;
 	
 	
+	
+	
+	
 	@Override
 	public List<staff> query(staff sta) {
 		// TODO Auto-generated method stub

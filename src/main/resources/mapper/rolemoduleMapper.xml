@@ -6,6 +6,9 @@
     <result column="roleId" property="roleid" jdbcType="INTEGER" />
     <result column="moduleId" property="moduleid" jdbcType="INTEGER" />
   </resultMap>
+  <delete id="delByRoleId">
+  	delete  from rolemodule where roleid=#{id}
+  </delete>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

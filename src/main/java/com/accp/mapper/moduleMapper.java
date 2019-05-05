@@ -27,4 +27,8 @@ public interface moduleMapper {
     
     @MapKey("url")
     Map<String,module> queryModuleByUidToMap(@Param("uid") Integer uid);
+    
+    List<module> queryByridAll(@Param("rid") Integer uid);
+    
+    List<module> queryAll(Integer mid);
 }
