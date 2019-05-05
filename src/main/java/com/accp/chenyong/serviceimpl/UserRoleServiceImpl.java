@@ -10,7 +10,6 @@ import com.accp.chenyong.service.UserRoleService;
 import com.accp.domain.userrole;
 import com.accp.domain.userroleExample;
 import com.accp.mapper.userroleMapper;
-import com.sun.xml.internal.ws.developer.Serialization;
 
 @Service
 @Transactional

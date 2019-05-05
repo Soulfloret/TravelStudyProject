@@ -77,7 +77,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	/**
 	 * 拦截器
 	 */
-/*	protected void addInterceptors(InterceptorRegistry registry) {
+	/*protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(my).addPathPatterns("/**").addPathPatterns("/login/mode")
 		.excludePathPatterns("/js/**")
 		.excludePathPatterns("/css/**")
@@ -96,7 +96,8 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/fileupload/**")
 		.excludePathPatterns("/login/login")
 		.excludePathPatterns("/login/loginQuery")
-		.excludePathPatterns("/module/**");
+		.excludePathPatterns("/module/queryByUid")
+		.excludePathPatterns("/module/hide");
 		super.addInterceptors(registry);
 	}*/
 
