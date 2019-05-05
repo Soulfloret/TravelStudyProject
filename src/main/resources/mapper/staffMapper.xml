@@ -129,9 +129,9 @@ select * from staff where userid=#{userid}
 	<!-- 查询员工列表 -->
 	<select id="query" resultMap="Map">
 		SELECT
-		staff.`id`,`users`.`uName`,positions.`postion`
+		staff.`id`,`users`.`uName`,staff.userid,positions.`postion`
 		,positions.`id` AS
-		pid,staff.state
+		pid,staff.state,staff.`entryTime`
 		FROM staff
 		JOIN positions ON
 		staff.`PostionId`=positions.`id`

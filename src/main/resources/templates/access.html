@@ -13,8 +13,6 @@
         <style type="text/css">
             .sucaihuo-header{margin-bottom: 15px;font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;}
             .sucaihuo-icon{color: #fff;}
-        </style>
-		<style>
 			.acsCheck{
 				display: inline-block;
 				width: 50px;
@@ -39,27 +37,25 @@
 				<div class="col-12 tm-block-col" style="margin-top:40px">
 					<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 							<h2 class="tm-block-title">角色列表</h2>
-							<table class="table">
+							<table class="table roletable">
 								<thead>
 									<tr>
 										<th scope="col">角色编号</th>
 										<th scope="col">角色名称</th>
-										<th scope="col">角色描述</th>
 										<th scope="col">角色创建时间</th>
 										<th scope="col">更新时间</th>
 										<th scope="col">操作</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row"><b>#122349</b></th>
+									<tr th:each="item:${list}">
+										<th scope="row"><b th:text="${item.id}"></b></th>
 										<td>
 											<div class="tm-status-circle moving">
-											</div><span>Moving</span>
+											</div><span th:text="${item.rname}"></span>
 										</td>
-										<td><b>Oliver Trag</b></td>
-										<td><b>London, UK</b></td>
-										<td><b>485 km</b></td>
+										<td><b th:text="${item.name1}"></b></td>
+										<td><b th:text="${item.name2}"></b></td>
 										<td>
 											<select class="form-control" style="text-align:center;height:40px;width:100px;line-height:40px;padding:10px;background-color:rgb(0,200,111);border-radius:10px;color:white">
 												<option value="0">请选择</option>
@@ -72,12 +68,45 @@
 								</tbody>
 							</table>
 					</div>
+					<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+							<h2 class="tm-block-title">员工列表</h2>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">员工编号</th>
+										<th scope="col">员工名称</th>
+										<th scope="col">入职时间</th>
+										<th scope="col">角色选择</th>
+										<th scope="col">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+										<tr th:each="item:${list1}">
+											<td th:text="${item.id}"></td>
+											<td th:text="${item.ulist.uname}"></td>
+											<td th:text="${#dates.format(item.entrytime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td>
+												<select  class="form-control" style="margin-left:30%;text-align:center;height:40px;width:150px;line-height:40px;padding:10px;background-color:rgb(0,200,111);border-radius:10px;color:white">
+													<option value="0">请选择</option>
+													<option th:each="item1:${list}" th:selected="${item.ur!=null&&item.ur.roleid==item1.id}" th:value="${item1.id}" th:text="${item1.rname}"></option>
+												</select>
+											</td>
+											<td>
+												<input type="hidden" th:value="${item.userid}">
+												<button class="btn btn-danger userroleadd">确定</button>
+											</td>
+										</tr>
+								</tbody>
+							</table>
+					</div>
 				</div>
 
 				<a hidden="hidden" id="ss" data-target="#JJ_xztan" data-toggle="modal" href="javascript:void(0)" ></a>
 				<div class="modal fade bs-example-modal-lg" id="JJ_xztan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 						<div class="modal-dialog modal-lg" role="document">
 								<div class="modal-content">
+									<form action="/module/roleModuleUpdate">
+									<input type="hidden" value="0" name='typeid'>
 									<div id="" class="modal-header">
 										<h3>权限管理</h3>
 									</div>
@@ -86,7 +115,7 @@
 								            <div class="container">
 								               <div class="row">
 													<div class="col-sm-6 col-md-6" style="color: white;">
-														<p><span>角色名称</span><input type="text" class="form-control-sm" id="rolename" style="margin: 20px;"></p>
+														<p><span>角色名称</span><input type="text" class="form-control-sm" id="rolename" style="margin: 20px;" name="rname"></p>
 													</div>
 												</div>
 								               <div class="row">
@@ -118,15 +147,16 @@
 								                    </div>
 								                    <div class="col-sm-12">
 								                        <h2>Events</h2>
-								                        <div id="checkable-output"></div>
+								                        <div id="checkable-output" class="row"></div>
 								                    </div>
 								                </div>
 								            </div>
 								        </div>
 									</div>
 									<div id="" class="modal-footer">
-										<a class="btn" id="tijiao">提交</a> <a class="btn" data-dismiss="modal">关闭</a>
+										<button class="btn" type="submit"  id="tijiao">提交</button> <button class="btn" data-dismiss="modal">关闭</button>
 									</div>
+									</form>
 								</div>
 						</div>
 				</div>
@@ -138,26 +168,34 @@
     <script th:src="@{/js/bootstrap-treeview.js}"></script>
    	<script th:src="@{/js/bootstrap.min.js}"></script>    
 	<script th:line="javascript">
-		$("#tijiao").click(function(){
-			
+		$(".userroleadd").click(function(){
+			var roleid=$(this).parent().prev().find("select").val()
+			var userid=$(this).prev().val();
+			if(roleid!=0&&roleid!=""){
+				location.href="/module/userroleAdd?roleid="+roleid+"&userid="+userid+"";
+			}
 		})
     	var defaultData=[];
-		$(".form-control").change(function(){
+		$(".roletable .form-control").change(function(){
+			$("#checkable-output").html("");
+			defaultData=[];
 			var czid=$(this).val();
 			var id=$(this).parent().parent().find("th");
 			var name=$(id).next().find("span").text();
+			$("#rolename").val("");
 			if(czid==1||czid==2){
-				if(czid==1){
-					alert(name);
-					$("#rolename").val(name);
-				}
-			    $.ajaxSettings.async = false
-				$.post("/module/queryByUid",function(data){
+ 			    $.ajaxSettings.async = false
+ 				$.post("/module/queryAll",function(data){
 					$.each(data,function(index,item){
 						var x={};
 						x.text=item.mname;
 						x.href=item.url;
+						x.moduleid=item.id;
 						x.nodes=[];
+						x.state={
+							checked: false,
+							selected: false
+						};
 						if(item.mlist!=null){
 							m(x,item.mlist);
 						}
@@ -165,19 +203,83 @@
 					});
 					a(defaultData);
 				},"json");
+				if(czid==1){
+					$("#rolename").val(name);
+					$("[name='typeid']").val($(id).text());
+ 				    $.ajaxSettings.async = false
+ 					$.post("/module/queryByRid?rid="+$(id).text()+"",function(data){
+ 						$.each(data,function(index,item){
+ 							$.each(defaultData,function(index1,item1){
+ 								if(item1.moduleid==item.id){
+ 									 item1.state={
+ 										    checked: true,
+ 									};
+ 									var p=$('<p class="col-sm-3" style="color:white;">' + item1.text + '</p>');
+ 				             		$(p).css("border","1px solid rgb(220,220,220)");
+ 				             		$(p).css("text-align","center");
+ 				             		var index=$("#checkable-output").find("p");
+ 				             		var l=0;
+ 				             		if(index.length!=null){
+ 				             			l=index.length;
+ 				             		}
+ 				             		var input=$("<input type='hidden' value='"+item1.moduleid+"' name='list["+l+"].moduleid'>");
+ 				                		$('#checkable-output').prepend(p);
+ 				                		$('#checkable-output').prepend(input);
+ 								}else if(item1.nodes!=null&&item1.nodes.length>0){
+ 										z(item1.nodes,item.id);
+ 								}						 								
+ 							})
+ 						})
+					},"json");
+ 				   a(defaultData);
+				}
 				$("#ss").click();
+			}else if(czid==3){
+				if(confirm("是否删除"))
+					location.href="/module/delRole?id="+$(id).text()+""
 			}
 		})
+		function z(data1,data2){
+			$.each(data1,function(index,item){
+				if(item.moduleid==data2){
+					 item.state={
+						    checked: true,
+					};
+					var p=$('<p class="col-sm-3" style="color:white;">' + item.text + '</p>');
+             		$(p).css("border","1px solid rgb(220,220,220)");
+             		$(p).css("text-align","center");
+             		var index=$("#checkable-output").find("p");
+             		var l=0;
+             		if(index.length!=null){
+             			l=index.length;
+             		}
+             		var input=$("<input type='hidden' value='"+item.moduleid+"' name='list["+l+"].moduleid'>");
+                		$('#checkable-output').prepend(p);
+                		$('#checkable-output').prepend(input);
+				}else if(item.nodes!=null&&item.nodes.length>0){
+						z(item.nodes,data2);
+				}
+			})
+		}
 		function m(dom,data){
 			$.each(data,function(index,item){
 				var x={};
 				x.text=item.mname;
 				x.href=item.url;
+				x.moduleid=item.id;
 				x.nodes=[];
 				if(item.mlist!=null){
 					m(x,item.mlist);
 				}
 				dom.nodes.push(x);
+			})
+		}
+		function check(){
+			$.each($(".check-icon"),function(index,item){
+				if($(item).hasClass("glyphicon-check")){
+				 	$(item).removeClass("glyphicon-check");
+				 	$(item).click();
+				}
 			})
 		}
 	    function a(defaultData){
@@ -212,12 +314,29 @@
                     return $('#treeview-selectable').treeview({
                         data: defaultData,
                         multiSelect: $('#chk-select-multi').is(':checked'),
-                        onNodeSelected: function(event, node) {
-                            $('#selectable-output').prepend('<p>' + node.text + ' was selected</p>');
+                        onNodeChecked: function(event, node) {
+                        	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                        		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                        		$(p).css("border","1px solid rgb(220,220,220)");
+                        		$(p).css("text-align","center");
+                        		var index=$("#checkable-output").find("p");
+                        		var l=0;
+                        		if(index.length!=null){
+                        			l=index.length;
+                        		}
+                        		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                           		$('#checkable-output').prepend(p);
+                           		$('#checkable-output').prepend(input);
+                        	}
                         },
-                        onNodeUnselected: function(event, node) {
-                            $('#selectable-output').prepend('<p>' + node.text + ' was unselected</p>');
-                        }
+                        onNodeUnchecked: function(event, node) {
+                        	$.each($("#checkable-output>p"),function(index,item){
+                        		if($(item).text().indexOf(node.text)!=-1){
+                        			$(item).prev().remove();
+                        			$(item).remove();
+                        		}
+                        	})
+                  	}
                     });
                 };
                 var $selectableTree = initSelectableTree();
@@ -248,11 +367,28 @@
                 });
                 var $expandibleTree = $('#treeview-expandible').treeview({
                     data: defaultData,
-                    onNodeCollapsed: function(event, node) {
-                        $('#expandible-output').prepend('<p>' + node.text + ' was collapsed</p>');
+                    onNodeChecked: function(event, node) {
+                    	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                    		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                    		$(p).css("border","1px solid rgb(220,220,220)");
+                    		$(p).css("text-align","center");
+                    		var index=$("#checkable-output").find("p");
+                    		var l=0;
+                    		if(index.length!=null){
+                    			l=index.length;
+                    		}
+                    		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                       		$('#checkable-output').prepend(p);
+                       		$('#checkable-output').prepend(input);
+                    	}
                     },
-                    onNodeExpanded: function(event, node) {
-                        $('#expandible-output').prepend('<p>' + node.text + ' was expanded</p>');
+                    onNodeUnchecked: function(event, node) {
+                    	$.each($("#checkable-output>p"),function(index,item){
+                    		if($(item).text().indexOf(node.text)!=-1){
+                    			$(item).prev().remove();
+                    			$(item).remove();
+                    		}
+                    	})
                     }
                 });
                 var findExpandibleNodess = function() {
@@ -288,19 +424,34 @@
                 $('#btn-collapse-all').on('click', function(e) {
                     $expandibleTree.treeview('collapseAll', {silent: $('#chk-expand-silent').is(':checked')});
                 });
-
-
-
                 var $checkableTree = $('#treeview-checkable').treeview({
                     data: defaultData,
                     showIcon: false,
                     showCheckbox: true,
                     onNodeChecked: function(event, node) {
-                        $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+                    	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                    		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                    		$(p).css("border","1px solid rgb(220,220,220)");
+                    		$(p).css("text-align","center");
+                    		var index=$("#checkable-output").find("p");
+                    		var l=0;
+                    		if(index.length!=null){
+                    			l=index.length;
+                    		}
+                    		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                       		$('#checkable-output').prepend(p);
+                       		$('#checkable-output').prepend(input);
+                    	}
                     },
                     onNodeUnchecked: function(event, node) {
-                        $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
-                    }
+                    	$.each($("#checkable-output>p"),function(index,item){
+                    		if($(item).text().indexOf(node.text)!=-1){
+                    			$(item).prev().remove();
+                    			$(item).remove();
+                    		}
+                    	})
+/*                         $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+ */                    }
                 });
 
                 var findCheckableNodess = function() {

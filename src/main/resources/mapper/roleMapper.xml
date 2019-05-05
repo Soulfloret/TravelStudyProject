@@ -101,7 +101,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.role" >
+  <insert id="insert" parameterType="com.accp.domain.role"  useGeneratedKeys="true" keyProperty="id">
     insert into role (id, rName, name1, 
       name2, name3, name4, 
       name5)
@@ -212,9 +212,7 @@
       <if test="rname != null" >
         rName = #{rname,jdbcType=VARCHAR},
       </if>
-      <if test="name1 != null" >
-        name1 = #{name1,jdbcType=VARCHAR},
-      </if>
+    
       <if test="name2 != null" >
         name2 = #{name2,jdbcType=VARCHAR},
       </if>
