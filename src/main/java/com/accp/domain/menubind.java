@@ -16,8 +16,20 @@ public class menubind {
     private String name4;
 
     private String name5;
+    
+    private recommend recommend;
+    
+    
 
-    public Integer getId() {
+    public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public Integer getId() {
         return id;
     }
 

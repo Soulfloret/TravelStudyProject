@@ -30,4 +30,6 @@ public interface menubindMapper {
     int updateByPrimaryKeySelective(menubind record);
 
     int updateByPrimaryKey(menubind record);
+    
+    List<menubind> queryMenuBind(@Param("bindid")Integer bindid);
 }

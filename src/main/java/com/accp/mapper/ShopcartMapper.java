@@ -30,4 +30,14 @@ public interface ShopcartMapper {
     int updateByPrimaryKeySelective(Shopcart record);
 
     int updateByPrimaryKey(Shopcart record);
+    
+    int insertList(Shopcart shop);
+    
+    Shopcart QueryIidUserid(@Param("iid")Integer iid,@Param("typeid")Integer typeid,@Param("userid")Integer userid);
+    
+    int deleteIidUserid(@Param("iid")Integer iid,@Param("typeid")Integer typeid,@Param("userid")Integer userid);
+    
+    int deleteUserid(@Param("userid")Integer userid);
+    
+    List<Shopcart> queryAll(@Param("userid")Integer userid);
 }

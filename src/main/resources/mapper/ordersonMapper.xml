@@ -11,7 +11,7 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
+
   <resultMap type="com.accp.domain.orderson" id="BaseResultMap1" extends="BaseResultMap">
   	 <association property="menus" javaType="com.accp.domain.menu">
   	 	<id column="mid" property="id" jdbcType="INTEGER" />
@@ -34,7 +34,6 @@
   	</association>
   
   </resultMap>
-  
   <select id="queryroomtj" resultMap="BaseResultMap2">
   	SELECT o.*,r.`id`AS rid,r.`rname`,r.`introduce`,r.`location`,r.`price`,r.`typeId`AS rtypeid,i.`url` FROM `orderson` o
 		INNER JOIN `room` r ON r.`id`=o.`iid`

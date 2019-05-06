@@ -1,21 +1,30 @@
 package com.accp.sunhuihui.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.accp.domain.Meal;
+import com.accp.domain.Mealix;
+import com.accp.domain.bind;
 import com.accp.domain.images;
 import com.accp.domain.menu;
+import com.accp.domain.menubind;
 import com.accp.domain.product;
 import com.accp.domain.productproject;
 import com.accp.domain.project;
 import com.accp.domain.projecttype;
 import com.accp.domain.recommend;
 import com.accp.domain.room;
+import com.accp.mapper.MealMapper;
+import com.accp.mapper.MealixMapper;
+import com.accp.mapper.bindMapper;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
+import com.accp.mapper.menubindMapper;
 import com.accp.mapper.menucommentMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.projectMapper;
@@ -43,8 +52,16 @@ public class ProjectServiceshh {
 	usersMapper umapper;
 	@Autowired
 	projectplMapper plmapper;
-	@Autowired menucommentMapper mcmapper;
-	
+	@Autowired
+	menucommentMapper mcmapper;
+	@Autowired
+	MealMapper mealmapper;
+	@Autowired
+	MealixMapper mealixmapper;
+	@Autowired
+	bindMapper bindmapper;
+	@Autowired
+	menubindMapper menubindmapper;
 	
 	public  List<project> queryprojectAll(project project){
 		List<project> list=mapper.queryprojectAll(project);
@@ -161,5 +178,59 @@ public class ProjectServiceshh {
 		room r=rmapper.selectByPrimaryKey(id);
 		r.setImgs(imapper.queryimg(r.getId(), 3));
 		return r;
+	}
+	
+	/**
+	 * 查询套餐全部
+	 */
+	
+	public  List<Meal> MealQuery(Integer id){
+		List<Meal> meal=mealmapper.queryMeal(id);
+		for (Meal m1 : meal) {
+			m1.setImg(imapper.queryimg(m1.getId(), 7));
+			List<Mealix> mealix=mealixmapper.queryTid(m1.getId());
+			String name2="";
+			for (Mealix m2 : mealix) {
+					if(m2.getTypeid()==1) {
+						recommend re1=mapper.recommendByidproject(m2.getIid());
+						m2.setRecommend(re1);
+						name2+=re1.getName()+"、";
+					}else if(m2.getTypeid()==3) {
+						recommend re1=rmapper.recommendByidroom(m2.getIid());
+						m2.setRecommend(re1);
+						name2+=re1.getName()+"、";
+					}else if(m2.getTypeid()==4) {
+						recommend re1=bindmapper.recommendBind(m2.getIid());
+						m2.setRecommend(re1);
+						name2+=re1.getName()+"、";
+					}
+			}
+			m1.setList(mealix);
+			m1.setName5(7+"");
+			m1.setName2(name2.substring(0, name2.length()-1));
+		}
+		return meal;
+	}
+	
+	/**
+	 * 查询菜单套餐全部以及详情
+	 */
+	public  List<bind> queryBind(Integer id){
+		List<bind> binds=bindmapper.queryBindApp(id);
+		for (bind b1 : binds) {
+			b1.setImg(imapper.queryimg(b1.getId(), 4));
+			List<menubind> menubind=menubindmapper.queryMenuBind(b1.getId());
+			String name2="";
+			for (menubind b2 : menubind) {
+				recommend re=mmapper.recommendByidmenu(b2.getMenuid());
+				name2+=re.getName()+"、";
+				b2.setRecommend(mmapper.recommendByidmenu(b2.getMenuid()));
+			}
+			b1.setBlist(menubind);
+			b1.setName5(4+"");
+			b1.setName2(name2.substring(0, name2.length()-1));
+		}
+	
+		return binds;
 	}
 }

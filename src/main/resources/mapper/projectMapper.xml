@@ -61,7 +61,6 @@
   		<result property="typeid" column="typeid"/>
   	</collection>
   </resultMap>
-  
   <select id="queryAll" resultMap="queryAll_result">
   	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
 	INNER JOIN `projecttype` AS `pt`
