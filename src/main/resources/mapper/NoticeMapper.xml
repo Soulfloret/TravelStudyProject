@@ -53,12 +53,23 @@
 			<result column="state" property="state" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
+	
+	<insert id="noticeInsert" parameterType="com.accp.domain.Notice">
+		insert into notice(fid,content,time,pid,gid,nwid)
+		value(#{fid},#{content},#{time},#{pid},#{gid},#{nwid})
+	</insert>
+	
 	<select id="noticeQuery" resultMap="Map">
-		SELECT n.`id`,u.`uName`,n.`time`,n.`content` FROM notice AS n
+		SELECT n.`id`,u.`uName`,n.`time`,n.`content`,s.`PostionId` FROM notice AS n
 		INNER JOIN staff AS s ON s.`id`=n.`fid`
 		INNER JOIN users AS u ON u.`id`=s.`userId`
-		WHERE s.`id`=#{id}
+		INNER JOIN positions AS p ON p.`id`=s.`PostionId`
+		where s.`PostionId`=#{postionid}
 	</select>
+
+<!-- 
+		INNER JOIN positions AS p ON p.id=s.postionId
+		WHERE s.postionId=#{postionId} -->
 
 	<sql id="Example_Where_Clause">
 		<where>

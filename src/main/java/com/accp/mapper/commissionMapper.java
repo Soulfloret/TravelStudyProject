@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface commissionMapper {
+	
+	commission commissionQuery(Integer stid);
+	
     int countByExample(commissionExample example);
 
     int deleteByExample(commissionExample example);

@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface NoticeMapper {
 	
+	int noticeInsert(Notice record);
+	
 	Notice noticeQuery(Integer id);
 	
     int countByExample(NoticeExample example);

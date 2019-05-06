@@ -4,6 +4,7 @@ import com.accp.domain.Notice;
 
 public interface noticeServiceImpl {
 
+	int noticeInsert(Notice record);
 	
-	Notice noticeQuery(Integer id);
+	Notice noticeQuery(Integer postionid);
 }

@@ -45,7 +45,7 @@ public class staffController {
 		st.getUlist().setUname(account+"yx");
 		st.getUlist().setUpassword(account+"yx");
 		service.insert(st);
-		return "JJ_customer";
+		return "redirect:/staff/JJ_customer";
 	}
 	
 	@RequestMapping("/queryLike")
@@ -70,8 +70,6 @@ public class staffController {
 	@ResponseBody
 	public staff queryById(Integer id,Model model) {
 		staff lists=service.queryById(id);
-		
-		/*model.addAttribute(lists);*/
 		return lists;
 	}
 	

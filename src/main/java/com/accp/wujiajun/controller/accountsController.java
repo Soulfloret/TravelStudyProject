@@ -52,7 +52,6 @@ public class accountsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return "redirect:query";
 	}
 	

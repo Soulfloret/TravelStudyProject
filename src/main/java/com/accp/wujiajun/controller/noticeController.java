@@ -2,6 +2,7 @@ package com.accp.wujiajun.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,25 +33,25 @@ public class noticeController {
 
 	@Autowired
 	staffServiceImpl service1;
-	
+
 	@Autowired
 	positionsServiceImpl service2;
 
 	@RequestMapping("/query")
 	public String query(Model model, staff staff) {
-		Notice list = service.noticeQuery(1);
+		Notice list = service.noticeQuery(2);
 		List<staff> sta = service1.staffquery(staff);
-		List<positions> pos=service2.selectByExample(null);
+		List<positions> pos = service2.selectByExample(null);
 		model.addAttribute("list", list);
 		model.addAttribute("sta", sta);
-		model.addAttribute("pos",pos);
+		model.addAttribute("pos", pos);
 		return "message";
 	}
 
 	@RequestMapping("/addmessage")
 	@ResponseBody
-	public String addmessage(Notice noti, HttpServletRequest request) {
-		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+	public String addmessage(MultipartFile [] file,Notice noti, HttpServletRequest request, String content,String file1,String file2,String file3,String file4) {
+		/*List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
 		String filePath = "e:/fileupload/";
 		for (int i = 0; i < files.size(); i++) {
 			MultipartFile file = files.get(i);
@@ -62,14 +63,27 @@ public class noticeController {
 			File dast = new File(filePath + fileName);
 			try {
 				file.transferTo(dast);
-				System.out.println("第"+(i+1)+"个文件成功");
+				System.out.println(dast);
+				System.out.println("第" + (i + 1) + "个文件成功");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "上传第" + (i++) + "个失败";
 			}
-			
-		}
+
+		}*/
+		Date date = new Date();
+		noti.setFid(1);
+		noti.setTime(date);/*
+		noti.setFile1(file1);
+		noti.setFile2(file2);
+		noti.setFile3(file3);
+		noti.setFile4(file4);*/
+		noti.setNwid(0);
+		noti.setGid(1);
+		System.out.println(noti);
+		int no = service.noticeInsert(noti);
+		System.out.println(no);
 		return "上传成功";
 	}
 }

@@ -92,17 +92,13 @@ select * from staff where userid=#{userid}
 	<!-- 查询员工薪资列表 -->
 	<select id="salaryQuery" resultMap="Map">
 		SELECT
-		staff.*,users.*,positions.`postion`,COUNT(*) AS
-		stid,salary.`BaseSalary` FROM staff
-		JOIN
-		users ON
-		users.`id`=staff.`userId`
-		JOIN positions ON
-		positions.`id`=staff.`PostionId`
-		JOIN signin ON
-		signin.`staffId`=staff.`id`
-		JOIN salary ON salary.`pid`=positions.`id`
-		GROUP BY staff.`id`
+		st.`id`,us.`uName`,po.`postion`,sa.`BaseSalary`,COUNT(st.`id`) AS stid FROM
+		staff AS st
+		INNER JOIN users AS us ON us.`id`=st.`userId`
+		INNER JOIN positions AS po ON po.`id`=st.`PostionId`
+		INNER JOIN salary AS sa ON sa.`pid`=po.`id`
+		INNER JOIN signin AS si ON si.`staffId`=st.`id`
+		GROUP BY st.`id`
 	</select>
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">

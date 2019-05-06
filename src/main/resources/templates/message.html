@@ -56,38 +56,52 @@ table td {
 						</div>
 					</div>
 					<form action="/notice/addmessage" method="post"
-						enctype="multipart/form-data" class="tm-signup-form row">
+						 class="tm-signup-form row">
 						<div class="form-group col-lg-12">
 							<label for="name">文件</label><br>
 							<P>
-								<input type="file" name="file"><input type="file"
-									name="file">
+								<input type="file" name="file" multiple="multiple">
+								<!-- <input type="file" name="file2"> -->
 							</P>
-							<P>
-								<input type="file" name="file"><input type="file"
-									name="file">
-							</P>
+							<!-- <P>
+								<input type="file" name="file">
+								<input type="file" name="file4">
+							</P> -->
 						</div>
 						<div class="form-group col-lg-12">
 							<label for="name">消息内容</label>
-							<textarea name="content" class="form-control validate">
-                			</textarea>
-						</div>
-						<div class="form-group col-lg-12 zhi">
-							<label for="name">职位</label><br> <span
-								th:each="item2 : ${pos}"> <label
-								th:text="${item2.postion}"> </label> <input type="checkbox"
-								th:value="${item2.id}">&nbsp;&nbsp;&nbsp;&nbsp;
-							</span>
+							<textarea name="content" class="form-control validate"></textarea>
 						</div>
 						<div class="form-group col-lg-12">
-							<a class="n btn btn-primary btn-block" nei="0">内部发送</a>
+							<a data-target="#zw" data-toggle="modal"
+								class="n btn btn-primary btn-block" nei="0">内部发送</a>
+						</div>
+						<div class="modal fade bs-example-modal-lg" id="zw" tabindex="-1"
+							role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div id="" class="modal-header JJ_shang">
+										<span class="closeModal"><label for="name">职位</label><br>
+											<span th:each="item2 : ${pos}"> <label
+												th:text="${item2.postion}"> </label> <input type="checkbox"
+												th:value="${item2.id}" name="pid">&nbsp;&nbsp;&nbsp;&nbsp;
+										</span> </span> <span class="close" data-dismiss="modal">&times;</span>
+									</div>
+									<div id="" class="modal-body appe"></div>
+									<div id="" class="modal-footer">
+										<button type="submit" class="btn">提交</button> <a class="btn" data-dismiss="modal">关闭</a>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-12">
 							<button type="submit"
 								class="btn btn-primary btn-block text-uppercase" wai="1">外部发送</button>
 						</div>
 					</form>
+
+
+
 				</div>
 			</div>
 		</div>

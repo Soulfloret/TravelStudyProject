@@ -1,103 +1,124 @@
 package com.accp.domain;
 
 public class commission {
-    private Integer id;
+	private Integer id;
 
-    private Integer productid;
+	private Integer productid;
 
-    private Integer postionid;
+	private Integer postionid;
 
-    private Double royaltyamount;
+	private Double royaltyamount;
 
-    private Integer conditions;
+	private Integer conditions;
 
-    private String name1;
+	private String name1;
 
-    private String name2;
+	private String name2;
 
-    private String name3;
+	private String name3;
 
-    private String name4;
+	private String name4;
 
-    private String name5;
+	private String name5;
 
-    public Integer getId() {
-        return id;
-    }
+	private project pro;
+	
+	private positions pos;
+	
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public positions getPos() {
+		return pos;
+	}
 
-    public Integer getProductid() {
-        return productid;
-    }
+	public void setPos(positions pos) {
+		this.pos = pos;
+	}
 
-    public void setProductid(Integer productid) {
-        this.productid = productid;
-    }
+	public project getPro() {
+		return pro;
+	}
 
-    public Integer getPostionid() {
-        return postionid;
-    }
+	public void setPro(project pro) {
+		this.pro = pro;
+	}
 
-    public void setPostionid(Integer postionid) {
-        this.postionid = postionid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Double getRoyaltyamount() {
-        return royaltyamount;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setRoyaltyamount(Double royaltyamount) {
-        this.royaltyamount = royaltyamount;
-    }
+	public Integer getProductid() {
+		return productid;
+	}
 
-    public Integer getConditions() {
-        return conditions;
-    }
+	public void setProductid(Integer productid) {
+		this.productid = productid;
+	}
 
-    public void setConditions(Integer conditions) {
-        this.conditions = conditions;
-    }
+	public Integer getPostionid() {
+		return postionid;
+	}
 
-    public String getName1() {
-        return name1;
-    }
+	public void setPostionid(Integer postionid) {
+		this.postionid = postionid;
+	}
 
-    public void setName1(String name1) {
-        this.name1 = name1;
-    }
+	public Double getRoyaltyamount() {
+		return royaltyamount;
+	}
 
-    public String getName2() {
-        return name2;
-    }
+	public void setRoyaltyamount(Double royaltyamount) {
+		this.royaltyamount = royaltyamount;
+	}
 
-    public void setName2(String name2) {
-        this.name2 = name2;
-    }
+	public Integer getConditions() {
+		return conditions;
+	}
 
-    public String getName3() {
-        return name3;
-    }
+	public void setConditions(Integer conditions) {
+		this.conditions = conditions;
+	}
 
-    public void setName3(String name3) {
-        this.name3 = name3;
-    }
+	public String getName1() {
+		return name1;
+	}
 
-    public String getName4() {
-        return name4;
-    }
+	public void setName1(String name1) {
+		this.name1 = name1;
+	}
 
-    public void setName4(String name4) {
-        this.name4 = name4;
-    }
+	public String getName2() {
+		return name2;
+	}
 
-    public String getName5() {
-        return name5;
-    }
+	public void setName2(String name2) {
+		this.name2 = name2;
+	}
 
-    public void setName5(String name5) {
-        this.name5 = name5;
-    }
+	public String getName3() {
+		return name3;
+	}
+
+	public void setName3(String name3) {
+		this.name3 = name3;
+	}
+
+	public String getName4() {
+		return name4;
+	}
+
+	public void setName4(String name4) {
+		this.name4 = name4;
+	}
+
+	public String getName5() {
+		return name5;
+	}
+
+	public void setName5(String name5) {
+		this.name5 = name5;
+	}
 }

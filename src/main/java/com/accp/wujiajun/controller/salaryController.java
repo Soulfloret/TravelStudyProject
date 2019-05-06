@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.domain.commission;
 import com.accp.domain.positions;
 import com.accp.domain.signin;
 import com.accp.domain.staff;
@@ -38,6 +39,13 @@ public class salaryController {
 	public List<staff> salaryQueryId(Integer id) {
 		List<staff> lists=service.salaryQueryId(id);
 		return lists;
+	}
+	
+	@RequestMapping("/commissionQueryById")
+	@ResponseBody
+	public commission commissionQueryById(Integer stid) {
+		commission clist=service.commissionQuery(stid);
+		return clist;
 	}
 	
 	@RequestMapping("/signinQuery")

@@ -16,9 +16,15 @@ public class noticeService implements noticeServiceImpl{
 	NoticeMapper mapper;
 
 	@Override
-	public Notice noticeQuery(Integer id) {
+	public Notice noticeQuery(Integer postionid) {
 		// TODO Auto-generated method stub
-		return mapper.noticeQuery(id);
+		return mapper.noticeQuery(postionid);
+	}
+
+	@Override
+	public int noticeInsert(Notice record) {
+		// TODO Auto-generated method stub
+		return mapper.noticeInsert(record);
 	}
 	
 	
