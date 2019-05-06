@@ -297,7 +297,7 @@
 												<div class="content">
 													<div class="property" th:each="oitem,ostack : ${olist}">
 														<div class="image">
-															<a href="detail.html"></a>
+															<a th:href="@{/room/toqueryqtroomByid(id=${oitem.rooms.id})}"></a>
 															<img th:if="${oitem.rooms.url !=null}" th:src="${oitem.rooms.url}" style="width: 100px;height: 80px;" alt="">
 														</div>
 														<!-- /.image -->
@@ -339,7 +339,7 @@
 										<ul>
 											<li th:each="item,stack: ${list}">
 												<div class="image">
-													<a href="detail.html"></a>
+													<a th:href="@{/room/toqueryqtroomByid(id=${item.id})}"></a>
 															<img th:if="${item.img!=null}" th:src="${item.img.url}" alt="" style="width: 270px;height: 200px">
 												</div>
 												<!-- /.image -->

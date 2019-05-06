@@ -155,6 +155,7 @@ public class roomcontroller {
 	//前台住宿主页
 	@RequestMapping("/toqueryqtroom")
 	public String toqueryqtroom(Model model ,room ro) {
+		ro.setState("1");
 		List<room> list=r.queryByroomData(ro);
 		List<orderson> olist=o.queryroomtj(null);
 		List<room> rlist=r.queryByroomtypeid();
@@ -189,7 +190,7 @@ public class roomcontroller {
 	@ResponseBody
 	public String queryByroomdestineid(roomdestine rrr) {
 		room rr= r.queryByroomdestineid(rrr);
-		if(rr.getId()==null) {
+		if(rr==null) {
 			return "该时间段已经被预订";
 		}else{
 			rrr.setName1("2");
@@ -228,6 +229,43 @@ public class roomcontroller {
 			List<roomdestine> list =rd.selectByrdId(id);
 			model.addAttribute("list", list);
 			return "dingdan";
+		}
+		
+		@RequestMapping("/roomaddorder")
+		public String roomaddorder(Integer [] id,Integer [] rid,String lx) {
+			//users us=(users) session.getAttribute("use");
+			int uid=5;//session里面的用户id
+			for (int i = 0; i < rid.length; i++) {
+				roomdestine roomdestines=new roomdestine();
+				roomdestines.setId(rid[i]);
+				roomdestines.setName1("1");
+				rd.updateByPrimaryKeySelective(roomdestines);//修改预订记录表状态
+				String lb="";
+				if("1".equals(lx)) {
+					lb="个人";
+					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb);
+					userorder userorder=uo.selectByuid(usermainorder.getId());
+					orderson ordersons=new orderson();
+					ordersons.setIid(id[i]);
+					ordersons.setTypeid(3);
+					ordersons.setName1(userorder.getId().toString());
+					o.insertSelective(ordersons);
+				}else {
+					lb="团队";
+					team t=te.selectBymainiUserId(uid);
+					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+					List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
+					for (userorder userorder : list) {
+						//添加总订单从表
+						orderson ordersons=new orderson();
+						ordersons.setIid(id[i]);
+						ordersons.setTypeid(3);
+						ordersons.setName1(userorder.getId().toString());
+						o.insertSelective(ordersons);
+					}
+				}
+			}
+			return "redirect:/room/querydingdan";
 		}
 		
 		

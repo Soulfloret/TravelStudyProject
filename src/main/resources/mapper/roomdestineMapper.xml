@@ -44,7 +44,7 @@
   
   <select id="selectByroomid" resultMap="BaseResultMap1">
   	SELECT r.*,u.`uName` FROM `roomdestine` r INNER JOIN `users` u ON r.`userId`=u.`id`
-	WHERE `roomId`=#{id} AND `begintime` >=DATEDIFF(NOW(),`begintime`)
+	WHERE `roomId`=#{id} AND `begintime` >=NOW()
   
   </select>
   

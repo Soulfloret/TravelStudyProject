@@ -25,11 +25,11 @@
   	SELECT * FROM `orderson`
   </select>
   <select id="selectByuid" resultMap="BaseResultMap">
-  	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
+  	SELECT * FROM `userorder` WHERE `orderMainId` =#{id}
   </select>
   
   <select id="selectByuidinlist" resultMap="BaseResultMap">
-  	SELECT * FROM `userorder` WHERE `orderCustomer`=#{id}
+  	SELECT * FROM `userorder` WHERE `orderMainId`=#{id}
   </select>
     
   <sql id="Example_Where_Clause" >

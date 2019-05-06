@@ -196,7 +196,7 @@
 
 										<div class="carousel property">
 											<div class="preview">
-												<img th:src="@{/assets/img/tmp/property-large-1.jpg}" style="width:870px ;height: 420px;" alt="">
+												<img id="dimg" th:src="@{/assets/img/tmp/property-large-1.jpg}" style="width:870px ;height: 420px;" alt="">
 											</div>
 											<!-- /.preview -->
 
@@ -204,9 +204,10 @@
 
 												<a class="carousel-prev" href="#">Previous</a>
 												<a class="carousel-next" href="#">Next</a>
-												<ul>
+												<ul id="ul">
 													<li class="active" th:each="iitem : ${room.imgs}">
 														<img th:src="${iitem.url}" alt="" style="width:155px ;height: 75px;">
+														<input type="hidden" th:value="${iitem.url}">
 													</li>
 												</ul>
 											</div>
@@ -279,7 +280,7 @@
 											<div class="content">
 												<div class="property" th:each="oitem,ostack : ${olist}">
 														<div class="image">
-															<a href="detail.html"></a>
+															<a th:href="@{/room/toqueryqtroomByid(id=${oitem.rooms.id})}"></a>
 															<img th:if="${oitem.rooms.url !=null}" th:src="${oitem.rooms.url}" style="width: 100px;height: 80px;" alt="">
 														</div>
 														<!-- /.image -->
@@ -364,6 +365,10 @@
 	</body>
 		<script type="text/javascript">
 			$(function(){
+				
+				var img =$("#ul").find("li").find("input").val();
+				$("#dimg").attr("src",img);
+				
 				$("#yd").click(function(){
 					var kdate=$(".ks").val();
 					var jdate=$(".jss").val();
