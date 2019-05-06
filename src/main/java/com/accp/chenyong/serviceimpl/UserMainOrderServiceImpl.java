@@ -125,7 +125,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(record.getUser().getId());
 				mapper12.insert(t);
-				record.setName2("鍥㈤槦");
+				record.setName2("个人");
 				record.setOrdercustomer(t.getId());
 				num=mapper.insert(record);
 				for (users u : record.getList()) {
@@ -144,7 +144,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						uo.setOrderuser(record.getOrderuser());
 						uo.setOrdercustomer(tm.getMemberid());
 						uo.setOrdermainid(record.getId());
-						uo.setOrderstatus("姝ｅ湪杩涜");
+						uo.setOrderstatus("正在进行中");
 						mapper14.insert(uo);
 						for (orderson os : uo.getList()) {
 							os.setName1(uo.getId()+"");
@@ -171,7 +171,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									e.printStackTrace();
 								}
 								mo.setCreatetime(new Date());
-								mo.setStatuss("鏈彇");
+								mo.setStatuss("正在进行中");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
 								mapper18.insert(mo);
@@ -197,7 +197,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					uo.setOrdertime(new Date());
 					uo.setOrderuser(record.getOrderuser());
 					uo.setOrdermainid(record.getId());
-					uo.setOrderstatus("姝ｅ湪杩涜");
+					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
 					for (orderson os : uo.getList()) {
 						os.setName1(uo.getId()+"");
@@ -224,7 +224,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								e.printStackTrace();
 							}
 							mo.setCreatetime(new Date());
-							mo.setStatuss("鏈彇");
+							mo.setStatuss("正在进行中");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
 							mapper18.insert(mo);
@@ -270,7 +270,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		List<Usermainorder> list=mapper.query(id);
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			if(umo.getName2().equals("涓汉")) {
+			if(umo.getName2().equals("个人")) {
 				umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
@@ -462,7 +462,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 			if(o.getList().size()>0) {
-				o.setName1("姝ｅ湪杩涜");
+				o.setName1("正在进行");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
 				try {
@@ -474,7 +474,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(o.getUser().getId());
 				mapper12.insert(t);
-				o.setName2("鍥㈤槦");
+				o.setName2("个人");
 				o.setOrdercustomer(t.getId());
 				mapper.insert(o);
 				for(users u:o.getList()) {
@@ -493,11 +493,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					uo.setOrderuser(o.getOrderuser());
 					uo.setOrdercustomer(t.getId());
 					uo.setOrdermainid(o.getId());
-					uo.setOrderstatus("姝ｅ湪杩涜");
+					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
 				}
 			}else {
-				o.setName1("姝ｅ湪杩涜");
+				o.setName1("正在进行中");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
 				try {
@@ -506,7 +506,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				o.setName2("涓汉");
+				o.setName2("团队");
 				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				userorder uo=new userorder();
@@ -520,7 +520,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getId());
 				uo.setOrdermainid(o.getId());
-				uo.setOrderstatus("姝ｅ湪杩涜");
+				uo.setOrderstatus("正在进行中");
 				mapper14.insert(uo);
 			}
 		}
