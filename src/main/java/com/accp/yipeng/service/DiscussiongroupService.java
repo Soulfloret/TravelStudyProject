@@ -17,4 +17,6 @@ public interface DiscussiongroupService {
 	public int updateDisName(discussiongroup dis);
     int deleteByPrimaryKey(Integer id);
     int delDis(int did,int uid,int typeId);
+    
+    public int SendMessage(Integer uid ,Integer did,String content);
 }

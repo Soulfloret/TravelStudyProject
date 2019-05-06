@@ -1,4 +1,4 @@
-package com.accp.config;
+package com.accp.yipeng.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import com.accp.domain.discussiongroup;
 import com.accp.domain.discussiongroupson;
 import com.accp.domain.users;
 @Configuration
-public class WebSocketHandler extends TextWebSocketHandler {
+public class WebSocketHandleryp extends TextWebSocketHandler {
 
 	/**
 	 * 存储所有握手成功的讨论组

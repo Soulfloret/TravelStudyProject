@@ -1,6 +1,7 @@
 package com.accp.yipeng.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,7 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			 if(mess!=null) {
 				 mess.setUse(umapper.selectByPrimaryKey(mess.getUid()));
 			 }
+			 //保存查询的 信息数
 			 discussiongroup.setCount(messmapper.selectCountBydid(discussiongroup.getId()));
 			 discussiongroup.setMess(mess);
 			 discussiongroup.setImg(imgmapper.queryimg(discussiongroup.getId(), 8));
@@ -162,5 +164,16 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			num=disSonmapper.delByuidAndDid(did, uid);
 		}
 		return num;
+	}
+	
+	
+	@Override
+	public int SendMessage(Integer uid, Integer did, String content) {
+		message mes=new message();
+		mes.setDid(did);
+		mes.setUid(uid);
+		mes.setSendtime(new Date());
+		mes.setContent(content);
+		return messmapper.insert(mes);
 	}
 }
