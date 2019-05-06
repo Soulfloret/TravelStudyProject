@@ -1,5 +1,6 @@
 package com.accp.xiangjianbo.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.chenyong.service.ProductAreaService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Order_workAndOrderSon;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.product;
+import com.accp.domain.productarea;
 import com.accp.domain.productstaff;
 import com.accp.domain.project;
 import com.accp.domain.users;
@@ -45,6 +48,9 @@ public class projectOrderController {
 	
 	@Autowired
 	orderProjecrService opservice;
+	
+	@Autowired
+	ProductAreaService orderTimeService;
 	
 	@RequestMapping("/toProjectOrder")
 	public String toProjectOrder() {
@@ -101,4 +107,21 @@ public class projectOrderController {
 		int i=opservice.insert_Order(order_work);
 		return "";
 	}
+	
+	/*查询排班时间*/
+	@RequestMapping("query")
+	@ResponseBody
+	public String query(Integer areaid,Date starttime,Date endtime) {
+		productarea p=new productarea();
+		p.setAreaid(areaid);
+		System.out.println(starttime);
+		System.out.println(endtime);
+		/*JSON.toJSONString(orderTimeService.queryByArearId(p, starttime, endtime))
+		*/
+		return "";
+	}
+	
+	
+	
+	
 }

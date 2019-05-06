@@ -125,8 +125,6 @@
 								<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
 								<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px; " />
 								<div name="productHidden" style="display: none;">
-								<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="活动名称"/>
-								<input type="button"  style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
 								<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin:30px auto;">
 					                <thead>
 					                  <tr>
@@ -141,8 +139,6 @@
 					             </table>									
 								</div>
 								<div name="projectHidden" style="display: none;">
-									<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="项目名称"/>
-									<input type="button" style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
 									<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:80%;margin: 30px auto;">
 					               
 					                  <tr>
@@ -187,24 +183,10 @@
 					               
 				             	</table>
 							</div>
-					<div id="hide_jd" style="margin-top: 50px;display: none;display: none;">
-						<div class="col-lg-6">
-							<h4>选择基地</h4>
-							<input type="text" class="form-control-sm" placeholder="基地名称"/>
-							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-							<table class="table" style="margin-top: 20px;">
-								<thead>
-									<tr>
-										<th>基地名称</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody id="project_jd_table">
-									
-								</tbody>
-							</table>
-						</div>
-						<div class="col-lg-6">
+							
+							
+							<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
+					<div class="col-lg-12">
 							<h4>安排人员</h4>
 							<select class="form-control-sm" style="width: 186px;">
 								<option>
@@ -228,12 +210,32 @@
 							</table>
 						</div>
 					</div>
+							
+					<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
+						<div class="col-lg-12">
+							<h4>选择基地</h4>
+							<table class="table" style="margin-top: 20px;">
+								<thead>
+									<tr>
+										<th>基地名称</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="project_jd_table">
+									
+								</tbody>
+							</table>
+						</div>
+						
+					</div>
+					
+					
 					
 					<div id="hide_project_time" style="display: none;margin-top: 50px;">
 						<span style="margin-left: 100px;">筛选时间</span>
-						<input type="datetime-local" placeholder="开始时间" style="margin-left: 20px;"/>
+						<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
 			        	<span style="color: white;margin-left: 20px;">~</span>
-			        	<input type="datetime-local" placeholder="结束时间" style="margin-left: 20px;"/>
+			        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
 			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
 						<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
 							<thead>
@@ -352,12 +354,13 @@
 			if(xzid==1){
 				$("[name=productHidden]").css('display','block');
 				$("[name=projectHidden]").css('display','none');
+				var product_name=$("[name=product_name]").val();
 				$.ajax({
 					url:"query_Product",
 					type:"post",
 					dataType:"json",
 					success:function(result){
-					
+						
 						$("#product_tbody").html(""); 
 						$.each(result,function(i,obj){
 							var dt=$("<tr>"+
@@ -374,6 +377,7 @@
 			}else if(xzid==2){
 				$("[name=projectHidden]").css('display','block');
 				$("[name=productHidden]").css('display','none');
+				var project_name=$("[name=project_name]").val();
 				$.ajax({
 					url:"query_Project",
 					type:"post",
@@ -478,7 +482,7 @@
 		
 		/*选择活动点击项目查询基地与工作人员*/
 		$("#project_table").on("click",".show_jd",function(){
-					$("#hide_jd").css("display","flex");
+					$(".hide_jd").css("display","flex");
 					pid=$(this).attr("pid");
 					$(this).html("-");
 					$.ajax({
@@ -526,7 +530,7 @@
 		
 		/*选择项目点击项目查询基地与工作人员*/
 		$("#project-table").on("click",".show_jd",function(){
-					$("#hide_jd").css("display","flex");
+					$(".hide_jd").css("display","flex");
 					pid=$(this).attr("pid");
 					$(this).html("-");
 					$.ajax({
@@ -600,13 +604,18 @@
 		/*根据基地id渲染排班时间*/
 		$("#project_jd_table").on("click",".show_project_time",function(){
 			var aid=$(this).parents("tr").find("td:eq(0)").attr("aid");
+			var start_time=$("[name=starttime]").val();
+			var end_time=$("[name=endtime]").val();
 			$.ajax({
-				url:"/qs/query?areaid="+aid,
+				url:"/qs/query",
+				data:{
+					areaid:aid,
+					starttime:start_time,
+					endtime:end_time
+				},
 				type:"post",
 				dataType:"json",
 				success:function(result){
-				
-					
 					for(var val in result.worktimes){
 						$("#time_tbody").html("");
 						$.each(result.worktimes[val],function(i,obj){

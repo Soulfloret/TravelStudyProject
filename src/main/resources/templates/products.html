@@ -43,7 +43,7 @@
 	                    <th scope="row"><input type="checkbox" /></th>
 	                    <td class="tm-product-name" th:id="${item.id}"><a th:href="@{look_productxq(id=${item.id})}" th:text="${item.pname}" style="color:white;"></a></td>
 	                    <td>
-	                    	<a href="javascript:void(0)" style="font-size: 20px" onclick="look_project(this)">项目 →</a>
+	                    	<a href="javascript:void(0)" style="font-size: 20px;color: white;" onclick="look_project(this)">项目 →</a>
 	                    </td>
 	                    <td>
 	                      <a href="#" class="tm-product-delete-link">
@@ -101,7 +101,12 @@
 	      				var dt=$("<table class='table tm-table-small tm-product-table'>"+
 				        	        "<tbody>"+
 					                  "<tr>"+
-					                    "<td class='tm-product-name'>"+obj.pro.pname+"</td>"+
+					                    "<td class='tm-product-name'>"+
+					                    "<div>"+
+					                    "<img height='75' width='45%' src='"+'/'+""+obj.pro.ilist[0].url+"'>"+
+					                    "<span style='margin-left:20px;'>"+obj.pro.pname+"</span>"+
+					                    "</div>"+
+					                    "</td>"+
 					                    "<td class='text-center'>"+
 					                      "<a href='#' class='tm-product-delete-link'>"+
 					                        "<i class='far fa-trash-alt tm-product-delete-icon'></i>"+
