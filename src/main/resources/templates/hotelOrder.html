@@ -28,12 +28,29 @@
     <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-        	<form th:action="@{/room/roomorder}">
-        	<input type="date" placeholder="" th:value="${#dates.format(ro.begintime, 'yyyy-MM-dd')}" name="begintime" style="border-radius: 30px 30px 30px 30px;"/>
-        	<span style="color: white;">~</span>
-        	<input type="date" placeholder="" th:value="${#dates.format(ro.endtime, 'yyyy-MM-dd')}" name="endtime" style="border-radius: 30px 30px 30px 30px;"/>
-        	<input type="submit" id="cx" style="border-radius: 30px 30px 30px 30px;width: 100px;" class="btn-primary" value="查询" />
-          	</form>
+        	
+          	
+          	<form class="form-inline col-md-11" method="post"  style="margin-bottom: 10px;" th:action="@{/room/roomorder}">
+				<div class="form-group" style="margin:0px 10px 0px 0px;">
+				<input type="date" placeholder="" th:value="${#dates.format(ro.begintime, 'yyyy-MM-dd')}" name="begintime" style="border-radius: 30px 30px 30px 30px;"/>
+        		<span style="color: white;">~</span>
+        		<input type="date" placeholder="" th:value="${#dates.format(ro.endtime, 'yyyy-MM-dd')}" name="endtime" style="border-radius: 30px 30px 30px 30px;"/>
+        		</div>
+				<div class="form-group" style="margin:0px 10px 0px 0px;">
+				<label for="exampleInputName2" style="margin-top: 10px">房间类型:</label>
+				<select name="typeid" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
+        		<option value="0" th:selected="${ro.typeid==null}">选择类型</option>
+        		<option value="1" th:selected="${ro.typeid==1}">单人间</option>
+        		<option value="2" th:selected="${ro.typeid==2}">双人间</option>
+        		<option value="3" th:selected="${ro.typeid==3}">总统套房</option>
+        		</select>
+				</div>
+				<div class="form-group" style="margin:0px 10px 0px 0px;">
+					<label for="exampleInputName2" style="margin-top: 10px">描述:</label>
+					<input type="text" th:value="${ro.rname}" name="rname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="房间号">
+				</div>
+				<input type="submit" class="btn btn-info urls"  value="查询">
+			</form>
           <div class="tm-bg-primary-dark tm-block tm-block-products">
             <div class="tm-product-table-container">
               <table style="text-align: center;" class="table table-hover tm-table-small tm-product-table">
@@ -51,7 +68,7 @@
                 <tbody>
                   <tr th:each="item,stack:${list}">
                    	<td><img th:if="${item.img !=null }" th:src="${item.img.url}" width="65px" height="65px" /></td>
-					<td class="tm-product-name"><a th:text="${item.rname}" th:href="@{/room/toupdateroom(id=${item.id})}"></a></td>
+					<td class="tm-product-name"><a th:text="${item.rname}" href="javascript:void(0)"></a></td>
 					<td th:text="${item.location}"></td>
 					<td><span th:if="${item.typeid==1}" th:text="单人间"></span><span th:if="${item.typeid==2}" th:text="双人间"></span><span th:if="${item.typeid==3}" th:text="总统套房"></span></td>
 					<td th:text="${item.price}"></td>

@@ -1,9 +1,12 @@
 package com.accp.renyuxuan.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,10 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.bind;
+import com.accp.domain.images;
 import com.accp.domain.menu;
 import com.accp.domain.menucomment;
 import com.accp.domain.menuorder;
@@ -29,6 +34,7 @@ import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.Shopcartserviceimpl;
 import com.accp.renyuxuan.service.impl.Usermainorderserviceimpl;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
+import com.accp.renyuxuan.service.impl.imagesserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
@@ -77,11 +83,21 @@ public class menucontroller {
 	Usermainorderserviceimpl umo;
 	@Autowired
 	teamserviceimpl te;
+	@Autowired
+	imagesserviceimpl im;
 	
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
 	public String toquerymenu(Model model,menu men) {
+		if(men.getZdprice()!=null &&men.getZgprice()!=null) {
+			Double a=men.getZdprice();
+			Double b=men.getZgprice();
+			if(a>b) {
+				men.setZdprice(b);
+				men.setZgprice(a);
+			}
+		}
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
 		model.addAttribute("listtype",me.selectByExample(null));
@@ -132,14 +148,17 @@ public class menucontroller {
 	public String addmenu(menu me) {
 		me.setLikecount(0);
 		me.setPutawaytime(new Date());
+		me.setIntorduce("1");
 		m.insertSelective(me);
+		im.insertmenuimglist(me);
 		return "redirect:/menu/toquerymenu";
+		
 	}
 	
 	//去菜单修改页面
 	@RequestMapping("/toupdatemenu")
 	public String toupdatemenu(Model model,menu menus) {
-		List<menu> list=m.QueryMenu(menus);
+		List<menu> list=m.selectmenuByid(menus.getId());
 		model.addAttribute("list", list);
 		model.addAttribute("listtype",me.selectByExample(null));
 		return "GoodUpdate";
@@ -149,36 +168,62 @@ public class menucontroller {
 	@RequestMapping("/updatemenu")
 	public String updatemenu(menu menus) {
 		m.updateByPrimaryKeySelective(menus);
+		im.delByiidAndTypeId(menus.getId(), 2);
+		im.insertmenuimglist(menus);
 		return "redirect:/menu/toquerymenu";
 	}
 	
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder(Model model,String lx) {
+	public String tomenuorder(Model model,String lx,String mname,Double zdprice,Double zgprice) {
 		if(lx==null || lx=="") {
 			lx="0";
 		}
+		bind binds=new bind();
+		menu menus=new menu();
+		if(zdprice!=null && zgprice!=null) {
+			if(zdprice>zgprice) {
+				binds.setZdprice(zgprice);
+				binds.setZgprice(zdprice);
+				menus.setZdprice(zgprice);
+				menus.setZgprice(zdprice);
+			}else {
+				binds.setZdprice(zdprice);
+				binds.setZgprice(zgprice);
+				menus.setZdprice(zdprice);
+				menus.setZgprice(zgprice);
+			}
+		}else {
+			binds.setZdprice(zdprice);
+			binds.setZgprice(zgprice);
+			menus.setZdprice(zdprice);
+			menus.setZgprice(zgprice);
+		}
+		binds.setMname(mname);
+		menus.setMname(mname);
 		if("0".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("1".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("2".equals(lx)) {
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}
 		return "";
@@ -312,7 +357,37 @@ public class menucontroller {
 		return "加入成功！";
 	}
 	
-	
+	@RequestMapping("/fileadd")
+	@ResponseBody
+	public String fileadd(MultipartFile [] file) {
+		String url="d:/fileUpload/";
+		File filepath=new File(url);
+		if (!filepath.exists()) {
+			filepath.mkdirs();
+		}
+		List<images> ilist=new ArrayList<images>(); 
+		try {
+			for (MultipartFile f : file) {			
+				String uuid=UUID.randomUUID().toString();
+				String name=f.getOriginalFilename();
+				String suffix=name.substring(name.lastIndexOf("."),name.length());
+				File fileImg=new File(url+uuid+suffix);
+				f.transferTo(fileImg);
+				String img_json="fileupload/"+fileImg.getName();
+				images i=new images();
+				i.setUrl(img_json);
+				i.setTypeid(1);
+				ilist.add(i);
+			}
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return JSON.toJSONString(ilist);
+	}
 	
 	
 }

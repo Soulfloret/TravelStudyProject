@@ -40,9 +40,9 @@ public class roomserviceimpl implements roomservice{
 	}
 
 	@Override
-	public List<room> queryByroomData(Date begintime ,Date endtime) {
+	public List<room> queryByroomData(room roo) {
 		// TODO Auto-generated method stub
-		return ro.queryByroomData(begintime,endtime);
+		return ro.queryByroomData(roo);
 	}
 
 	@Override

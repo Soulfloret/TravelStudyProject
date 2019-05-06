@@ -17,7 +17,7 @@ public interface roomservice {
 	
 	List<room> queryByroomtypeid();
 	
-	List<room> queryByroomData(Date begintime ,Date endtime);
+	List<room> queryByroomData(room ro);
 	
 	List<room> queryByroom(room r);
 	

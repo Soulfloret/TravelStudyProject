@@ -24,15 +24,28 @@
   <body id="reportsPage">
    <div class="container mt-5">
       <div class="row tm-content-row">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col" style="color: white;">
-        	 <form th:action="@{/menu/tomenuorder}">
-        	<select class="custom-select col-2" name="lx" style="background-color: white;color: black;">
-        		<option value="0" th:selected="${lx=='0'}">请选择</option>
-        		<option value="1" th:selected="${lx=='1'}">普通类</option>
-        		<option value="2" th:selected="${lx=='2'}">套餐类</option>
-        	</select>
-        	<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 20px;" class="btn-primary" value="查询" />
-          	</form>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col" style="color: white;">          	
+          	<form class="form-inline col-md-11" method="post"  style="margin-bottom: 10px;" th:action="@{/menu/tomenuorder}">
+						<div class="form-group" style="margin:0px 10px 0px 0px;">
+						<label for="exampleInputName2" style="margin-top: 10px">类型:</label>
+						<select name="lx" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
+		        			<option value="0" th:selected="${lx=='0'}">请选择</option>
+			        		<option value="1" th:selected="${lx=='1'}">普通类</option>
+			        		<option value="2" th:selected="${lx=='2'}">套餐类</option>
+			        	</select>
+						</div>
+						<div class="form-group" style="margin:0px 10px 0px 0px;">
+							<label for="exampleInputName2" style="margin-top: 10px">名称:</label>
+							<input type="text" th:value="${menus.mname}" name="mname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="名称">
+						</div>
+						<div class="form-group" style="margin:0px 10px 0px 0px;">
+							<label for="exampleInputName2" style="margin-top: 10px">价格:</label>
+							<input type="text" th:value="${menus.zdprice}" name="zdprice" style="margin-left: 5px; width: 100px" class="form-control"  placeholder="最低价">
+							<span style="color: white;">一</span>
+							<input type="text" th:value="${menus.zgprice}" name="zgprice" style="margin-left: 5px; width: 100px" class="form-control"  placeholder="最高价">
+						</div>
+						<input type="submit" class="btn btn-info urls"  value="查询">
+					</form>
           <form th:action="@{/menu/orderadd}">
           <div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
             <div class="tm-product-table-container">
@@ -103,13 +116,16 @@
             </div>
             <!-- table container -->
             <div>
-            <span>身份证号码：</span>
-            <input type="text" name="sfz">
-            <select name="lb" style="height: 30px">
-            	<option value="1">个人</option>
-            	<option value="2">团队</option>
-            </select>
-            <input type="button" id="xd" value="立即下单" class="btn btn-primary  text-uppercase" style="float: right;width: 170px;">
+            <div class="form-group" style="margin:0px 10px 0px 0px;">
+				<input type="text" name="sfz" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="身份证号码">
+			</div>
+            <div class="form-group" style="margin:0px 10px 0px 0px;">
+				  <select name="lb" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
+		        	<option value="1">个人</option>
+            		<option value="2">团队</option>
+            	 </select>
+			</div>
+            	<input type="button" id="xd" value="立即下单" class="btn btn-primary  text-uppercase" style="float: right;width: 170px; margin-top: 10px">
             </div>
           </div>
         </div>

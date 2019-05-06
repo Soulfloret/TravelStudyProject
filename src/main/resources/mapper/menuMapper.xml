@@ -61,6 +61,12 @@
 			<if test="id!=null and id!=''">
 				and m.id=#{id}
 			</if>
+			<if test="zdprice!=null and zdprice!='' ">
+				and m.`price`&gt;=#{zdprice} 
+			</if>
+			<if test="zgprice!=null and zgprice!=''">
+				AND m.`price` &lt;=#{zgprice}
+			</if>
 		</where>
   </select>
 
@@ -178,7 +184,7 @@
       #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
       #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.menu" >
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.menu" >
     insert into menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -345,7 +351,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.accp.domain.menu" >
+  <update id="updateByPrimaryKeySelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.menu" >
     update menu
     <set >
       <if test="mname != null" >

@@ -35,4 +35,10 @@ public class roomdestineserviceimpl implements roomdestineservice{
 		return r.selectByroomid(id);
 	}
 
+	@Override
+	public List<roomdestine> selectByrdId(Integer id) {
+		// TODO Auto-generated method stub
+		return r.selectByrdId(id);
+	}
+
 }

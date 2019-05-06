@@ -12,9 +12,12 @@ public class roomdestine {
     private Integer roomid;
 
     @DateTimeFormat(pattern ="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date begintime;
-
+    
+    
     @DateTimeFormat(pattern ="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date endtime;
 
     private Integer userid;
@@ -30,7 +33,6 @@ public class roomdestine {
     private String name5;
     
     private users user;
-    
     
     private room room;
     

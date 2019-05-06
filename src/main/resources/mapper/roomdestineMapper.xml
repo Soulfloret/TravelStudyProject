@@ -14,9 +14,37 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="selectByroomid" resultMap="BaseResultMap">
-  	SELECT * FROM `roomdestine`
-	WHERE `roomId`=#{id} AND `begintime` >=NOW()
+  <resultMap type="com.accp.domain.roomdestine" id="BaseResultMap1" extends="BaseResultMap">
+  	<association property="user" javaType="com.accp.domain.users">
+  		<result column="uName" property="uname" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  
+  <resultMap type="com.accp.domain.roomdestine" id="BaseResultMap2" extends="BaseResultMap">
+  	<association property="room" javaType="com.accp.domain.room">
+  		<id column="rid" property="id" jdbcType="INTEGER" />
+	    <result column="rname" property="rname" jdbcType="VARCHAR" />
+	    <result column="location" property="location" jdbcType="VARCHAR" />
+	    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	    <result column="price" property="price" jdbcType="DOUBLE" />
+	    <result column="state" property="state" jdbcType="VARCHAR" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  
+  <select id="selectByrdId" resultMap="BaseResultMap2">
+  	SELECT ro.*,r.`id`AS rid,r.`rname`,r.`location`,r.`introduce`,r.`typeId`,r.`price`,r.`state`,
+	i.`url`
+	FROM `roomdestine` ro
+	INNER JOIN `room` r ON ro.`roomId`=r.`id`
+	INNER JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
+	WHERE ro.`userId`=#{id} AND ro.`name1`=2
+  </select>
+  
+  <select id="selectByroomid" resultMap="BaseResultMap1">
+  	SELECT r.*,u.`uName` FROM `roomdestine` r INNER JOIN `users` u ON r.`userId`=u.`id`
+	WHERE `roomId`=#{id} AND `begintime` >=DATEDIFF(NOW(),`begintime`)
   
   </select>
   

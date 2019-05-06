@@ -11,4 +11,6 @@ public interface roomdestineservice {
 	int insertSelective(roomdestine record);
 	
 	List<roomdestine> selectByroomid(Integer id);
+	
+	List<roomdestine> selectByrdId(Integer id);
 }

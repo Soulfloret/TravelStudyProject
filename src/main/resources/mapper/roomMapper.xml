@@ -57,13 +57,16 @@
   		<if test="id!=null and id!=''">
   			r.id=#{id}
   		</if>
+  		<if test="rname !=null and rname!= ''">
+  			r.rname=#{rname}
+  		</if>
   	</where>
   </select>
   
   <select id="queryByroomtypeid" resultMap="BaseResultMap1">
   		SELECT r.*,i.`id` AS iid,i.`url` FROM room   r LEFT JOIN `images` i ON r.id=i.`iid` AND i.`typeId`=3
 		WHERE r.`typeId`=3
-		LIMIT 0,3
+		LIMIT 0,5
   </select>
   
   
@@ -87,10 +90,18 @@
   
    <select id="queryByroomData" resultMap="BaseResultMap1">
   	SELECT r.*,i.`id` AS iid,i.`url` FROM room AS r  LEFT JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
-	WHERE r.`id` NOT IN 
+	 <where>
+	 r.`id` NOT IN 
 	(SELECT rd.`roomId` FROM roomdestine AS rd 
 		where	DATEDIFF(#{begintime},rd.`begintime`)&lt;=0  AND DATEDIFF(#{endtime},rd.`endTime`)&gt;=0
-	) 
+	)
+	<if test="typeid !=null and typeid !=0 and typeid!='' ">
+		and r.`typeId`=#{typeid}
+	</if>
+	<if test="rname!=null and rname != ''">
+		and r.`rname`=#{rname}
+	</if>
+	</where> 
   	
   </select>
   
@@ -200,7 +211,7 @@
       #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.room" >
+  <insert id="insertSelective" keyProperty="id"  useGeneratedKeys="true" parameterType="com.accp.domain.room" >
     insert into room
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
