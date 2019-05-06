@@ -16,7 +16,7 @@ import com.accp.domain.discussiongroupson;
 import com.accp.domain.users;
 @Configuration
 public class WebSocketHandleryp extends TextWebSocketHandler {
-
+	static Map<String,WebSocketSession> map=new HashMap<String,WebSocketSession>();
 	/**
 	 * 存储所有握手成功的讨论组
 	 */

@@ -45,9 +45,10 @@ public class SendReqServiceImpl  implements SendReqService{
 			sendrequest.setUse(u);
 		}
 		List<Object> list1=new ArrayList<Object>();
-		list1.add(list3);
-		list1.add(list4);
+		//list1.add(list3);
+		//list1.add(list4);
 		List<Object> list2=new ArrayList<Object>();
+		//请求发送人为当前登录用户
 		List<sendrequest> list5=mapper.selectBydid(2, uid);
 		for (sendrequest sendrequest : list5) {
 			discussiongroup dis=dmapper.selectByPrimaryKey(sendrequest.getUid());
@@ -59,8 +60,22 @@ public class SendReqServiceImpl  implements SendReqService{
 			sendrequest.setUse(umapper.selectByPrimaryKey(sendrequest.getDid()));
 			sendrequest.getDis().setImg(imgmapper.queryimg(sendrequest.getDis().getId(), 8));
 		}
+		List<sendrequest> list7=mapper.selectDisByTypeIdAnduid(uid);
+		for (sendrequest sendrequest : list7) {
+			sendrequest.setUse(umapper.selectByPrimaryKey(sendrequest.getUid()));
+			sendrequest.getDis().setImg(imgmapper.queryimg(sendrequest.getDis().getId(), 8));
+		}
+		List<sendrequest> list8=mapper.selectByuid(3, uid);
+		for (sendrequest sendrequest : list8) {
+			sendrequest.setUse(umapper.selectByPrimaryKey(sendrequest.getUid()));
+			discussiongroup dis=dmapper.selectByPrimaryKey(sendrequest.getDid());
+			dis.setImg(imgmapper.queryimg(dis.getId(), 8));
+			sendrequest.setDis(dis);
+		}
 		list2.add(list5);
 		list2.add(list6);
+		list2.add(list7);
+		list2.add(list8);
 		list.add(list1);
 		list.add(list2);
 		return list;
@@ -75,6 +90,7 @@ public class SendReqServiceImpl  implements SendReqService{
 		// TODO Auto-generated method stub
 		return mapper.insert(record);
 	}
+	
 
 	
 }

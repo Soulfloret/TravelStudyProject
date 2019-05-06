@@ -101,7 +101,10 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		son.setDid(record.getId());
 		son.setUserid(record.getGroupmainid());
 		i=disSonmapper.insert(son);
-		i=disSonmapper.insertByarray(record.getId(), id);
+		for (int j = 0; j < id.length; j++) {
+			users use=umapper.selectByPrimaryKey(id[j]);
+			i=sendmapper.insert(new sendrequest(id[j], record.getId(), 3, "等待同意", "邀请"+use.getUname()+"加入"+record.getGroupname()));
+		}	
 		i=imgmapper.insertByList(record.getId(), 8, list);
 		return i;
 	}
@@ -113,8 +116,6 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			 if(mess!=null) {
 				 mess.setUse(umapper.selectByPrimaryKey(mess.getUid()));
 			 }
-			 //保存查询的 信息数
-			 discussiongroup.setCount(messmapper.selectCountBydid(discussiongroup.getId()));
 			 discussiongroup.setMess(mess);
 			 discussiongroup.setImg(imgmapper.queryimg(discussiongroup.getId(), 8));
 		}
@@ -149,7 +150,6 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 	}
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
 		return dismapper.deleteByPrimaryKey(id);
 	}
 	@Override
@@ -163,6 +163,7 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		}else {
 			num=disSonmapper.delByuidAndDid(did, uid);
 		}
+		
 		return num;
 	}
 	
