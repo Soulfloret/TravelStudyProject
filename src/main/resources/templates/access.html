@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www/thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>主页管理</title>
-		<link rel="stylesheet" href="css/fontawesome.min.css">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/templatemo-style.css">
-		<style>
+		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+		<link rel="stylesheet" th:href="@{/css/JJ_yuangong.css}" />
+        <style type="text/css">
+            .sucaihuo-header{margin-bottom: 15px;font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;}
+            .sucaihuo-icon{color: #fff;}
 			.acsCheck{
 				display: inline-block;
 				width: 50px;
@@ -17,188 +21,520 @@
 			.acsdiv{
 				margin-top: 20px;
 			}
+			.col-sm-12{
+				color:black;
+			}
+			.col-sm-12 .form-group{
+				display:inline-block;
+				width:30%;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body id="reportsPage">
 		<div class="" id="home">
 			<div class="container">
-				<div class="row">
-					<div class="col" style="color: white;">
-						<p class="text-white mt-5 mb-5">新建角色</p>
-						<p><span>角色名称</span><input type="text" class="form-control-sm" style="margin: 20px;"></p>
+				<div class="col-12 tm-block-col" style="margin-top:40px">
+					<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+							<h2 class="tm-block-title">角色列表</h2>
+							<table class="table roletable">
+								<thead>
+									<tr>
+										<th scope="col">角色编号</th>
+										<th scope="col">角色名称</th>
+										<th scope="col">角色创建时间</th>
+										<th scope="col">更新时间</th>
+										<th scope="col">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item:${list}">
+										<th scope="row"><b th:text="${item.id}"></b></th>
+										<td>
+											<div class="tm-status-circle moving">
+											</div><span th:text="${item.rname}"></span>
+										</td>
+										<td><b th:text="${item.name1}"></b></td>
+										<td><b th:text="${item.name2}"></b></td>
+										<td>
+											<select class="form-control" style="text-align:center;height:40px;width:100px;line-height:40px;padding:10px;background-color:rgb(0,200,111);border-radius:10px;color:white">
+												<option value="0">请选择</option>
+												<option value="1">修改</option>
+												<option value="2">新增</option>
+												<option value="3">删除</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+					<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+							<h2 class="tm-block-title">员工列表</h2>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">员工编号</th>
+										<th scope="col">员工名称</th>
+										<th scope="col">入职时间</th>
+										<th scope="col">角色选择</th>
+										<th scope="col">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+										<tr th:each="item:${list1}">
+											<td th:text="${item.id}"></td>
+											<td th:text="${item.ulist.uname}"></td>
+											<td th:text="${#dates.format(item.entrytime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td>
+												<select  class="form-control" style="margin-left:30%;text-align:center;height:40px;width:150px;line-height:40px;padding:10px;background-color:rgb(0,200,111);border-radius:10px;color:white">
+													<option value="0">请选择</option>
+													<option th:each="item1:${list}" th:selected="${item.ur!=null&&item.ur.roleid==item1.id}" th:value="${item1.id}" th:text="${item1.rname}"></option>
+												</select>
+											</td>
+											<td>
+												<input type="hidden" th:value="${item.userid}">
+												<button class="btn btn-danger userroleadd">确定</button>
+											</td>
+										</tr>
+								</tbody>
+							</table>
 					</div>
 				</div>
-				<div class="row tm-content-row">
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-							<h2 class="tm-block-title">客户管理</h2>
-							<div class="tm-notification-items">
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
+
+				<a hidden="hidden" id="ss" data-target="#JJ_xztan" data-toggle="modal" href="javascript:void(0)" ></a>
+				<div class="modal fade bs-example-modal-lg" id="JJ_xztan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<form action="/module/roleModuleUpdate">
+									<input type="hidden" value="0" name='typeid'>
+									<div id="" class="modal-header">
+										<h3>权限管理</h3>
 									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
+									<div id="" class="modal-body bodys">
+										<div class="sucaihuo-container">
+								            <div class="container">
+								               <div class="row">
+													<div class="col-sm-6 col-md-6" style="color: white;">
+														<p><span>角色名称</span><input type="text" class="form-control-sm" id="rolename" style="margin: 20px;" name="rname"></p>
+													</div>
+												</div>
+								               <div class="row">
+								                    <div class="col-sm-12">
+								                        <h2>Input</h2>
+								                        <div class="form-group">
+								                            <label for="input-check-node" class="sr-only">Search Tree:</label>
+								                            <input type="input" style="background-color:#f5a623;color:black;text-align:center" class="form-control" id="input-check-node" placeholder="Identify node..." value="Parent 1">
+								                        </div>
+								                        <div class="form-group">
+								                             <button type="button" class="btn btn-primary check-node col-sm-12" id="btn-check-node">选中节点</button>
+								                        </div>
+								                        <div class="form-group">
+								                            <button type="button" class="btn btn-primary check-node col-sm-12" id="btn-uncheck-node">取消选中节点</button>
+								                        </div>
+								                        <div class="form-group">
+								                            <button type="button" class="btn btn-primary check-node col-sm-12" id="btn-toggle-checked">切换节点</button>
+								                        </div>
+								                        <div class="form-group">
+								                            <button type="button" class="btn btn-primary col-sm-12" id="btn-check-all">选中所有节点</button>	
+								                        </div>
+								                        <div class="form-group">								                        
+								                       		<button type="button" class="btn btn-primary col-sm-12" id="btn-uncheck-all">取消选中所有节点</button>
+								                    	</div>
+								                    </div>
+								                    <div class="col-sm-12">
+								                        <h2>Tree</h2>
+								                        <div id="treeview-checkable"></div>
+								                    </div>
+								                    <div class="col-sm-12">
+								                        <h2>Events</h2>
+								                        <div id="checkable-output" class="row"></div>
+								                    </div>
+								                </div>
+								            </div>
+								        </div>
 									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
+									<div id="" class="modal-footer">
+										<button class="btn" type="submit"  id="tijiao">提交</button> <button class="btn" data-dismiss="modal">关闭</button>
 									</div>
+									</form>
 								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<button class="btn btn-default col-12">新增模块</button>
-								</div>
-							</div>
 						</div>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-							<h2 class="tm-block-title">客户管理</h2>
-							<div class="tm-notification-items">
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-							<h2 class="tm-block-title">客户管理</h2>
-							<div class="tm-notification-items">
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
-							<h2 class="tm-block-title">客户管理</h2>
-							<div class="tm-notification-items">
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-								<div class="media tm-notification-item">
-									<input type="checkbox"  class="acsCheck">
-									<div class="media-body acsdiv">
-										<p class="mb-2">
-											新增客户
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div style="margin: 0 auto;width: 50%;" class="row">
-					<button class="col-8 offset-2 btn btn-primary" >新增角色</button>
 				</div>
 			</div>
-			
 		</div>
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/moment.min.js"></script>
-		<script src="js/Chart.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/tooplate-scripts.js"></script>
 	</body>
+	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap-treeview.js}"></script>
+   	<script th:src="@{/js/bootstrap.min.js}"></script>    
+	<script th:line="javascript">
+		$(".userroleadd").click(function(){
+			var roleid=$(this).parent().prev().find("select").val()
+			var userid=$(this).prev().val();
+			if(roleid!=0&&roleid!=""){
+				location.href="/module/userroleAdd?roleid="+roleid+"&userid="+userid+"";
+			}
+		})
+    	var defaultData=[];
+		$(".roletable .form-control").change(function(){
+			$("#checkable-output").html("");
+			defaultData=[];
+			var czid=$(this).val();
+			var id=$(this).parent().parent().find("th");
+			var name=$(id).next().find("span").text();
+			$("#rolename").val("");
+			if(czid==1||czid==2){
+ 			    $.ajaxSettings.async = false
+ 				$.post("/module/queryAll",function(data){
+					$.each(data,function(index,item){
+						var x={};
+						x.text=item.mname;
+						x.href=item.url;
+						x.moduleid=item.id;
+						x.nodes=[];
+						x.state={
+							checked: false,
+							selected: false
+						};
+						if(item.mlist!=null){
+							m(x,item.mlist);
+						}
+						defaultData.push(x);
+					});
+					a(defaultData);
+				},"json");
+				if(czid==1){
+					$("#rolename").val(name);
+					$("[name='typeid']").val($(id).text());
+ 				    $.ajaxSettings.async = false
+ 					$.post("/module/queryByRid?rid="+$(id).text()+"",function(data){
+ 						$.each(data,function(index,item){
+ 							$.each(defaultData,function(index1,item1){
+ 								if(item1.moduleid==item.id){
+ 									 item1.state={
+ 										    checked: true,
+ 									};
+ 									var p=$('<p class="col-sm-3" style="color:white;">' + item1.text + '</p>');
+ 				             		$(p).css("border","1px solid rgb(220,220,220)");
+ 				             		$(p).css("text-align","center");
+ 				             		var index=$("#checkable-output").find("p");
+ 				             		var l=0;
+ 				             		if(index.length!=null){
+ 				             			l=index.length;
+ 				             		}
+ 				             		var input=$("<input type='hidden' value='"+item1.moduleid+"' name='list["+l+"].moduleid'>");
+ 				                		$('#checkable-output').prepend(p);
+ 				                		$('#checkable-output').prepend(input);
+ 								}else if(item1.nodes!=null&&item1.nodes.length>0){
+ 										z(item1.nodes,item.id);
+ 								}						 								
+ 							})
+ 						})
+					},"json");
+ 				   a(defaultData);
+				}
+				$("#ss").click();
+			}else if(czid==3){
+				if(confirm("是否删除"))
+					location.href="/module/delRole?id="+$(id).text()+""
+			}
+		})
+		function z(data1,data2){
+			$.each(data1,function(index,item){
+				if(item.moduleid==data2){
+					 item.state={
+						    checked: true,
+					};
+					var p=$('<p class="col-sm-3" style="color:white;">' + item.text + '</p>');
+             		$(p).css("border","1px solid rgb(220,220,220)");
+             		$(p).css("text-align","center");
+             		var index=$("#checkable-output").find("p");
+             		var l=0;
+             		if(index.length!=null){
+             			l=index.length;
+             		}
+             		var input=$("<input type='hidden' value='"+item.moduleid+"' name='list["+l+"].moduleid'>");
+                		$('#checkable-output').prepend(p);
+                		$('#checkable-output').prepend(input);
+				}else if(item.nodes!=null&&item.nodes.length>0){
+						z(item.nodes,data2);
+				}
+			})
+		}
+		function m(dom,data){
+			$.each(data,function(index,item){
+				var x={};
+				x.text=item.mname;
+				x.href=item.url;
+				x.moduleid=item.id;
+				x.nodes=[];
+				if(item.mlist!=null){
+					m(x,item.mlist);
+				}
+				dom.nodes.push(x);
+			})
+		}
+		function check(){
+			$.each($(".check-icon"),function(index,item){
+				if($(item).hasClass("glyphicon-check")){
+				 	$(item).removeClass("glyphicon-check");
+				 	$(item).click();
+				}
+			})
+		}
+	    function a(defaultData){
+              	var $searchableTree = $('#treeview-searchable').treeview({
+                    data: defaultData,
+                });
+                var search = function(e) {
+                    var pattern = $('#input-search').val();
+                    var options = {
+                        ignoreCase: $('#chk-ignore-case').is(':checked'),
+                        exactMatch: $('#chk-exact-match').is(':checked'),
+                        revealResults: $('#chk-reveal-results').is(':checked')
+                    };
+                    var results = $searchableTree.treeview('search', [pattern, options]);
+
+                    var output = '<p>' + results.length + ' matches found</p>';
+                    $.each(results, function(index, result) {
+                        output += '<p>- ' + result.text + '</p>';
+                    });
+                    $('#search-output').html(output);
+                }
+
+                $('#btn-search').on('click', search);
+                $('#input-search').on('keyup', search);
+
+                $('#btn-clear-search').on('click', function(e) {
+                    $searchableTree.treeview('clearSearch');
+                    $('#input-search').val('');
+                    $('#search-output').html('');
+                });
+                var initSelectableTree = function() {
+                    return $('#treeview-selectable').treeview({
+                        data: defaultData,
+                        multiSelect: $('#chk-select-multi').is(':checked'),
+                        onNodeChecked: function(event, node) {
+                        	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                        		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                        		$(p).css("border","1px solid rgb(220,220,220)");
+                        		$(p).css("text-align","center");
+                        		var index=$("#checkable-output").find("p");
+                        		var l=0;
+                        		if(index.length!=null){
+                        			l=index.length;
+                        		}
+                        		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                           		$('#checkable-output').prepend(p);
+                           		$('#checkable-output').prepend(input);
+                        	}
+                        },
+                        onNodeUnchecked: function(event, node) {
+                        	$.each($("#checkable-output>p"),function(index,item){
+                        		if($(item).text().indexOf(node.text)!=-1){
+                        			$(item).prev().remove();
+                        			$(item).remove();
+                        		}
+                        	})
+                  	}
+                    });
+                };
+                var $selectableTree = initSelectableTree();
+                var findSelectableNodes = function() {
+                    return $selectableTree.treeview('search', [$('#input-select-node').val(), {ignoreCase: false, exactMatch: false}]);
+                };
+                var selectableNodes = findSelectableNodes();
+
+                $('#chk-select-multi:checkbox').on('change', function() {
+                    console.log('multi-select change');
+                    $selectableTree = initSelectableTree();
+                    selectableNodes = findSelectableNodes();
+                });
+                $('#input-select-node').on('keyup', function(e) {
+                    selectableNodes = findSelectableNodes();
+                    $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
+                });
+                $('#btn-select-node.select-node').on('click', function(e) {
+                    $selectableTree.treeview('selectNode', [selectableNodes, {silent: $('#chk-select-silent').is(':checked')}]);
+                });
+
+                $('#btn-unselect-node.select-node').on('click', function(e) {
+                    $selectableTree.treeview('unselectNode', [selectableNodes, {silent: $('#chk-select-silent').is(':checked')}]);
+                });
+
+                $('#btn-toggle-selected.select-node').on('click', function(e) {
+                    $selectableTree.treeview('toggleNodeSelected', [selectableNodes, {silent: $('#chk-select-silent').is(':checked')}]);
+                });
+                var $expandibleTree = $('#treeview-expandible').treeview({
+                    data: defaultData,
+                    onNodeChecked: function(event, node) {
+                    	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                    		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                    		$(p).css("border","1px solid rgb(220,220,220)");
+                    		$(p).css("text-align","center");
+                    		var index=$("#checkable-output").find("p");
+                    		var l=0;
+                    		if(index.length!=null){
+                    			l=index.length;
+                    		}
+                    		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                       		$('#checkable-output').prepend(p);
+                       		$('#checkable-output').prepend(input);
+                    	}
+                    },
+                    onNodeUnchecked: function(event, node) {
+                    	$.each($("#checkable-output>p"),function(index,item){
+                    		if($(item).text().indexOf(node.text)!=-1){
+                    			$(item).prev().remove();
+                    			$(item).remove();
+                    		}
+                    	})
+                    }
+                });
+                var findExpandibleNodess = function() {
+                    return $expandibleTree.treeview('search', [$('#input-expand-node').val(), {ignoreCase: false, exactMatch: false}]);
+                };
+                var expandibleNodes = findExpandibleNodess();
+
+                // Expand/collapse/toggle nodes
+                $('#input-expand-node').on('keyup', function(e) {
+                    expandibleNodes = findExpandibleNodess();
+                    $('.expand-node').prop('disabled', !(expandibleNodes.length >= 1));
+                });
+
+                $('#btn-expand-node.expand-node').on('click', function(e) {
+                    var levels = $('#select-expand-node-levels').val();
+                    $expandibleTree.treeview('expandNode', [expandibleNodes, {levels: levels, silent: $('#chk-expand-silent').is(':checked')}]);
+                });
+
+                $('#btn-collapse-node.expand-node').on('click', function(e) {
+                    $expandibleTree.treeview('collapseNode', [expandibleNodes, {silent: $('#chk-expand-silent').is(':checked')}]);
+                });
+
+                $('#btn-toggle-expanded.expand-node').on('click', function(e) {
+                    $expandibleTree.treeview('toggleNodeExpanded', [expandibleNodes, {silent: $('#chk-expand-silent').is(':checked')}]);
+                });
+
+                // Expand/collapse all
+                $('#btn-expand-all').on('click', function(e) {
+                    var levels = $('#select-expand-all-levels').val();
+                    $expandibleTree.treeview('expandAll', {levels: levels, silent: $('#chk-expand-silent').is(':checked')});
+                });
+
+                $('#btn-collapse-all').on('click', function(e) {
+                    $expandibleTree.treeview('collapseAll', {silent: $('#chk-expand-silent').is(':checked')});
+                });
+                var $checkableTree = $('#treeview-checkable').treeview({
+                    data: defaultData,
+                    showIcon: false,
+                    showCheckbox: true,
+                    onNodeChecked: function(event, node) {
+                    	if($("#checkable-output").find("p").text().indexOf(node.text)==-1){
+                    		var p=$('<p class="col-sm-3" style="color:white;">' + node.text + '</p>');
+                    		$(p).css("border","1px solid rgb(220,220,220)");
+                    		$(p).css("text-align","center");
+                    		var index=$("#checkable-output").find("p");
+                    		var l=0;
+                    		if(index.length!=null){
+                    			l=index.length;
+                    		}
+                    		var input=$("<input type='hidden' value='"+node.moduleid+"' name='list["+l+"].moduleid'>");
+                       		$('#checkable-output').prepend(p);
+                       		$('#checkable-output').prepend(input);
+                    	}
+                    },
+                    onNodeUnchecked: function(event, node) {
+                    	$.each($("#checkable-output>p"),function(index,item){
+                    		if($(item).text().indexOf(node.text)!=-1){
+                    			$(item).prev().remove();
+                    			$(item).remove();
+                    		}
+                    	})
+/*                         $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+ */                    }
+                });
+
+                var findCheckableNodess = function() {
+                    return $checkableTree.treeview('search', [$('#input-check-node').val(), {ignoreCase: false, exactMatch: false}]);
+                };
+                var checkableNodes = findCheckableNodess();
+
+                // Check/uncheck/toggle nodes
+                $('#input-check-node').on('keyup', function(e) {
+                    checkableNodes = findCheckableNodess();
+                    $('.check-node').prop('disabled', !(checkableNodes.length >= 1));
+                });
+
+                $('#btn-check-node.check-node').on('click', function(e) {
+                    $checkableTree.treeview('checkNode', [checkableNodes, {silent: $('#chk-check-silent').is(':checked')}]);
+                });
+
+                $('#btn-uncheck-node.check-node').on('click', function(e) {
+                    $checkableTree.treeview('uncheckNode', [checkableNodes, {silent: $('#chk-check-silent').is(':checked')}]);
+                });
+
+                $('#btn-toggle-checked.check-node').on('click', function(e) {
+                    $checkableTree.treeview('toggleNodeChecked', [checkableNodes, {silent: $('#chk-check-silent').is(':checked')}]);
+                });
+
+                // Check/uncheck all
+                $('#btn-check-all').on('click', function(e) {
+                    $checkableTree.treeview('checkAll', {silent: $('#chk-check-silent').is(':checked')});
+                });
+
+                $('#btn-uncheck-all').on('click', function(e) {
+                    $checkableTree.treeview('uncheckAll', {silent: $('#chk-check-silent').is(':checked')});
+                });
+                var $disabledTree = $('#treeview-disabled').treeview({
+                    data: defaultData,
+                    onNodeDisabled: function(event, node) {
+                        $('#disabled-output').prepend('<p>' + node.text + ' was disabled</p>');
+                    },
+                    onNodeEnabled: function(event, node) {
+                        $('#disabled-output').prepend('<p>' + node.text + ' was enabled</p>');
+                    },
+                    onNodeCollapsed: function(event, node) {
+                        $('#disabled-output').prepend('<p>' + node.text + ' was collapsed</p>');
+                    },
+                    onNodeUnchecked: function(event, node) {
+                        $('#disabled-output').prepend('<p>' + node.text + ' was unchecked</p>');
+                    },
+                    onNodeUnselected: function(event, node) {
+                        $('#disabled-output').prepend('<p>' + node.text + ' was unselected</p>');
+                    }
+                });
+
+                var findDisabledNodes = function() {
+                    return $disabledTree.treeview('search', [$('#input-disable-node').val(), {ignoreCase: false, exactMatch: false}]);
+                };
+                var disabledNodes = findDisabledNodes();
+
+                // Expand/collapse/toggle nodes
+                $('#input-disable-node').on('keyup', function(e) {
+                    disabledNodes = findDisabledNodes();
+                    $('.disable-node').prop('disabled', !(disabledNodes.length >= 1));
+                });
+
+                $('#btn-disable-node.disable-node').on('click', function(e) {
+                    $disabledTree.treeview('disableNode', [disabledNodes, {silent: $('#chk-disable-silent').is(':checked')}]);
+                });
+
+                $('#btn-enable-node.disable-node').on('click', function(e) {
+                    $disabledTree.treeview('enableNode', [disabledNodes, {silent: $('#chk-disable-silent').is(':checked')}]);
+                });
+
+                $('#btn-toggle-disabled.disable-node').on('click', function(e) {
+                    $disabledTree.treeview('toggleNodeDisabled', [disabledNodes, {silent: $('#chk-disable-silent').is(':checked')}]);
+                });
+
+                // Expand/collapse all
+                $('#btn-disable-all').on('click', function(e) {
+                    $disabledTree.treeview('disableAll', {silent: $('#chk-disable-silent').is(':checked')});
+                });
+
+                $('#btn-enable-all').on('click', function(e) {
+                    $disabledTree.treeview('enableAll', {silent: $('#chk-disable-silent').is(':checked')});
+                });
+	    	}
+        </script>
 </html>

@@ -12,6 +12,35 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+
+  
+  
+  <delete id="deleteByiid">
+  		DELETE FROM `images` WHERE iid=#{id}
+  </delete>
+  
+  	<insert id="insertbingimglist">
+		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
+		<foreach collection="mlist" separator="," item="im">
+				(#{im.url},#{id},#{im.typeid})
+		</foreach>
+	</insert>
+	
+	<insert id="insertmenuimglist">
+		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
+		<foreach collection="mlist" separator="," item="im">
+				(#{im.url},#{id},#{im.typeid})
+		</foreach>
+	</insert>
+	
+	<insert id="insertroomimglist">
+		INSERT INTO `images`(`url`,`iid`,`typeId`)VALUES
+		<foreach collection="mlist" separator="," item="im">
+				(#{im.url},#{id},#{im.typeid})
+		</foreach>
+	</insert>
+	
+
 	<!-- 新增讨论组图片 -->
 	<insert id="insertByList">
 		insert into images(url,iid,typeId) values 
@@ -23,6 +52,7 @@
 	<delete id="delByiidAndTypeId">
 		delete from `images` where `iid`=#{iid} AND `typeId`=#{typeid}
 	</delete>
+
 	
 	<!-- 查询图片 -->
   <select id="queryimg" resultType="com.accp.domain.images">

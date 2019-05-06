@@ -27,8 +27,8 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 
 	/*@Autowired
-	MyInterceptor my;
-*/
+	MyInterceptor my;*/
+
 	/**
 	 * 闈欐�佽祫婧愯矾寰勯厤缃紝娉ㄦ剰锛氬鏋滀笉閰嶇疆锛屽垯浼�404
 	 */
@@ -57,7 +57,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	 * 
 	 * @return
 	 */
-/*		  @Bean public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+		/*  @Bean public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
 		  //鍒涘缓FastJson淇℃伅杞崲瀵硅薄 
 			  FastJsonHttpMessageConverter fastJsonHttpMessageConverter= new FastJsonHttpMessageConverter();
 		  
@@ -77,7 +77,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	/**
 	 * 拦截器
 	 */
-/*	protected void addInterceptors(InterceptorRegistry registry) {
+	/*protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(my).addPathPatterns("/**").addPathPatterns("/login/mode")
 		.excludePathPatterns("/js/**")
 		.excludePathPatterns("/css/**")
@@ -96,14 +96,15 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/fileupload/**")
 		.excludePathPatterns("/login/login")
 		.excludePathPatterns("/login/loginQuery")
-		.excludePathPatterns("/module/**");
+		.excludePathPatterns("/module/queryByUid")
+		.excludePathPatterns("/module/hide");
 		super.addInterceptors(registry);
 	}*/
 
 	@Override
 	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());
-//		converters.add(fastJsonHttpMessageConverter());
+		//converters.add(fastJsonHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
 		converters.add(new ByteArrayHttpMessageConverter());
 		super.configureMessageConverters(converters);

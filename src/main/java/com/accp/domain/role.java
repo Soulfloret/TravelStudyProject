@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class role {
     private Integer id;
 
@@ -14,8 +16,20 @@ public class role {
     private String name4;
 
     private String name5;
+    
+    private List<rolemodule> list;
+    
+    
 
-    public Integer getId() {
+    public List<rolemodule> getList() {
+		return list;
+	}
+
+	public void setList(List<rolemodule> list) {
+		this.list = list;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -27,4 +27,6 @@ public interface rolemoduleMapper {
     int updateByPrimaryKeySelective(rolemodule record);
 
     int updateByPrimaryKey(rolemodule record);
+    
+    int delByRoleId(int id);
 }

@@ -1,15 +1,22 @@
 package com.accp.renyuxuan.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.domain.Usermainorder;
+import com.accp.domain.images;
+import com.accp.domain.menu;
 import com.accp.domain.orderson;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
@@ -19,6 +26,7 @@ import com.accp.domain.roomorderson;
 import com.accp.domain.team;
 import com.accp.domain.userorder;
 import com.accp.renyuxuan.service.impl.Usermainorderserviceimpl;
+import com.accp.renyuxuan.service.impl.imagesserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomdestineserviceimpl;
 import com.accp.renyuxuan.service.impl.roomorderserviceimpl;
@@ -51,6 +59,8 @@ public class roomcontroller {
 	Usermainorderserviceimpl umo;
 	@Autowired
 	teamserviceimpl te;
+	@Autowired
+	imagesserviceimpl im;
 	
 	
 	
@@ -59,7 +69,7 @@ public class roomcontroller {
 	public String toqueryroom(Model model ,room ro) {
 		List<room> list =r.queryByroom(ro);
 		model.addAttribute("list", list);
-		model.addAttribute("typeid", ro.getTypeid());
+		model.addAttribute("ro", ro);
 		return "/HotelManager";
 	}
 	
@@ -69,9 +79,11 @@ public class roomcontroller {
 		return "HotelAdd";
 	}
 	
+	//住宿添加
 	@RequestMapping("/addroom")
 	public String addroom(room ro) {
 		r.insertSelective(ro);
+		im.insertroomimglist(ro);
 		return "redirect:/room/toqueryroom";
 	}
 	
@@ -79,6 +91,7 @@ public class roomcontroller {
 	@RequestMapping("/toupdateroom")
 	public String toupdateroom(Model model,room ro) {
 		model.addAttribute("list", r.queryByroom(ro));
+		model.addAttribute("mlist",im.queryimg(ro.getId(), 3));
 		return "HotelUpdate";
 	}
 	
@@ -86,14 +99,16 @@ public class roomcontroller {
 	@RequestMapping("/updateroom")
 	public String updateroom(room ro) {
 		r.updateByPrimaryKeySelective(ro);
+		im.delByiidAndTypeId(ro.getId(), 3);
+		im.insertroomimglist(ro);
 		return "redirect:/room/toqueryroom";
 	}
 	
 	
 	//查询出可以预订房间  去住宿后台下订单页面
 	@RequestMapping("/roomorder")
-	public String roomorder(Model model ,roomdestine ro) {
-		List<room> list=r.queryByroomData(ro.getBegintime(),ro.getEndtime());
+	public String roomorder(Model model ,room ro) {
+		List<room> list=r.queryByroomData(ro);
 		model.addAttribute("list", list);
 		model.addAttribute("ro", ro);
 		return "hotelOrder";
@@ -134,17 +149,90 @@ public class roomcontroller {
 				o.insertSelective(ordersons);
 			}
 		}
-		
-		
 		return "redirect:/room/roomorder";
 	}
 	
+	//前台住宿主页
 	@RequestMapping("/toqueryqtroom")
-	public String toqueryqtroom() {
-		
+	public String toqueryqtroom(Model model ,room ro) {
+		List<room> list=r.queryByroomData(ro);
+		List<orderson> olist=o.queryroomtj(null);
+		List<room> rlist=r.queryByroomtypeid();
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("olist", olist);
+		model.addAttribute("list", list);
+		model.addAttribute("ro", ro);
 		return "index1";
 	}
 	
+	//详情
+	@RequestMapping("/toqueryqtroomByid")
+	public String toqueryqtroomByid(Model model,Integer id) {
+		List<orderson> olist=o.queryroomtj(null);
+		model.addAttribute("olist", olist);
+		room rooms=r.queryByroomid(id);
+		model.addAttribute("room", rooms);
+		List<roomdestine> dlist=rd.selectByroomid(id);
+		model.addAttribute("dlist", dlist);
+		return "detail";
+	}
+	
+	@RequestMapping("/AjaxQuerydid")
+	@ResponseBody
+	public String AjaxQuerydid(Integer id) {
+		List<roomdestine> list= rd.selectByroomid(id);		
+		return JSON.toJSONString(list);
+	}
+	
+	//前台预订房间
+	@RequestMapping("/queryByroomdestineid")
+	@ResponseBody
+	public String queryByroomdestineid(roomdestine rrr) {
+		room rr= r.queryByroomdestineid(rrr);
+		if(rr.getId()==null) {
+			return "该时间段已经被预订";
+		}else{
+			rrr.setName1("2");
+			rrr.setUserid(5);//根据session获取
+			rd.insertSelective(rrr);
+			return "预订成功，请在10分钟内去付款！";
+		}
+	}
+	
+		//住宿上架下架
+		@RequestMapping("/sjxj")
+		@ResponseBody
+		public String sjxj(String type,Integer id) {
+			if("可租".equals(type)) {
+				room rooms=new room();
+				rooms.setId(id);
+				rooms.setState("2");
+				r.updateByPrimaryKeySelective(rooms);
+				return "修改成功！";
+			}else if("维修中".equals(type)) {
+				room rooms=new room();
+				rooms.setId(id);
+				rooms.setState("1");
+				r.updateByPrimaryKeySelective(rooms);
+				return "修改成功！";
+			}
+			return "";
+		}
+		
+		
+		//前台临时订单页面
+		@RequestMapping("/querydingdan")
+		public String querydingdan(HttpSession session,Model model) {
+			//users us=(users) session.getAttribute("use");
+			int id=5;
+			List<roomdestine> list =rd.selectByrdId(id);
+			model.addAttribute("list", list);
+			return "dingdan";
+		}
+		
+		
+		
+		
 	
 	
 }

@@ -57,7 +57,7 @@ public class productController {
 	@RequestMapping("queryByProdId")
 	@ResponseBody
 	public List<productproject> queryByProdId(Integer productId) {
-		System.out.println(productId);
+		
 		List<productproject> list=prop.queryByProdId(productId);
 		System.out.println(JSON.toJSONString(list));
 		return list;

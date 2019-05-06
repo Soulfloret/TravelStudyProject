@@ -21,14 +21,21 @@ public class orderson {
     
     private Object ix;
     
-    
     private Integer tjcount;
     
     private recommend recommend;
     
     private menu menus;
+        
+    private room rooms;
     
-    
+    public room getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(room rooms) {
+		this.rooms = rooms;
+	}
 
     public menu getMenus() {
 		return menus;

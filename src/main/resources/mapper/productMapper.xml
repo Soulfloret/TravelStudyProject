@@ -12,8 +12,6 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   
-  
-  
   <!-- 活动推荐 -->
   <select id="recommendByidProudct" resultType="com.accp.domain.recommend">
   	SELECT `pname` 	AS `name` FROM `product`

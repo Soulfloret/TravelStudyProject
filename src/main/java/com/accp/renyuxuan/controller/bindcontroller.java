@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
+import com.accp.renyuxuan.service.impl.imagesserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menubindserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
@@ -33,10 +34,20 @@ public class bindcontroller {
 	//套餐菜单中间表
 	@Autowired
 	menubindserviceimpl meb;
+	@Autowired
+	imagesserviceimpl im;
 		
 	//去套餐页面
 	@RequestMapping("/toQuerybind")
 	public String toQuerybind(Model model,bind bi) {
+		if(bi.getZdprice()!=null && bi.getZgprice()!=null) {
+			Double a=bi.getZdprice();
+			Double b=bi.getZgprice();
+			if(a>b) {
+				bi.setZdprice(b);
+				bi.setZgprice(a);
+			}
+		}
 		List<bind> list=b.querybind(bi);
 		model.addAttribute("list",list);
 		model.addAttribute("binds",bi);
@@ -87,6 +98,7 @@ public class bindcontroller {
 		binds.setCreatetime(new Date());
 		b.insert(binds);
 		b.insertmenubind(binds);
+		im.insertbingimglist(binds);
 		return "redirect:/bing/toQuerybind";
 	}
 	
@@ -96,6 +108,7 @@ public class bindcontroller {
 		model.addAttribute("listtype",me.selectByExample(null));
 		List<bind> list=b.querybind(binds);
 		model.addAttribute("list",list);
+		model.addAttribute("mlist",im.queryimg(binds.getId(), 4));
 		return "GoodContactUpdate";
 	}
 	
@@ -106,6 +119,8 @@ public class bindcontroller {
 		binds.setLikecount(0);//修改之后点赞清0
 		b.updateByPrimaryKeySelective(binds);
 		b.insertmenubind(binds);
+		im.delByiidAndTypeId(binds.getId(), 4);
+		im.insertbingimglist(binds);
 		return "redirect:/bing/toQuerybind";
 	}
 		

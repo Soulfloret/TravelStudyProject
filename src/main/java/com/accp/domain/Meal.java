@@ -23,6 +23,7 @@ public class Meal {
     
     private List<Mealix> list;
     
+   
 
     public List<Mealix> getList() {
 		return list;
@@ -30,6 +31,17 @@ public class Meal {
 
 	public void setList(List<Mealix> list) {
 		this.list = list;
+	}
+
+	private List<images> img;
+    
+
+	public List<images> getImg() {
+		return img;
+	}
+
+	public void setImg(List<images> img) {
+		this.img = img;
 	}
 
 	public Integer getId() {

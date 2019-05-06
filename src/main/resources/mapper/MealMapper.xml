@@ -12,6 +12,19 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  
+  <!-- 查询套餐全部和详情 -->
+  <select id="queryMeal" resultType="com.accp.domain.Meal">
+  		SELECT * FROM `meal` 
+  		<where>
+  			<if test="id!=null and id!=0">
+  				and `id`=#{id}
+  			</if>
+  			and `status`=1
+  		</where>
+  </select>
+  
   <resultMap type="com.accp.domain.Meal" id="BaseResultMap1" extends="BaseResultMap">
   	<collection property="list" column="id" ofType="com.accp.domain.Mealix">
 	  	<id column="mxid" property="id" jdbcType="INTEGER" />

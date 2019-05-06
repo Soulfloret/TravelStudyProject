@@ -1,9 +1,12 @@
 package com.accp.renyuxuan.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,25 +16,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.Shopcart;
+import com.accp.domain.Usermainorder;
 import com.accp.domain.bind;
+import com.accp.domain.images;
 import com.accp.domain.menu;
 import com.accp.domain.menucomment;
 import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.team;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.impl.Shopcartserviceimpl;
+import com.accp.renyuxuan.service.impl.Usermainorderserviceimpl;
 import com.accp.renyuxuan.service.impl.bindserviceimpl;
+import com.accp.renyuxuan.service.impl.imagesserviceimpl;
 import com.accp.renyuxuan.service.impl.menuTypeserviceimpl;
 import com.accp.renyuxuan.service.impl.menucommentserviceimpl;
 import com.accp.renyuxuan.service.impl.menuorderserviceimpl;
 import com.accp.renyuxuan.service.impl.menuserviceimpl;
 import com.accp.renyuxuan.service.impl.ordershopserviceimpl;
 import com.accp.renyuxuan.service.impl.ordersonserviceimpl;
+import com.accp.renyuxuan.service.impl.teamserviceimpl;
 import com.accp.renyuxuan.service.impl.userorderserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
@@ -69,11 +79,25 @@ public class menucontroller {
 	//购物车
 	@Autowired
 	Shopcartserviceimpl sc;
+	@Autowired
+	Usermainorderserviceimpl umo;
+	@Autowired
+	teamserviceimpl te;
+	@Autowired
+	imagesserviceimpl im;
 	
 	
 	//查询后台菜单
 	@RequestMapping("/toquerymenu")
 	public String toquerymenu(Model model,menu men) {
+		if(men.getZdprice()!=null &&men.getZgprice()!=null) {
+			Double a=men.getZdprice();
+			Double b=men.getZgprice();
+			if(a>b) {
+				men.setZdprice(b);
+				men.setZgprice(a);
+			}
+		}
 		List<menu> list=m.QueryMenu(men);
 		model.addAttribute("list",list);
 		model.addAttribute("listtype",me.selectByExample(null));
@@ -124,14 +148,17 @@ public class menucontroller {
 	public String addmenu(menu me) {
 		me.setLikecount(0);
 		me.setPutawaytime(new Date());
+		me.setIntorduce("1");
 		m.insertSelective(me);
+		im.insertmenuimglist(me);
 		return "redirect:/menu/toquerymenu";
+		
 	}
 	
 	//去菜单修改页面
 	@RequestMapping("/toupdatemenu")
 	public String toupdatemenu(Model model,menu menus) {
-		List<menu> list=m.QueryMenu(menus);
+		List<menu> list=m.selectmenuByid(menus.getId());
 		model.addAttribute("list", list);
 		model.addAttribute("listtype",me.selectByExample(null));
 		return "GoodUpdate";
@@ -141,36 +168,62 @@ public class menucontroller {
 	@RequestMapping("/updatemenu")
 	public String updatemenu(menu menus) {
 		m.updateByPrimaryKeySelective(menus);
+		im.delByiidAndTypeId(menus.getId(), 2);
+		im.insertmenuimglist(menus);
 		return "redirect:/menu/toquerymenu";
 	}
 	
 	
 	//去下订单页面
 	@RequestMapping("/tomenuorder")
-	public String tomenuorder(Model model,String lx) {
+	public String tomenuorder(Model model,String lx,String mname,Double zdprice,Double zgprice) {
 		if(lx==null || lx=="") {
 			lx="0";
 		}
+		bind binds=new bind();
+		menu menus=new menu();
+		if(zdprice!=null && zgprice!=null) {
+			if(zdprice>zgprice) {
+				binds.setZdprice(zgprice);
+				binds.setZgprice(zdprice);
+				menus.setZdprice(zgprice);
+				menus.setZgprice(zdprice);
+			}else {
+				binds.setZdprice(zdprice);
+				binds.setZgprice(zgprice);
+				menus.setZdprice(zdprice);
+				menus.setZgprice(zgprice);
+			}
+		}else {
+			binds.setZdprice(zdprice);
+			binds.setZgprice(zgprice);
+			menus.setZdprice(zdprice);
+			menus.setZgprice(zgprice);
+		}
+		binds.setMname(mname);
+		menus.setMname(mname);
 		if("0".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("1".equals(lx)) {
-			menu menus=new menu();
 			List<menu> mlist=m.QueryMenu(menus);
 			model.addAttribute("mlist", mlist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}else if("2".equals(lx)) {
-			bind binds=new bind();
 			List<bind> blist=b.querybind(binds);
 			model.addAttribute("blist", blist);
 			model.addAttribute("lx", lx);
+			model.addAttribute("menus", menus);
+			model.addAttribute("binds", binds);
 			return "GoodOrderAdd";
 		}
 		return "";
@@ -179,34 +232,74 @@ public class menucontroller {
 	@ResponseBody
 	@RequestMapping("/orderadd")
 	public String orderadd(@RequestBody ordershop [] vps) {
-		menuorder m=new menuorder();
-			SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
-			String datetime = tempDate.format(new Date());
-			datetime=datetime+"cy";//订单编号
-			m.setOrderrreference(datetime);
-			m.setCreatetime(new Date());
-			m.setStatuss("1");
-			//身份证
-			users us=u.queryByIdCard(vps[0].getName3());//数据库没有
-			m.setUserid(us.getId());
-			m.setPrice(Double.parseDouble(vps[0].getName2()));
-			//调方法添加订单
-			mo.insertSelective(m);
-			userorder userorders =uo.selectByuid(us.getId());
-			for (int i = 0; i < vps.length; i++) {
-				ordershop o =new  ordershop();
-				o.setOrderid(m.getId());
-				o.setMenuid(vps[i].getMenuid());
-				o.setNum(vps[i].getNum());
-				o.setName1(vps[i].getName1());
-				o.setPrice(vps[i].getPrice());
-				os.insertSelective(o);//添加餐饮订单从表
-				orderson ordersons=new orderson();
-				ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
-				ordersons.setIid(vps[i].getMenuid());
-				ordersons.setName1(userorders.getOrdermainid().toString());
-				oo.insertSelective(ordersons);//添加总订单从表
+			String lb="";
+			if("1".equals(vps[0].getName4())) {
+				menuorder m=new menuorder();
+				SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+				String datetime = tempDate.format(new Date());
+				datetime=datetime+"cy";//订单编号
+				m.setOrderrreference(datetime);
+				m.setCreatetime(new Date());
+				m.setStatuss("1");
+				//身份证
+				users us=u.queryByIdCard(vps[0].getName3());
+				m.setUserid(us.getId());
+				m.setPrice(Double.parseDouble(vps[0].getName2()));
+				//调方法添加订单
+				mo.insertSelective(m);
+				lb="个人";
+				Usermainorder  usermainorder=umo.queryorderCustomer(us.getId(),lb);
+				userorder userorder=uo.selectByuid(usermainorder.getId());
+				for (int i = 0; i < vps.length; i++) {
+					ordershop o =new  ordershop();
+					o.setOrderid(m.getId());
+					o.setMenuid(vps[i].getMenuid());
+					o.setNum(vps[i].getNum());
+					o.setName1(vps[i].getName1());
+					o.setPrice(vps[i].getPrice());
+					os.insertSelective(o);//添加餐饮订单从表
+					orderson ordersons=new orderson();
+					ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+					ordersons.setIid(vps[i].getMenuid());
+					ordersons.setName1(userorder.getId().toString());
+					oo.insertSelective(ordersons);//添加总订单从表
+				}
+			}else {
+				lb="团队";
+				//身份证
+				users us=u.queryByIdCard(vps[0].getName3());
+				team t=te.selectBymainiUserId(us.getId());
+				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
+				for (userorder userorder : list) {
+					menuorder m=new menuorder();
+					SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+					String datetime = tempDate.format(new Date());
+					datetime=datetime+"cy";//订单编号
+					m.setOrderrreference(datetime);
+					m.setCreatetime(new Date());
+					m.setStatuss("1");
+					m.setUserid(userorder.getOrdercustomer());
+					m.setPrice(Double.parseDouble(vps[0].getName2()));
+					//调方法添加订单
+					mo.insertSelective(m);
+					for (int i = 0; i < vps.length; i++) {
+						ordershop o =new  ordershop();
+						o.setOrderid(m.getId());
+						o.setMenuid(vps[i].getMenuid());
+						o.setNum(vps[i].getNum());
+						o.setName1(vps[i].getName1());
+						o.setPrice(vps[i].getPrice());
+						os.insertSelective(o);//添加餐饮订单从表
+						orderson ordersons=new orderson();
+						ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+						ordersons.setIid(vps[i].getMenuid());
+						ordersons.setName1(userorder.getId().toString());
+						oo.insertSelective(ordersons);//添加总订单从表
+					}
+				}
 			}
+			
 		return "下单成功！";
 	}
 	
@@ -246,7 +339,6 @@ public class menucontroller {
 	@ResponseBody
 	public String shopcartadd(Integer iid,Integer typeid,String name1,HttpSession session) {
 		users use= (users) session.getAttribute("use");
-		
 		Shopcart shopcart=new Shopcart();
 		shopcart.setIid(iid);
 		shopcart.setTypeid(typeid);
@@ -265,7 +357,37 @@ public class menucontroller {
 		return "加入成功！";
 	}
 	
-	
+	@RequestMapping("/fileadd")
+	@ResponseBody
+	public String fileadd(MultipartFile [] file) {
+		String url="d:/fileUpload/";
+		File filepath=new File(url);
+		if (!filepath.exists()) {
+			filepath.mkdirs();
+		}
+		List<images> ilist=new ArrayList<images>(); 
+		try {
+			for (MultipartFile f : file) {			
+				String uuid=UUID.randomUUID().toString();
+				String name=f.getOriginalFilename();
+				String suffix=name.substring(name.lastIndexOf("."),name.length());
+				File fileImg=new File(url+uuid+suffix);
+				f.transferTo(fileImg);
+				String img_json="fileupload/"+fileImg.getName();
+				images i=new images();
+				i.setUrl(img_json);
+				i.setTypeid(1);
+				ilist.add(i);
+			}
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return JSON.toJSONString(ilist);
+	}
 	
 	
 }

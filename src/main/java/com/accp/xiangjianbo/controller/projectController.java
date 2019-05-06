@@ -24,6 +24,9 @@ import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectTypeService;
 import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import com.accp.domain.areas;
 import com.accp.domain.images;
 import com.accp.domain.positions;
@@ -91,7 +94,7 @@ public class projectController {
 	@RequestMapping("toproject_xq")
 	public String toproject_xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		System.out.println(JSON.toJSONString(list));
+		
 		model.addAttribute("list",list);
 		return "edit-project";
 	}
@@ -138,17 +141,24 @@ public class projectController {
 	@ResponseBody
 	public List<productarea> queryJd(Integer pid){
 		List<productarea> list=pas.queryByPid(pid);
-		System.out.println(JSON.toJSONString(list));
+		
 		return list;
 	}
 	
 	/*跳转前台查询项目*/
 	@RequestMapping("query_Qt")
-	public String query_Qt(Model model,project pro) {
+	public String query_Qt(Model model,project pro,Integer currentPage) {
+		Integer cPage=1;
+		if (currentPage!=null) {
+			cPage=currentPage;
+		}
+		PageHelper.startPage(cPage, 6, true);
 		List<projecttype> type_list=ptype.query();
 		List<project> list=pros.queryAll(pro);
+		PageInfo<project> page=new PageInfo<project>(list);
 		model.addAttribute("type_list", type_list);
 		model.addAttribute("list", list);
+		model.addAttribute("page", page);
 		return "productList";
 	}
 	
@@ -158,7 +168,7 @@ public class projectController {
 	@RequestMapping("queryBy_Qt_Xq")
 	public String queryBy_Qt_Xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		System.out.println(JSON.toJSONString(list));
+		
 		/*for(int i=0;i<list.getIlist().size();i++) {
 			project plist=new project();
 			if(list.getIlist().get(i)!=null) {
@@ -167,5 +177,13 @@ public class projectController {
 		}*/
 		model.addAttribute("list",list);
 		return "productInfo";
-	}	
+	}
+	
+	/*跳转修改页面*/
+	@RequestMapping("/to_Update_Project")
+	public String to_Update_Project(Model model,Integer id) {
+		project list=pros.projectXq_queryById(id);
+		model.addAttribute("list",list);
+		return "update_project";
+	}
 }

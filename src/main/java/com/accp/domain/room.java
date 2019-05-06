@@ -1,6 +1,9 @@
 package com.accp.domain;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class room {
     private Integer id;
@@ -27,6 +30,8 @@ public class room {
 
     private String name5;
     
+    private List<roomdestine> dlist;
+    
     private List<images> imgs;
         
     
@@ -34,8 +39,60 @@ public class room {
     
     private images img;
     
+    private String url;
     
-    public images getImg() {
+    private List<images> mlist;
+    
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private Date begintime;
+
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private Date endtime;
+    
+    
+    
+    
+    public Date getBegintime() {
+		return begintime;
+	}
+
+	public void setBegintime(Date begintime) {
+		this.begintime = begintime;
+	}
+
+	public Date getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
+
+	public List<images> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public List<roomdestine> getDlist() {
+		return dlist;
+	}
+
+	public void setDlist(List<roomdestine> dlist) {
+		this.dlist = dlist;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public images getImg() {
 		return img;
 	}
 

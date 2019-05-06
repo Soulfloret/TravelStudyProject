@@ -20,11 +20,8 @@ import com.accp.domain.menuorder;
 import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
-import com.accp.domain.project;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
-import com.accp.domain.roomorder;
-import com.accp.domain.staff;
 import com.accp.domain.team;
 import com.accp.domain.teammember;
 import com.accp.domain.userorder;
@@ -51,7 +48,6 @@ import com.accp.mapper.teammemberMapper;
 import com.accp.mapper.userorderMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.mapper.worduserMapper;
-import com.alibaba.fastjson.JSON;
 @Service
 @Transactional
 public class UserMainOrderServiceImpl implements UserMainOrderService {
@@ -111,8 +107,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	public int insert(Usermainorder record) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		int num;
-		record.setName2("正在进行");
-		record.setName1("个人");
+		record.setName2("个人");
+		record.setName1("正在进行");
 		String date=new Date().toString();
 		record.setOrdertime(new Date());
 		try {
@@ -125,7 +121,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(record.getUser().getId());
 				mapper12.insert(t);
-				record.setName2("团队");
+				record.setName2("");
 				record.setOrdercustomer(t.getId());
 				num=mapper.insert(record);
 				for (users u : record.getList()) {
@@ -144,7 +140,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						uo.setOrderuser(record.getOrderuser());
 						uo.setOrdercustomer(tm.getMemberid());
 						uo.setOrdermainid(record.getId());
-						uo.setOrderstatus("正在进行");
+						uo.setOrderstatus("正在进行中");
 						mapper14.insert(uo);
 						for (orderson os : uo.getList()) {
 							os.setName1(uo.getId()+"");
@@ -171,7 +167,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									e.printStackTrace();
 								}
 								mo.setCreatetime(new Date());
-								mo.setStatuss("未取");
+								mo.setStatuss("未出单");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
 								mapper18.insert(mo);
@@ -197,7 +193,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					uo.setOrdertime(new Date());
 					uo.setOrderuser(record.getOrderuser());
 					uo.setOrdermainid(record.getId());
-					uo.setOrderstatus("正在进行");
+					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
 					for (orderson os : uo.getList()) {
 						os.setName1(uo.getId()+"");
@@ -224,7 +220,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								e.printStackTrace();
 							}
 							mo.setCreatetime(new Date());
-							mo.setStatuss("未取");
+							mo.setStatuss("未出单");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
 							mapper18.insert(mo);
@@ -343,9 +339,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									}
 									if(mx.getTypeid()==3) {
 										roomdestine ro=new roomdestine();
-										ro=mapper19.selectByPrimaryKey(orderson.getIid());
+										ro=mapper19.selectByPrimaryKey(mx.getIid());
 										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
 										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 										mx.setIx(ro);
 									}
 									if(mx.getTypeid()==4) {
@@ -354,6 +351,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										mx.setIx(mapper10.querybind(b).get(0));
 									}
 								}
+								orderson.setIx(m);
 							}
 						}
 				}
@@ -440,6 +438,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 											b.setId(mx.getIid());
 											mx.setIx(mapper10.querybind(b).get(0));
 										}
+										orderson.setIx(m);
 									}
 								}
 							}
@@ -459,7 +458,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 			if(o.getList().size()>0) {
-				o.setName1("正在进行");
+				o.setName1("正在进行中");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
 				try {
@@ -490,11 +489,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					uo.setOrderuser(o.getOrderuser());
 					uo.setOrdercustomer(t.getId());
 					uo.setOrdermainid(o.getId());
-					uo.setOrderstatus("正在进行");
+					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
 				}
 			}else {
-				o.setName1("正在进行");
+				o.setName1("正在进行中");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
 				try {

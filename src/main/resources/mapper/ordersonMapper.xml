@@ -11,7 +11,7 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
+
   <resultMap type="com.accp.domain.orderson" id="BaseResultMap1" extends="BaseResultMap">
   	 <association property="menus" javaType="com.accp.domain.menu">
   	 	<id column="mid" property="id" jdbcType="INTEGER" />
@@ -21,6 +21,31 @@
      	<result column="url" property="url" jdbcType="VARCHAR"/>
   	 </association>
   </resultMap>
+  
+  <resultMap type="com.accp.domain.orderson" id="BaseResultMap2" extends="BaseResultMap">
+  	<association property="rooms" javaType="com.accp.domain.room">
+  		<id column="rid" property="id" jdbcType="INTEGER" />
+  		<result column="rname" property="rname" jdbcType="VARCHAR" />
+  		<result column="location" property="location" jdbcType="VARCHAR" />
+    	<result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    	<result column="rtypeid" property="typeid" jdbcType="INTEGER" />
+    	<result column="price" property="price" jdbcType="DOUBLE" />
+    	<result column="url" property="url" jdbcType="VARCHAR"/>
+  	</association>
+  
+  </resultMap>
+  <select id="queryroomtj" resultMap="BaseResultMap2">
+  	SELECT o.*,r.`id`AS rid,r.`rname`,r.`introduce`,r.`location`,r.`price`,r.`typeId`AS rtypeid,i.`url` FROM `orderson` o
+		INNER JOIN `room` r ON r.`id`=o.`iid`
+		INNER JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
+		WHERE o.typeid=2
+		GROUP BY o.iid
+		HAVING COUNT(o.iid)>=2 
+		ORDER BY COUNT(o.iid) DESC
+		LIMIT 0,6
+  
+  </select>
+  
   
   <select id="querytj" resultMap="BaseResultMap1">
   		SELECT o.*,m.`mname`,m.`price`,m.`id` AS `mid`,m.`likecount`,i.`url` FROM `orderson` o
@@ -146,6 +171,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 新增订单项目排班 -->
+  <insert id="insert_project" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.orderson">
+    insert into orderson (iid, typeId, 
+      name1, name2, name3, 
+      name4, name5)
+    values (#{iid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, 
+      #{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
+      #{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})
+  </insert>
+  
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.accp.domain.orderson" >
     insert into orderson (id, iid, typeId, 
       name1, name2, name3, 

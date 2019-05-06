@@ -43,6 +43,14 @@
 	    </collection>
   	</collection>
   </resultMap>
+
+ <update id="updateById">
+ update users set uname=#{uname},phone=#{phone},upassword=#{upassword} where id=#{id}
+ </update>
+ 
+ <update id="accountsUpdate">
+ 	update users set name2=#{name2} where id=#{id}
+ </update> 
   
   <!--  根据输入用户名的 模糊查询不是好友的用户-->
   <select id="selectByUname" resultMap="BaseResultMap">

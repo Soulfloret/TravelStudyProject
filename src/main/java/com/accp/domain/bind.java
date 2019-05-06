@@ -36,14 +36,49 @@ public class bind {
     
     private List<images> mlist;
     
+    private Double zdprice;
     
+    private Double zgprice;
 
-    public List<images> getMlist() {
+    private  recommend recommend;
+    
+    private List<images> img;
+    
+    
+    public List<images> getImg() {
+		return img;
+	}
+
+	public Double getZdprice() {
+		return zdprice;
+	}
+
+	public void setZdprice(Double zdprice) {
+		this.zdprice = zdprice;
+	}
+
+	public Double getZgprice() {
+		return zgprice;
+	}
+
+	public void setZgprice(Double zgprice) {
+		this.zgprice = zgprice;
+	}
+
+	public List<images> getMlist() {
 		return mlist;
 	}
 
-	public void setMlist(List<images> mlist) {
-		this.mlist = mlist;
+	public void setImg(List<images> img) {
+		this.img = img;
+	}
+
+	public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
 	}
 
 	public List<menubind> getBlist() {
