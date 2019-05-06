@@ -1,5 +1,6 @@
 package com.accp.mapper;
 
+import com.accp.domain.Order_workAndOrderSon;
 import com.accp.domain.orderson;
 import com.accp.domain.ordersonExample;
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ordersonMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(orderson record);
+    int insert(orderson list);
 
     int insertSelective(orderson record);
 
@@ -36,4 +37,7 @@ public interface ordersonMapper {
     List<orderson> recommdstatic(@Param("typeid")Integer typeid);
     
     List<orderson> recommdstaticmenu(@Param("typeid")Integer typeid);
+    
+    /*新增订单项目排班*/
+    int insert_project(orderson record);
 }
