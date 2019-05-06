@@ -12,6 +12,32 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  	<!-- 查询购物车里面有没有 -->
+  	<select id="QueryIidUserid" resultType="com.accp.domain.Shopcart">
+  		SELECT * FROM `shopcart` WHERE `iid`=#{iid} AND `typeId`=#{typeid} AND `userId`=#{userid}
+  	</select>
+  	
+  	<!-- 删除购物车 -->
+  	<delete id="deleteIidUserid">
+  		DELETE  FROM `shopcart` WHERE `iid`=#{iid} AND `typeId`=#{typeid} AND `userId`=#{userid}
+  	</delete>
+  	
+  	<!-- 删除购物车 -->
+  	<delete id="deleteUserid">
+  		DELETE  FROM `shopcart` WHERE `userId`=#{userid}
+  	</delete>
+  	
+  	<insert id="insertList">
+  		INSERT INTO `shopcart`(`userId`,`iid`,`typeId`,`name2`,`name1`,`name3`)VALUES
+  		(#{userid},#{iid},#{typeid},#{name2},#{name1},#{name3})
+  	</insert>
+  	
+  	<!-- 查询我的购物车 -->
+  	<select id="queryAll" resultType="com.accp.domain.Shopcart">
+  			SELECT * FROM `shopcart` WHERE userid=#{userid}
+  	</select>
+  	
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

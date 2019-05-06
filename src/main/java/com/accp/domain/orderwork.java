@@ -17,10 +17,20 @@ public class orderwork {
 
     private String name5;
     
+    private String name6;
+    
     private List<orderproductwork> list;
     
 
   
+
+	public String getName6() {
+		return name6;
+	}
+
+	public void setName6(String name6) {
+		this.name6 = name6;
+	}
 
 	public List<orderproductwork> getList() {
 		return list;

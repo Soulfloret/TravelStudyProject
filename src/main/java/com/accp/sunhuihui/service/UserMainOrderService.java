@@ -105,6 +105,7 @@ public class UserMainOrderService {
 										}
 									}
 								}
+								p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
 								orderson.setIx(p);
 								for (orderproductwork opw : p.getList()) {
 									umo.setPrice(umo.getPrice()+opw.getProject().getPrice());
@@ -188,8 +189,9 @@ public class UserMainOrderService {
 				umo.setUser(mapper1.selectByPrimaryKey(mapper12.selectByPrimaryKey(umo.getOrdercustomer()).getMainiuserid()));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
+				List<users> lists=new ArrayList<users>();
 				for (users u : umo.getList()) {
-					if(u.getId()==uid) {
+					if(u.getId()==uid||umo.getUser().getId()==uid) {
 					for (userorder uo : u.getOrders()) {
 						uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
 						uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
@@ -208,6 +210,7 @@ public class UserMainOrderService {
 											}
 										}
 									}
+									p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
 									orderson.setIx(p);
 									for (orderproductwork opw : p.getList()) {
 										umo.setPrice(umo.getPrice()+opw.getProject().getPrice());
@@ -285,11 +288,12 @@ public class UserMainOrderService {
 								}
 							}
 						}
-						listss.add(umo);
+						lists.add(u);
 					}
 				}
+				umo.setList(lists);
+				listss.add(umo);
 			}
-			
 		}
 		list=listss;
 		return list;

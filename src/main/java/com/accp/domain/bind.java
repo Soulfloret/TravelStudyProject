@@ -34,9 +34,28 @@ public class bind {
     
     private List<menubind> blist;
     
+    private  recommend recommend;
     
+    private List<images> img;
+    
+    
+    public List<images> getImg() {
+		return img;
+	}
 
-    public List<menubind> getBlist() {
+	public void setImg(List<images> img) {
+		this.img = img;
+	}
+
+	public recommend getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public List<menubind> getBlist() {
 		return blist;
 	}
 
