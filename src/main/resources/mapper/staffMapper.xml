@@ -34,6 +34,7 @@
 			<result column="height" property="height" jdbcType="DOUBLE" />
 			<result column="width" property="width" jdbcType="DOUBLE" />
 			<result column="TypeId" property="typeid" jdbcType="INTEGER" />
+			<result column="name2" property="name2" jdbcType="VARCHAR" />
 		</association>
 
 		<association property="slist"
@@ -57,7 +58,19 @@
 			<result column="pid" property="pid" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
+<select id="staffquery" resultMap="Map">
+	SELECT staff.id,users.uname FROM staff
+	JOIN users ON
+	staff.userid=users.id
+	GROUP BY staff.`id`
+</select>	
 
+	
+<select id="accountsQuery" resultMap="Map">
+	SELECT users.*,staff.userid AS userid,staff.id as uid FROM staff
+	JOIN users ON staff.userid=users.id
+	where staff.id=#{id}
+</select>
 
 <select id="loginByuserid" resultMap="Map">
 select * from staff where userid=#{userid}

@@ -26,6 +26,8 @@ public class staffService implements staffServiceImpl{
 	@Autowired
 	signinMapper smapper;
 	
+	@Autowired
+	positionsMapper pmapper;
 	
 	
 	
@@ -85,7 +87,14 @@ public class staffService implements staffServiceImpl{
 	public staff loginByuserid(Integer userid) {
 		staff s=mapper.loginByuserid(userid);
 		s.setUser(umapper.selectByPrimaryKey(s.getUserid()));
+		s.setPlist(pmapper.selectByPrimaryKey(s.getPostionid()));
 		return s;
+	}
+
+	@Override
+	public List<staff> staffquery(staff sta) {
+		// TODO Auto-generated method stub
+		return mapper.staffquery(sta);
 	}
 
 	

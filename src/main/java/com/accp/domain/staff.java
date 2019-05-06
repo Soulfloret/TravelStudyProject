@@ -3,6 +3,7 @@ package com.accp.domain;
 
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,6 +38,15 @@ public class staff {
     
     private userrole ur;
     
+    private List<users> ulists;
+    
+    public List<users> getUlists() {
+		return ulists;
+	}
+
+	public void setUlists(List<users> ulists) {
+		this.ulists = ulists;
+	}
 
     public userrole getUr() {
 		return ur;

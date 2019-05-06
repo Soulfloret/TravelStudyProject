@@ -38,8 +38,29 @@ public class Notice {
     private String name5;
 
     private String reason;
+    
+    private users user;
 
-    public Integer getId() {
+    private staff sta;
+    
+    
+    public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public staff getSta() {
+		return sta;
+	}
+
+	public void setSta(staff sta) {
+		this.sta = sta;
+	}
+
+	public Integer getId() {
         return id;
     }
 
