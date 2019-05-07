@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.domain.Meal;
+import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.domain.product;
 import com.accp.domain.productproject;
@@ -103,4 +105,14 @@ public class ProjectControllershh {
 		return r;
 	}
 	
+	@RequestMapping("MealQuery")
+	public List<Meal> MealQuery(Integer id){
+		return service.MealQuery(id);
+	}
+	
+	
+	@RequestMapping("queryBind")
+	public  List<bind> queryBind(Integer id){
+		return service.queryBind(id);
+	}
 }

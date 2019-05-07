@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.chenyong.service.ProductAreaService;
+import com.accp.domain.orderproductwork;
+import com.accp.domain.orderson;
 import com.accp.domain.productarea;
 import com.accp.domain.project;
 import com.accp.domain.workTime;
+import com.accp.mapper.orderproductworkMapper;
 import com.accp.mapper.productareaMapper;
 import com.accp.mapper.projectMapper;
 @Service
@@ -25,6 +28,8 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 	productareaMapper mapper;
 	@Autowired
 	projectMapper mapper1;
+	@Autowired
+	orderproductworkMapper mapper2;
 	@Override
 	public project queryByArearId(productarea p,Date startTime,Date endTime) {
 		 productarea p1=mapper.queryByArearId(p);
@@ -57,7 +62,10 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 				 worktime.setStartTime(cal.getTime());
 				 cal.add(Calendar.MINUTE,Integer.parseInt(p1.getP().getNeedtime()));
 				 worktime.setEndTime(cal.getTime());
-				 worktime.setCount(p1.getP().getGalleryful());
+				 orderproductwork work=new orderproductwork();
+				 work.setStarttime(worktime.getStartTime());
+				 work.setEndtime(worktime.getEndTime());
+				 worktime.setCount(p1.getP().getGalleryful()-mapper2.queryByTime(work));
 				 long time1=cal2.getTimeInMillis()-cal.getTimeInMillis();
 				 long minu=time1/(3600*1000);
 				 if(minu>0||minu<-2) {

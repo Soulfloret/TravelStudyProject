@@ -17,6 +17,10 @@
   	DELETE FROM `menubind` WHERE `BindId`=#{id}
   </delete>
   
+  <!--  菜单套餐菜品实例-->
+  <select id="queryMenuBind" resultType="com.accp.domain.menubind">
+  		SELECT * FROM `menubind` WHERE `BindId`=#{bindid}
+  </select>
   
   <sql id="Example_Where_Clause" >
     <where >

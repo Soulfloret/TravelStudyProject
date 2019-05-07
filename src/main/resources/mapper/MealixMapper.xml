@@ -12,6 +12,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!--  套餐实例-->
+  <select id="queryTid" resultType="com.accp.domain.Mealix">
+  		SELECT * FROM `mealix` WHERE tid=#{tid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

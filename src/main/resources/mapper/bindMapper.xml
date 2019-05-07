@@ -95,6 +95,21 @@
 		</where>
   </select>
   
+  <select id="recommendBind" resultType="com.accp.domain.recommend">
+  	SELECT `mName` AS `name`,price AS price,id FROM `bind` WHERE `id`=#{id} AND `state`=1
+  </select>
+  
+  <!-- 查询套餐及详情 -->
+  <select id="queryBindApp" resultType="com.accp.domain.bind">
+  	SELECT * FROM `bind`  
+  	<where>
+  		<if test="id!=null and id!=0">
+  			and `id`=#{id}
+  		</if>
+  		and	`state`=1
+  	</where>
+  </select>
+  
   
   <sql id="Example_Where_Clause" >
     <where >
