@@ -316,6 +316,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							if(orderson.getTypeid()==7) {
 								Meal m=new Meal();
 								m=mapper9.query(orderson.getIid()).get(0);
+								m.setImg(mapper6.queryimg(m.getId(), 7));
 								for (Mealix mx : m.getList()) {
 									if(mx.getTypeid()==1) {
 										orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -405,6 +406,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								if(orderson.getTypeid()==7) {
 									Meal m=new Meal();
 									m=mapper9.query(orderson.getIid()).get(0);
+									m.setImg(mapper6.queryimg(m.getId(), 7));
 									for (Mealix mx : m.getList()) {
 										if(mx.getTypeid()==1) {
 											orderwork p=mapper3.queryByOrderId(orderson.getId());
