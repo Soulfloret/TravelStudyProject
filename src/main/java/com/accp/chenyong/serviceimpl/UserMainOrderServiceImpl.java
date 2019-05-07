@@ -121,7 +121,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(record.getUser().getId());
 				mapper12.insert(t);
-				record.setName2("");
+				record.setName2("团队");
 				record.setOrdercustomer(t.getId());
 				num=mapper.insert(record);
 				for (users u : record.getList()) {
@@ -167,7 +167,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									e.printStackTrace();
 								}
 								mo.setCreatetime(new Date());
-								mo.setStatuss("未出单");
+								mo.setStatuss("正在进行中");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
 								mapper18.insert(mo);
@@ -220,7 +220,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								e.printStackTrace();
 							}
 							mo.setCreatetime(new Date());
-							mo.setStatuss("未出单");
+							mo.setStatuss("正在进行中");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
 							mapper18.insert(mo);
@@ -458,7 +458,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 			if(o.getList().size()>0) {
-				o.setName1("正在进行中");
+				o.setName1("正在进行");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
 				try {
@@ -470,7 +470,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(o.getUser().getId());
 				mapper12.insert(t);
-				o.setName2("团队");
+				o.setName2("个人");
 				o.setOrdercustomer(t.getId());
 				mapper.insert(o);
 				for(users u:o.getList()) {
@@ -502,7 +502,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				o.setName2("个人");
+				o.setName2("团队");
 				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				userorder uo=new userorder();
@@ -516,7 +516,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getId());
 				uo.setOrdermainid(o.getId());
-				uo.setOrderstatus("正在进行");
+				uo.setOrderstatus("正在进行中");
 				mapper14.insert(uo);
 			}
 		}

@@ -55,7 +55,7 @@ public class projectController {
 	@Autowired
 	project_PositionsService posservice;
 	
-	/*查询所有*/
+	/*鏌ヨ鎵�鏈�*/
 	@RequestMapping("query")
 	public String query(Model model,project pro) {
 		List<project> list=pros.queryAll(pro);
@@ -64,7 +64,7 @@ public class projectController {
 		return "project";
 	}
 	
-	/*到项目新增页面*/
+	/*鍒伴」鐩柊澧為〉闈�*/
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,areas area,String name) {
 		List<projecttype> typelist=ptype.query();
@@ -77,7 +77,7 @@ public class projectController {
 	}
 	
 	
-	/*新增项目查询负责人id*/
+	/*鏂板椤圭洰鏌ヨ璐熻矗浜篿d*/
 	@RequestMapping("/queryName")
 	@ResponseBody
 	public users queryName(String name) {
@@ -90,7 +90,7 @@ public class projectController {
 		}
 	}
 	
-	/*查询项目详情*/
+	/*鏌ヨ椤圭洰璇︽儏*/
 	@RequestMapping("toproject_xq")
 	public String toproject_xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
@@ -99,7 +99,7 @@ public class projectController {
 		return "edit-project";
 	}
 	
-	/*新增项目*/
+	/*鏂板椤圭洰*/
 	@RequestMapping("file")
 	@ResponseBody
 	public String file(MultipartFile [] file,project pro) {
@@ -111,14 +111,13 @@ public class projectController {
 		List<images> ilist=new ArrayList<images>(); 
 		try {
 			for (MultipartFile f : file) {			
-				String uuid=UUID.randomUUID().toString();//��������ļ�·��
-				String name=f.getOriginalFilename();//��ȡ���ļ�������
-				String suffix=name.substring(name.lastIndexOf("."),name.length());//��ȡ���ļ��ĺ�׺��
-				File fileImg=new File(url+uuid+suffix);//�����ļ�·��
-				f.transferTo(fileImg);//�����ļ�
+				String uuid=UUID.randomUUID().toString();//锟斤拷锟斤拷锟斤拷锟斤拷募锟铰凤拷锟�
+				String name=f.getOriginalFilename();//锟斤拷取锟斤拷锟侥硷拷锟斤拷锟斤拷锟斤拷
+				String suffix=name.substring(name.lastIndexOf("."),name.length());//锟斤拷取锟斤拷锟侥硷拷锟侥猴拷缀锟斤拷
+				File fileImg=new File(url+uuid+suffix);//锟斤拷锟斤拷锟侥硷拷路锟斤拷
+				f.transferTo(fileImg);//锟斤拷锟斤拷锟侥硷拷
 				String img_json="fileupload/"+fileImg.getName();
 				images i=new images();
-				System.out.println(img_json);
 				i.setUrl(img_json);
 				i.setTypeid(1);
 				ilist.add(i);
@@ -136,7 +135,7 @@ public class projectController {
 		return "redirect:query";
 	}
 	
-	/*项目查询基地*/
+	/*椤圭洰鏌ヨ鍩哄湴*/
 	@RequestMapping("queryJd")
 	@ResponseBody
 	public List<productarea> queryJd(Integer pid){
@@ -145,7 +144,7 @@ public class projectController {
 		return list;
 	}
 	
-	/*跳转前台查询项目*/
+	/*璺宠浆鍓嶅彴鏌ヨ椤圭洰*/
 	@RequestMapping("query_Qt")
 	public String query_Qt(Model model,project pro,Integer currentPage) {
 		Integer cPage=1;
@@ -164,7 +163,7 @@ public class projectController {
 	
 	
 	
-	/*前台查询详情*/
+	/*鍓嶅彴鏌ヨ璇︽儏*/
 	@RequestMapping("queryBy_Qt_Xq")
 	public String queryBy_Qt_Xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
@@ -179,7 +178,7 @@ public class projectController {
 		return "productInfo";
 	}
 	
-	/*跳转修改页面*/
+	/*璺宠浆淇敼椤甸潰*/
 	@RequestMapping("/to_Update_Project")
 	public String to_Update_Project(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
