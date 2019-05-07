@@ -13,7 +13,6 @@ import com.accp.chenyong.service.ProductAreaService;
 import com.accp.domain.Meal;
 import com.accp.domain.Mealix;
 import com.accp.domain.orderson;
-import com.accp.domain.product;
 import com.accp.domain.productarea;
 import com.accp.domain.productproject;
 import com.accp.mapper.MealMapper;

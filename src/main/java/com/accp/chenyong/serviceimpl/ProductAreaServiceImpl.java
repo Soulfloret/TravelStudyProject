@@ -76,6 +76,7 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 				 for (worduser worduser : work.getList()) {
 					 worduser.setStaff(mapper4.queryById(worduser.getProductstaffid()));
 				}
+				 worktime.setUlist(work.getList());
 				 worktime.setCount(p1.getP().getGalleryful()-mapper2.queryByTime(work));
 				 long time1=cal2.getTimeInMillis()-cal.getTimeInMillis();
 				 long minu=time1/(3600*1000);

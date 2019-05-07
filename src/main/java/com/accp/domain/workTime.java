@@ -13,13 +13,14 @@ public class workTime {
 	
 	private Integer  count;
 	
-	private List<users> ulist;
+	private List<worduser> ulist;
 
-	public List<users> getUlist() {
+
+	public List<worduser> getUlist() {
 		return ulist;
 	}
 
-	public void setUlist(List<users> ulist) {
+	public void setUlist(List<worduser> ulist) {
 		this.ulist = ulist;
 	}
 
