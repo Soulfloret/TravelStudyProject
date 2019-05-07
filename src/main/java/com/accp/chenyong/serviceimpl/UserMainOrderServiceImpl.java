@@ -111,8 +111,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	public int insert(Usermainorder record) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		int num;
-		record.setName2("姝ｅ湪杩涜");
-		record.setName1("涓汉");
+		record.setName2("个人");
+		record.setName1("正在进行");
 		String date=new Date().toString();
 		record.setOrdertime(new Date());
 		try {
@@ -125,7 +125,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(record.getUser().getId());
 				mapper12.insert(t);
-				record.setName2("个人");
+				record.setName2("团队");
 				record.setOrdercustomer(t.getId());
 				num=mapper.insert(record);
 				for (users u : record.getList()) {

@@ -57,7 +57,7 @@ public class projectOrderController {
 		return "projectOrder";
 	}
 	
-	/*新增订单查询活动*/
+	/*鏂板璁㈠崟鏌ヨ娲诲姩*/
 	@RequestMapping("/query_Product")
 	@ResponseBody
 	public List<product> query_Product(){
@@ -65,7 +65,7 @@ public class projectOrderController {
 		return list;
 	}
 	
-	/*新增订单查询项目*/
+	/*鏂板璁㈠崟鏌ヨ椤圭洰*/
 	@RequestMapping("/query_Project")
 	@ResponseBody
 	public List<project> query_Project(project pro){
@@ -73,7 +73,7 @@ public class projectOrderController {
 		return list;
 	}
 	
-	/*新增订单查询安排人员*/
+	/*鏂板璁㈠崟鏌ヨ瀹夋帓浜哄憳*/
 	@RequestMapping("/projectOrder_queryStaff")
 	@ResponseBody
 	public List<productstaff> projectOrder_queryStaff(){
@@ -81,7 +81,7 @@ public class projectOrderController {
 		return list;
 	}
 	
-	/*根基身份证查询是否是负责人*/
+	/*鏍瑰熀韬唤璇佹煡璇㈡槸鍚︽槸璐熻矗浜�*/
 	@RequestMapping("/queryByIdCard")
 	@ResponseBody
 	public users queryByIdCard(String card) {
@@ -89,7 +89,7 @@ public class projectOrderController {
 		return user;
 	} 
 	
-	/*查询如果是负责人则根据负责人查询userMainOrder*/
+	/*鏌ヨ濡傛灉鏄礋璐ｄ汉鍒欐牴鎹礋璐ｄ汉鏌ヨuserMainOrder*/
 	@RequestMapping("/queryByFzr")
 	@ResponseBody
 	public Usermainorder queryByFzr(Usermainorder o) {
@@ -97,27 +97,21 @@ public class projectOrderController {
 		return umo;
 	}
 	
-	/*新增活动项目订单*/
+	/*鏂板娲诲姩椤圭洰璁㈠崟*/
 	@RequestMapping("/insert")
 	@ResponseBody
 	public String insert(@RequestBody Order_workAndOrderSon order_work) {
-		
-		/*System.out.println(JSON.toJSONString(orders));
-		System.out.println(JSON.toJSONString(ok));*/
 		int i=opservice.insert_Order(order_work);
 		return "";
 	}
 	
-	/*查询排班时间*/
+	/*鏌ヨ鎺掔彮鏃堕棿*/
 	@RequestMapping("query")
 	@ResponseBody
 	public String query(Integer areaid,Date starttime,Date endtime) {
 		productarea p=new productarea();
 		p.setAreaid(areaid);
-		System.out.println(starttime);
-		System.out.println(endtime);
-		/*JSON.toJSONString(orderTimeService.queryByArearId(p, starttime, endtime))
-		*/
+		
 		return "";
 	}
 	
