@@ -221,11 +221,11 @@
 										<div class="side-section-content">
 											<ul id="category-list" class="vmenu unstyled">
 												<li th:each="item : ${type_list}">
-													<form action="query_Qt" method="post">
+													
 														<input type="checkbox" name="tid" id="check-women" data-labelPosition="right" th:id="${item.id}" style="border:1px solid #ddd;width: 15px;height: 15px;background: white;"/>
-														<input type="submit" style="position: relative;right: 20px;">
+														
 														<span th:text="${item.ptname}"></span>
-													</form>
+													
 												</li>
 											</ul>
 										</div>
@@ -238,51 +238,41 @@
 							<section class="col-xs-12 col-sm-8 col-md-9">
 								<section class="products-wrapper">
 									<header class="products-header">
-										<div class="row">
-											<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
-												<!-- DISPLAY MODE -->
-												<ul class="unstyled inline-li li-m-r-l-sm pull-left">
-													<li>
-														<a class="round-icon active" href="#" data-toggle="tooltip" data-layout="grid" data-title="Switch to List Grid Mode"><i class="iconfont-th"></i></a>
-													</li>
-													<li>
-														<a class="round-icon" href="#" data-toggle="tooltip" data-layout="list" data-title="Switch to List View Mode"><i class="iconfont-list"></i></a>
-													</li>
-												</ul>
-												<!-- // DISPLAY MODE -->
-
-												
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+											<!-- DISPLAY MODE -->
+											<ul class="unstyled inline-li li-m-r-l-sm pull-left">
+												<li><a class="round-icon active" href="#" data-toggle="tooltip" data-layout="grid" data-title="Switch to List Grid Mode"><i class="iconfont-th"></i></a></li>
+												<li><a class="round-icon" href="#" data-toggle="tooltip" data-layout="list" data-title="Switch to List View Mode"><i class="iconfont-list"></i></a></li>
+											</ul>
+											<!-- // DISPLAY MODE -->
+											
+											<!-- NUMBER OF ITEMS TO BE DISPLAY -->
+											<div class="pull-right m-l-lg">
+												<span class="inline-middle m-r-sm text-xs">Show</span>
+												<div class="inline-middle styled-dd">
+													<select>
+														<option value="9">9</option>
+														<option value="12" selected>12</option>
+														<option value="24">24</option>
+														<option value="36">36</option>
+													</select>
+												</div>
 											</div>
-											<div class="space30 visible-xs"></div>
-											<!-- PAGINATION -->
-											<!-- <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
-												<ul class="paginator li-m-r-l pull-right">
-													<li>
-														<a class="round-icon" href="#" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a>
-													</li>
-													<li>
-														<a href="#">1</a>
-													</li>
-													<li>
-														<a href="#">2</a>
-													</li>
-													<li>
-														<a href="#">3</a>
-													</li>
-													<li>
-														<a href="#">4</a>
-													</li>
-													<li>
-														<a href="#">5</a>
-													</li>
-													<li>
-														<a class="round-icon" href="#" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a>
-													</li>
-												</ul>
-											</div> -->
-											<!-- // PAGINATION -->
+											<!-- // NUMBER OF ITEMS TO BE DISPLAY -->
 										</div>
-									</header>
+										<div class="space30 visible-xs"></div>
+										<!-- PAGINATION -->
+										<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+											<ul class="paginator li-m-r-l pull-right">
+												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${page.prePage})}" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
+												<li><a href="#" th:text="${page.pagesize}"></a></li>
+												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${next.prePage})}" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li> 
+											</ul>
+										</div>
+										<!-- // PAGINATION -->
+									</div>
+								</header>
 									<div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
 										
 										<div th:each="item : ${list}" class="product" data-product-id="8" data-category="women|women-dresses|best" data-brand="brand4" data-price="350" data-colors="white|black" data-size="XS|S|L">
@@ -495,10 +485,10 @@
 		<script src="/js1/products.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				$("[name=query_ByTid]").click(function(){
+				/* $("[name=query_ByTid]").click(function(){
 					var tid=$(this).attr("id");
 					location.href="query_Qt?tid="+tid;
-				})
+				}) */
 			}) 
 		</script>
 	</body>

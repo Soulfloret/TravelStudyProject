@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import java.util.List;
+
 public class Shopcart {
     private Integer id;
 
@@ -18,8 +20,20 @@ public class Shopcart {
     private String name4;
 
     private String name5;
+    
+    private List<Shopcart> shop;
+    
+    private recommend recommend;
 
-    public Integer getId() {
+    public List<Shopcart> getShop() {
+		return shop;
+	}
+
+	public void setShop(List<Shopcart> shop) {
+		this.shop = shop;
+	}
+
+	public Integer getId() {
         return id;
     }
 

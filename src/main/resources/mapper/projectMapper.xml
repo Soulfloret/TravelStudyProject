@@ -61,13 +61,12 @@
   		<result property="typeid" column="typeid"/>
   	</collection>
   </resultMap>
-  
   <select id="queryAll" resultMap="queryAll_result">
   	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
 	INNER JOIN `projecttype` AS `pt`
 	ON `pt`.`id`=`pro`.`tid`
 	INNER JOIN `staff` AS `sta`
-	ON `pro`.`leadingoffcial`=`sta`.`userId`
+	ON `pro`.`leadingoffcial`=`sta`.`id`
 	INNER JOIN `users` AS `user`
 	ON `sta`.`userId`=`user`.`id`
 	<where>
@@ -89,8 +88,18 @@
 	</where>
   </select>
   
+  
+  <resultMap type="com.accp.domain.project" id="result_queryProjectById" extends="BaseResultMap">
+  	 <collection property="ilist" column="id" ofType="com.accp.domain.images" select="com.accp.mapper.imagesMapper.queryByIid">  
+	   <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="iid" property="iid" jdbcType="INTEGER" />
+	    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  </collection> 
+  </resultMap>
+  
   <!-- 查询活动项目 -->
-  <select id="queryByProjectId" resultType="com.accp.domain.project">
+  <select id="queryByProjectId" resultMap="result_queryProjectById">
   	SELECT * FROM `project` WHERE `id`=#{id}
   </select>
   
@@ -151,7 +160,7 @@
 		INNER JOIN `projecttype` AS `pt`
 		ON `pt`.`id`=`pro`.`tid`
 		INNER JOIN `staff` AS `sta`
-		ON `pro`.`leadingoffcial`=`sta`.`userId`
+		ON `pro`.`leadingoffcial`=`sta`.`id`
 		INNER JOIN `users` AS `user`
 		ON `sta`.`userId`=`user`.`id`
 		WHERE `pro`.`id`=#{id}

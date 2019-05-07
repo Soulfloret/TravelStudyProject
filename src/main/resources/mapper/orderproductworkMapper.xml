@@ -13,6 +13,9 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="queryByTime" resultType="INTEGER">
+  	SELECT count(*) FROM orderproductwork WHERE startTime=#{starttime} and endTime=#{endtime}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -104,6 +107,22 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 新增活动项目订单新增订单项目排班 -->
+  <insert id="project_Order_Insert" keyProperty="id"  useGeneratedKeys="true" parameterType="com.accp.domain.orderproductwork">
+    insert into orderproductwork (orderWorkId, iid, 
+      startTime, endTime, name1, 
+      name2, name3, name4, 
+      name5)
+    values
+    <foreach collection="list" item="a" separator=",">
+    	( #{id,jdbcType=INTEGER}, #{a.iid,jdbcType=INTEGER}, 
+     	 #{a.starttime,jdbcType=TIMESTAMP}, #{a.endtime,jdbcType=TIMESTAMP}, #{a.name1,jdbcType=VARCHAR}, 
+      	#{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
+      	#{name5,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  
   <insert id="insert" keyProperty="id"  useGeneratedKeys="true" parameterType="com.accp.domain.orderproductwork" >
     insert into orderproductwork (id, orderWorkId, iid, 
       startTime, endTime, name1, 

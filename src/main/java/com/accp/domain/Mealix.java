@@ -21,8 +21,18 @@ public class Mealix {
     
     private Object ix;
     
+    private recommend recommend;
+    
+    
+    public recommend getRecommend() {
+		return recommend;
+	}
 
-    public Object getIx() {
+	public void setRecommend(recommend recommend) {
+		this.recommend = recommend;
+	}
+
+	public Object getIx() {
 		return ix;
 	}
 

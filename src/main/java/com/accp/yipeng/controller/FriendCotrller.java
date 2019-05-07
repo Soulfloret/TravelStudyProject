@@ -15,6 +15,7 @@ import com.accp.domain.discussiongroupson;
 import com.accp.domain.friend;
 import com.accp.domain.images;
 import com.accp.domain.sendrequest;
+import com.accp.yipeng.config.WebSocketHandleryp;
 import com.accp.yipeng.service.DiscussiongroupService;
 import com.accp.yipeng.service.DiscussiongroupSonService;
 import com.accp.yipeng.service.FriendService;
@@ -31,6 +32,8 @@ public class FriendCotrller {
 	DiscussiongroupSonService DisSonService;
 	@Autowired
 	DiscussiongroupService DisService;
+	@Autowired
+	WebSocketHandleryp webso;
 	
 	@RequestMapping("queryAllFriend")
 	public List<friend> queryAllFriend(Integer id,Integer did) {
@@ -66,7 +69,7 @@ public class FriendCotrller {
 			int dids=Integer.parseInt(did);
 			discussiongroup dis=DisService.selectByPrimaryKey(dids);
 			if(dis.getGroupsize()==DisSonService.selectCountBydid(dids)) {
-				sendService.updateStatusById("该讨论组人数已满", ids);
+				num=sendService.updateStatusById("人数已满", ids);
 			}else {
 				sendService.updateStatusById("已同意", ids);
 				discussiongroupson d=new discussiongroupson();
@@ -178,7 +181,11 @@ public class FriendCotrller {
 		return 	DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),Integer.parseInt(typeId));
 	}
 	 	
-	
+	@RequestMapping("sendMsg")
+	public int sendMsg(String sendmsg,String  did,String uid){
+		webso.sendMsg(sendmsg, did);
+		return DisService.SendMessage(Integer.parseInt(uid),Integer.parseInt( did), sendmsg);
+	}
 	
 	
 }

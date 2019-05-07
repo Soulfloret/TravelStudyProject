@@ -13,11 +13,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.chenyong.service.ProductAreaService;
+import com.accp.domain.orderproductwork;
+import com.accp.domain.orderson;
 import com.accp.domain.productarea;
 import com.accp.domain.project;
+import com.accp.domain.worduser;
 import com.accp.domain.workTime;
+import com.accp.mapper.orderproductworkMapper;
 import com.accp.mapper.productareaMapper;
 import com.accp.mapper.projectMapper;
+import com.accp.mapper.staffMapper;
+import com.accp.mapper.worduserMapper;
 @Service
 @Transactional
 public class ProductAreaServiceImpl implements ProductAreaService{
@@ -25,6 +31,12 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 	productareaMapper mapper;
 	@Autowired
 	projectMapper mapper1;
+	@Autowired
+	orderproductworkMapper mapper2;
+	@Autowired
+	worduserMapper mapper3;
+	@Autowired
+	staffMapper mapper4;
 	@Override
 	public project queryByArearId(productarea p,Date startTime,Date endTime) {
 		 productarea p1=mapper.queryByArearId(p);
@@ -43,28 +55,38 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 		 for(int j=0;j<=daysBetween;j++) {
 			 Calendar cal = Calendar.getInstance();   
 		     cal.setTime(d1);  
-		     cal.add(Calendar.HOUR, j);
-		     cal.set(Calendar.HOUR, 8);
-		     cal.add(Calendar.MINUTE, 30);
-		     d1 = cal.getTime();
-		     Calendar cal2 = Calendar.getInstance();   
-		     cal2.setTime(d1);  
-		     cal2.add(Calendar.HOUR, j);
-		     cal2.set(Calendar.HOUR, 8);
-		     cal2.add(Calendar.MINUTE, 30);
-		     d2=cal2.getTime();
+		     cal.add(Calendar.DAY_OF_MONTH, j);
+		     cal.set(Calendar.HOUR, 7);
+		     cal.set(Calendar.MINUTE, 30);
+			 Calendar cal2 = Calendar.getInstance();   
+			 cal2.setTime(d1);  
+			 cal2.add(Calendar.DAY_OF_MONTH, j);
+			 cal2.set(Calendar.HOUR, 11);
+			 cal2.set(Calendar.MINUTE, 30);
 		     List<workTime> list=new ArrayList<workTime>();
-			 for(int i=1;i<=(480/Long.parseLong(p1.getP().getNeedtime()));i++) { 
+			 for(int i=1;i<=(600/Long.parseLong(p1.getP().getNeedtime()));i++) { 
 				 workTime worktime=new workTime();
-				 worktime.setStartTime(d1);
-				 cal.add(Calendar.MINUTE,i*(Integer.parseInt(p1.getP().getNeedtime())));
+				 worktime.setStartTime(cal.getTime());
+				 cal.add(Calendar.MINUTE,Integer.parseInt(p1.getP().getNeedtime()));
 				 worktime.setEndTime(cal.getTime());
-				 worktime.setCount(p1.getP().getGalleryful());
-				 list.add(worktime);
+				 orderproductwork work=new orderproductwork();
+				 work.setStarttime(worktime.getStartTime());
+				 work.setEndtime(worktime.getEndTime());
+				 work.setList(mapper3.queryByTime(worktime.getStartTime(), worktime.getEndTime(),p1.getP().getId()));
+				 for (worduser worduser : work.getList()) {
+					 worduser.setStaff(mapper4.queryById(worduser.getProductstaffid()));
+				}
+				 worktime.setCount(p1.getP().getGalleryful()-mapper2.queryByTime(work));
+				 long time1=cal2.getTimeInMillis()-cal.getTimeInMillis();
+				 long minu=time1/(3600*1000);
+				 if(minu>0||minu<-2) {
+					 list.add(worktime);
+				 }
 			 }
 			 if(p1.getP().getWorktimes()==null) {
 				 p1.getP().setWorktimes(new HashMap<String,List<workTime>>());
 			 }
+		     d1 = cal.getTime();
 			 p1.getP().getWorktimes().put(d1.toString()+d2.toString(),list);			
 		 }
 		 return p1.getP();

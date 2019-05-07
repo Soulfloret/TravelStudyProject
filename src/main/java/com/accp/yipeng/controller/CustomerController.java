@@ -21,6 +21,7 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.users;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
+import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 import com.accp.yipeng.util.AgeUtil;
@@ -43,7 +44,12 @@ public class CustomerController {
 	@Autowired
 	TeammemberService TeammberService;
 	@Autowired
+	UserOrderService UseOrderService;
+	//陈勇 
+	@Autowired
 	UserMainOrderService UmoService;
+	
+	
 	/**
 	 * 
 	 * @return 客户查询页面
@@ -93,6 +99,16 @@ public class CustomerController {
 		Use.addcustomer(user, file, team);
 			return "redirect:/customer/toCustomer";
 	}
+	
+	/**
+	 *  查询客户订单
+	 */
+	@RequestMapping("queryById")
+	@ResponseBody
+	public Usermainorder queryById(Integer id) {
+		return UseOrderService.queryByUserOrderId(id);
+	}
+	
 	
 	/**
 	 * 导入模版
@@ -157,8 +173,11 @@ public class CustomerController {
 	 * @return 前台订单
 	 */
 	@RequestMapping("toOrders")
-	public  String toOrders(Model model) {
-		//model.addAttribute("list",UmoService.query(1));
+	public  String toOrders(Model model,HttpSession session) {
+		users use=(users)session.getAttribute("use");
+		model.addAttribute("list",UmoService.query(null));
+		model.addAttribute("olist",UseOrderService.selectAllUserOrderById(use.getId()));
+		model.addAttribute("user", use);
 		return "NewMainOrder";
 	}
 	
@@ -174,7 +193,7 @@ public class CustomerController {
 		users uses=(users)session.getAttribute("use");
 		users use=Use.query(uses.getId());
 		int age=AgeUtil.getage(use);
-        use.setAge(age);
+        use.setAge(age);	
 		model.addAttribute("users",use);
 		return "info";
 	}

@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.bind;
 import com.accp.domain.bindExample;
+import com.accp.domain.recommend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +36,8 @@ public interface bindMapper {
     int updateByPrimaryKeySelective(bind record);
 
     int updateByPrimaryKey(bind record);
+    
+    recommend recommendBind(@Param("id")Integer id);
+    
+    List<bind> queryBindApp(@Param("id")Integer id);
 }

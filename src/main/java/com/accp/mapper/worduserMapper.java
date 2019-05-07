@@ -1,7 +1,11 @@
 package com.accp.mapper;
 
+import com.accp.domain.orderproductwork;
+import com.accp.domain.orderwork;
 import com.accp.domain.worduser;
 import com.accp.domain.worduserExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +31,8 @@ public interface worduserMapper {
     int updateByPrimaryKeySelective(worduser record);
 
     int updateByPrimaryKey(worduser record);
+    
+    int project_staff_insert(orderproductwork opw);
+    
+    List<worduser> queryByTime(@Param("starttime") Date starttime,@Param("endtime") Date endtime,@Param("pid") Integer pid);
 }

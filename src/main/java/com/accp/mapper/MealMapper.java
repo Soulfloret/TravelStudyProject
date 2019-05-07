@@ -29,4 +29,6 @@ public interface MealMapper {
     int updateByPrimaryKey(Meal record);
     
     List<Meal> query(@Param("id")Integer id);
+    
+    List<Meal> queryMeal(@Param("id")Integer id);
 }

@@ -11,6 +11,12 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="queryByUserId" resultMap="BaseResultMap">
+  	select * from userrole where userid=#{id}
+  </select>
+  <delete id="delByUserId">
+  	delete from userrole where userid=#{id}
+  </delete>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -37,6 +37,18 @@ public class users {
 		this.upassword=upassword1;
 	}
 
+	private List<discussiongroup> dlist;
+	
+
+
+	public List<discussiongroup> getDlist() {
+		return dlist;
+	}
+
+	public void setDlist(List<discussiongroup> dlist) {
+		this.dlist = dlist;
+	}
+
 	public sendrequest getSendreq() {
 		return sendreq;
 	}

@@ -16,18 +16,34 @@
   <resultMap type="com.accp.domain.module" id="BaseResultMap1" extends="BaseResultMap">
   	<collection property="mlist"  column="{id=id,uid=uid}" ofType="BaseResultMap1" select="queryModuleByUid"></collection>
   </resultMap>
+   <resultMap type="com.accp.domain.module" id="BaseResultMap2" extends="BaseResultMap">
+  	<collection property="mlist"  column="id" ofType="BaseResultMap2" select="queryAll"></collection>
+  </resultMap>
     <select id="queryModuleByUid" resultMap="BaseResultMap1">
 		SELECT m.*,ur.`userId` as uid FROM module AS m,rolemodule AS rm,
 	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
 	  	rm.moduleId=m.id
-	  	AND ur.`userId`=#{uid} 
-	  	AND m.parentId=#{id}
+	  	<if test="uid!=null">
+	  		AND ur.`userId`=#{uid}
+	  	</if>
+	  	AND m.parentId=#{id} order by m.id
   	</select>
   	<select id="queryModuleByUidToMap" resultMap="BaseResultMap">
   		SELECT m.* FROM module AS m,rolemodule AS rm,
 	  	userrole AS ur WHERE ur.`roleId`=rm.roleId AND
 	  	rm.moduleId=m.id
 	  	 AND ur.`userId`=#{uid}
+  	</select>
+  	<select id="queryAll" resultMap="BaseResultMap2">
+  		SELECT * FROM module AS m
+  		where parentid=#{id}
+  	</select>
+  	<select id="queryByridAll" resultMap="BaseResultMap">
+  		SELECT * FROM module AS m,role AS r,rolemodule AS rm
+		WHERE m.`id`=rm.`moduleId` AND r.`id`=rm.`roleId`
+		<if test="rid!=null">
+			AND r.`id`=#{rid}
+		</if>
   	</select>
   <sql id="Example_Where_Clause" >
     <where >

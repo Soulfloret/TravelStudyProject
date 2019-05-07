@@ -30,7 +30,7 @@ public class productController {
 	@Autowired
 	productprojectService prop;
 	
-	/*后台查询所有*/
+	/*鍚庡彴鏌ヨ鎵�鏈�*/
 	@RequestMapping("query")
 	public String query(Model model) {
 		List<product> list=prod.queryAll();
@@ -42,7 +42,6 @@ public class productController {
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,project pro) {
 		List<project> list=pros.query();
-		System.out.println(JSON.toJSONString(list));
 		model.addAttribute("list",list);
 		return "add-product";
 	}
@@ -53,21 +52,19 @@ public class productController {
 		return "redirect:query";
 	}
 	
-	/*活动查询项目*/
+	/*娲诲姩鏌ヨ椤圭洰*/
 	@RequestMapping("queryByProdId")
 	@ResponseBody
 	public List<productproject> queryByProdId(Integer productId) {
-		System.out.println(productId);
+		
 		List<productproject> list=prop.queryByProdId(productId);
-		System.out.println(JSON.toJSONString(list));
 		return list;
 	}
 	
-	/*活动查看详情*/
+	/*娲诲姩鏌ョ湅璇︽儏*/
 	@RequestMapping("look_productxq")
 	public String look_productxq(Model model,Integer id) {
 		product product=prod.queryByXqById(id);
-		System.out.println(JSON.toJSONString(product));
 		model.addAttribute("product", product);
 		return "edit-product";
 	}

@@ -27,4 +27,8 @@ public interface userroleMapper {
     int updateByPrimaryKeySelective(userrole record);
 
     int updateByPrimaryKey(userrole record);
+    
+    userrole queryByUserId(Integer userid);
+    
+    int delByUserId(Integer id);
 }

@@ -52,7 +52,7 @@ public class project {
     private String name5;
     
     private Map<String,List<workTime>>worktimes;
-   
+       
     private List<images> ilist;
     
     private images img;
@@ -60,8 +60,7 @@ public class project {
     private projectpl pllist;
     
     private List<projectpl> pllistshh;
-    
- 
+
 
 	public Map<String, List<workTime>> getWorktimes() {
 		return worktimes;

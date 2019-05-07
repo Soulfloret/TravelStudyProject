@@ -39,6 +39,7 @@
                     <th scope="col">创建时间</th>
                     <th scope="col">状态</th>
                     <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -54,7 +55,11 @@
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
                       </a>
-                      <a href="javascript:void(0)" style="font-size: 20px" onclick="look_jd(this)">→</a>
+                      
+                      <a href="javascript:void(0)" style="font-size: 12px;color:white;" onclick="look_jd(this)">基地→</a>
+                    </td>
+                    <td>
+                    	<a th:href="@{to_Update_Project(id=${item.id})}" style="font-size: 20px;color:white;">✏</a>
                     </td>
                   </tr>
                  

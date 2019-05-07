@@ -20,4 +20,8 @@ public class usersService {
 	public users queryByName(String name){
 		return user.project_queryByName(name);
 	}
+	
+	public users queryByIdCard(String card) {
+		return user.queryByIdCard(card);
+	}
 }

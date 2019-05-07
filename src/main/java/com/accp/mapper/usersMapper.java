@@ -11,6 +11,10 @@ import com.accp.domain.usersExample;
 public interface usersMapper {
 	public List<users> selectByUname(@Param("name") String uname,@Param("id")Integer id);
 	
+	int updateById(@Param("id") Integer id, @Param("uname") String uname,@Param("phone") String phone,@Param("upassword") String upassword);
+	
+	int accountsUpdate(@Param("id") Integer id, @Param("name2") String name2);
+	
 	public int updateTypeIdById(@Param("id") Integer id, @Param("typeId") Integer typeId);
 	
 	public users queryByIdCard(String idCardNo);

@@ -11,6 +11,16 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="queryByTime" resultMap="BaseResultMap">
+  	SELECT wu.* FROM orderproductwork AS opw,worduser AS wu,staff AS s, users AS u,project AS p
+	WHERE opw.`id`=wu.`workId` AND wu.`productStaffId`=s.`id` AND s.`userId`=u.`id` AND p.`name1`=s.`PostionId`
+	<if test="starttime!=null and endtime!=null">
+		and (opw.startTime!=#{starttime} and opw.endTime!=#{endtime})
+	</if>
+	<if test="pid!=null">
+		and p.id=#{pid}
+	</if>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -102,6 +112,21 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <!-- 新增项目订单新增安排人员 -->
+   <insert id="project_staff_insert">
+    insert into worduser (workId, productStaffId, 
+      name1, name2, name3, 
+      name4, name5)
+    values 
+    <foreach collection="list" item="a" separator=",">
+		(#{id,jdbcType=INTEGER}, #{a.productstaffid,jdbcType=INTEGER}, 
+      	#{name1,jdbcType=VARCHAR}, #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, 
+      	#{name4,jdbcType=VARCHAR}, #{name5,jdbcType=VARCHAR})    
+    </foreach>
+
+  </insert>
+  
   <insert id="insert" parameterType="com.accp.domain.worduser" >
     insert into worduser (id, workId, productStaffId, 
       name1, name2, name3, 
