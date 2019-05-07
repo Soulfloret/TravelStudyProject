@@ -1,5 +1,6 @@
 package com.accp.chenyong.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,25 +43,29 @@ public class OrderSonServiceImpl implements OrderSonService{
 			}
 			if(orderson.getTypeid()==5) {
 				List<productproject> p=mapper1.queryByProdId(orderson.getIid());
+				List<productarea> list1=new ArrayList<productarea>();
 				for (productproject productproject : p) {
 					List<productarea> list=mapper.queryByPid(productproject.getProjectid());
 					for(productarea pa :list) {
 						pa.setP(service.queryByArearId(pa, new Date(), new Date()));
+						list1.add(pa);
 					}
 				}
-				orderson.setIx(p);
+				orderson.setIx(list1);
 			}
 			if(orderson.getTypeid()==7) {
 				Meal m=mapper2.query(orderson.getIid()).get(0);
+				List<productarea> list1=new ArrayList<productarea>();
 				for (Mealix mx : m.getList()) {
 					if(mx.getTypeid()==1) {
 						List<productarea> list=mapper.queryByPid(mx.getIid());
 						for(productarea p :list) {
 							p.setP(service.queryByArearId(p, new Date(), new Date()));
+							list1.add(p);
 						}
 					}
 				}
-				orderson.setIx(m);
+				orderson.setIx(list1);
 			}
 		}
 		return o;

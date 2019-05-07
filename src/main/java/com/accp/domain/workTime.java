@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +12,16 @@ public class workTime {
 	private Date endTime;
 	
 	private Integer  count;
+	
+	private List<users> ulist;
+
+	public List<users> getUlist() {
+		return ulist;
+	}
+
+	public void setUlist(List<users> ulist) {
+		this.ulist = ulist;
+	}
 
 	public Date getStartTime() {
 		return startTime;

@@ -24,9 +24,8 @@
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link d-block" href="/login/login">
-									Admin, <b>Logout</b>
-								</a>
+								<b><a class="nav-link d-block" href="/login/login" th:text="${session.staff.user.uname}+'         '+退出登录" th:if="${session.staff!=null}">
+								</a></b>
 							</li>
 						</ul>
 					</div>
