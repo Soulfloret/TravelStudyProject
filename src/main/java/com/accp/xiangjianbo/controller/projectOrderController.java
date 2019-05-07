@@ -116,8 +116,8 @@ public class projectOrderController {
 		p.setAreaid(areaid);
 		System.out.println(starttime);
 		System.out.println(endtime);
-		/*JSON.toJSONString(orderTimeService.queryByArearId(p, starttime, endtime))
-		*/
+		orderTimeService.queryByArearId(p, starttime, endtime);
+		
 		return "";
 	}
 	
