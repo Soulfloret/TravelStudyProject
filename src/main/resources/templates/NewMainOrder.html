@@ -1,31 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>客户详情</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-		<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
-		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}" >
-		
-		<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
-		<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
-		<link rel="stylesheet" th:href="@{/css1/minified.css}">
-		<script th:src="@{/js1/modernizr.min.js}"></script>
-		<script th:src="@{/js1/jquery.min.js}"></script>
-		<link th:href="@{/css1/innerpage.css}" rel="stylesheet">
-		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
-		
-	</head>
+<html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>个人中心</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
+	<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
+	<link rel="stylesheet" th:href="@{/css1/minified.css}">
+	<link rel="stylesheet"  th:href="@{/css/fontawesome.min.css}">
+	<script th:src="@{/js1/jquery.min.js}"></script>
+	<script th:src="@{/js1/modernizr.min.js}"></script>	
+	<!-- PARTICULAR PAGES CSS FILES -->
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<!-- // PARTICULAR PAGES CSS FILES -->
+	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 	<style>
-		.box .status,.boxs .status {
+		lement.style {
+	    color: white;
+	}
+	
+	a:not([href]):not([tabindex]) {
+	    color: inherit;
+	    text-decoration: none;
+	}
+	.tm-product-delete-link {
+	    padding: 10px;
+	    border-radius: 50%;
+	    background-color: #394e64;
+	    display: inline-block;
+	    width: 40px;
+	    height: 40px;
+	    text-align: center;
+	}
+	.fa, .fas {
+	    font-weight: 900;
+	}
+	.fa, .far, .fas {
+	    font-family: "Font Awesome 5 Free";
+	}
+	.fa, .fab, .fal, .far, .fas {
+	    -moz-osx-font-smoothing: grayscale;
+	    -webkit-font-smoothing: antialiased;
+	    display: inline-block;
+	    font-style: normal;
+	    font-variant: normal;
+	    text-rendering: auto;
+	    line-height: 1;
+	}
+	a {
+	    color: #666;
+	    -webkit-transition: all .2s ease-out;
+	    -moz-transition: all .2s ease-out;
+	    -o-transition: all .2s ease-out;
+	    -ms-transition: all .2s ease-out;
+	    transition: all .2s ease-out;
+	}
+	a, a:active, a:focus, a:hover {
+	    text-decoration: none;
+	}
+	
+	.table>thead>tr>td>b{
+		font-size:16px;
+	}
+	.table>tbody>tr>td,.table>tbody>tr>th,.table>thead>tr>th{
+		height:40px;
+		font-size:14px;
+		line-height: 40px;
+	}
+	.box .status,.boxs .status {
 			margin-left: 15px;
-		}
+	}
 		
 		.box .sum {
 			margin-left: 5px;
@@ -88,174 +137,120 @@
 			font-size: 16px;
 			margin-bottom: 0px;
 		}
-		
-		#shuxing .form-group {
-			padding-bottom: 10px;
-		}
-		
-		.form-group p {
-			color: white;
-			margin-right: 10px;
-		}
-		
-		.form-group [type='radio']+span {
-			color: white;
-		}
-		
-		.tm-block {
-			padding: 30px;
-			-webkit-box-shadow: 1px 1px 5px 0 #455c71;
-			-moz-box-shadow: 1px 1px 5px 0 #455c71;
-			box-shadow: 1px 1px 5px 0 #455c71;
-			height: 100%;
-		}
 		.panel-collapse in {
 			display: block;
 		}
 		.collapsed {
 			display: none;
 		}
-		.team{
-			color: #99ff99;
-			margin-left: 10px;
-		}
-		 .table {
-		    width: 100%;
-		   	font-size:100%;
-		   	max-height: 450px;
-			overflow-y: auto; 
-		} 
-		.table td{
-			height:57px;
-			line-height: 57px;
-		}
-		.table>tbody>tr>td,.table>tbody>tr>th {
-		    padding: 8px;
-		     line-height:0;
-		     vertical-align: middle;
-		    border-top: 1px soid #ddd;
-		}
-		.table>tbody{
-			width: 100%;
-			max-height: 150px;
+		tbody{
+		  width: 100%;
+			max-height: 350px;
 			overflow-y: auto;
 		}
-		.tm-block {
-			 background:#E2E2E2; 
-		}
-		::-webkit-scrollbar-track {
-    	 background: #e2e2e2; 
-		}
 	</style>
-<body>
-		<div class="panel-group checkout" id="checkout-collapse">
+</head>
+	<body>
+		<div class="panel-group checkout" id="checkout-collapse" style="margin-top:0px;padding-top:0px;">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#checkout-collapse"
-							href="#checkout-collapse5"> <span class="step">03</span>
+							href="#checkout-collapse3"> <span class="step">03</span>
 							订单查询
 						</a>
 					</h4>
 				</div>
-				<div id="checkout-collapse5" class="panel-collapse in">
-					<table >
-						<thead>
-							<tr>
-								<th scope="col">订单号</th>
-								<th scope="col">订单状态</th>
-								<th scope="col">订单生成时间</th>
-								<th scope="col">客户姓名</th>
-								<th scope="col">&nbsp;</th>
-							</tr>
-						</thead>
-					</table>
+				<div id="checkout-collapse3" class="panel-collapse in">
+						<div class="panel-body" >
+							<table class="table table-bordered" border="1" cellspacing="0">
+								<thead>
+									<tr>
+										<th scope="col">订单号</th>
+										<th scope="col">订单状态</th>
+										<th scope="col">订单生成时间</th>
+										<th scope="col">客户姓名</th>
+										<th scope="col" style="width: 40px">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item:${list}"	th:if="${#strings.trim(item.name2)=='个人' && item.ordercustomer==user.id}">
+										<th scope="row"><b th:text="${item.orderno}"></b></th>
+										<td th:text="${item.name1}">
+											<div class="tm-status-circle moving"></div>
+										</td>
+										<td><b th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
+										<td><b th:text="${item.user.uname}"></b></td>
+										<td><input type="hidden" th:value="${item.id}">
+										 <a	data-target="#orderInfo" data-toggle="modal" style="color: white;"	class="fa fa-info tm-product-delete-link info"></a>
+										</td>
+									</tr>
+									<tr th:each="item:${list}" th:if="${#strings.trim(item.name2)=='团队' && item.user.id==user.id}">
+										<th scope="row"><b th:text="${item.orderno}"></b></th>
+										<td th:text="${item.name1}">
+											<div class="tm-status-circle moving"></div>
+										</td>
+										<td>
+											<b th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b>
+										</td>
+										<td>
+											<b th:text="${item.user.uname}"></b>
+										</td>
+										<td>
+											<input type="hidden" th:value="${item.id}"> 
+											<a data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
+										</td>
+									</tr>
+									
+									<tr>
+										<th scope="row" colspan="5" style="height:20px;line-height:20px;"><span style="margin-left:50px;">团员订单(用户订单)</span></th>
+									</tr>
+									
+									<tr th:each="item:${olist}">
+										<th scope="row"><b th:text="${item.orderno}"></b></th>
+										<td th:text="${item.orderstatus}">
+											<div class="tm-status-circle moving"></div>
+										</td>
+										<td><b	th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
+										<td><b th:text="${item.user.uname}"></b></td>
+										<td>
+										 <input type="hidden" th:value="${item.id}">
+										 <a data-target="#userorderInfo" data-toggle="modal" style="color: white;"class="fa fa-info tm-product-delete-link userorderinfo"></a>
+										</td>
+									</tr>
+								
+								</tbody>
+							</table>
+						</div>
+						<div class="modal fade bs-example-modal-lg" id="orderInfo" style="width: 1000px;margin-top: 20px"	tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg" style="margin:18px 40px;"	>
+								<div class="modal-content"	style="background-color: #435c70;width: 850px; color: white;">
+									<div id="" class="modal-header">订单详情</div>
+										<div id="" class="modal-body" style="max-height:350px;margin-bottom: 15px;overflow-y: auto;">
+										<div class="box"></div>
+									</div>
+									 <div id="" class="modal-footer">
+										<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+									</div> 
+								</div>
+							</div>
+						</div>
+						<div class="modal fade bs-example-modal-lg" id="userorderInfo" style="width: 1000px;margin-top: 20px"	tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg" style="margin:18px 40px;"	>
+								<div class="modal-content"	style="background-color: #435c70;width: 850px; color: white;">
+									<div id="" class="modal-header">团员订单详情</div>
+										<div id="" class="modal-body" style="max-height:350px;margin-bottom: 15px;overflow-y: auto;">
+										<div class="boxs"></div>
+									</div>
+									 <div id="" class="modal-footer">
+										<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+									</div> 
+								</div>
+							</div>
+						</div>
 				</div>
 			</div>
 		</div>
-	 <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll" style="width: 100%;margin-bottom: 20;">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">订单号</th>
-					<th scope="col">订单状态</th>
-					<th scope="col">订单生成时间</th>
-					<th scope="col">客户姓名</th>
-					<th scope="col">&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="item:${list}"
-					th:if="${#strings.trim(item.name2)=='个人' && item.ordercustomer==user.id}">
-					<th scope="row"><b th:text="${item.orderno}"></b></th>
-					<td th:text="${item.name1}">
-						<div class="tm-status-circle moving"></div>
-					</td>
-					<td><b
-						th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
-					<td><b th:text="${item.user.uname}"></b></td>
-					<td><input type="hidden" th:value="${item.id}"> <a
-						data-target="#orderInfo" data-toggle="modal" style="color: white;"
-						class="fa fa-info tm-product-delete-link info"></a></td>
-				</tr>
-				<tr th:each="item:${list}"
-					th:if="${#strings.trim(item.name2)=='团队' && item.user.id==user.id}">
-					<th scope="row"><b th:text="${item.orderno}"></b></th>
-					<td th:text="${item.name1}">
-						<div class="tm-status-circle moving"></div>
-					</td>
-					<td><b
-						th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
-					<td><b th:text="${item.user.uname}"></b></td>
-					<td><input type="hidden" th:value="${item.id}"> <a
-						data-target="#orderInfo" data-toggle="modal" style="color: white;"
-						class="fa fa-info tm-product-delete-link info"></a></td>
-				</tr>
-				<tr style="margin: 20px 0px; height: 47px; line-height: 47px;">
-					<th scope="row" colspan="5"  style="text-align: center;">团员订单</th>
-				</tr>
-				<tr th:each="item:${olist}">
-					<th scope="row"><b th:text="${item.orderno}"></b></th>
-					<td th:text="${item.orderstatus}">
-						<div class="tm-status-circle moving"></div>
-					</td>
-					<td><b	th:text="${#dates.format(item.ordertime, 'yyyy-MM-dd HH:mm:ss')}"></b></td>
-					<td><b th:text="${item.user.uname}"></b></td>
-					<td><input type="hidden" th:value="${item.id}">
-					 <a data-target="#userorderInfo" data-toggle="modal" style="color: white;"class="fa fa-info tm-product-delete-link userorderinfo"></a></td>
-				</tr>
-			</tbody>				
-		</table>
-	</div> 
-	<div class="modal fade bs-example-modal-lg" id="orderInfo" style="width: 1000px;margin-top: 20px"	tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-		<div class="modal-dialog modal-lg" style="margin:18px 40px;"	>
-			<div class="modal-content"	style="background-color: #435c70;width: 850px; color: white;">
-				<div id="" class="modal-header">订单详情</div>
-					<div id="" class="modal-body" style="max-height:350px;margin-bottom: 15px;overflow-y: auto;">
-					<div class="box"></div>
-				</div>
-				 <div id="" class="modal-footer">
-					<a class="btn btn-primary" data-dismiss="modal">关闭</a>
-				</div> 
-			</div>
-		</div>
-	</div>
-	<div class="modal fade bs-example-modal-lg" id="userorderInfo" style="width: 1000px;margin-top: 20px"	tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-		<div class="modal-dialog modal-lg" style="margin:18px 40px;"	>
-			<div class="modal-content"	style="background-color: #435c70;width: 850px; color: white;">
-				<div id="" class="modal-header">团员订单详情</div>
-					<div id="" class="modal-body" style="max-height:350px;margin-bottom: 15px;overflow-y: auto;">
-					<div class="boxs"></div>
-				</div>
-				 <div id="" class="modal-footer">
-					<a class="btn btn-primary" data-dismiss="modal">关闭</a>
-				</div> 
-			</div>
-		</div>
-	</div>
-		
-</body>
-		 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script th:src="@{/js1/minified.js}"></script>
 		<script th:src="@{/js1/products.js}"></script>
 		 
@@ -715,8 +710,7 @@
 		
 	</script>
 		
-		<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
-		<script th:src="@{/js/bootstrap.min.js}"></script>
 	
-
+	
+</body>
 </html>
