@@ -45,8 +45,8 @@ public class SendReqServiceImpl  implements SendReqService{
 			sendrequest.setUse(u);
 		}
 		List<Object> list1=new ArrayList<Object>();
-		//list1.add(list3);
-		//list1.add(list4);
+		list1.add(list3);
+		list1.add(list4);
 		List<Object> list2=new ArrayList<Object>();
 		//请求发送人为当前登录用户
 		List<sendrequest> list5=mapper.selectBydid(2, uid);

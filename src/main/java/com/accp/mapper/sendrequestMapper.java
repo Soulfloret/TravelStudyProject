@@ -10,6 +10,10 @@ import org.apache.ibatis.annotations.Param;
 public interface sendrequestMapper {
 	public int updateStatusById(@Param("status")String status,@Param("id") Integer id);
 	
+	public int delBytypeIdAnduidAnddid(@Param("typeid")Integer typeid,@Param("did") Integer did,@Param("uid")Integer uid);
+	
+	public sendrequest selectBydidAnduid(@Param("typeid")Integer typeid,@Param("did") Integer did,@Param("uid")Integer uid);
+	
 	public List<sendrequest > selectDisByTypeIdAnduid(Integer uid);
 	
 	//根据发送类型为好友  并且发送人是自己的     

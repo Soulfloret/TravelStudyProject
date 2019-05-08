@@ -30,10 +30,27 @@
   	update sendrequest set sstatus=#{status} where id=#{id}
   </update>
   
+  <select id="selectBydidAnduid" resultType="com.accp.domain.sendrequest">
+  	SELECT * FROM sendrequest WHERE  typeid=#{typeid}  AND  did=#{did} and uid=#{uid} 
+  </select>
+  
+  <delete id="delBytypeIdAnduidAnddid">
+   delete from sendrequest where typeid=#{typeid} 
+   <if test="did!=null">
+   	and did=#{did}
+   </if>
+   <if test="uid!=null">
+   	and uid=#{uid}
+   </if>
+  </delete>
+  
+  
+  
   <!--根据发送类型为好友  并且发送人是自己的     -->
   <select id="selectBydid" resultMap="BaseResultMap">
   	SELECT * FROM sendrequest WHERE  typeid=#{typeid}  AND  did=#{did} 
   </select>
+  
   <!-- 查询讨论组负责人为我的  -->
   <select id="selectDisByuid" resultMap="MapOneYp">
   	SELECT  s.*,d.id AS disid,d.groupName,d.groupSize,d.groupDescribe,d.groupMainId FROM sendrequest AS s 

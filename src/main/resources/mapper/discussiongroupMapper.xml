@@ -19,6 +19,13 @@
 		SELECT  did FROM discussiongroupson WHERE userid=#{uid}
 	)
   </select>
+  
+  <select id="selectByuidAndGroupName" resultMap="BaseResultMap">
+  	SELECT  * FROM 	discussiongroup WHERE groupName LIKE CONCAT('%',#{name},'%') AND id NOT IN (
+		SELECT did FROM discussiongroupson WHERE userId=#{uid}
+	)
+  </select>
+  
   <!--  根据 用户id 查询用户是否存在该讨论组-->
   <select id="selectDisBysonUidAndDid" resultType="com.accp.domain.discussiongroup">
   	SELECT * FROM discussiongroup AS d WHERE d.id=(SELECT did FROM discussiongroupson WHERE userid=#{uid} AND did=#{did})
