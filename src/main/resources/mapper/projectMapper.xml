@@ -66,7 +66,7 @@
 	INNER JOIN `projecttype` AS `pt`
 	ON `pt`.`id`=`pro`.`tid`
 	INNER JOIN `staff` AS `sta`
-	ON `pro`.`leadingoffcial`=`sta`.`userId`
+	ON `pro`.`leadingoffcial`=`sta`.`id`
 	INNER JOIN `users` AS `user`
 	ON `sta`.`userId`=`user`.`id`
 	<where>
@@ -160,7 +160,7 @@
 		INNER JOIN `projecttype` AS `pt`
 		ON `pt`.`id`=`pro`.`tid`
 		INNER JOIN `staff` AS `sta`
-		ON `pro`.`leadingoffcial`=`sta`.`userId`
+		ON `pro`.`leadingoffcial`=`sta`.`id`
 		INNER JOIN `users` AS `user`
 		ON `sta`.`userId`=`user`.`id`
 		WHERE `pro`.`id`=#{id}

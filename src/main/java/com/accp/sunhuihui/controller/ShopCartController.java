@@ -1,5 +1,6 @@
 package com.accp.sunhuihui.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -59,5 +60,16 @@ public class ShopCartController {
 	public List<Shopcart> queryAll(Integer userid){
 		List<Shopcart> shop=service.queryAll(userid);
 		return shop;
+	}
+	
+	@RequestMapping("pdqueryShopCart")
+	public List<Shopcart> pdqueryShopCart(@RequestBody  Shopcart shopcart){
+		List<Shopcart> list=new ArrayList<Shopcart>();
+			for (int i = 0; i < shopcart.getShop().size(); i++) {
+					Shopcart s=service.QueryIidUserid(shopcart.getShop().get(i).getIid(), 
+							shopcart.getShop().get(i).getTypeid(), shopcart.getShop().get(i).getUserid());
+					list.add(s);
+			}
+		return list;
 	}
 }

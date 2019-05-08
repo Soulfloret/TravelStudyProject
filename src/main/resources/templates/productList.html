@@ -169,24 +169,25 @@
 						<!-- // SITE LOGO -->
 						<!-- SITE NAVIGATION MENU -->
 						<nav id="site-menu" role="navigation">
-							<ul class="main-menu hidden-sm hidden-xs">
-								<li class="active">
-									<a href="pagehome.html">首页</a>
-								</li>
-								<li>
-									<a href="productList.html">活动</a>
-								</li>
-								<li>
-									<a href="menu1.html">餐饮</a>
-								</li>
-								<li>
-									<a href="hotel.html">住宿</a>
-								</li>
+								<ul class="main-menu hidden-sm hidden-xs">
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
+									</li>
+									<li>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
 
-								<li>
-									<a href="Person.html">个人中心</a>
-								</li>
-							</ul>
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+								</ul>
+
 
 						</nav>
 						<!-- // SITE NAVIGATION MENU -->
@@ -263,13 +264,13 @@
 										</div>
 										<div class="space30 visible-xs"></div>
 										<!-- PAGINATION -->
-										<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
+										<!-- <div class="col-xs-12 col-sm-12 col-md-6 center-xs">
 											<ul class="paginator li-m-r-l pull-right">
 												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${page.prePage})}" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
 												<li><a href="#" th:text="${page.pagesize}"></a></li>
 												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${next.prePage})}" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li> 
 											</ul>
-										</div>
+										</div> -->
 										<!-- // PAGINATION -->
 									</div>
 								</header>
@@ -277,7 +278,7 @@
 										
 										<div th:each="item : ${list}" class="product" data-product-id="8" data-category="women|women-dresses|best" data-brand="brand4" data-price="350" data-colors="white|black" data-size="XS|S|L">
 											<div class="entry-media">
-												<img th:src="'/'+${item.ilist[0].url}" alt="" class="lazyLoad thumb" />
+												<img th:src="${item.ilist[0].url}" alt="" class="lazyLoad thumb" />
 												<div class="hover">
 													<a th:href="@{queryBy_Qt_Xq(id=${item.id})}" class="entry-url"></a>
 													<ul class="icons unstyled">

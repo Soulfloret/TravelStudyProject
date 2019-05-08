@@ -24,15 +24,14 @@
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link d-block" href="/login/login">
-									Admin, <b>Logout</b>
-								</a>
+								<b><a class="nav-link d-block" href="/login/login" th:text="${session.staff.user.uname}+'         '+退出登录" th:if="${session.staff!=null}">
+								</a></b>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<iframe scrolling="no" id="main" name="main" frameborder="0"  style="min-height:600px;width:100%;height:100%;" src="/login/index"></iframe>
+			<iframe id="main" name="main" frameborder="0"  style="min-height:600px;width:100%;height:100%;" src="/login/index"></iframe>
 			<footer class="tm-footer row tm-mt-small">
 				<div class="col-12 font-weight-light">
 					<p class="text-center text-white mb-0 px-4 small">

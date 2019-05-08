@@ -108,7 +108,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		int num;
 		record.setName2("个人");
-		record.setName1("正在进行");
+		record.setName1("正在进行中");
 		String date=new Date().toString();
 		record.setOrdertime(new Date());
 		try {
@@ -121,7 +121,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				team t=new team();
 				t.setId(record.getUser().getId());
 				mapper12.insert(t);
-				record.setName2("");
+				record.setName2("团队");
 				record.setOrdercustomer(t.getId());
 				num=mapper.insert(record);
 				for (users u : record.getList()) {
@@ -167,7 +167,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									e.printStackTrace();
 								}
 								mo.setCreatetime(new Date());
-								mo.setStatuss("未出单");
+								mo.setStatuss("正在进行中");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
 								mapper18.insert(mo);
@@ -220,7 +220,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								e.printStackTrace();
 							}
 							mo.setCreatetime(new Date());
-							mo.setStatuss("未出单");
+							mo.setStatuss("正在进行中");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
 							mapper18.insert(mo);
@@ -316,6 +316,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							if(orderson.getTypeid()==7) {
 								Meal m=new Meal();
 								m=mapper9.query(orderson.getIid()).get(0);
+								m.setImg(mapper6.queryimg(m.getId(), 7));
 								for (Mealix mx : m.getList()) {
 									if(mx.getTypeid()==1) {
 										orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -405,6 +406,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								if(orderson.getTypeid()==7) {
 									Meal m=new Meal();
 									m=mapper9.query(orderson.getIid()).get(0);
+									m.setImg(mapper6.queryimg(m.getId(), 7));
 									for (Mealix mx : m.getList()) {
 										if(mx.getTypeid()==1) {
 											orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -516,7 +518,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getId());
 				uo.setOrdermainid(o.getId());
-				uo.setOrderstatus("正在进行");
+				uo.setOrderstatus("正在进行中");
 				mapper14.insert(uo);
 			}
 		}

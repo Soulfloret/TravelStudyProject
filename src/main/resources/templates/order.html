@@ -151,7 +151,7 @@
 						</div>
 					</div>
 					<input type="button" class="btn btn-primary btn-block text-uppercase"
-		              	 data-toggle="modal" data-target="#addorder" style="margin-top: 20px;"
+		              	 data-toggle="modal" data-target="#orderAdd" style="margin-top: 20px;"
 		              	 value="新增订单"/>
 				</div>
 				<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -171,15 +171,178 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal fade bs-example-modal-lg" id="addorder" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal fade bs-example-modal-lg" id="orderAdd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
 						<div class="modal-content" style="background-color: #435c70;color: white;">
 							<div id="" class="modal-header">
 								订单详情
 							</div>
-							<div id="" class="modal-body">
-								<div class="box">
-								</div>	
+							<div class="modal-body" style="text-align: center;">
+									<div id="checkboxs">
+											<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
+											<input type="radio" name="productOrProject" xz="1" style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
+											<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px;" />
+											<span  style="margin-left: 50px;" name="checkgood">选择餐饮</span>
+											<input type="radio" name="productOrProject" xz="3" style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkhotel">选择住宿</span>
+											<input type="radio" name="productOrProject" xz="4" style="width: 15px;height: 15px;" />											
+											<div name="Hiddens" style="display: none;">
+											<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin:30px auto;">
+								                <thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">活动名称</th>
+								                    <th scope="col">活动详情</th>
+								                  </tr>
+								                </thead>
+								                <tbody class="proucttable" id="product_tbody">
+								                  
+								        		</tbody>
+								             </table>									
+											</div>
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">项目名称</th>
+								                     <th scope="col">状态</th>
+								                  </tr>
+								                  
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">项目名称</th>
+								                     <th scope="col">状态</th>
+								                  </tr>
+								                  
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">项目名称</th>
+								                     <th scope="col">状态</th>
+								                  </tr>
+								                  
+								              </table>
+											</div>								
+											
+									</div>
+									<div id="hide_ry" style="display: none;margin-top: 30px;">
+											<div style="margin-top: 30px;">
+											<span>请输入身份证号</span>
+											<input  class="input-group-sm" style="width: 30%;" /><br>
+											<br>
+											</div>
+										</div>
+									<div id="hide_cc" style="display: none;margin-top: 30px">
+											<h5>活动项目</h5>
+											<table class="table table-hover tm-table-small tm-product-table" id="project_table"  style="margin-top: 20px;">
+								                <thead>
+								                  <tr>
+								                  	<th>
+								                  		项目名称
+								                  	</th>
+								                  	<th>状态</th>	
+								                  	<th></th>
+								                  	<th></th>
+								                  </tr>	
+								                 </thead>
+								               	<tbody class="pruduct_project_tbody">
+								               		
+								               	</tbody>
+								               
+							             	</table>
+										</div>
+									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
+								<div class="col-lg-12">
+										<h4>安排人员</h4>
+										<select class="form-control-sm" style="width: 186px;">
+											<option>
+												教练
+											</option>
+											<option>
+												助理
+											</option>
+										</select>
+										<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+										<table class="table" style="margin-top: 20px;">
+											<thead>
+												<tr>
+													<th>人员名称</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody id="look_Staff_tbody">
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
+												<div class="col-lg-12">
+													<h4>选择基地</h4>
+													<table class="table" style="margin-top: 20px;">
+														<thead>
+															<tr>
+																<th>基地名称</th>
+																<th></th>
+															</tr>
+														</thead>
+														<tbody id="project_jd_table">
+															
+														</tbody>
+													</table>
+												</div>
+												
+											</div>
+									<div id="hide_project_time" style="display: none;margin-top: 50px;">
+									<span style="margin-left: 100px;">筛选时间</span>
+									<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
+						        	<span style="color: white;margin-left: 20px;">~</span>
+						        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
+						        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+									<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
+										<thead>
+											<tr>
+												<th>开始时间</th>
+												<th>结束时间</th>
+												<th>空位</th>
+												<th>人数</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="time_tbody">
+											
+										</tbody>
+									</table>
+								
+								<div id="show_time_yy">
+									<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+												安排客户
+									</button>
+								</div>
+								<div style="margin: 30px auto;" hidden="hidden" class="infoss">
+											<span style="margin-left: 50px;">团队</span>
+											<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;">个人</span>
+											<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+										</div>
+										<div id="hide_dd" style="display: none;">
+											<span style="margin-top: 20px;">请输入身份证号</span>
+											<input type="text" name="card" value="430424200106031438" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
+											<input type="button" id="queryByFzr" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
+											<br>
+								</div>
+								</div>
 							</div>
 							<div id="" class="modal-footer">
 								<a class="btn btn-dark">提交</a>
@@ -464,7 +627,7 @@
 			$(".info").click(function(){
 				var id=$(this).prev().val();
 				$.post("/order/queryById?id="+id+"",function(data){
-						$(".box").text("");
+						$("#orderInfo .box").text("");
 						var div1=$("<div class='dingdanhead'></div>");
 						var h41=$("<h4></h4>");
 						var timestamp= new Date(data.ordertime);
@@ -518,7 +681,7 @@
 			    					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 									$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
 			    					$(div1).append(h41);
-									$(".box").append(div1).append(div);
+									$("#orderInfo .box").append(div1).append(div);
 						}else{
 							var div=$("<div class='content col-md-12 collapsed' id='checkout-collapse4'></div>");
 							var divh;
@@ -566,8 +729,8 @@
 								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
 								$(div).append(divh).append(divh1);
 							}
-								$(".box").append(div1);
-								$(".box").append(div);
+								$("#orderInfo .box").append(div1);
+								$("#orderInfo .box").append(div);
 							})
 							var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
@@ -606,87 +769,397 @@
 			})
 		</script>
 		<script>
-	      $(function() {
-	      	var pid;
-	      	var ry_dt;
-	      	var jd_name;
-	        $("#expire_date").datepicker({
-	          defaultDate: "10/22/2020"
-	        });
-	        $("[type=submit]").click(function(){
-				location.href="orders.html";
-			})
-			$("#tj").click(function(){
-				var new_sj=$(this).parents("tr").clone(true);
-				new_sj.find("[type=text]").val("");
-				$("#ry_tb_body").append(new_sj);
-			})
-			$("#yc").click(function(){
-				var tr_length=$(".ry_tb_body_tr").length;
-				if(tr_length==1){
-					alert("已经是最后一个了,不能删除");
-				}else{
-					$(this).parents("tr").remove();
-				}
-			});
-			$("[data=dd_radio]").click(function(){
-				if(true){
-					$("#hide_dd").css("display","block");
-				}
-				$("#hide_ry").css("display","none");
-			});
-			$("[data=gr_radio]").click(function(){
-				if(true){
-					$("#hide_ry").css("display","block");
-				}
-				$("#hide_dd").css("display","none");
-			});
-			$("#show_pb").click(function(){
-				$("#hide_cc").css("display","block");
-			})
-			$(".show_jd").click(function(){
-				$("#hide_jd").css("display","flex");
-				pid=$(this).attr("pid");
-				$(this).html("-");
-			})
+      $(function() {
+      	var pid;
+      	var ry_dt;
+      	var jd_name;
+      	var jd_id;
+        $("#expire_date").datepicker({
+          defaultDate: "10/22/2020"
+        });
+         $("[type=submit]").click(function(){
+			location.href="orders.html";
+		}) 
+		 $("#tj").click(function(){
+			var new_sj=$(this).parents("tr").clone(true);
+			new_sj.find("[type=text]").val("");
+			$("#ry_tb_body").append(new_sj);
+		}) 
+		$("#yc").click(function(){
+			var tr_length=$(".ry_tb_body_tr").length;
+			if(tr_length==1){
+				alert("已经是最后一个了,不能删除");
+			}else{
+				$(this).parents("tr").remove();
+			}
+		});
+         
+         /*显示团队*/
+		$("[data=dd_radio]").click(function(){
+			if(true){
+				$("#hide_dd").css("display","block");
+			}
+			$("#hide_ry").css("display","none");
+		});
+         
+         /*显示个人*/
+		$("[data=gr_radio]").click(function(){
+			if(true){
+				$("#hide_ry").css("display","block");
+			}
+			$("#hide_dd").css("display","none");
+		});
+		
+		
+		
+		/* $(".show_project_time").click(function(){
 			
-			$(".show_project_time").click(function(){
-				
-				jd_name=$(this).parents("tr").find("td:eq(0)").html();
-				
-				$("#hide_project_time").css("display","block");
-				$(this).html("-");
-				
-			})
 			
-			$("[name=ck_ry]").click(function(){
-				if (this.checked) {
-					var ry_name=$(this).parents("tr").find("td:eq(0)").html();
-					/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
-					if(document.querySelector("tr[pid='"+pid+"x']")==null){
-						ry_dt=$("<tr></tr>");
-						ry_dt.attr("pid",pid+"x");
-						ry_dt.append("<td>"+ry_name+"</td>");
-						$("[pid='"+pid+"']").parents("tr").after(ry_dt);
-					}else{
-						ry_dt=$("[pid='"+pid+"x']");
-						var td=$("<td>"+ry_name+"</td>");
-						ry_dt.append(td);
+		}) */
+		
+		/*显示个人与团队*/
+		$("[name=ap_user]").click(function(){
+			$(".infoss").removeAttr("hidden");
+		})
+		
+		
+		
+		var xzid;
+		
+		/*查询活动与项目如果xzid为1则查询活动为2则查询项目*/
+		$("[name=productOrProject]").click(function(){
+			xzid=$(this).attr("xz");
+			$("[name=Hiddens]").css('display','none');
+			$("[name=Hiddens]:eq("+(xzid-1)+")").css('display','block');
+			/*活动*/
+			if(xzid==1){
+				var product_name=$("[name=product_name]").val();
+				$.ajax({
+					url:"/xjb_projectOrderController/query_Product",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						$("#product_tbody").html(""); 
+						$.each(result,function(i,obj){
+							var dt=$("<tr>"+
+				                    "<th scope='row'><input pid='"+obj.id+"' type='radio' name='look_product'/></th>"+
+				                    "<td class='tm-product-name'>"+obj.pname+"</td>"+
+				                    "<td scope='roe'>"+obj.content+"</td>"+
+				                  "</tr>"+
+				                  "<tr hidden='hidden'>"+
+				                  "</tr>");
+							$("#product_tbody").append(dt);
+						})
 					}
+				});
+				/*项目*/
+			}else if(xzid==2){
+				var project_name=$("[name=project_name]").val();
+				$.ajax({
+					url:"/xjb_projectOrderController/query_Project",
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						var dt;
+						$("#project-table").html(""); 
+						$.each(result,function(i,obj){
+							if(obj.pstatus==1){
+								dt=$("<tbody class='one_project_tbody'>"+
+										" <tr>"+
+											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
+					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
+					                    	"<td>开放</td>"+
+					                    	"<td></td>"+
+					                    "</tr>"+
+					                    "</tbody>")
+							}else if(obj.pstatus==2){
+								dt=$("<tbody class='one_project_tbody'>"+
+										" <tr>"+
+											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
+					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
+					                    	"<td>维修</td>"+
+					                    	"<td></td>"+
+					                    "</tr>"+
+					                    "</tbody>")
+							}else if(obj.pstatus==3){
+								dt=$("<tbody class='one_project_tbody'>"+
+										" <tr>"+
+											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
+					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
+					                    	"<td>检测</td>"+
+					                    	"<td></td>"+
+					                    "</tr>"+
+					                    "</tbody>")
+							}
+					       $("#project-table").append(dt);
+						})
+					}
+				});
+			}
+		})
+		/*活动查询项目*/
+		$("#product_tbody").on("click","[name=look_product]",function(){
+			if(xzid==2){
+				$("#hide_cc").css("display","block");
+			}else if(xzid==1){
+				$("#hide_cc").css("display","block");
+				var pid1=$(this).attr("pid");
+				$.ajax({
+					url:"/xjb_productController/queryByProdId?productId="+pid1,
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						var product_project_dt;
+						$(".pruduct_project_tbody").html("");
+						$.each(result,function(i,obj){
+							if(obj.pro.pstatus==1){
+								product_project_dt=$("<tr id='each_project_tr'>"+
+					                    "<td scope='col' iid="+obj.pro.id+">"+obj.pro.pname+"</td>"+
+					                    "<td scope='col'>开放</td>"+
+					                    "<td scope='col'>"+
+					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+					                    "</td>"+
+					                     "<td></td>"+				                     
+					                 "</tr>")
+		                    }else if(obj.pro.pstatus==2){
+		                    	product_project_dt=$("<tr id='each_project_tr'>"+
+		                    			"<div id='project_div'>"+
+					                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+					                    "<td scope='col'>维修</td>"+
+					                    "<td scope='col'>"+
+					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+					                    "</td>"+
+					                     "<td></td>"+
+					                     "</div>"+
+					                 "</tr>")
+		                    }else if(obj.pro.pstatus==3){
+		                    	product_project_dt=$("<tr id='each_project_tr'>"+
+		                    			"<div id='project_div'>"+
+					                    "<td scope='col'>"+obj.pro.pname+"</td>"+
+					                    "<td scope='col'>检测</td>"+
+					                    "<td scope='col'>"+
+					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
+					                    "</td>"+
+					                     "<td></td>"+
+					                     "</div>"+
+					                 "</tr>")
+		                    }
+							$(".pruduct_project_tbody").append(product_project_dt);
+						})
+					}
+				});
+			}
+			
+		})
+		
+		
+		
+		/*选择活动点击项目查询基地与工作人员*/
+		$("#project_table").on("click",".show_jd",function(){
+					$(".hide_jd").css("display","flex");
+					pid=$(this).attr("pid");
+					$(this).html("-");
+					$.ajax({
+						url:"/xjb_projectController/queryJd?pid="+pid,
+						type:"post",
+						dataType:"json",
+						success:function(result){
+							$("#project_jd_table").html("");
+							$.each(result,function(i,obj){
+								var jd_dt=$("<tr>"+
+										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
+										"<td scope='col'>"+
+						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
+						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
+						                      "<a style='color: white;' class='show_project_time'>+</a>"+
+						                     "</div>"+
+						                   "</td>"+
+									"</tr>") 
+									
+								$("#project_jd_table").append(jd_dt);
+							})
+						}
+					});
+					$.ajax({
+						url:"/xjb_projectOrderController/projectOrder_queryStaff",
+						type:"psot",
+						dataType:"json",
+						success:function(result){
+							$("#look_Staff_tbody").html("");
+							$.each(result,function(i,obj){
+								$.each(obj.stalist,function(k,obj1){
+											var dt=$("<tr>"+
+													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
+													"<td scope='col'>"+
+								                    	 "<input type='checkbox' name='ck_ry'/>"+
+								                    "</td>"+
+												"</tr>")
+											$("#look_Staff_tbody").append(dt);
+								})
+							})
+						}
+					});
+		})
+		
+		
+		/*选择项目点击项目查询基地与工作人员*/
+		$("#project-table").on("click",".show_jd",function(){
+					$(".hide_jd").css("display","flex");
+					pid=$(this).attr("pid");
+					$(this).html("-");
+					$.ajax({
+						url:"/xjb_projectController/queryJd?pid="+pid,
+						type:"post",
+						dataType:"json",
+						success:function(result){
+							$("#project_jd_table").html("");
+							$.each(result,function(i,obj){
+								var jd_dt=$("<tr>"+
+										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
+										"<td scope='col'>"+
+						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
+						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
+						                      "<a style='color: white;' class='show_project_time'>+</a>"+
+						                     "</div>"+
+						                   "</td>"+
+									"</tr>") 
+									
+								$("#project_jd_table").append(jd_dt);
+							})
+						}
+					});
+					$.ajax({
+						url:"/xjb_projectOrderController/projectOrder_queryStaff",
+						type:"psot",
+						dataType:"json",
+						success:function(result){
+							$("#look_Staff_tbody").html("");
+							$.each(result,function(i,obj){
+								$.each(obj.stalist,function(k,obj1){
+											var dt=$("<tr>"+
+													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
+													"<td scope='col'>"+
+								                    	 "<input type='checkbox' name='ck_ry'/>"+
+								                    "</td>"+
+												"</tr>")
+											$("#look_Staff_tbody").append(dt);
+								})
+							})
+						}
+					});
+		})
+		
+		
+		
+		/*点击工作人员追加到项目下面*/
+		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
+			
+			if (this.checked) {
+				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
+				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
+				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
+				if(document.querySelector("tr[pid='"+pid+"x']")==null){
+					ry_dt=$("<tr name='order_ry_tr'></tr>");
+					ry_dt.attr("pid",pid+"x");
+					ry_dt.append("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
+					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
 				}else{
-					
+					ry_dt=$("[pid='"+pid+"x']");
+					var td=$("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
+					ry_dt.append(td);
 				}
+			}else{
 				
+			}
+			
+		})
+		
+		
+		/*根据基地id渲染排班时间*/
+		$("#project_jd_table").on("click",".show_project_time",function(){
+			var aid=$(this).parents("tr").find("td:eq(0)").attr("aid");
+			var start_time=$("[name=starttime]").val();
+			var end_time=$("[name=endtime]").val();
+			$.ajax({
+				url:"/qs/query",
+				data:{
+					areaid:aid,
+					starttime:start_time,
+					endtime:end_time
+				},
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					for(var val in result.worktimes){
+						$("#time_tbody").html("");
+						$.each(result.worktimes[val],function(i,obj){
+							/*结束时间*/
+							var endtime=new Date(obj.endTime);
+							var year=endtime.getFullYear();
+							var month=endtime.getMonth()+1;
+							var date=endtime.getDate(); 
+							var h=endtime.getHours();      
+							var m=endtime.getMinutes();     
+							var s=endtime.getSeconds();  
+							var end_time1=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+							
+							/*开始时间*/
+							var starttime=new Date(obj.startTime);
+							var year1=starttime.getFullYear();
+							var month1=starttime.getMonth()+1;
+							var date1=starttime.getDate(); 
+							var h1=starttime.getHours();      
+							var m1=starttime.getMinutes();     
+							var s1=starttime.getSeconds();  
+							var start_time1=year1+'-'+month1+"-"+date1+" "+h1+':'+m1+":"+s1;
+							
+							
+							var dt=$("<tr tid='"+i+"'>"+
+										"<td>"+start_time1+"</td>"+
+										"<td>"+end_time1+"</td>"+
+										"<td>"+obj.count+"</td>"+
+										"<td>"+
+											"<input type='number' placeholder='输入人数' value=''/>"+
+										"</td>"+
+										"<td><input type='checkbox' name='lr_time_ck'></td>"+
+									"</tr>");
+							$("#time_tbody").append(dt);
+						});
+					}
+				}
+			});
+			
+			jd_name=$(this).parents("tr").find("td:eq(0)").html();
+			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
+			$("#hide_project_time").css("display","block");
+			$(this).html("-");
+		})
+		
+		/*点击排班复选框追加到项目下面*/
+		$("#time_tbody").on("click","[name=lr_time_ck]",function(){
+			var tid=$(this).parents("tr").attr("tid");
+			var thead=$("[pid='"+pid+"']").parents("thead"); 
+			var jia_tr=$(thead).find("tr [tid='"+tid+"']").html();
+			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
+			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
+			
+			$($(this).parents("tr").find("td:eq(3)").children("input")).change(function(){
+				alert($(this).val());
 			})
 			
-			$("[name=lr_time_ck]").click(function(){
-				var tid=$(this).parents("tr").attr("tid");
-				var thead=$("[pid='"+pid+"']").parents("thead"); 
-				var jia_tr=$(thead).find("tr[tid='"+tid+"']").html();
-				var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
-				var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
-				var kw=$(this).parents("tr").find("td:eq(2)").html();
-				var kw1=kw-rs;
+			var kw=$(this).parents("tr").find("td:eq(2)").html();
+			var kw1=kw-rs;
+			var index=0;
+			$("[name=ck_ry]").each(function(){
+				if(this.checked){
+					index=1;
+				}
+			})
+			if(index==0){
+				alert("请先选择工作人员");
+			}
+			
+			if(index==1){
 				if($(this).parent("td").prev("td").find("input").val()==""){
 					alert("您还没有输入人数");
 					this.checked=false;
@@ -695,40 +1168,180 @@
 						alert("人数不能大于空位");
 						this.checked=false;
 					}else{
-						if(this.checked){
-							$(this).parents("tr").find("td:eq(2)").html(kw1);
-							var dt=$("<tr tid='"+tid+"'>"+
-									"<td style='color: orange;'>"+jd_name+"</td>"+
-				                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
-				                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
-				                	"<td>"+kw1+"</td>"+
-				                	"<td>"+rs+"</td>"+
-				                "</tr>");
-				       		if(document.querySelector("[pid='"+pid+"y']")==null){
-								var ry_dt1=$("<tr></tr>");
-								ry_dt1.attr("pid",pid+"y");
-								$("[pid='"+pid+"x']").after(ry_dt1);
-								$(ry_dt1).after(dt);
-							}else{
+						$("[name=lr_time_ck]").each(function(i,obj){
+							if(obj.checked){
 								
-								var ry_dt1=$("[pid='"+pid+"y']");
-								$(ry_dt1).after(dt);
-							}
-				       	}
+								$(this).parents("tr").find("td:eq(2)").html(kw1);
+								var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
+										"<td style='color: orange;' order_pid='"+pid+"' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
+					                	"<td>"+$(obj).parents("tr").find("td:eq(0)").html()+"</td>"+
+					                	"<td>"+$(obj).parents("tr").find("td:eq(1)").html()+"</td>"+
+					                	"<td>"+kw1+"</td>"+
+					                	"<td>"+rs+"</td>"+
+					                "</tr>");
+					       		if(document.querySelector("[pid='"+pid+"y']")==null){
+									var ry_dt1=$("<tr></tr>");
+									ry_dt1.attr("pid",pid+"y");
+									$("[pid='"+pid+"x']").after(ry_dt1);
+									$(ry_dt1).after(dt);
+								}else{
+									
+									var ry_dt1=$("[pid='"+pid+"y']");
+									$(ry_dt1).after(dt);
+								}
+					       		return;
+					       	}
+						})
+						
 					}
-				}else{
-					
-				       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
-				       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
-				       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
-				       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
-				       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
-				       		$(thead).find("tr[tid='"+tid+"']").remove();
 				}
+			}else{
+				this.checked=false;
+			}
+			
+		})
+		$(".show_pb").click(function(){
+			
+			
+		})
+		
+		/*新增订单*/
+		$("[name=order_submit]").click(function(){
+			/*订单从表*/
+			var orderson=[];
+			var typeid;
+			var orderwork=[];
+			var opklist=[];
+			var wulist=[];
+			var iid;
+			if(xzid==1){
+				$("[name=look_product]").each(function(){
+					if(this.checked){
+						var odr = {};
+						typeid=5;
+						iid=$(this).attr("pid")
+						odr.typeid = typeid;
+						odr.iid = iid;
+						orderson.push(odr);
+					}
+				})
+				var bl={};
+				$(".pruduct_project_tbody").each(function(){
+					/*订单项目排班表*/
+					var order_time_tr=$(this).find("[name=order_time_tr]");
+					$.each(order_time_tr,function(){
+						wulist=[];
+						$.each($(this).prev().prev().find("td"),function(){
+							var wuser={};
+							/*排班安排人员id*/
+							wuser.productstaffid=$(this).attr("ry_id");
+							wulist.push(wuser);
+						})
+						var ordertime={};
+						/*订单项目id*/
+						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
+						/*排班开始时间*/
+						ordertime.starttime=$(this).find("td:eq(1)").text();
+						/*排班结束时间*/
+						ordertime.endtime=$(this).find("td:eq(2)").text();
+						/*基地id*/
+						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
+						ordertime.list=wulist;
+						opklist.push(ordertime);
+				})
+				/* if(xzid==2){
+					
+				} */
+				orderwork.push({list:opklist});
 			})
-	     });
+			}else if(xzid==2){
+				$(".show_jd").each(function(){
+					if(this.checked){
+						var odr1={};
+						typeid=1;
+						iid=$(this).parents("tr").find("td:eq(0)").attr("iid");
+						odr1.typeid = typeid;
+						odr1.iid = iid;
+						orderson.push(odr1);
+					}
+				})
+				$(".one_project_tbody").each(function(){
+					/*订单项目排班表*/
+					var order_time_tr=$(this).find("[name=order_time_tr]");
+					$.each(order_time_tr,function(){
+						wulist=[];
+						$.each($(this).prev().prev().find("td"),function(){
+							var wuser={};
+							/*排班安排人员id*/
+							wuser.productstaffid=$(this).attr("ry_id");
+							wulist.push(wuser);
+						})
+						var ordertime={};
+						/*订单项目id*/
+						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
+						/*排班开始时间*/
+						ordertime.starttime=$(this).find("td:eq(1)").text();
+						/*排班结束时间*/
+						ordertime.endtime=$(this).find("td:eq(2)").text();
+						/*基地id*/
+						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
+						ordertime.list=wulist;
+						opklist.push(ordertime);
+				})
+				orderwork.push({list:opklist});
+				})
+			}
+			
+			var o={};
+			o.order_work=orderwork;
+			o.order_son=orderson;
+			o=JSON.stringify(o);
+			$.ajax({
+				url:"/xjb_projectOrderController/insert",
+				type:"post",
+				data:o,
+				processData:false, 
+ 				contentType:"application/json;charset=UTF-8",
+ 				dataType:"text",
+				success:function(result){
+					alert("新增成功")
+				}
+			}); 
+		})
+		$("#queryByFzr").click(function(){
+			var card=$("[name=card]").val();
+			$.ajax({
+				url:"/xjb_projectOrderController/queryByIdCard?card="+card,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					console.log(result);
+					var jia_name2;
+					if(result.typeid==1){
+						jia_name2="个人";
+					}else if(result.typeid==2){
+						jia_name2="团队";
+					}
+					$.ajax({
+						url:"queryByFzr",
+						data:{
+							orderCustomer:card,
+							name2:jia_name2
+						},
+						type:"post",
+						dataType:"json",
+						success:function(result){
+							if(result==null){
+								
+							}
+						}
+					})
+				}
+			});
+		}) 
+     });
+      
     </script>
-
 	</body>
 
 </html>
