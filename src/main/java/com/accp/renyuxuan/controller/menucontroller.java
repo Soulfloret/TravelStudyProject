@@ -307,7 +307,7 @@ public class menucontroller {
 	@RequestMapping("/toquerymenu1")
 	public String toquerymenu1(Model model) {
 		List<menutype> list=me.selectqueryTypemenu(null);
-		List<bind> blist=b.querybind(null);
+		List<bind> blist=b.querybindQt(null);
 		model.addAttribute("blist", blist);
 		model.addAttribute("list", list);
 		return "menu1";

@@ -53,5 +53,12 @@ public class bindserviceimpl implements bindservice{
 	}
 
 
+	@Override
+	public List<bind> querybindQt(bind bi) {
+		// TODO Auto-generated method stub
+		return bb.querybindQt(bi);
+	}
+
+
 	
 }

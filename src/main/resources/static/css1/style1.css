@@ -450,7 +450,7 @@ transition: all 0.3s ease-out;
 }
 /*--content--*/
 .main{
-	background: url(../images/body_bg.jpg)
+	background: url(../images/bg_pattern.jpg)
 }
 .content{
 	padding:0 0 1em;

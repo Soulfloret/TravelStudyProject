@@ -353,7 +353,39 @@
 	
 		<script type="text/javascript">
 				
+				
+				/* $(function(){
+					function show(){
+					   alert("ready");
+					}
+					setInterval(show,3000);// 注意函数名没有引号和括弧！ 
+					// 使用setInterval("show()",3000);会报“缺少对象” 
+				}); */
+				
+				
+				/* var x = 15,
+	            interval;
+		        window.onload = function() {
+		            var d = new Date("1111/1/1,0:" + x + ":0");
+		            interval = setInterval(function() {
+		                var m = d.getMinutes();
+		                var s = d.getSeconds();
+		                m = m < 10 ? "0" + m : m;
+		                s = s < 10 ? "0" + s : s;
+		                console.log(m + ":" + s);
+		                if (m == 0 && s == 0) {
+		                    clearInterval(interval);
+		                    return;
+		                }
+		                d.setSeconds(s - 1);
+		            }, 1000);
+		        } */
+		        
+				
+				
 				$(function(){
+				
+					
 					var dj=0.0;
 					dj=parseFloat(dj);
 					$(".dj").each(function(){

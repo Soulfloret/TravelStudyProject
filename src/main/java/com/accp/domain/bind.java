@@ -45,7 +45,11 @@ public class bind {
     private List<images> img;
     
     
-    public List<images> getImg() {
+    public void setMlist(List<images> mlist) {
+		this.mlist = mlist;
+	}
+
+	public List<images> getImg() {
 		return img;
 	}
 

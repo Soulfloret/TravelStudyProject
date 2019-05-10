@@ -51,6 +51,7 @@
 		ON mt.`id`=m.`menutypeId`
 		LEFT JOIN `images` i 
 		ON m.`id`=i.`iid` AND i.`typeId`=2
+		WHERE m.`state`=1
   </select>
   
   
