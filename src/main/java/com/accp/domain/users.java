@@ -22,6 +22,28 @@ public class users {
 	public void setDynamic(dynamics dynamic) {
 		this.dynamic = dynamic;
 	}
+	//指退出 或解散讨论组
+	private Integer type;
+	//讨论组id 
+	private Integer did;
+	
+	
+	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getDid() {
+		return did;
+	}
+
+	public void setDid(Integer did) {
+		this.did = did;
+	}
 
 	public users(String uname, String idcardno, String phone, String address, Double height, Double width,
 			Integer typeid, String name1,String upassword1) {

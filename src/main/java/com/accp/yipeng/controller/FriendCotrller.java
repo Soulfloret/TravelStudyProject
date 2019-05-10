@@ -185,8 +185,17 @@ public class FriendCotrller {
 
 	@RequestMapping("delDis")
 	public int delDis(String did,String uid,String typeId,HttpSession session ) {
-		int num=DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),Integer.parseInt(typeId));
-		session.setAttribute("user", sessionUser(uid));  
+		int typeid=Integer.parseInt(typeId);
+		int num=DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),typeid);
+		users use=sessionUser(uid);
+		if(typeid==1) {
+			use.setType(typeid);
+			use.setDid(Integer.parseInt(did));
+		}else {
+			use.setType(typeid);
+			use.setDid(Integer.parseInt(did));
+		}
+		session.setAttribute("user", use);  
 		 return num;
 	}
 	 	
