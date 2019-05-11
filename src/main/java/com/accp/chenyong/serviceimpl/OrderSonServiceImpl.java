@@ -31,12 +31,12 @@ public class OrderSonServiceImpl implements OrderSonService{
 	@Autowired
 	ProductAreaService service;
 	@Override
-	public List<orderson> query(List<orderson> o) {
+	public List<orderson> query(List<orderson> o,Date startTime,Date endTime) {
 		for (orderson orderson : o) {
 			if(orderson.getTypeid()==1) {
 				List<productarea> list=mapper.queryByPid(orderson.getIid());
 				for(productarea p :list) {
-					p.setP(service.queryByArearId(p, new Date(), new Date()));
+					p.setP(service.queryByArearId(p, startTime, endTime));
 				}
 				orderson.setIx(list);
 			}
@@ -46,7 +46,7 @@ public class OrderSonServiceImpl implements OrderSonService{
 				for (productproject productproject : p) {
 					List<productarea> list=mapper.queryByPid(productproject.getProjectid());
 					for(productarea pa :list) {
-						pa.setP(service.queryByArearId(pa, new Date(), new Date()));
+						pa.setP(service.queryByArearId(pa, startTime, endTime));
 						list1.add(pa);
 					}
 				}
@@ -59,7 +59,7 @@ public class OrderSonServiceImpl implements OrderSonService{
 					if(mx.getTypeid()==1) {
 						List<productarea> list=mapper.queryByPid(mx.getIid());
 						for(productarea p :list) {
-							p.setP(service.queryByArearId(p, new Date(), new Date()));
+							p.setP(service.queryByArearId(p, startTime, endTime));
 							list1.add(p);
 						}
 					}

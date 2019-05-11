@@ -488,6 +488,7 @@
 						type:"post",
 						dataType:"json",
 						success:function(result){
+							console.log(result);
 							$("#project_jd_table").html("");
 							$.each(result,function(i,obj){
 								var jd_dt=$("<tr>"+
