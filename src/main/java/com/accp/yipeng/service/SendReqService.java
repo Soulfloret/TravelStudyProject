@@ -11,5 +11,5 @@ public interface SendReqService {
 	public List<Object> query(Integer uid) ;
 	public int updateStatusById(@Param("status")String status,@Param("id") Integer id);
     int insert(sendrequest record);
-
+	
 }

@@ -45,7 +45,6 @@ public class TeamController {
 	@RequestMapping("toTeamDetails")
 	public String toTeamDetails(Integer id,Model model) {
 		model.addAttribute("list",UmoService.query(null));
-		List<Usermainorder> list=UmoService.query(null);
 		model.addAttribute("tid",id);
 		return "TeamDetails";
 	}

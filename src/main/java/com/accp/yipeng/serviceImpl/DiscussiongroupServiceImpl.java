@@ -56,11 +56,9 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			}
 			users.setAge(AgeUtil.getage(users));			
 		}
-		List<discussiongroup> list2=dismapper.selectByname(name);
-		List<Integer> list3=new ArrayList<Integer>();
 		List<sendrequest> list6=sendmapper.selectBydid(2, Id);
-		for (int i=0;i < list2.size();i++) {
-			discussiongroup discussiongroup=list2.get(i);
+		List<discussiongroup> list9=dismapper.selectByuidAndGroupName(name, Id);
+		for (discussiongroup discussiongroup : list9) {
 			for (sendrequest sendrequest : list6) {
 				if(sendrequest.getUid()==discussiongroup.getId()) {
 					discussiongroup.setSendreq(sendrequest);
@@ -68,27 +66,18 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			}
 			discussiongroup.setImg(imgmapper.queryimg(discussiongroup.getId(), 8));
 			discussiongroup.setCount(disSonmapper.selectCountBydid(discussiongroup.getId()));
-			List<discussiongroupson> list4=disSonmapper.selectAllusersBydid(discussiongroup.getId());
-			for (discussiongroupson discussiongroupson : list4) {
-				if(discussiongroupson.getUserid()==Id) {
-					list3.add(i);
-				}
-			}
 		}
-		for (int i = 0; i < list2.size(); i++) {
-			for (int j = 0; j < list3.size(); j++) {
-				int index=list3.get(j);
-				list2.remove(index);
-			}
-		}
+		
 		list.add(list1);
-		list.add(list2);
+		list.add(list9);
 		return list;
 	}
+	
 	@Override
 	public discussiongroup selectByPrimaryKey(Integer id) {
 		return dismapper.selectByPrimaryKey(id);
 	}
+	
 	@Override
 	public int add(discussiongroup record,String ids,List<images> list) {
 		int i=dismapper.insert(record);
@@ -101,7 +90,10 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		son.setDid(record.getId());
 		son.setUserid(record.getGroupmainid());
 		i=disSonmapper.insert(son);
-		i=disSonmapper.insertByarray(record.getId(), id);
+		for (int j = 0; j < id.length; j++) {
+			users use=umapper.selectByPrimaryKey(id[j]);
+			i=sendmapper.insert(new sendrequest(id[j], record.getId(), 3, "等待同意", "邀请"+use.getUname()+"加入"+record.getGroupname()));
+		}	
 		i=imgmapper.insertByList(record.getId(), 8, list);
 		return i;
 	}
@@ -113,8 +105,6 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			 if(mess!=null) {
 				 mess.setUse(umapper.selectByPrimaryKey(mess.getUid()));
 			 }
-			 //保存查询的 信息数
-			 discussiongroup.setCount(messmapper.selectCountBydid(discussiongroup.getId()));
 			 discussiongroup.setMess(mess);
 			 discussiongroup.setImg(imgmapper.queryimg(discussiongroup.getId(), 8));
 		}
@@ -149,7 +139,6 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 	}
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
 		return dismapper.deleteByPrimaryKey(id);
 	}
 	@Override
@@ -159,10 +148,14 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 			num=disSonmapper.delByuidAndDid(did,null);
 			num=messmapper.delBydid(did);
 			num=imgmapper.delByiidAndTypeId(did, 8);
+			num=sendmapper.delBytypeIdAnduidAnddid(2, null, did);
+			num=sendmapper.delBytypeIdAnduidAnddid(3,did,null);
 			num=dismapper.deleteByPrimaryKey(did);
 		}else {
 			num=disSonmapper.delByuidAndDid(did, uid);
+			num=sendmapper.delBytypeIdAnduidAnddid(3,did,uid);
 		}
+		
 		return num;
 	}
 	

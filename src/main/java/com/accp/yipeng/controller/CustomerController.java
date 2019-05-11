@@ -167,6 +167,15 @@ public class CustomerController {
 	public  String topagehome() {
 		return "pagehome";
 	}
+
+	/**
+	 * 
+	 * @return 购物车
+	 */
+	@RequestMapping("tocart")
+	public  String tocart() {
+		return "cart";
+	}
 	
 	/**
 	 * 
