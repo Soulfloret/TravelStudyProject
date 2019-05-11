@@ -45,7 +45,8 @@ public class bind {
     private List<images> img;
     
     
-    public List<images> getImg() {
+
+	public List<images> getImg() {
 		return img;
 	}
 

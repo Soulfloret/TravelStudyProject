@@ -15,6 +15,8 @@ public interface bindMapper {
 	
 	List<bind> querybind(bind bi);
 	
+	List<bind> querybindQt(bind bi);
+	
     int countByExample(bindExample example);
 
     int deleteByExample(bindExample example);

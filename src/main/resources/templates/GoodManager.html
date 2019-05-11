@@ -25,7 +25,8 @@
 						<label for="exampleInputName2" style="margin-top: 10px">菜单类型:</label>
 						<select name="menutypeid" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
 		        		<option value="0" th:selected="${menus.menutypeid==0 || menus.menutypeid=='' }" >请选择</option>
-						<option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" th:selected="${menus.menutypeid==itemtype.id }" ></option>						</select>
+						<option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" th:selected="${menus.menutypeid==itemtype.id }" ></option>
+						</select>
 						</div>
 						<div class="form-group" style="margin:0px 10px 0px 0px;">
 							<label for="exampleInputName2" style="margin-top: 10px">名称:</label>
@@ -38,7 +39,6 @@
 							<input type="text" th:value="${menus.zgprice}" name="zgprice" style="margin-left: 5px; width: 100px" class="form-control"  placeholder="最高价">
 						</div>
 						<input type="submit" class="btn btn-info urls"  value="查询">
-					</select>
 					<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
 					</form>
 					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top:30px ;">

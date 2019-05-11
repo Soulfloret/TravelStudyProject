@@ -65,7 +65,7 @@
   
   <select id="queryByroomtypeid" resultMap="BaseResultMap1">
   		SELECT r.*,i.`id` AS iid,i.`url` FROM room   r LEFT JOIN `images` i ON r.id=i.`iid` AND i.`typeId`=3
-		WHERE r.`typeId`=3
+		WHERE r.`typeId`=3 AND r.`state`=1
 		LIMIT 0,5
   </select>
   
@@ -100,6 +100,9 @@
 	</if>
 	<if test="rname!=null and rname != ''">
 		and r.`rname`=#{rname}
+	</if>
+	<if test="state!=null and state !='' ">
+		and r.`state`=#{state}
 	</if>
 	</where> 
   	

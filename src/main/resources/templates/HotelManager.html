@@ -104,8 +104,7 @@
 								
 							</div>
 							<div id="" class="modal-footer">
-								<a class="btn">提交</a>
-								<a class="btn" data-dismiss="modal">关闭</a>
+								<a class="btn btn-info urls" data-dismiss="modal">关闭</a>
 							</div>
 						</div>
 					</div>
@@ -135,11 +134,17 @@
 								var td1=$("<td>"+s.toLocaleDateString()+"</td>")
 								var td2=$("<td>"+ss.toLocaleDateString()+"</td>")
 								var td3=$("<td>"+obj.user.uname+"</td>")
-								var td4=$("<td>"+obj.name1+"</td>")
 								tr.append(td1);
 								tr.append(td2);
 								tr.append(td3);
-								tr.append(td4);
+								if("1"==obj.name1){
+									var td4=$("<td>已付款</td>")
+									tr.append(td4);
+								}else{
+									var td4=$("<td>未付款</td>")
+									tr.append(td4);
+								}
+								
 								$("#tbo").append(tr);
 							})
 						}
@@ -155,8 +160,6 @@
 				$(".sj").on("click",function(){
 					var type=$(this).text();
 					var id=$(this).parent().next().text();
-					alert(type);
-					alert(id);
 					var res = confirm("确定要下架该房间吗？");
 					if(res==true){
 						$.ajax({

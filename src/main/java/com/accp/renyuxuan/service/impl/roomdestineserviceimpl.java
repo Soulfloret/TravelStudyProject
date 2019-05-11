@@ -41,4 +41,10 @@ public class roomdestineserviceimpl implements roomdestineservice{
 		return r.selectByrdId(id);
 	}
 
+	@Override
+	public int updateByPrimaryKeySelective(roomdestine record) {
+		// TODO Auto-generated method stub
+		return r.updateByPrimaryKeySelective(record);
+	}
+
 }

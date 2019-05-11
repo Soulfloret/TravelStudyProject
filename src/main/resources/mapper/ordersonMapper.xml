@@ -38,12 +38,11 @@
   	SELECT o.*,r.`id`AS rid,r.`rname`,r.`introduce`,r.`location`,r.`price`,r.`typeId`AS rtypeid,i.`url` FROM `orderson` o
 		INNER JOIN `room` r ON r.`id`=o.`iid`
 		INNER JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
-		WHERE o.typeid=2
+		WHERE o.typeid=2 AND r.`state`=1
 		GROUP BY o.iid
 		HAVING COUNT(o.iid)>=2 
 		ORDER BY COUNT(o.iid) DESC
 		LIMIT 0,6
-  
   </select>
   
   
