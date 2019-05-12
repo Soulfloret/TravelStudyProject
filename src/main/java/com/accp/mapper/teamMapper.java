@@ -32,4 +32,8 @@ public interface teamMapper {
     int updateByPrimaryKeySelective(team record);
 
     int updateByPrimaryKey(team record);
+    
+    team NewTid();
+    
+    List<team> QueryTidUsers(@Param("id")Integer id);
 }

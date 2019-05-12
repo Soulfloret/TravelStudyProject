@@ -16,8 +16,20 @@ public class teammember {
     private String name4;
 
     private String name5;
+    
+    private users user;
+    
+    
 
-    public Integer getId() {
+    public users getUser() {
+		return user;
+	}
+
+	public void setUser(users user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

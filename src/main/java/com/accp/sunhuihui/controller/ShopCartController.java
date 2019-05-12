@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.accp.domain.Shopcart;
+import com.accp.domain.orderson;
+import com.accp.renyuxuan.service.ordersonservice;
+import com.accp.sunhuihui.service.OrderSonServiceshh;
 import com.accp.sunhuihui.service.ShopCartService;
 import com.alibaba.fastjson.JSON;
 
@@ -21,6 +24,8 @@ public class ShopCartController {
 		
 	@Autowired
 	ShopCartService service;
+	@Autowired
+	OrderSonServiceshh oservice;
 	
 	@RequestMapping("insertList")
 	public int insertList(Shopcart  shopcart) {
@@ -32,16 +37,19 @@ public class ShopCartController {
 	@RequestMapping("QueryIidUserid")
 	public int QueryIidUserid(Integer iid,Integer typeid,Integer userid) {
 		Shopcart s= service.QueryIidUserid(iid,typeid,userid);
-		System.out.println(JSON.toJSONString(s));
+		double dj=Double.parseDouble(s.getName1())/Integer.parseInt(s.getName2());
+		s.setName1(dj*(Integer.parseInt(s.getName2())+1)+"");
 		s.setName2(Integer.parseInt(s.getName2())+1+"");
 		int i=service.updateByPrimaryKeySelective(s);
-		return i;
+		return 0;
 	}
 	
 	@RequestMapping("deleteIidUserid")
 	public  int deleteIidUserid(Integer iid,Integer typeid,Integer userid){
 		Shopcart s= service.QueryIidUserid(iid,typeid,userid);
 		if(Integer.parseInt(s.getName2())>1) {
+			double dj=Double.parseDouble(s.getName1())/Integer.parseInt(s.getName2());
+			s.setName1(dj*(Integer.parseInt(s.getName2())-1)+"");
 			s.setName2(Integer.parseInt(s.getName2())-1+"");
 			int i=service.updateByPrimaryKeySelective(s);
 			return i;
@@ -71,5 +79,11 @@ public class ShopCartController {
 					list.add(s);
 			}
 		return list;
+	}
+	
+	@RequestMapping("query")
+	public List<orderson> query(@RequestBody List<orderson> orderson){
+		List<orderson> o=oservice.query(orderson);
+		return null;
 	}
 }
