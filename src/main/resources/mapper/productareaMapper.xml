@@ -12,7 +12,7 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="queryByArearId" parameterType="com.accp.domain.productarea" resultMap="BaseResultMap">
-  	select * from productarea where areaid=#{areaid}
+  	select * from productarea where areaid=#{areaid} and productId=#{productid}
   </select>
    <!-- 项目查询基地 map-->
   <resultMap type="com.accp.domain.productarea" id="result_queryByPid" extends="BaseResultMap">

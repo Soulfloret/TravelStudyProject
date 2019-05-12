@@ -63,6 +63,12 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("queryPaiban")
 	public List<orderson> queryPaiban(@RequestBody List<orderson> list,Date startTime,Date endTime){
+			if(startTime==null) {
+				startTime=new Date();
+			}
+			if(endTime==null) {
+				endTime=new Date();
+			}
 			return service1.query(list,startTime,endTime);
 	}
 }
