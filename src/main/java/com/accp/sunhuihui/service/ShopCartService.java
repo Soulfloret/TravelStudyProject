@@ -15,6 +15,7 @@ public class ShopCartService {
 	@Autowired
 	ShopcartMapper mapper;
 	
+	
 	public int insertList(Shopcart shop) {
 		return mapper.insertList(shop);
 	}
