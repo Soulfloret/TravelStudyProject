@@ -267,118 +267,11 @@
 										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
 										</table>
 										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
-							             value="生成订单"/>
+							             value="生成排班"/>
 							             <div id="paiban" style="display:none">
-							             	
+							             		
 							             </div>
 									</div>
-									<div id="hide_ry" style="display: none;margin-top: 30px;">
-											<div style="margin-top: 30px;">
-											<span>请输入身份证号</span>
-											<input  class="input-group-sm" style="width: 30%;" /><br>
-											<br>
-											</div>
-										</div>
-									<div id="hide_cc" style="display: none;margin-top: 30px">
-											<h5>活动项目</h5>
-											<table class="table table-hover tm-table-small tm-product-table" id="project_table"  style="margin-top: 20px;">
-								                <thead>
-								                  <tr>
-								                  	<th>
-								                  		项目名称
-								                  	</th>
-								                  	<th>状态</th>	
-								                  	<th></th>
-								                  	<th></th>
-								                  </tr>	
-								                 </thead>
-								               	<tbody class="pruduct_project_tbody">
-								               		
-								               	</tbody>
-								               
-							             	</table>
-										</div>
-									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-								<div class="col-lg-12">
-										<h4>安排人员</h4>
-										<select class="form-control-sm" style="width: 186px;">
-											<option>
-												教练
-											</option>
-											<option>
-												助理
-											</option>
-										</select>
-										<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-										<table class="table" style="margin-top: 20px;">
-											<thead>
-												<tr>
-													<th>人员名称</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody id="look_Staff_tbody">
-												
-											</tbody>
-										</table>
-									</div>
-								</div>
-									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-												<div class="col-lg-12">
-													<h4>选择基地</h4>
-													<table class="table" style="margin-top: 20px;">
-														<thead>
-															<tr>
-																<th>基地名称</th>
-																<th></th>
-															</tr>
-														</thead>
-														<tbody id="project_jd_table">
-															
-														</tbody>
-													</table>
-												</div>
-												
-											</div>
-									<div id="hide_project_time" style="display: none;margin-top: 50px;">
-									<span style="margin-left: 100px;">筛选时间</span>
-									<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
-						        	<span style="color: white;margin-left: 20px;">~</span>
-						        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
-						        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-									<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
-										<thead>
-											<tr>
-												<th>开始时间</th>
-												<th>结束时间</th>
-												<th>空位</th>
-												<th>人数</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody id="time_tbody">
-											
-										</tbody>
-									</table>
-								
-								<div id="show_time_yy">
-									<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-												安排客户
-									</button>
-								</div>
-								<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-											<span style="margin-left: 50px;">团队</span>
-											<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-											<span style="margin-left: 70px;">个人</span>
-											<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
-										</div>
-										<div id="hide_dd" style="display: none;">
-											<span style="margin-top: 20px;">请输入身份证号</span>
-											<input type="text" name="card" value="430424200106031438" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-											<input type="button" id="queryByFzr" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-											<br>
-								</div>
-								</div>
 							</div>
 							<div id="" class="modal-footer">
 								<a class="btn btn-dark">提交</a>
@@ -819,6 +712,9 @@
 				if(index==3){
 					typeid=3;
 				}
+				if(index==0){
+					typeid=5;
+				}
 			});
 			$("[name='Hiddens'] [type='checkbox']").click(function(){
 				$(".addsorder").css("display","block");
@@ -859,7 +755,79 @@
 					type:"post",
 					success:function(data){
 						$("#paiban").css("display","block");
-						$("#paiban").text(JSON.stringify(data));
+						console.log(data);
+						 $.each(data,function(index,item){
+							if(item.typeid==5){
+							var div=$("<div style='border:1px soild red'>活动"+(index+1)+"</div>");
+							$.each(item.ix,function(index1,item1){
+								var div1=$("<div style='border:1px soild blue'>"+item1.pname+"</div>");
+								$.each(item1.areas,function(index2,item2){
+									var button=$("<button>"+item2.aname+"</button>");
+								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+										+"<thead>"
+										+"<tr>"
+										+"<th>开始时间</th>"
+										+"<th>结束时间</th>"
+										+"<th>空位</th>"
+										+"<th>人数</th>"
+										+"<th></th>"
+										+"</tr>"
+										+"</thead>"
+										+"</table>");
+								    var tbody=$("<tbody id='time_tbody'></tbody>");
+									$.each(item2.worktimes,function(index3,item3){
+										$.each(item3,function(index4,item4){
+											var tr=$("<tr>"
+													+"<td>"+item4.startTime+"</td>"
+													+"<td>"+item4.endTime+"</td>"
+													+"<td>"+item4.count+"</td>"
+													+"<td></td>"
+													+"</tr>");
+											$(tbody).append(tr);
+										})
+									})
+									$(table).append(tbody);
+									$(div1).append(button);
+									$(div1).append(table);
+								})
+								$(div).append(div1);
+							})
+							$("#paiban").append(div);
+							}else{
+								var div=$("<div style='border:1px soild red'>"+item.ix.pname+"</div>");
+								$.each(item.ix.areas,function(index2,item2){
+									var button=$("<button>"+item2.aname+"</button>");
+								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+										+"<thead>"
+										+"<tr>"
+										+"<th>开始时间</th>"
+										+"<th>结束时间</th>"
+										+"<th>空位</th>"
+										+"<th>人数</th>"
+										+"<th></th>"
+										+"</tr>"
+										+"</thead>"
+										+"</table>");
+								    var tbody=$("<tbody id='time_tbody'></tbody>");
+									$.each(item2.worktimes,function(index3,item3){
+										$.each(item3,function(index4,item4){
+											var tr=$("<tr>"
+													+"<td>"+item4.startTime+"</td>"
+													+"<td>"+item4.endTime+"</td>"
+													+"<td>"+item4.count+"</td>"
+													+"<td></td>"
+													+"</tr>");
+											$(tbody).append(tr);
+										})
+									})
+									$(table).append(tbody);
+									$(div).append(button);
+									$(div).append(table);
+								})
+								$("#paiban").append(div);
+							}
+						})
+						 
 					}
 				})
 			})
