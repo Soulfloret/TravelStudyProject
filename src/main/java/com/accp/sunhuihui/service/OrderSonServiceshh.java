@@ -16,6 +16,7 @@ import com.accp.domain.Mealix;
 import com.accp.domain.orderson;
 import com.accp.domain.productarea;
 import com.accp.domain.productproject;
+import com.accp.domain.project;
 import com.accp.domain.recommend;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.imagesMapper;
@@ -119,37 +120,33 @@ public class OrderSonServiceshh {
 			return list;
 		}
 		
-		public List<orderson> query(List<orderson> o) {
+		public List<orderson> query(List<orderson> o,Date startTime,Date endTime) {
 			for (orderson orderson : o) {
 				if(orderson.getTypeid()==1) {
-					List<productarea> list=mapper.queryByPid(orderson.getIid());
-					for(productarea p :list) {
-						p.setP(service.queryByArearId(p, new Date(), new Date()));
-					}
-					orderson.setIx(list);
+					project p=pmapper.selectByPrimaryKey(orderson.getIid());
+					p=service.queryByArearId(p, startTime, endTime);
+					orderson.setIx(p);
 				}
 				if(orderson.getTypeid()==5) {
 					List<productproject> p=mapper1.queryByProdId(orderson.getIid());
-					List<productarea> list1=new ArrayList<productarea>();
+					List<project> list1=new ArrayList<project>();
 					for (productproject productproject : p) {
-						List<productarea> list=mapper.queryByPid(productproject.getProjectid());
-						for(productarea pa :list) {
-							pa.setP(service.queryByArearId(pa, new Date(), new Date()));
-							list1.add(pa);
-						}
+						project p1=new project();
+						p1.setId(productproject.getProjectid());
+						p1=pmapper.queryByProjectId(p1.getId()).get(0);
+						list1.add(service.queryByArearId(p1, startTime, endTime));
 					}
 					orderson.setIx(list1);
 				}
 				if(orderson.getTypeid()==7) {
 					Meal m=mapper2.query(orderson.getIid()).get(0);
-					List<productarea> list1=new ArrayList<productarea>();
+					List<project> list1=new ArrayList<project>();
 					for (Mealix mx : m.getList()) {
 						if(mx.getTypeid()==1) {
-							List<productarea> list=mapper.queryByPid(mx.getIid());
-							for(productarea p :list) {
-								p.setP(service.queryByArearId(p, new Date(), new Date()));
-								list1.add(p);
-							}
+							project p=pmapper.selectByPrimaryKey(mx.getIid());
+							p=service.queryByArearId(p, startTime, endTime);
+							mx.setIx(p);
+							list1.add(p);
 						}
 					}
 					orderson.setIx(list1);
@@ -157,6 +154,5 @@ public class OrderSonServiceshh {
 			}
 			return o;
 		}
-		
 		
 	}

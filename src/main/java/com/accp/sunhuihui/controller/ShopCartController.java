@@ -1,6 +1,7 @@
 package com.accp.sunhuihui.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -82,8 +83,14 @@ public class ShopCartController {
 	}
 	
 	@RequestMapping("query")
-	public List<orderson> query(@RequestBody List<orderson> orderson){
-		List<orderson> o=oservice.query(orderson);
+	public List<orderson> query(@RequestBody List<orderson> orderson,Date startTime,Date endTime){
+		if(startTime==null) {
+			startTime=new Date();
+		}
+		if(endTime==null) {
+			endTime=new Date();
+		}
+		List<orderson> o=oservice.query(orderson, startTime, endTime);
 		return null;
 	}
 }
