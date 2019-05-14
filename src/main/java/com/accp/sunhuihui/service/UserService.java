@@ -125,4 +125,8 @@ public class UserService {
 	public List<team> QueryTidUsers(@Param("id")Integer id) {
 		return TeamMapper.QueryTidUsers(id);
 	}
+	
+	public List<users> queryIcarno(String idCardNo){
+		return mapper.queryIcarno(idCardNo);
+	}
 }

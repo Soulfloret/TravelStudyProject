@@ -54,15 +54,15 @@ public class UserController {
 			if(i>0) {
 				team t=service.NewTid();
 				List<team> te=service.QueryTidUsers(t.getId());
-				System.out.println(JSON.toJSONString(te));
 				return te;
 			}
 			return null;
 		}
 		
 		@RequestMapping("addCustomer1")
-		public int  addCustomer1(@RequestBody users user) {
+		public List<users>  addCustomer1(@RequestBody users user) {
 			int i=service.addcustomer(user, null, 1+"");
-			return 0;
+			List<users> user1=service.queryIcarno(user.getIdcardno());
+			return user1;
 		}
 }
