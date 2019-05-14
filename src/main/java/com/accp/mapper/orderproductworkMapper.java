@@ -31,4 +31,6 @@ public interface orderproductworkMapper {
     int updateByPrimaryKey(orderproductwork record);
     
     int project_Order_Insert(orderwork ok);
+    
+    int queryByTime(orderproductwork work);
 }

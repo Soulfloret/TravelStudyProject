@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.friend;
 import com.accp.domain.friendExample;
+import com.accp.domain.sendrequest;
 import com.accp.domain.users;
 import com.accp.mapper.discussiongroupMapper;
 import com.accp.mapper.dynamicsMapper;
 import com.accp.mapper.friendMapper;
+import com.accp.mapper.sendrequestMapper;
 import com.accp.mapper.usersMapper;
 import com.accp.yipeng.service.FriendService;
 
@@ -26,6 +28,8 @@ public class FriendServiceImpl  implements  FriendService{
 	dynamicsMapper dynamapper;
 	@Autowired
 	discussiongroupMapper dismapper;
+	@Autowired
+	sendrequestMapper sendmapper;
 	
 	@Override
 	public List<friend> queryAllFriend(Integer id,Integer did) {
@@ -35,6 +39,10 @@ public class FriendServiceImpl  implements  FriendService{
 				users use=usemapper.selectByPrimaryKey(friend.getFid());
 				if(did!=null) {
 					use.setDis(dismapper.selectDisBysonUidAndDid(use.getId(), did));
+					sendrequest send= sendmapper.selectBydidAnduid(3, did, use.getId());
+					if(send!=null) {
+						use.setSendreq(send);
+					}
 				}
 				use.setDynamic(dynamapper.queryLastById(use.getId()));
 				friend.setUse(use);
@@ -42,6 +50,10 @@ public class FriendServiceImpl  implements  FriendService{
 				users use=usemapper.selectByPrimaryKey(friend.getUid());
 				if(did!=null) {
 					use.setDis(dismapper.selectDisBysonUidAndDid(use.getId(), did));
+					sendrequest send= sendmapper.selectBydidAnduid(3, did, use.getId());
+					if(send!=null) {
+						use.setSendreq(send);
+					}
 				}
 				use.setDynamic(dynamapper.queryLastById(use.getId()));
 				friend.setUse(use);

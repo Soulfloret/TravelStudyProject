@@ -28,5 +28,11 @@ public class ordersonserviceimpl  implements ordersonservice{
 		// TODO Auto-generated method stub
 		return oo.querytj(o);
 	}
+
+	@Override
+	public List<orderson> queryroomtj(orderson o) {
+		// TODO Auto-generated method stub
+		return oo.queryroomtj(o);
+	}
 	
 }

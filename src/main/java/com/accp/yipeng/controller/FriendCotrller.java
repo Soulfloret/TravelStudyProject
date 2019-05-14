@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,13 @@ import com.accp.domain.discussiongroupson;
 import com.accp.domain.friend;
 import com.accp.domain.images;
 import com.accp.domain.sendrequest;
+import com.accp.domain.users;
+import com.accp.yipeng.config.WebSocketHandleryp;
 import com.accp.yipeng.service.DiscussiongroupService;
 import com.accp.yipeng.service.DiscussiongroupSonService;
 import com.accp.yipeng.service.FriendService;
 import com.accp.yipeng.service.SendReqService;
+import com.accp.yipeng.service.UsersService;
 
 @RestController
 @RequestMapping("/fri")
@@ -31,6 +36,10 @@ public class FriendCotrller {
 	DiscussiongroupSonService DisSonService;
 	@Autowired
 	DiscussiongroupService DisService;
+	@Autowired
+	WebSocketHandleryp webso;
+	@Autowired
+	UsersService uservice;
 	
 	@RequestMapping("queryAllFriend")
 	public List<friend> queryAllFriend(Integer id,Integer did) {
@@ -57,7 +66,7 @@ public class FriendCotrller {
 		return num;
 	}
 	@RequestMapping("addGurop")
-	public int addGurop(String status,String id,String did,String uid) {
+	public int addGurop(String status,String id,String did,String uid ,HttpSession session) {
 		int ids=Integer.parseInt(id);
 		int num=0;
 		if(Integer.parseInt(status)==0) {
@@ -66,13 +75,14 @@ public class FriendCotrller {
 			int dids=Integer.parseInt(did);
 			discussiongroup dis=DisService.selectByPrimaryKey(dids);
 			if(dis.getGroupsize()==DisSonService.selectCountBydid(dids)) {
-				sendService.updateStatusById("该讨论组人数已满", ids);
+				num=sendService.updateStatusById("人数已满", ids);
 			}else {
 				sendService.updateStatusById("已同意", ids);
 				discussiongroupson d=new discussiongroupson();
 				d.setDid(Integer.parseInt(did));
 				d.setUserid(Integer.parseInt(uid));
 				num=DisSonService.insert(d);
+				session.setAttribute("user", sessionUser(uid));
 			}
 		}
 		return num;
@@ -96,7 +106,7 @@ public class FriendCotrller {
 	
 
 	@RequestMapping("upload")
-	public void goupload(MultipartFile file0,MultipartFile file1,MultipartFile file2,String groupname,String uid,String groupdescribe, String   ids) {
+	public void goupload(MultipartFile file0,MultipartFile file1,MultipartFile file2,String groupname,String uid,String groupdescribe, String   ids,HttpSession session) {
 			String url = "f:/fileupload/";
 			List<images> list1=new ArrayList<images>();
 			MultipartFile []file= {file0,file1,file2};
@@ -122,7 +132,7 @@ public class FriendCotrller {
 			} 
 			discussiongroup dis=new discussiongroup(groupname, 30, groupdescribe, Integer.parseInt(uid));
 			DisService.add(dis,ids,list1);
-			
+			session.setAttribute("user", sessionUser(uid));
 	}
 	
 	@RequestMapping("selectAllDiscussionGroup")
@@ -174,11 +184,35 @@ public class FriendCotrller {
 	}
 
 	@RequestMapping("delDis")
-	public int delDis(String did,String uid,String typeId) {
-		return 	DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),Integer.parseInt(typeId));
+	public int delDis(String did,String uid,String typeId,HttpSession session ) {
+		int typeid=Integer.parseInt(typeId);
+		int num=DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),typeid);
+		users use=sessionUser(uid);
+		if(typeid==1) {
+			use.setType(typeid);
+			use.setDid(Integer.parseInt(did));
+		}else {
+			use.setType(typeid);
+			use.setDid(Integer.parseInt(did));
+		}
+		session.setAttribute("user", use);  
+		 return num;
 	}
 	 	
+	@RequestMapping("sendMsg")
+	public int sendMsg(String sendmsg,String  did,String uid){
+		webso.sendMsg(sendmsg, did,uid);
+		return DisService.SendMessage(Integer.parseInt(uid),Integer.parseInt( did), sendmsg);
+	}
 	
-	
+	public users sessionUser(String uid) {
+		users use=uservice.query(Integer.parseInt(uid));
+		List<discussiongroup> list= DisService.selectAllDiscussionGroup(use.getId());
+		for (discussiongroup discussiongroup : list) {
+			discussiongroup.setDlist(DisSonService.selectAllusersBydid(discussiongroup.getId()));
+		}
+		use.setDlist(list);
+		return use;
+	}
 	
 }

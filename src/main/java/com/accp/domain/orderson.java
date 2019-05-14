@@ -26,6 +26,29 @@ public class orderson {
     private recommend recommend;
     
     private menu menus;
+        
+    private room rooms;
+    
+    private List<orderson> ordersons;
+    
+    
+   
+
+	public List<orderson> getOrdersons() {
+		return ordersons;
+	}
+
+	public void setOrdersons(List<orderson> ordersons) {
+		this.ordersons = ordersons;
+	}
+
+	public room getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(room rooms) {
+		this.rooms = rooms;
+	}
 
     public menu getMenus() {
 		return menus;

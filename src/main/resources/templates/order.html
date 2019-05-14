@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www/thymeleaf.org">
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,6 +106,11 @@
 				width: 150px;
 				text-align: center;
 			}
+			[name='Hiddens']{
+				height:300px;
+				overflow: scroll;
+				overflow-x:hidden;
+			}
 		</style>
 	</head>
 	<body id="reportsPage">
@@ -144,7 +148,7 @@
 										<td><b th:text="${item.staff.user.uname}"></b></td>
 										<td>
 											<input type="hidden" th:value="${item.id}">
-											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info"></a>
+											<a  data-target="#orderInfo" data-toggle="modal" style="color: white;" class="fa fa-info tm-product-delete-link info urls" uri="order/queryById"></a>
 										</td>
 									</tr>
 								</tbody>
@@ -152,7 +156,7 @@
 						</div>
 					</div>
 					<input type="button" class="btn btn-primary btn-block text-uppercase"
-		              	 data-toggle="modal" data-target="#xz_ry" style="margin-top: 20px;"
+		              	 data-toggle="modal" data-target="#orderAdd" style="margin-top: 20px;"
 		              	 value="新增订单"/>
 				</div>
 				<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -172,299 +176,109 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal fade" id="xz_ry" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
-				<div class="modal-content" style="background: #435c70;color: white;">
-					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">填写团队人员</h5>
-					</div>
-					<div class="modal-body" style="text-align: center;">
-							<div>
-								<span style="margin-left: 50px;margin-bottom:30px">选择活动</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">选择项目</span>
-								<input type="radio" name="productOrProject" style="width: 15px;height: 15px; " />
-								<div name="hiddens"  hidden="hidden">
-								<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="活动名称"/>
-								<input type="button"  style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
-								<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin:30px auto;">
-					                <thead>
-					                  <tr>
-					                    <th scope="col">&nbsp;</th>
-					                    <th scope="col">活动名称</th>
-					                    <th scope="col">活动人数</th>
-					                    <th scope="col">创建时间</th>
-					                    <th scope="col">状态</th>
-					                    <th scope="col">&nbsp;</th>
-					                  </tr>
-					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">活动名称</td>
-					                    <td>1,450</td>
-					                    <td>28 March 2019</td>
-					                    <td>开放</td>
-					                    <td>
-					                      <a href="#" class="tm-product-delete-link">
-					                        <i class="fa fa-info"></i>
-					                      </a>
-					                    </td>
-					                  </tr>
-					                  <tr hidden="hidden">
-					                  </tr>
-					        		</tbody>
-					             </table>									
-								</div>
-								<div name="hiddens"  hidden="hidden">
-									<input type="text" class="form-control-sm" style="float: left;margin-left: 130px;" placeholder="项目名称"/>
-									<input type="button" style="border-radius: 30px 30px 30px 30px;width: 100px;float: left;margin-left: 50px;margin-bottom: 30px;" class="btn-primary" value="查询" />
-									<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin: 30px auto;">
-					                <thead>
-					                  <tr>
-					                    <th scope="col">&nbsp;</th>
-					                    <th scope="col">项目名称</th>
-					                    <th scope="col">描述</th>
-					                    <th scope="col">状态</th>
-					                  </tr>
-					                </thead>
-					                <tbody class="proucttable">
-					                  <tr>
-					                    <th scope="row"><input type="checkbox" /></th>
-					                    <td class="tm-product-name">项目名称</td>
-					                    <td>项目描述</td>
-					                    <td>开放</td>
-					        		</tbody>
-					              </table>
-								</div>								
+				<div class="modal fade bs-example-modal-lg" id="orderAdd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
+						<div class="modal-content" style="background-color: #435c70;color: white;">
+							<div id="" class="modal-header">
+								新增订单
 							</div>
-							<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-								<span style="margin-left: 50px;">团队</span>
-								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">个人</span>
-								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+							<div class="modal-body" style="text-align: center;">
+									<div id="checkboxs">
+											<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
+											<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span  style="margin-left: 50px;" name="checkgood">选择餐饮</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkhotel">选择住宿</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />											
+											<div name="Hiddens" id="hd" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin:30px auto;">
+									                <thead>
+									                  <tr>
+									                    <th scope="col">&nbsp;</th>
+									                    <th scope="col">活动名称</th>
+									                    <th scope="col">活动详情</th>
+									                  </tr>
+									                </thead>
+									                <tbody>
+									                  	<tr th:each="item:${productlist}">
+									                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+									                  		<td scope="col" th:text="${item.pname}"></td>
+									                  		<td scope="col" th:text="${item.content}"></td>
+									                  	</tr>
+									        		</tbody>
+									             </table>
+											</div>
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin: 30px auto;">
+								               		<thead>
+									                  <tr>
+									                    <th scope="col">&nbsp;</th>
+									                    <th scope="col">项目名称</th>
+									                     <th scope="col">描述</th>
+									                  </tr>
+								                  </thead>
+								                  <tbody class="xm">
+								                  	<tr th:each="item:${projectlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.pname}"></td>
+								                  		<td scope="col" th:text="${item.description}"></td>
+								                  	</tr>
+								                  	</tbody>
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin: 30px auto;">
+								               	 <thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">餐品名称</th>
+								                     <th scope="col">描述</th>
+								                  </tr>
+								                  </thead>
+								                  <tbody>
+								                  	<tr th:each="item:${goodlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.mname}"></td>
+								                  		<td scope="col" th:text="${item.intorduce}"></td>
+								                  	</tr>
+								                  </tbody>
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               	<thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">房间名称</th>
+								                     <th scope="col">描述</th>
+								                  </tr>
+								                </thead>
+								                <tbody>
+								                  	<tr th:each="item:${hotellist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.rname}"></td>
+								                  		<td scope="col" th:text="${item.introduce}"></td>
+								                  	</tr>
+								                </tbody>
+								              </table>
+										</div>								
+										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
+										</table>
+										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
+							             value="生成排班"/>
+							             <div id="paiban" style="display:none">
+							             		
+							             </div>
+									</div>
 							</div>
-							<div id="hide_dd" style="display: none;">
-								<span style="margin-top: 20px;">请输入负责人</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<span style="margin-top: 20px;">负责人身份证号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<br>
-								<span style="margin-top: 20px;">负责人手机号</span>
-								<input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" /><br>
-								<br>
-								<span>请输入人数</span>
-								<input  class="input-group-sm" style="width: 30%;margin-left: 20px;" /><br>
-								<br>
-								<button class="btn btn-primary"  data-toggle="modal" data-target="#xz_ddry" 
-									style="margin-top: 20px;border-radius: 30px;">填写团队人员</button>
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
+							<div id="" class="modal-footer">
+								<a class="btn btn-dark">提交</a>
+								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 							</div>
-							<div id="hide_ry" style="display: none;margin-top: 30px;">
-								<div style="margin-top: 30px;">
-								<span>请输入姓名</span>
-								<input  class="input-group-sm" style="width: 30%;"/><br>
-								<br>
-								<span>请输入身份证号</span>
-								<input  class="input-group-sm" style="width: 30%;" /><br>
-								<br>
-								<span>请输入手机号</span>
-								<input  class="input-group-sm" style="width: 30%;" /><br>
-								
-								<button class="btn btn-primary" id="show_pb" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									排班
-								</button>
-								</div>
-							</div>
-					</div>
-					<div id="hide_cc" style="display: none;">
-						<table class="table table-hover tm-table-smal	l tm-product-table" style="margin-top: 20px;">
-			                <thead>
-			                  <tr>
-			                  	<th>
-			                  		项目名称
-			                  	</th>
-			                  	<th>所属活动</th>
-			                  	<th>状态</th>	
-			                  	<th></th>
-			                  	<th></th>
-			                  </tr>	
-			                  <tr>
-			                    <td scope="col">骑马</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="1">+</a>
-			                      </div>
-			                    </td>
-			                     <td></td>
-			                 </tr>
-			                  <tr>
-			                    <td scope="col">射箭</td>
-			                    <td scope="col">所属活动</td>
-			                    <td scope="col">正常</td>
-			                    <td scope="col">
-			                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-			                      	border: 1px solid orange;background: orange;text-align: center;">
-			                      	<a style="color: white;" class="show_jd" pid="2">+</a>
-			                      </div>
-			                    </td>
-			                    <td></td>
-			                  </tr>
-			                </thead>
-			               
-		             </table>
-					</div>
-					
-					<div id="hide_jd" style="margin-top: 50px;display: none;display: none;">
-						<div class="col-lg-6">
-							<h4>选择基地</h4>
-							<input type="text" class="form-control-sm" placeholder="基地名称"/>
-							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-							<table class="table" style="margin-top: 20px;">
-								<thead>
-									<tr>
-										<th>基地名称</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>一区五号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区六号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-									<tr>
-										<td>一区七号</td>
-										<td scope="col">
-					                    	 <div style="height: 20px;width: 20px;border-radius: 50%;
-					                      	border: 1px solid orange;background: orange;text-align: center;">
-					                      	<a style="color: white;" class="show_project_time">+</a>
-					                      </div>
-					                    </td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="col-lg-6">
-							<h4>安排人员</h4>
-							<select class="form-control-sm" style="width: 186px;">
-								<option>
-									教练
-								</option>
-								<option>
-									助理
-								</option>
-							</select>
-							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-							<table class="table" style="margin-top: 20px;">
-								<thead>
-									<tr>
-										<th>人员名称</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>张三</td>
-										<td scope="col">
-					                    	 <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>李四</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-									<tr>
-										<td>王五</td>
-										<td scope="col">
-					                    	  <input type="checkbox" name="ck_ry"/>
-					                    </td>
-									</tr>
-								</tbody>
-							</table>
 						</div>
 					</div>
-					
-					<div id="hide_project_time" style="display: none;margin-top: 50px;">
-						<span style="margin-left: 100px;">筛选时间</span>
-						<input type="datetime-local" placeholder="开始时间" style="margin-left: 20px;"/>
-			        	<span style="color: white;margin-left: 20px;">~</span>
-			        	<input type="datetime-local" placeholder="结束时间" style="margin-left: 20px;"/>
-			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-						<table class="table" style="margin-top: 20px;width: 80%;margin-left: 10%;">
-							<thead>
-								<tr>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th>空位</th>
-									<th>人数</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr tid="1">
-									<td>2019-03-28 9:30</td>
-									<td>2019-03-28 10:30</td>
-									<td>30</td>
-									<td>
-										<input type="text" placeholder="输入人数" value=""/>
-									</td>
-									<td><input type="checkbox" name="lr_time_ck"></td>
-								</tr>
-								<tr tid="2">
-									<td>2019-03-28 9:30</td>
-									<td>2019-03-28 10:30</td>
-									<td>30</td>
-									<td>
-										<input type="text" placeholder="输入人数" value=""/>
-									</td>
-									<td><input type="checkbox" name="lr_time_ck"></td>
-								</tr>
-								<tr tid="3">
-									<td>2019-03-28 9:30</td>
-									<td>2019-03-28 10:30</td>
-									<td>30</td>
-									<td>
-										<input type="text" placeholder="输入人数" value=""/>
-									</td>
-									<td><input type="checkbox" name="lr_time_ck"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div id="show_time_yy">
-						<table>
-							
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">提交</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
 				</div>
 			</div>
 		</div>
@@ -474,11 +288,275 @@
 		<script th:src="@{/js/bootstrap.min.js}"></script>
     	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
     	<script th:src="@{/js/vue.js}"></script>
+    	<script th:src="@{/js/Url.js}"></script>
 		<script th:line="javascript" >
+			var price;
+			function personProject(data){
+				var divh2=$("<div class='content col-md-11'></div>");
+				var divhtable=$("<table class='table'><thead>"
+				+"<th scope='col'>项目名称</th>"
+				+"<th scope='col'>项目地点</th>"
+				+"<th scope='col'>项目时间</th>"
+				+"<th scope='col'>项目价格</th>"
+				+"<th scope='col'>项目负责人</th>"
+				+"<th scope='col'>项目状态</th></thead></table>");
+				var divtbody=$("<tbody></tbody>");
+				if(data.typeid==1){
+					var fzr;
+					$.each(data.ix.list[0].list,function(indexs,is){
+						if(is.staff.postionid==1){
+							fzr=is.staff.user.uname;
+						}
+					})
+					var timestamp4= new Date(data.ix.list[0].starttime);
+					timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
+					var timestamp5= new Date(data.ix.list[0].endtime);
+					timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
+					price+=data.ix.list[0].project.price;
+					var divtr=$("<tr>"
+							+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+data.ix.list[0].project.pname+"</b></th>"
+							+"<td><b>"+data.ix.list[0].area.aname+"</b></td>"
+							+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
+							+"<td><b>"+data.ix.list[0].project.price+"</b></td>"
+							+"<td>"+fzr+"</td>"
+							+"<td>进行中</td></tr>");
+					$(divtbody).append(divtr);
+				}else{
+					$.each(data.ix.list,function(index3,item3){
+						var fzr;
+						$.each(item3.list,function(indexs,is){
+							if(is.staff.postionid==1){
+								fzr=is.staff.user.uname;
+							}
+						})
+						var timestamp4= new Date(item3.starttime);
+						timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
+						var timestamp5= new Date(item3.endtime);
+						timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
+						price+=item3.project.price;
+						var divtr=$("<tr>"
+								+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
+								+"<td><b>"+item3.area.aname+"</b></td>"
+								+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
+								+"<td><b>"+item3.project.price+"</b></td>"
+								+"<td>"+fzr+"</td>"
+								+"<td>进行中</td></tr>");
+						$(divtbody).append(divtr);
+					})
+				}
+				$(divhtable).append(divtbody);
+				$(divh2).append(divhtable);
+				return divh2;
+			}
+			function personMenu(data,indexss){
+				var divs=$("<div class='content col-md-11'></div>")
+				var divtable=$("<table class='table'>"
+				    +"<thead>"
+					+"<th scope='col'>菜品名称</th>"
+					+"<th scope='col'>菜品价格</th>"
+					+"<th scope='col'>菜品数据</th>"
+					+"<th scope='col'>菜品数量</th>"
+					+"<th scope='col'>菜品总价</th>"
+					+"</thead>");
+				var divbody=$("<tbody></tbody>");
+				if(data.typeid==2){
+					var count=1;
+					if(indexss==0){
+						count=data.name2;
+					}
+					var tr=$("<tr>"
+							+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+							+"<td><b>"+data.ix.price+"</b></td>"
+							+"<td><b>"+data.ix.intorduce+"</b></td>"
+							+"<td><b>"+count+"</b></td>"
+							+"<td><b>"+count*data.ix.price+"</b></td>"
+							+"</tr>");
+							$(divbody).append(tr);
+							price+=count*data.ix.price;
+				}else{
+					var h4=$("<h4>"+data.ix.mname+"</h4>");
+					$.each(data.ix.list,function(index3,item3){
+						var tr=$("<tr>"
+								+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+								+"<td><b>"+item3.price+"</b></td>"
+								+"<td><b>"+item3.intorduce+"</b></td>"
+								+"<td><b>1</b></td>"
+								+"<td><b>"+item3.price+"</b></td>"
+								+"</tr>");
+								$(divbody).append(tr);	
+								price+=item3.price;
+					});
+					divs.append(h4);
+				}
+				$(divtable).append(divbody);
+				$(divs).append(divtable);
+				return divs;
+			}
+			function personRoom(data){
+				var div=$("<div class='content col-md-11'></div>");
+				var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
+				var tbody=$("<tbody></tbody>");
+				var type="单人间";
+				if(data.ix.room.typeid==2){
+					type="双人间";
+				}
+				if(data.ix.room.typeid==3){
+					type="总统套房";
+				}
+				var status;
+				if(data.ix.room.status==1){
+					status="正在入住";
+				}else{
+					status="已退房";
+				}
+				var tr=$("<tr>"
+					+"<th scope='row'><img src='/"+data.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.room.rname+"</b></th>"
+					+"<td><b>"+data.ix.room.price+"</b></td>"
+					+"<td><b>"+type+"</b></td>"
+					+"<td><b>"+status+"</b></td>"
+					+"</tr>");
+					$(tbody).append(tr);
+				$(table).append(tbody);
+				$(div).append(table);
+				price+=data.ix.room.price;
+				return div;
+			}
+			function teamProject(data){
+				var divh2=$("<div class='content col-md-11'></div>");
+				var divhtable=$("<table class='table'><thead>"
+				+"<th scope='col'>项目名称</th>"
+				+"<th scope='col'>项目地点</th>"
+				+"<th scope='col'>项目时间</th>"
+				+"<th scope='col'>项目价格</th>"
+				+"<th scope='col'>项目负责人</th>"
+				+"<th scope='col'>项目状态</th></thead></table>");
+				var divtbody=$("<tbody></tbody>");
+				if(data.typeid==1){
+					var fzr;
+					$.each(data.ix.list[0].list,function(indexs,is){
+						if(is.staff.postionid==1){
+							fzr=is.staff.user.uname;
+						}
+					})
+					price+=data.ix.list[0].project.price;
+					var timestamp4= new Date(data.ix.list[0].starttime);
+					timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
+					var timestamp5= new Date(data.ix.list[0].endtime);
+					timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
+					var divtr=$("<tr>"
+							+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+data.ix.list[0].project.pname+"</b></th>"
+							+"<td><b>"+data.ix.list[0].area.aname+"</b></td>"
+							+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
+							+"<td><b>"+data.ix.list[0].project.price+"</b></td>"
+							+"<td>"+fzr+"</td>"
+							+"<td>进行中</td></tr>");
+					$(divtbody).append(divtr);
+				}else{
+					$.each(data.ix.list,function(index3,item3){
+						var fzr;
+						$.each(item3.list,function(indexs,is){
+							if(is.staff.postionid==1){
+								fzr=is.staff.user.uname;
+							}
+						})
+						var timestamp4= new Date(item3.starttime);
+						timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
+						var timestamp5= new Date(item3.endtime);
+						timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
+						price+=item3.project.price;
+						var divtr=$("<tr>"
+								+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
+								+"<td><b>"+item3.area.aname+"</b></td>"
+								+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
+								+"<td><b>"+item3.project.price+"</b></td>"
+								+"<td>"+fzr+"</td>"
+								+"<td>进行中</td></tr>");
+						$(divtbody).append(divtr);
+					})
+				}
+				$(divhtable).append(divtbody);
+				$(divh2).append(divhtable);
+				return divh2;
+			}
+			function teamMenu(data,indexss){
+				var divs=$("<div class='content col-md-11'></div>")
+				var divtable=$("<table class='table'>"
+				    +"<thead>"
+					+"<th scope='col'>菜品名称</th>"
+					+"<th scope='col'>菜品价格</th>"
+					+"<th scope='col'>菜品数据</th>"
+					+"<th scope='col'>菜品数量</th>"
+					+"<th scope='col'>菜品总价</th>"
+					+"</thead>");
+				var count=1;
+				if(indexss==0){
+					count=data.name2;
+				}
+				var divbody=$("<tbody></tbody>");
+				if(data.typeid==2){
+				var tr=$("<tr>"
+						+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+						+"<td><b>"+data.ix.price+"</b></td>"
+						+"<td><b>"+data.ix.intorduce+"</b></td>"
+						+"<td><b>"+count+"</b></td>"
+						+"<td><b>"+count*data.ix.price+"</b></td>"
+						+"</tr>");
+						$(divbody).append(tr);
+						price+=count*data.ix.price;
+				}else{
+						var h4=$("<h4>"+data.ix.mname+"</h4>");
+						$.each(data.ix.list,function(index3,item3){
+							var tr=$("<tr>"
+									+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+									+"<td><b>"+item3.price+"</b></td>"
+									+"<td><b>"+item3.intorduce+"</b></td>"
+									+"<td><b>1</b></td>"
+									+"<td><b>"+item3.price+"</b></td>"
+									+"</tr>");
+									$(divbody).append(tr);	
+									price+=item3.price;
+						});
+						divs.append(h4);
+				}
+				$(divtable).append(divbody);
+				$(divs).append(divtable);
+				return divs;
+			}
+			function teamRoom(data){
+				var div=$("<div class='content col-md-11'></div>");
+				var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
+				var tbody=$("<tbody></tbody>");
+				$.each(data.list,function(item3,index3){
+					var type="单人间";
+					if(item3.ix.room.typeid==2){
+						type="双人间";
+					}
+					if(item3.ix.room.typeid==3){
+						type="总统套房";
+					}
+					var status;
+					if(item3.ix.room.status==1){
+						status="正在入住";
+					}else{
+						status="已退房";
+					}
+					var tr=$("<tr>"
+							+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
+							+"<td><b>"+item3.ix.room.price+"</b></td>"
+							+"<td><b>"+type+"</b></td>"
+							+"<td><b>"+status+"</b></td>"
+							+"</tr>");
+					$(tbody).append(tr);
+					price+=item3.ix.room.price;
+				})
+				$(table).append(tbody);
+				$(div).append(table);
+				return div;
+			}
 			$(".info").click(function(){
 				var id=$(this).prev().val();
 				$.post("/order/queryById?id="+id+"",function(data){
-						$(".box").text("");
+						$("#orderInfo .box").text("");
 						var div1=$("<div class='dingdanhead'></div>");
 						var h41=$("<h4></h4>");
 						var timestamp= new Date(data.ordertime);
@@ -487,321 +565,105 @@
 						var span1=$("<span class='time'>订单时间:</span><span>"+timestamp+"</span>");
     					var span2=$("<span class='status'>订单状态：</span><span>"+data.name1+"</span>");
     					var span4=$("<span class='team'>"+data.name2+"</span>");
-						var price=0;
 						if(data.name2=="个人"){
+								price=0;
 								var div=$("<div class='content col-md-12 collapsed' id='checkout-collapse4'></div>");
 								var divh;
 								var divh1;
-								var div2;
-								var div3;
-								var div4;
+								var div2=$("<div></div>");
+								var div3=$("<div></div>");
+								var div4=$("<div></div>");
+								var div5=$("<div><div>");
 								$.each(data.user.orders,function(index1,item1){
 										$.each(item1.list,function(index2,item2){
 											if(item2.typeid==1||item2.typeid==5){
-												var h4;
-												var divh2=$("<div class='content col-md-11'></div>");
-												var divhtable=$("<table class='table'><thead>"
-												+"<th scope='col'>项目名称</th>"
-												+"<th scope='col'>项目地点</th>"
-												+"<th scope='col'>项目时间</th>"
-												+"<th scope='col'>项目价格</th>"
-												+"<th scope='col'>项目负责人</th>"
-												+"<th scope='col'>项目状态</th></thead></table>");
-												var divtbody=$("<tbody></tbody>");
-												if(item2.typeid==1){
-													var fzr;
-													$.each(item2.ix.list[0].list,function(indexs,is){
-														if(is.staff.postionid==1){
-															fzr=is.staff.user.uname;
-														}
-													})
-													var timestamp4= new Date(item2.ix.list[0].starttime);
-													timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
-													var timestamp5= new Date(item2.ix.list[0].endtime);
-													timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-													price+=item2.ix.list[0].project.price;
-													var divtr=$("<tr>"
-															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.list[0].project.pname+"</b></th>"
-															+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
-															+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
-															+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
-															+"<td>"+fzr+"</td>"
-															+"<td>进行中</td></tr>");
-													$(divtbody).append(divtr);
-												}else{
-													$.each(item2.ix.list,function(index3,item3){
-														var fzr;
-														$.each(item3.list,function(indexs,is){
-															if(is.staff.postionid==1){
-																fzr=is.staff.user.uname;
-															}
-														})
-														var timestamp4= new Date(item3.starttime);
-														timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
-														var timestamp5= new Date(item3.endtime);
-														timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-														price+=item3.project.price;
-														var divtr=$("<tr>"
-																+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-																+"<td><b>"+item3.area.area.aname+"</b></td>"
-																+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
-																+"<td><b>"+item3.project.price+"</b></td>"
-																+"<td>"+fzr+"</td>"
-																+"<td>进行中</td></tr>");
-														$(divtbody).append(divtr);
-													})
-												}
-												$(divhtable).append(divtbody);
-												$(divh2).append(divhtable);
-												div2=divh2;
+												$(div2).append(personProject(item2));
 											}
-											if(item2.typeid==2||item2.typeId==4){
-												var divs=$("<div class='content col-md-11'></div>");
-												if(item2.type==4){
-													var h4=$("<h4>"+item2.ix.mname+"</h4>");
-													$(divs).append(h4);
-												}
-													var divtable=$("<table class='table'>"
-													    +"<thead>"
-														+"<th scope='col'>菜品名称</th>"
-														+"<th scope='col'>菜品价格</th>"
-														+"<th scope='col'>菜品数据</th>"
-														+"<th scope='col'>菜品数量</th>"
-														+"<th scope='col'>菜品总价</th>"
-														+"</thead>");
-													var divbody=$("<tbody></tbody>");
-													var tr=$("<tr>"
-														+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
-														+"<td><b>"+item2.ix.price+"</b></td>"
-														+"<td><b>"+item2.ix.intorduce+"</b></td>"
-														+"<td><b>"+item2.name2+"</b></td>"
-														+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
-														+"</tr>");
-														$(divbody).append(tr);
-													if(item2.typeId==4){
-														$.each(item2.ix.list,function(index3,item3){
-															var tr=$("<tr>"
-																	+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"<td><b>"+item3.intorduce+"</b></td>"
-																	+"<td><b>1</b></td>"
-																	+"<td><b>"+item3.price+"</b></td>"
-																	+"</tr>");
-																	$(divbody).append(tr);
-																	price+=item3.price;
-														})
-													}if(item2.typeId==2){
-														price+=item2.ix.price;
-													}
-													$(divtable).append(divbody);
-													$(divs).append(divtable);
-													div3=divs;
+											if(item2.typeid==2||item2.typeid==4){
+												$(div3).append(personMenu(item2,0));
 											}
 											if(item2.typeid==3){
-												var div=$("<div class='content col-md-11'></div>");
-												var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
-												var tbody=$("<tbody></tbody>");
-												var type="单人间";
-												if(item2.ix.room.typeid==2){
-													type="双人间";
-												}
-												if(item2.ix.room.typeid==3){
-													type="总统套房";
-												}
-												var status;
-												if(item2.ix.room.status==1){
-													status="正在入住";
-												}else{
-													status="已退房";
-												}
-												var tr=$("<tr>"
-													+"<th scope='row'><img src='/"+item2.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item2.ix.room.rname+"</b></th>"
-													+"<td><b>"+item2.ix.room.price+"</b></td>"
-													+"<td><b>"+type+"</b></td>"
-													+"<td><b>"+status+"</b></td>"
-													+"</tr>");
-													$(tbody).append(tr);
-												$(table).append(tbody);
-												$(div).append(table);
-												div4=div;
-												price+=item2.ix.room.price;
+												$(div4).append(personRoom(item2));
 											}
 											if(item2.typeid==7){
-												
+												var divs=$("<div class='content col-md-11'></div>")
+												var h4=$("<h4>"+item2.ix.name+"</h4>");
+												$.each(item2.ix.list,function(index3,item3){
+													 if(item3.typeid==1){
+														$(divs).append(personProject(item3));
+													}
+													if(item3.typeid==2||item3.typeid==4){
+														$(divs).append(personMenu(item3,1));
+													}
+													if(item3.typeid==3){
+														$(divs).append(personRoom(item3));
+													}  
+												})
+												$(div5).append(divs);
 											}
 										})
 									})
 									divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses5'><span class='step'>01</span><span>个人订单</span></a></h4></div>");
 									divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses5'></div>");
-									if(typeid==5){
-										h4=$("<h4>"+item2.ix.name6+"</h4>");
-									}
-									$(divh1).append(h4).append(div2).append(div3).append(div4);
+									$(divh1).append(div2).append(div3).append(div4).append(div5);
 									$(div).append(divh).append(divh1);
 			    					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 									$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
 			    					$(div1).append(h41);
-									$(".box").append(div1).append(div);
+									$("#orderInfo .box").append(div1).append(div);
 						}else{
 							var div=$("<div class='content col-md-12 collapsed' id='checkout-collapse4'></div>");
 							var divh;
 							var divh1;
+							price=0;
 							$.each(data.list,function(index,item){
-								var div2;
-								var div3;
-								var div4;
+								var div2=$("<div></div>");
+								var div3=$("<div></div>");
+								var div4=$("<div></div>");
+								var div5=$("<div></div>");
+								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
 								$.each(item.orders,function(index1,item1){
 									$.each(item1.list,function(index2,item2){
 										if(item2.typeid==1||item2.typeid==5){
-											var h4;
-											var divh2=$("<div class='content col-md-11'></div>");
-											var divhtable=$("<table class='table'><thead>"
-											+"<th scope='col'>项目名称</th>"
-											+"<th scope='col'>项目地点</th>"
-											+"<th scope='col'>项目时间</th>"
-											+"<th scope='col'>项目价格</th>"
-											+"<th scope='col'>项目负责人</th>"
-											+"<th scope='col'>项目状态</th></thead></table>");
-											var divtbody=$("<tbody></tbody>");
-											if(item2.typeid==1){
-												var fzr;
-												$.each(item2.ix.list[0].list,function(indexs,is){
-													if(is.staff.postionid==1){
-														fzr=is.staff.user.uname;
-													}
-												})
-												price+=item2.ix.project.price;
-												var timestamp4= new Date(item2.ix.list[0].starttime);
-												timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
-												var timestamp5= new Date(item2.ix.list[0].endtime);
-												timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-												var divtr=$("<tr>"
-														+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item2.ix.project.pname+"</b></th>"
-														+"<td><b>"+item2.ix.list[0].area.area.aname+"</b></td>"
-														+"<td><b>"+timestamp4+"-"+timestamp5+"</b></td>"
-														+"<td><b>"+item2.ix.list[0].project.price+"</b></td>"
-														+"<td>"+fzr+"</td>"
-														+"<td>进行中</td></tr>");
-												$(divtbody).append(divtr);
-											}else{
-												$.each(item2.ix.list,function(index3,item3){
-													var fzr;
-													$.each(item3.list,function(indexs,is){
-														if(is.staff.postionid==1){
-															fzr=is.staff.user.uname;
-														}
-													})
-													var timestamp4= new Date(item3.starttime);
-													timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
-													var timestamp5= new Date(item3.endtime);
-													timestamp5=timestamp5.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp5.toTimeString().substr(0, 8); 
-													price+=item3.project.price;
-													var divtr=$("<tr>"
-															+"<th scope='row'><img src='[[@{/img/product-image.jpg}]]' width='50' height='50' alt='图片'/><b>"+item3.project.pname+"</b></th>"
-															+"<td><b>"+item3.area.area.aname+"</b></td>"
-															+"<td><b>"+timestamp4+"至"+timestamp5+"</b></td>"
-															+"<td><b>"+item3.project.price+"</b></td>"
-															+"<td>"+fzr+"</td>"
-															+"<td>进行中</td></tr>");
-													$(divtbody).append(divtr);
-												})
-											}
-											$(divhtable).append(divtbody);
-											$(divh2).append(divhtable);
-											$(div2).append(h4).append(divh2);
+											$(divh1).append(teamProject(item2));
 										}
-										if(item2.typeid==2){
-											var divs=$("<div class='content col-md-11'></div>");
-											if(item2.type==4){
-												var h4=$("<h4>"+item2.ix.mname+"</h4>");
-												$(divs).append(h4);
-											}
-											var divtable=$("<table class='table'>"
-												    +"<thead>"
-													+"<th scope='col'>菜品名称</th>"
-													+"<th scope='col'>菜品价格</th>"
-													+"<th scope='col'>菜品数据</th>"
-													+"<th scope='col'>菜品数量</th>"
-													+"<th scope='col'>菜品总价</th>"
-													+"</thead>");
-											var divbody=$("<tbody></tbody>");
-											var tr=$("<tr>"
-													+"<th scope='row'><img src='/"+item2.ix.image+"' width='50' height='50' alt='图片' /><b>"+item2.ix.mname+"</b></th>"
-													+"<td><b>"+item2.ix.price+"</b></td>"
-													+"<td><b>"+item2.ix.intorduce+"</b></td>"
-													+"<td><b>"+item2.name2+"</b></td>"
-													+"<td><b>"+item2.name2*item2.ix.price+"</b></td>"
-													+"</tr>");
-													$(divbody).append(tr);
-												if(item2.typeId==4){
-													$.each(item2.ix.list,function(index3,item3){
-														var tr=$("<tr>"
-																+"<th scope='row'><img src='/"+item3.ix.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"<td><b>"+item3.intorduce+"</b></td>"
-																+"<td><b>1</b></td>"
-																+"<td><b>"+item3.price+"</b></td>"
-																+"</tr>");
-																$(divbody).append(tr);
-																price+=item3.price;
-													})
-												}if(item2.typeId==2){
-													price+=item2.ix.price;
-												}
-												$(divtable).append(divbody);
-												$(divs).append(divtable);
-												div3=divs;
+										if(item2.typeid==2||item2.typeid==4){
+											$(divh1).append(teamMenu(item2,0));
 										}
 										if(item2.typeid==3){
-											var div=$("<div class='content col-md-11'></div>");
-											var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
-											var tbody=$("<tbody></tbody>");
-											$.each(item2.list,function(item3,index3){
-												var type="单人间";
-												if(item3.ix.room.typeid==2){
-													type="双人间";
+											$(divh1).append(div4);
+										}
+										if(item2.typeid==7){
+											var divs=$("<div class='content col-md-11'></div>")
+											var h4=$("<h4>"+item2.ix.name+"</h4>");
+											$.each(item2.ix.list,function(index3,item3){
+												 if(item3.typeid==1||item3.typeid==5){
+													$(divs).append(teamProject(item3,1));
 												}
-												if(item3.ix.room.typeid==3){
-													type="总统套房";
+												if(itme3.typeid==2||item3.typeid==4){
+													$(divs).append(teamMenu(item3));
 												}
-												var status;
-												if(item3.ix.room.status==1){
-													status="正在入住";
-												}else{
-													status="已退房";
-												}
-												var tr=$("<tr>"
-														+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
-														+"<td><b>"+item3.ix.room.price+"</b></td>"
-														+"<td><b>"+type+"</b></td>"
-														+"<td><b>"+status+"</b></td>"
-														+"</tr>");
-												$(tbody).append(tr);
+												if(item3.typeid==3){
+													$(divs).append(teamRoom(item3));
+												} 
 											})
-											price+=item2.ix.room.price;
-											$(table).append(tbody);
-											$(div).append(table);
-											div4=div;
+											$(divh1).append(divs);
 										}
 									})
 							})
 							if(item.id==data.user.id){
-								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapse0'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
-								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapse0'></div>");
-								$(divh1).append(div2).append(div3).append(div4);
+								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>负责人订单</span></a></h4></div>");
 								$(div).append(divh).append(divh1);
 							}else{
 								divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
-								divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
-								$(divh1).append(div2).append(div3).append(div4);
 								$(div).append(divh).append(divh1);
 							}
-								var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
-								$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
-		    					$(div1).append(h41);
-								$(".box").append(div1);
-								$(".box").append(div);
+								$("#orderInfo .box").append(div1);
+								$("#orderInfo .box").append(div);
 							})
+							var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
+							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+	    					$(div1).append(h41);
 						}
 						},"json");
 			})
@@ -835,132 +697,141 @@
 				}
 			})
 		</script>
-		<script>
-      $(function() {
-      	var pid;
-      	var ry_dt;
-      	var jd_name;
-        $("#expire_date").datepicker({
-          defaultDate: "10/22/2020"
-        });
-        $("[type=submit]").click(function(){
-			location.href="orders.html";
-		})
-		$("#tj").click(function(){
-			var new_sj=$(this).parents("tr").clone(true);
-			new_sj.find("[type=text]").val("");
-			$("#ry_tb_body").append(new_sj);
-		})
-		$("#yc").click(function(){
-			var tr_length=$(".ry_tb_body_tr").length;
-			if(tr_length==1){
-				alert("已经是最后一个了,不能删除");
-			}else{
-				$(this).parents("tr").remove();
-			}
-		});
-		$("[data=dd_radio]").click(function(){
-			if(true){
-				$("#hide_dd").css("display","block");
-			}
-			$("#hide_ry").css("display","none");
-		});
-		$("[data=gr_radio]").click(function(){
-			if(true){
-				$("#hide_ry").css("display","block");
-			}
-			$("#hide_dd").css("display","none");
-		});
-		$("#show_pb").click(function(){
-			$("#hide_cc").css("display","block");
-		})
-		$(".show_jd").click(function(){
-			$("#hide_jd").css("display","flex");
-			pid=$(this).attr("pid");
-			$(this).html("-");
-		})
-		
-		$(".show_project_time").click(function(){
-			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
-			
-		})
-		
-		$("[name=ck_ry]").click(function(){
-			if (this.checked) {
-				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
-				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
-				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr></tr>");
-					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td>"+ry_name+"</td>");
-					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
-				}else{
-					ry_dt=$("[pid='"+pid+"x']");
-					var td=$("<td>"+ry_name+"</td>");
-					ry_dt.append(td);
-				}
-			}else{
-				
-			}
-			
-		})
-		
-		$("[name=lr_time_ck]").click(function(){
-			var tid=$(this).parents("tr").attr("tid");
-			var thead=$("[pid='"+pid+"']").parents("thead"); 
-			var jia_tr=$(thead).find("tr[tid='"+tid+"']").html();
-			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
-			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
-			var kw=$(this).parents("tr").find("td:eq(2)").html();
-			var kw1=kw-rs;
-			if($(this).parent("td").prev("td").find("input").val()==""){
-				alert("您还没有输入人数");
-				this.checked=false;
-			}else if(jia_tr==null){
-				if(kw1<0){
-					alert("人数不能大于空位");
-					this.checked=false;
-				}else{
-					if(this.checked){
-						$(this).parents("tr").find("td:eq(2)").html(kw1);
-						var dt=$("<tr tid='"+tid+"'>"+
-								"<td style='color: orange;'>"+jd_name+"</td>"+
-			                	"<td>"+$(this).parents("tr").find("td:eq(0)").html()+"</td>"+
-			                	"<td>"+$(this).parents("tr").find("td:eq(1)").html()+"</td>"+
-			                	"<td>"+kw1+"</td>"+
-			                	"<td>"+rs+"</td>"+
-			                "</tr>");
-			       		if(document.querySelector("[pid='"+pid+"y']")==null){
-							var ry_dt1=$("<tr></tr>");
-							ry_dt1.attr("pid",pid+"y");
-							$("[pid='"+pid+"x']").after(ry_dt1);
-							$(ry_dt1).after(dt);
-						}else{
-							
-							var ry_dt1=$("[pid='"+pid+"y']");
-							$(ry_dt1).after(dt);
-						}
-			       	}
-				}
-			}else{
-				
-			       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
-			       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
-			       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
-			       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
-			       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
-			       		$(thead).find("tr[tid='"+tid+"']").remove();
-			}
-		})
-     });
-    </script>
 		<script th:line="javascript">
-			
+			var typeid=5;
+			$("#checkboxs>[type='radio']").click(function(){
+				var index=$("#checkboxs>[type='radio']").index($(this));
+				$("[name='Hiddens']").hide();
+				$("[name='Hiddens']:eq("+index+")").show();
+				if(index==1){
+					typeid=1;
+				}
+				if(index==2){
+					typeid=2;
+				}
+				if(index==3){
+					typeid=3;
+				}
+				if(index==0){
+					typeid=5;
+				}
+			});
+			$("[name='Hiddens'] [type='checkbox']").click(function(){
+				$(".addsorder").css("display","block");
+				var tr=$(this).parent().parent().clone();
+				var type="活动";
+				if(typeid==1){
+					type="项目";
+				}
+				if(typeid==2){
+					type="餐饮";
+				}
+				if(typeid==3){
+					type="房间";
+				}
+				if(typeid==5){
+					type="活动";
+				}
+				var td=$("<td><input type='hidden' class='typeidss' value='"+typeid+"'>"+type+"</td>");
+				$(tr).append(td);
+				$("#boxorder").append(tr);
+			})
+			$(".addsorder").click(function(){
+				var a=[];
+				$.each($("#boxorder tr"),function(index,item){
+					var x={};
+					x.typeid=$(this).find(".typeidss").val();
+					x.iid=$(this).find("[name='productid']").val();
+					if(x.typeid==1||x.typeid==5);
+					a.push(x);	
+				})
+				var a1=JSON.stringify(a);
+				$.ajax({
+					url:"/order/queryPaiban",
+					data:a1,
+					dataType:"json",
+					processData:false, 
+	 				contentType:"application/json;charset=UTF-8",
+					type:"post",
+					success:function(data){
+						$("#paiban").css("display","block");
+						console.log(data);
+						 $.each(data,function(index,item){
+							if(item.typeid==5){
+							var div=$("<div style='border:1px soild red'>活动"+(index+1)+"</div>");
+							$.each(item.ix,function(index1,item1){
+								var div1=$("<div style='border:1px soild blue'>"+item1.pname+"</div>");
+								$.each(item1.areas,function(index2,item2){
+									var button=$("<button>"+item2.aname+"</button>");
+								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+										+"<thead>"
+										+"<tr>"
+										+"<th>开始时间</th>"
+										+"<th>结束时间</th>"
+										+"<th>空位</th>"
+										+"<th>人数</th>"
+										+"<th></th>"
+										+"</tr>"
+										+"</thead>"
+										+"</table>");
+								    var tbody=$("<tbody id='time_tbody'></tbody>");
+									$.each(item2.worktimes,function(index3,item3){
+										$.each(item3,function(index4,item4){
+											var tr=$("<tr>"
+													+"<td>"+item4.startTime+"</td>"
+													+"<td>"+item4.endTime+"</td>"
+													+"<td>"+item4.count+"</td>"
+													+"<td></td>"
+													+"</tr>");
+											$(tbody).append(tr);
+										})
+									})
+									$(table).append(tbody);
+									$(div1).append(button);
+									$(div1).append(table);
+								})
+								$(div).append(div1);
+							})
+							$("#paiban").append(div);
+							}else{
+								var div=$("<div style='border:1px soild red'>"+item.ix.pname+"</div>");
+								$.each(item.ix.areas,function(index2,item2){
+									var button=$("<button>"+item2.aname+"</button>");
+								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+										+"<thead>"
+										+"<tr>"
+										+"<th>开始时间</th>"
+										+"<th>结束时间</th>"
+										+"<th>空位</th>"
+										+"<th>人数</th>"
+										+"<th></th>"
+										+"</tr>"
+										+"</thead>"
+										+"</table>");
+								    var tbody=$("<tbody id='time_tbody'></tbody>");
+									$.each(item2.worktimes,function(index3,item3){
+										$.each(item3,function(index4,item4){
+											var tr=$("<tr>"
+													+"<td>"+item4.startTime+"</td>"
+													+"<td>"+item4.endTime+"</td>"
+													+"<td>"+item4.count+"</td>"
+													+"<td></td>"
+													+"</tr>");
+											$(tbody).append(tr);
+										})
+									})
+									$(table).append(tbody);
+									$(div).append(button);
+									$(div).append(table);
+								})
+								$("#paiban").append(div);
+							}
+						})
+						 
+					}
+				})
+			})
 		</script>
-	</body>
-
+		
+</body>
 </html>

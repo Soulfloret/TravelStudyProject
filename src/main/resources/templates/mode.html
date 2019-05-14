@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.themleaf.org">
+<html lang="en" xmlns:th="http://www.themleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,19 +20,18 @@
                     <i class="fas fa-bars tm-nav-icon"></i>
                 </button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav mx-auto h-100">
+						<ul class="navbar-nav dh mx-auto h-100">
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link d-block" href="login.html" target="main">
-									Admin, <b>Logout</b>
-								</a>
+								<b><a class="nav-link d-block" href="/login/login" th:text="${session.staff.user.uname}+'         '+退出登录" th:if="${session.staff!=null}">
+								</a></b>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<iframe scrolling="no" id="main" name="main" frameborder="0"  style="min-height:600px;width:100%;height:100%;" src="index.html"></iframe>
+			<iframe id="main" name="main" frameborder="0"  style="min-height:600px;width:100%;height:100%;" src="/login/index"></iframe>
 			<footer class="tm-footer row tm-mt-small">
 				<div class="col-12 font-weight-light">
 					<p class="text-center text-white mb-0 px-4 small">
@@ -64,7 +63,7 @@
 						var a=$("<a class='dropdown-item' href='/"+item1.url+"' target='main'>"+item1.mname+"</a>")
 						div.append(a);
 						if(index1==0&&index==0){
-							$("#main").attr("src",item1.url);
+							$("#main").attr("src","/"+item1.url);
 						}
 					})
 					li.append(div);
@@ -74,9 +73,8 @@
 						+"<i class='fa fa-bars'></i>"+item.mname+""
 						+"</a>"
 						+"</li>");
-					$("#main").attr("src","/"+item.url);
 				 }
-				 $(".mx-auto").append(li);
+				 $(".dh").append(li);
 			 })
 		},"json")
 		  // 计算页面的实际高度，iframe自适应会用到

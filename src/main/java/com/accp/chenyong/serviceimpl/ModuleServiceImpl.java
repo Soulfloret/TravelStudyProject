@@ -61,4 +61,16 @@ public class ModuleServiceImpl implements ModuleService{
 		return mapper.queryModuleByUid(uid, id);
 	}
 
+	@Override
+	public List<module> queryByridAll(Integer uid) {
+		// TODO Auto-generated method stub
+		return mapper.queryByridAll(uid);
+	}
+
+	@Override
+	public List<module> queryAll(Integer mid) {
+		// TODO Auto-generated method stub
+		return mapper.queryAll(mid);
+	}
+
 }

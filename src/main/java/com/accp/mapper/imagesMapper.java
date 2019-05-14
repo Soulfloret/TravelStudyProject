@@ -1,14 +1,26 @@
 package com.accp.mapper;
 
+import com.accp.domain.bind;
 import com.accp.domain.dynamics;
 import com.accp.domain.images;
 import com.accp.domain.imagesExample;
+import com.accp.domain.menu;
 import com.accp.domain.project;
+import com.accp.domain.room;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface imagesMapper {
+	
+	int deleteByiid(Integer id);
+	
+	int insertmenuimglist(menu m);
+	
+	int insertroomimglist(room r);
+	
+	int insertbingimglist(bind b);
+	
     int countByExample(imagesExample example);
 
     int deleteByExample(imagesExample example);
@@ -36,7 +48,9 @@ public interface imagesMapper {
 	List<images> queryimg(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
     
     int insertByList(@Param("iid")Integer iid,@Param("typeid")Integer typeid,@Param("images")List<images> images);
-    	
+
+    int delByiidAndTypeId(@Param("iid")Integer iid,@Param("typeid")Integer typeid);
+    
 	int insertimglist(dynamics dinameics);
 
 }

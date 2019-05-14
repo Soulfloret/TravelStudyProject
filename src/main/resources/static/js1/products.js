@@ -172,7 +172,7 @@ jQuery(function($) {
 			}
 			
 			$this.css({
-				'width': new_itemW
+				'width': new_itemW,
 			});
 			$this.children().animate({
 				opacity: 1,
@@ -238,7 +238,7 @@ jQuery(function($) {
 				var $this = $(this),
 					filter = $this.find(' > .product').data(type),
 					filter_arr;
-				
+					filter+="";
 				if ( filter !== undefined )
 				{
 					filter_arr = filter.split('|');

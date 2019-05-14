@@ -11,6 +11,19 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="queryByTime" resultMap="BaseResultMap">
+  	SELECT wu.* FROM worduser AS wu
+	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id`
+	LEFT JOIN staff AS s ON s.`id`=wu.`productStaffId`
+	LEFT JOIN  users AS u ON u.`id`=s.`userId`
+	LEFT JOIN project AS p ON p.`name1`=s.`PostionId` 
+	<if test="starttime!=null and endtime!=null">
+		and (opw.startTime!=#{starttime} and opw.endTime!=#{endtime})
+	</if>
+	<if test="pid!=null">
+		and p.id=#{pid}
+	</if>
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -51,8 +51,8 @@ public class project {
 
     private String name5;
     
-    private Map<String,List<workTime>>worktimes;
-   
+    private List<areas> areas;
+           
     private List<images> ilist;
     
     private images img;
@@ -60,16 +60,15 @@ public class project {
     private projectpl pllist;
     
     private List<projectpl> pllistshh;
-    
- 
 
-	public Map<String, List<workTime>> getWorktimes() {
-		return worktimes;
+	public List<areas> getAreas() {
+		return areas;
 	}
 
-	public void setWorktimes(Map<String, List<workTime>> worktimes) {
-		this.worktimes = worktimes;
+	public void setAreas(List<areas> areas) {
+		this.areas = areas;
 	}
+
 
 	public List<projectpl> getPllistshh() {
 		return pllistshh;

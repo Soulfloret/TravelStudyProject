@@ -27,4 +27,6 @@ public interface MealixMapper {
     int updateByPrimaryKeySelective(Mealix record);
 
     int updateByPrimaryKey(Mealix record);
+    
+    List<Mealix> queryTid(@Param("tid")Integer tid);
 }

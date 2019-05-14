@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface ordersonMapper {
 	
+	List<orderson> queryroomtj(orderson o);
+	
 	List<orderson> querytj(orderson o);
 	
     int countByExample(ordersonExample example);

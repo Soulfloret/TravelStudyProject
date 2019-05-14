@@ -20,16 +20,22 @@
 		<div class="container mt-5">
 			<div class="row tm-content-row">
 				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-					<form th:action="@{/room/toqueryroom}">
-					<span style="color: white;">类型：</span>
-					<select class="" name="typeid" style="width: 150px;height: 33px;">
-						<option value="0" th:selected="${typeid==0}">请选择</option>
-						<option value="1" th:selected="${typeid==1}">单人间</option>
-						<option value="2" th:selected="${typeid==2}">双人间</option>
-						<option value="3" th:selected="${typeid==3}">总统套房</option>
-					</<select>
-					<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
-					</form>
+			<form class="form-inline col-md-11" method="post"  style="margin-bottom: 10px;" th:action="@{/room/toqueryroom}">
+				<div class="form-group" style="margin:0px 10px 0px 0px;">
+				<label for="exampleInputName2" style="margin-top: 10px">房间类型:</label>
+				<select name="typeid" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
+        		<option value="0" th:selected="${ro.typeid==null}">选择类型</option>
+        		<option value="1" th:selected="${ro.typeid==1}">单人间</option>
+        		<option value="2" th:selected="${ro.typeid==2}">双人间</option>
+        		<option value="3" th:selected="${ro.typeid==3}">总统套房</option>
+        		</select>
+				</div>
+				<div class="form-group" style="margin:0px 10px 0px 0px;">
+					<label for="exampleInputName2" style="margin-top: 10px">描述:</label>
+					<input type="text" th:value="${ro.rname}" name="rname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="房间号">
+				</div>
+				<input type="submit" class="btn btn-info urls"  value="查询">
+			</form>
 					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 30px;">
 						<div class="tm-product-table-container">
 							<table style="text-align: center;" class="table table-hover tm-table-small tm-product-table">
@@ -52,9 +58,13 @@
 										<td><span th:if="${item.typeid==1}" th:text="单人间"></span><span th:if="${item.typeid==2}" th:text="双人间"></span><span th:if="${item.typeid==3}" th:text="总统套房"></span></td>
 										<td th:text="${item.price}"></td>
 										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="可租" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="维修中" style="color: red;"></a></td>
+										<td style="display: none;" th:text="${item.id}"></td>
 										<td>
-											<a href="#" class="tm-product-delete-link">
+											<a href="javascript:void(0)" class="tm-product-delete-link">
 												<i class="far fa-trash-alt tm-product-delete-icon"></i>
+											</a>
+											<a href="javascript:void(0)" class="ckxq tm-product-delete-link" data-target="#JJ_xztan" data-toggle="modal">
+												<i class="fa fa-info" style="color: white;"></i>
 											</a>
 										</td>
 									</tr>
@@ -68,14 +78,125 @@
 
 			</div>
 		</div>
-
+		<div class="modal fade bs-example-modal-lg" id="JJ_xztan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content" style="background-color: #435c70;">
+							<div id="" class="modal-header JJ_shang">
+								<span class="closeModal">
+							<label>房间号</label>&nbsp;&nbsp;&nbsp;<span id="fjh" style="color: red;"></span>
+						</span>
+								<span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<div id="" class="modal-body">
+								<table class="table tables" style="text-align: center;">
+									<thead>
+									<tr>
+										<td>开始时间</td>
+										<td>结束时间</td>
+										<td>预订用户</td>
+										<td>是否付款</td>
+									</tr>
+									</thead>
+									<tbody id="tbo">
+									
+									</tbody>
+								</table>
+								
+							</div>
+							<div id="" class="modal-footer">
+								<a class="btn btn-info urls" data-dismiss="modal">关闭</a>
+							</div>
+						</div>
+					</div>
+				</div>
 		 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-		<!-- https://jquery.com/download/ -->
 		<script th:src="@{/js/bootstrap.min.js}"></script>
-    <!-- https://getbootstrap.com/ -->
 		<script>
-		
+			$(function(){
+				
+				
+				$(".ckxq").click(function(){
+					var id=$(this).parent().prev().text();
+					var names=$(this).parent().prev().prev().prev().prev().prev().prev().text();
+					$("#fjh").text(names);
+					$.ajax({
+						url:"/room/AjaxQuerydid",
+						data:{"id":id},
+						type:"post",
+						dataType:"JSON",
+						success:function(result){
+							console.log(result);
+							$("#tbo").html("");
+							$.each(result,function(i,obj){
+								var s=new Date(obj.begintime);
+								var ss=new Date(obj.endtime);
+								var tr=$("<tr>");
+								var td1=$("<td>"+s.toLocaleDateString()+"</td>")
+								var td2=$("<td>"+ss.toLocaleDateString()+"</td>")
+								var td3=$("<td>"+obj.user.uname+"</td>")
+								tr.append(td1);
+								tr.append(td2);
+								tr.append(td3);
+								if("1"==obj.name1){
+									var td4=$("<td>已付款</td>")
+									tr.append(td4);
+								}else{
+									var td4=$("<td>未付款</td>")
+									tr.append(td4);
+								}
+								
+								$("#tbo").append(tr);
+							})
+						}
+					})
+				})
+				
+				
+				
+				
+				
+				
+				
+				$(".sj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					var res = confirm("确定要下架该房间吗？");
+					if(res==true){
+						$.ajax({
+							url:"/room/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+				
+				$(".xj").on("click",function(){
+					var type=$(this).text();
+					var id=$(this).parent().next().text();
+					var res = confirm("确定要上架该房间吗？");
+					if(res==true){
+						$.ajax({
+							url:"/room/sjxj",
+							data:{"type":type,"id":id},
+							type:"post",
+							success:function(result){
+								alert(result);
+								window.location.reload();
+							}
+						})
+					}else{
+						return false;
+					}
+					
+				})
+			})
 		</script>
 	</body>
-
 </html>

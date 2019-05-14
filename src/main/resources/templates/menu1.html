@@ -66,6 +66,15 @@
 				margin: -5px 8px 10px 10px;
 				color: #999;
 			}
+			
+			.imgs {
+			    max-width: 100%;
+			    width: 273px;
+			    height: 168px;
+			    vertical-align: middle;
+			    border: 0;
+			    -ms-interpolation-mode: bicubic;
+			}
 		</style>
 	</head>
 
@@ -224,23 +233,23 @@
 						<!-- SITE NAVIGATION MENU -->
 						<nav id="site-menu" role="navigation">
 							<ul class="main-menu hidden-sm hidden-xs">
-								<li class="active">
-									<a href="pagehome.html">首页</a>
-								</li>
-								<li>
-									<a href="productList.htmll">活动</a>
-								</li>
-								<li>
-									<a href="menu1.html">餐饮</a>
-								</li>
-								<li>
-									<a href="hotel.html">住宿</a>
-								</li>
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
+									</li>
+									<li>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
 
-								<li>
-									<a href="Person.html">个人中心</a>
-								</li>
-							</ul>
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+								</ul>
 
 						</nav>
 						<!-- // SITE NAVIGATION MENU -->
@@ -256,10 +265,10 @@
 					<div class="strip-line"></div>
 				</div>
 				<div class="our-menu-grids">
-					<span>实惠套餐</span>
+					<span style="font-size: 18px;"><a href="javascript:void(0)">实惠套餐</a></span>
 					<div class="order-top" th:each="bitem : ${blist}">
 						<li class="im-g">
-							<a th:href="@{/menu/toquerymenu1Byid(id=${bitem.id},type='4')}"><img th:if="${bitem.image!=null}" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${bitem.id},type='4')}"><img th:if="${bitem.image!=null}" class="imgs" th:src="${bitem.image.url}" width="273px" height="169px"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${bitem.price}"></h3>
@@ -278,10 +287,10 @@
 				
 				
 				<div class="our-menu-grids" th:each="item : ${list}">
-					<span th:text="${item.tname}"></span>
+					<span style="font-size: 18px;"><a href="javascript:void(0)" th:text="${item.tname}"></a></span>
 					<div class="order-top" th:each="items : ${item.list}">
 						<li class="im-g">
-							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" th:src="${items.image.url}" width="273px" height="169px"/></a>
+							<a th:href="@{/menu/toquerymenu1Byid(id=${items.id},type='2')}"><img th:if="${items.image!=null}" class="imgs" th:src="${items.image.url}" width="273" height="169"/></a>
 						</li>
 						<li class="data">
 							<h3 th:text="${items.price}"></h3>

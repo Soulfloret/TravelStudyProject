@@ -39,10 +39,8 @@ public class MyInterceptor implements HandlerInterceptor {
 		Object map=request.getSession().getAttribute("urlMap");
 		if(map!=null) {
 			Map<String,module>maps=(Map<String,module>)request.getSession().getAttribute("urlMap");
-			for (String s : maps.keySet()) {
-				if(s.indexOf(uri.substring(0,uri.indexOf("/")))!=-1) {
+				if(maps.get(uri)!=null) {
 					return true;
-				}
 			}
 		}
 		return false;

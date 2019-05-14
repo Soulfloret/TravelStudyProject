@@ -1,75 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>账号设置</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+</head>
 
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>账号设置</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
-		<link rel="stylesheet" href="css/fontawesome.min.css" />
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/templatemo-style.css">
-	</head>
-
-	<body id="reportsPage">
-		<div class="" id="home">
-			<div class="container">
-				<div class="row tm-content-row">
-					<div class="tm-block-col tm-col-avatar">
-						<div class="tm-bg-primary-dark tm-block tm-block-avatar">
-							<h2 class="tm-block-title">头像设置</h2>
-							<div class="tm-avatar-container">
-								<img src="img/avatar.png" alt="Avatar" class="tm-avatar img-fluid mb-4" />
-								<a href="#" class="tm-avatar-delete-link">
-									<i class="far fa-trash-alt tm-product-delete-icon"></i>
-								</a>
+<body id="reportsPage">
+	<div class="" id="home">
+		<div class="container">
+			<div class="row tm-content-row">
+				<div class="tm-block-col tm-col-avatar">
+				<form action="/accounts/update" method="post" enctype="multipart/form-data">
+					<div class="tm-bg-primary-dark tm-block tm-block-avatar">
+						<h2 class="tm-block-title">头像设置</h2>
+						<div class="tm-avatar-container" th:each="items : ${list}">
+							<img th:src="${'/'+items.ulist.name2}" class="tm-avatar img-fluid mb-4" /> 
+								<input type="file" name="file">
+						</div>
+						<input type="submit" class="btn btn-primary btn-block text-uppercase" value="修改头像">
+						</div>
+					</form>
+				</div>
+				<div class="tm-block-col tm-col-account-settings">
+					<div class="tm-bg-primary-dark tm-block tm-block-settings">
+						<h2 class="tm-block-title">账号设置</h2>
+						<form action="/accounts/updateById" class="fo tm-signup-form row" th:each="item : ${list}">
+							<div class="form-group col-lg-6">
+								<label for="uname">姓名</label> <input id="name" name="uname"
+									type="text" th:value="${item.ulist.uname}" class="form-control validate" />
 							</div>
-							<button class="btn btn-primary btn-block text-uppercase">
-                	修改头像
-              </button>
-						</div>
-					</div>
-					<div class="tm-block-col tm-col-account-settings">
-						<div class="tm-bg-primary-dark tm-block tm-block-settings">
-							<h2 class="tm-block-title">账号设置</h2>
-							<form action="" class="tm-signup-form row">
-								<div class="form-group col-lg-6">
-									<label for="name">姓名</label>
-									<input id="name" name="name" type="text" class="form-control validate" />
-								</div>
-								<div class="form-group col-lg-6">
-									<label for="email">邮箱</label>
-									<input id="email" name="email" type="email" class="form-control validate" />
-								</div>
-								<div class="form-group col-lg-6">
-									<label for="password">密码</label>
-									<input id="password" name="password" type="password" class="form-control validate" />
-								</div>
-								<div class="form-group col-lg-6">
-									<label for="password2">确认密码</label>
-									<input id="password2" name="password2" type="password" class="form-control validate" />
-								</div>
-								<div class="form-group col-lg-6">
-									<label for="phone">电话</label>
-									<input id="phone" name="phone" type="tel" class="form-control validate" />
-								</div>
-								<div class="col-12">
-									<button type="submit" class="btn btn-primary btn-block text-uppercase">
-                   	更新账号
-                  </button>
-								</div>
-							</form>
-						</div>
+							<div class="form-group col-lg-6">
+								<label for="phone">电话</label> <input id="email" name="phone"
+									type="text" th:value="${item.ulist.phone}" class="form-control validate" />
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="password">密码</label> <input id="password"
+									name="upassword" type="password" class="form-control validate" />
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="password2">确认密码</label> <input id="password2"
+									name="password2" type="password" class="form-control validate" />
+							</div>
+							<div class="col-12">
+								<button type="submit"
+									class="su btn btn-primary btn-block text-uppercase">更新账号
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		
 		</div>
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<!-- https://jquery.com/download/ -->
-		<script src="js/bootstrap.min.js"></script>
-		<!-- https://getbootstrap.com/ -->
-	</body>
+
+	</div>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+	<script type="text/javascript">
+		
+	</script>
+</body>
 
 </html>

@@ -149,23 +149,23 @@
 					<!-- SITE NAVIGATION MENU -->
 					<nav id="site-menu" role="navigation">
 						<ul class="main-menu hidden-sm hidden-xs">
-							<li class="active">
-								<a href="pagehome.html">首页</a>
-							</li>
-							<li>
-								<a href="productList.html">活动</a>
-							</li>
-							<li>
-								<a href="menu1.html">餐饮</a>
-							</li>
-							<li>
-								<a href="hotel.html">住宿</a>
-							</li>
-							
-							<li>	
-								<a href="Person.html">个人中心</a>
-							</li>
-						</ul>
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
+									</li>
+									<li>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
+
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+								</ul>
 						</nav>
 					<!-- // SITE NAVIGATION MENU -->
 				</div>
@@ -196,13 +196,13 @@
 					
 					<div class="m-t-b clearfix">
 						<!-- SIDEBAR -->
-						<aside class="col-xs-12 col-sm-4 col-md-3">
+						<aside class="col-xs-12 col-sm-4 col-md-2">
 							<section class="side-section">
 								<h3 class="uppercase text-bold"><span class="text-xs">个人中心</span></h3>
 								<ul class="nav nav-tabs nav-stacked">
 									<li><a th:href="@{/customer/toPersonDetails}" target="ifr">个人信息</a></li>															
 									<li><a th:href="@{/customer/updateinfo}" target="ifr">修改个人信息</a></li>															
-									<li><a href="MainOrder.html" target="ifr">订单管理</a></li>
+									<li><a th:href="@{/customer/toOrders}" target="ifr">订单管理</a></li>
 								</ul>
 							</section>
 								
@@ -219,7 +219,7 @@
 							</div>
 							<!-- // PROMO -->
 						</aside>
-						<iframe name="ifr" class="col-xs-12 col-md-9" height="580" width="100%" th:src="@{/customer/toPersonDetails}">
+						<iframe name="ifr" class="col-xs-12 col-md-10" height="570" width="100%" th:src="@{/customer/toPersonDetails}">
 							
 							
 						</iframe>

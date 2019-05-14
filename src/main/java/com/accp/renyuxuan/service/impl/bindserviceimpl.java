@@ -15,41 +15,50 @@ import com.accp.renyuxuan.service.bindservice;
 public class bindserviceimpl implements bindservice{
 
 	@Autowired
-	bindMapper b;
+	bindMapper bb;
 	
 	
 	@Override
 	public List<bind> querybind(bind bi) {
 		// TODO Auto-generated method stub
-		return b.querybind(bi);
+		return bb.querybind(bi);
 	}
 
 
 	@Override
 	public int updateByPrimaryKeySelective(bind record) {
 		// TODO Auto-generated method stub
-		return b.updateByPrimaryKeySelective(record);
+		return bb.updateByPrimaryKeySelective(record);
 	}
 
 
 	@Override
 	public int insertmenubind(bind bi) {
 		// TODO Auto-generated method stub
-		return b.insertmenubind(bi);
+		return bb.insertmenubind(bi);
 	}
 
 
 	@Override
 	public int insert(bind record) {
 		// TODO Auto-generated method stub
-		return b.insert(record);
+		return bb.insert(record);
 	}
 
 
 	@Override
 	public List<bind> selectbindByid(Integer id) {
 		// TODO Auto-generated method stub
-		return b.selectbindByid(id);
+		return bb.selectbindByid(id);
 	}
+
+
+	@Override
+	public List<bind> querybindQt(bind bi) {
+		// TODO Auto-generated method stub
+		return bb.querybindQt(bi);
+	}
+
+
 	
 }
