@@ -128,10 +128,15 @@ public class projectController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		pro.setIlist(ilist);
+		return JSON.toJSONString(ilist);
+	}
+	
+	@RequestMapping("/project_insert")
+	@ResponseBody
+	public String project_insert(project pro) {
 		pro.setPstatus("1");
 		int i=pros.insert(pro);
-		return "redirect:query";
+		return "";
 	}
 	
 	/*妞ゅ湱娲伴弻銉嚄閸╁搫婀�*/

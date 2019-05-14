@@ -152,14 +152,14 @@
 							</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-						<div class="tm-product-img-dummy mx-auto">
-							<i class="fas fa-cloud-upload-alt tm-upload-icon"
-								onclick="document.getElementById('fileInput').click();"></i>
-						</div>
+						<div class="tm-product-img-edit mx-auto img_div" style="border: 1px solid white;">
+								
+							</div>
+						
 						<div class="custom-file mt-3 mb-3">
 							<input id="fileInput" type="file" style="display: none;" multiple="multiple"/> <input
 								type="button" class="btn btn-primary btn-block mx-auto"
-								value="上传图片"
+								value="上传图片" id="commit_picture"
 								onclick="document.getElementById('fileInput').click();" />
 						</div>
 					</div>
@@ -271,36 +271,54 @@
 			})
 			
 			
-			$("#insert_project").click(function(){
-				/* var form=$("form"); */
-				var formData = new FormData(); 
-				var fileArr ;
-				$("[type=file]").each(function(i,obj){
-					fileArr = this.files;
+			$("#commit_picture").click(function(){
+				$("#fileInput").change(function(){
+					var formDataimg = new FormData(); 
+					var fileArr ;
+					$("[type=file]").each(function(i,obj){
+						fileArr = this.files;
+					})
+					if(fileArr.length>3){
+						alert("不好意思,最多选择三张图片");	
+					}else{
+						for(var i = 0;i < fileArr.length;i++){
+							formDataimg.append("file",fileArr[i]);
+						}
+					}	
+					 $.ajax({
+		            		url:"file",
+		            		type:"post",
+		            		data:formDataimg,
+		            		processData:false,
+		    				contentType:false,
+		    				dataType:"json",
+		    				success:function(result){
+		    					console.log(result);
+		    					$.each(result,function(i,obj){
+		    						console.log(obj.url);
+		    						var dt=$("<img src='/"+obj.url+"' style='width: 100%; height: 100%;''>"+
+		    						"<input type='hidden' value='"+obj.url+"' name='url'><input type='hidden' value='1' name='typeid'>");
+		    						$(".img_div").append(dt);
+		    					}) 	
+		    				}
+		            }); 
 				})
-				if(fileArr.length>3){
-					alert("不好意思,最多选择三张图片");	
-				}else{
-					for(var i = 0;i < fileArr.length;i++){
-						formData.append("file",fileArr[i]);
-					}
-					console.log(fileArr)
-				 	/* var ilist=[]; */
+			})
+			
+			$("#insert_project").click(function(){
+				var formData = new FormData(); 
+					$("[name=url]").each(function(m,obj1){
+						formData.append("ilist["+m+"].url",$(this).val());
+						formData.append("ilist["+m+"].typeid",1);		
+					})	
 					$("#show_jd_table tr").each(function(i,obj){
 						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
 					})
-						var pj="-1";
+					var pj="-1";
 					$("#show_zw_table tr").each(function(i,obj){
 						console.log($(this).find("td:eq(0)").attr("id"));
 						var id=$(this).find("td:eq(0)").attr("id");
 						pj+=","+id;
-						/* 
-						var name1;
-						for(var k=0;k<obj.length;k++){
-							name1=$(this).find("td:eq(0)").attr("id")+",";
-						}	
-						console.log(name1); */
-						
 					})
 					
 					var myDate = new Date();
@@ -331,8 +349,10 @@
 					formData.append("mincrowd",$("[name=mincrowd]").val());
 					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
 					formData.append("name1",pj);
+					
+					console.log(formData);
 				    $.ajax({
-						url:"file",
+						url:"project_insert",
 						type:"post",
 						data:formData,
 						processData:false,
@@ -342,8 +362,8 @@
 							console.log(123);
 							console.log(result);
 						}
-					});      
-				}
+					});    
+				
 				 
 			})
 			
@@ -422,7 +442,7 @@
 		function hide_jd(th) {
 			$("#jd_tc").css("display", "none");
 			var show_jd_length = $("#show_jd_table").find("tr").length;
-			if (show_jd_length == 1) {
+			if (show_jd_length ==0) {
 				$("#show_jd").hide();
 			}
 		}
@@ -430,7 +450,7 @@
 		function hide_zw(th) {
 			$("#zw_tc").css("display", "none");
 			var show_zw_length = $("#show_zw_table").find("tr").length;
-			if (show_zw_length == 1) {
+			if (show_zw_length ==0) {
 				$("#show_zw").hide();
 			}
 		}
