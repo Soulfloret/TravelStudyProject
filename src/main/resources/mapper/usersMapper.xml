@@ -78,6 +78,10 @@
 	 	</if>
 	   </where>
   </select>
+  
+  <select id="queryIcarno" resultType="com.accp.domain.users">
+  		SELECT * FROM `users` WHERE `idCardNo`=#{idCardNo}
+  </select>
 
   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">
     <association property="usetype" javaType="com.accp.domain.usertype" >
