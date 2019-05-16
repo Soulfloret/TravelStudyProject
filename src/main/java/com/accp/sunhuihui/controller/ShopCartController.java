@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.accp.chenyong.serviceimpl.OrderSonServiceImpl;
 import com.accp.domain.Shopcart;
 import com.accp.domain.orderson;
+import com.accp.domain.productproject;
 import com.accp.renyuxuan.service.ordersonservice;
 import com.accp.sunhuihui.service.OrderSonServiceshh;
 import com.accp.sunhuihui.service.ShopCartService;
@@ -27,10 +29,11 @@ public class ShopCartController {
 	ShopCartService service;
 	@Autowired
 	OrderSonServiceshh oservice;
+	@Autowired
+	OrderSonServiceImpl service1;
 	
 	@RequestMapping("insertList")
 	public int insertList(Shopcart  shopcart) {
-		System.out.println(JSON.toJSONString(shopcart));
 		int i=service.insertList(shopcart);
 		return i;
 	}
@@ -90,7 +93,12 @@ public class ShopCartController {
 		if(endTime==null) {
 			endTime=new Date();
 		}
-		List<orderson> o=oservice.query(orderson, startTime, endTime);
-		return null;
+		List<orderson> o=service1.query(orderson, startTime, endTime);
+		return o;
+	}
+	
+	@RequestMapping("Activeiid")
+	public List<productproject> Activeiid(Integer productid){
+		return service.queryByProdId(productid);
 	}
 }

@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.accp.domain.Shopcart;
+import com.accp.domain.productproject;
 import com.accp.mapper.ShopcartMapper;
+import com.accp.mapper.productprojectMapper;
 
 @Service
 public class ShopCartService {
 
 	@Autowired
 	ShopcartMapper mapper;
+	@Autowired
+	productprojectMapper pdmapper;
 	
 	
 	public int insertList(Shopcart shop) {
@@ -39,5 +43,9 @@ public class ShopCartService {
 	public List<Shopcart> queryAll(Integer userid){
 		List<Shopcart> shop=mapper.queryAll(userid);
 		return shop;
+	}
+	
+	public List<productproject> queryByProdId(Integer productid){
+		return pdmapper.queryByProdId(productid);
 	}
 }
