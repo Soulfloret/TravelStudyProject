@@ -121,6 +121,7 @@ public class OrderSonServiceshh {
 		}
 		
 		public List<orderson> query(List<orderson> o,Date startTime,Date endTime) {
+			List<orderson> o1=new ArrayList<orderson>();
 			for (orderson orderson : o) {
 				if(orderson.getTypeid()==1) {
 					project p=pmapper.selectByPrimaryKey(orderson.getIid());
@@ -151,8 +152,9 @@ public class OrderSonServiceshh {
 					}
 					orderson.setIx(list1);
 				}
+				o1.add(orderson);
 			}
-			return o;
+			return o1;
 		}
 		
 	}
