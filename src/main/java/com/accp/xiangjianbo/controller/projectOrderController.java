@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.ProductAreaService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Order_workAndOrderSon;
@@ -51,6 +52,9 @@ public class projectOrderController {
 	
 	@Autowired
 	ProductAreaService orderTimeService;
+	
+	@Autowired
+	OrderSonService cyorderson;
 	
 	@RequestMapping("/toProjectOrder")
 	public String toProjectOrder() {
@@ -115,6 +119,20 @@ public class projectOrderController {
 		System.out.println(endtime);
 /*		orderTimeService.queryByArearId(p, starttime, endtime);
 */		return "";
+	}
+	
+	/*查询排班*/
+	@RequestMapping("queryWork")
+	@ResponseBody
+	public List<orderson> queryWork(@RequestBody List<orderson> list,Date startTime,Date endTime){
+		if(startTime==null) {
+			startTime=new Date();
+		}
+		if(endTime==null) {
+			endTime=new Date();
+		}
+		List<orderson> sj=cyorderson.query(list, startTime, endTime);
+		return sj;
 	}
 	
 	

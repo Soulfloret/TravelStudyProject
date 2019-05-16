@@ -214,7 +214,7 @@
 							<section class="sidebar push-up">
 								<section class="side-section bg-white">
 									<header class="side-section-header">
-										<h3 class="side-section-title">Categories</h3>
+										<h3 class="side-section-title">类型</h3>
 									</header>
 									<div class="side-section-content">
 										<ul id="category-list" class="vmenu unstyled">
@@ -230,7 +230,7 @@
 								<div class="promo inverse-background" th:style="'background:url('+@{${list[0].ilist[0].url}}+') no-repeat; background-size: auto 100%;'">
 									<div class="inner text-center np">
 										<div class="ribbon">
-											<h6 class="nmb">New Arrivals</h6>
+											<h6 class="nmb">项目推荐</h6>
 											<h5 class="text-semibold uppercase nmb">Leather Fashion</h5>
 											<div class="space10"></div>
 											<a href="products.html" class="with-icon prepend-icon"><i class="iconfont-caret-right"></i><span> Shop Now</span></a>
@@ -281,18 +281,18 @@
 								<div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
 									<div th:each="item:${list}" class="product" th:data-product-id="${item.id}" th:data-category="${item.tid}">
 										<div class="entry-media">
-											<img th:data-src="${item.ilist[0].url}" alt=""  style="height:250px;" class="lazyLoad thumb"/>
+											<img th:data-src="'/'+${item.ilist[0].url}" alt=""  style="height:180px;" class="lazyLoad thumb"/>
 											<div class="hover">
 												<a href="product.html" class="entry-url"></a>
 												<ul class="icons unstyled">
 													<li>
-														<div class="circle ribbon ribbon-sale">Sale</div>
+														<div class="circle ribbon ribbon-sale">出售</div>
 													</li>
 													<li>
-														<a th:href="${item.ilist[0].url}" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
+														<a th:href="'/'+${item.ilist[0].url}" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
 													</li>
 													<li>
-														<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart"></i></a>
+														<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart lbshop" th:iid="${item.id}"></i></a>
 													</li>
 												</ul>
 												<!-- <div class="rate-bar">
@@ -303,20 +303,18 @@
 										</div>
 										<div class="entry-main">
 											<h5 class="entry-title">
-												<a href="product.html">Inceptos orci hac libero</a>
+												<a href="product.html" th:text="${item.pname}"></a>
 											</h5>
 											<div class="entry-description visible-list">
-												<p>Sed ornare cras donec litora integer curabitur orci, at nullam aliquam libero nam himenaeos, amet massa amet ut ipsum viverra mauris rhoncus neque aenean rhoncus gravida orci facilisis quis dui consectetur.</p>
+												<p th:text="${item.description}"></p>
 											</div>
 											<div class="entry-price">
-												<s class="entry-discount">$ 350.00</s>
-												<strong class="accent-color price">$ 250.00</strong>
-												<a href="#" class="btn btn-round btn-default add-to-cart visible-list">Add to Cart</a>
+												<strong class="accent-color price" th:text="￥+${item.price}"></strong>
+												<a href="#" class="btn btn-round btn-default add-to-cart visible-list xqshop" th:iid="${item.id}">加入购物车</a>
 											</div>
-											<div class="entry-links clearfix">
-												<a href="#" class="pull-left m-r">+ Add to Wishlist</a>
-												<a href="#" class="pull-right">+ Add to Compare</a>
-											</div>
+											<!-- <div class="entry-links clearfix">
+												<a href="#" class="pull-left m-r"></a>
+											</div>  -->
 										</div>
 									</div>
 								</div>
@@ -501,5 +499,31 @@
 	<script th:src="@{/js1/jquery.nouislider.js}"></script>
 	<script th:src="@{/js1/jquery.isotope.min.js}"></script>
 	<script th:src="@{/js1/products.js}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".lbshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+			$(".xqshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+		})
+	</script>
 </body>
 </html>

@@ -7,9 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +22,7 @@ import com.accp.domain.users;
 
 import com.accp.xiangjianbo.service.areasService;
 import com.accp.xiangjianbo.service.project_PositionsService;
+import com.accp.xiangjianbo.service.shopcartService;
 import com.accp.xiangjianbo.service.productareasService;
 import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectTypeService;
@@ -26,7 +30,7 @@ import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+import com.accp.domain.Shopcart;
 import com.accp.domain.areas;
 import com.accp.domain.images;
 import com.accp.domain.positions;
@@ -54,6 +58,9 @@ public class projectController {
 	
 	@Autowired
 	project_PositionsService posservice;
+	
+	@Autowired
+	shopcartService shopservice;
 	
 	/*閺屻儴顕楅幍锟介張锟�*/
 	@RequestMapping("query")
@@ -189,4 +196,16 @@ public class projectController {
 		model.addAttribute("list",list);
 		return "update_project";
 	}
+	
+	/*项目加入购物车*/
+	@RequestMapping("/insert_shop")
+	@ResponseBody
+	public String insert_shop(@RequestBody Shopcart record,HttpSession session) {
+		users user=(users) session.getAttribute("use");
+		record.setUserid(user.getId());
+		record.setTypeid(1);
+		int i=shopservice.insert(record);
+		return "";
+	}
+
 }

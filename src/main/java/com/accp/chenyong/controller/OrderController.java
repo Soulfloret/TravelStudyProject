@@ -1,5 +1,6 @@
 package com.accp.chenyong.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,13 +63,18 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("queryPaiban")
-	public List<orderson> queryPaiban(@RequestBody List<orderson> list,Date startTime,Date endTime){
+	public List<orderson> queryPaiban(List<orderson> lit,Date startTime,Date endTime){
+			/*List<orderson> lit=new ArrayList<orderson>();
+			orderson o=new orderson();
+			o.setIid(8);
+			o.setTypeid(1);
+			lit.add(o);*/
 			if(startTime==null) {
 				startTime=new Date();
 			}
 			if(endTime==null) {
 				endTime=new Date();
 			}
-			return service1.query(list,startTime,endTime);
+			return service1.query(lit,startTime,endTime);
 	}
 }

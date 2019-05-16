@@ -113,7 +113,7 @@
 		<div class="" id="home">
 			<div class="container">
 				<div id="xz_ry" >
-				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
+				<div class="modal-dialog" style="max-width: 90%;text-align: center;">
 				<div class="modal-content" style="background: #435c70;color: white;">
 					<div class="modal-header">
 						<h5 class="modal-title" id="myModalLabel">新增订单</h5>
@@ -184,8 +184,14 @@
 				             	</table>
 							</div>
 							
+					<div id="xin_paiban" style="display: none;">
+						<button class="btn btn-primary" name="xin_paiban_button" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
+									排班
+						</button>
+					</div>
+					
 							
-					<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
+					<!-- <div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
 					<div class="col-lg-12">
 							<h4>安排人员</h4>
 							<select class="form-control-sm" style="width: 186px;">
@@ -227,34 +233,12 @@
 							</table>
 						</div>
 						
-					</div>
+					</div> -->
 
-					<div id="hide_project_time" style="display: none;margin-top: 50px;">
-						<span style="margin-left: 100px;">筛选时间</span>
-						<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
-			        	<span style="color: white;margin-left: 20px;">~</span>
-			        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
-			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-						<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
-							<thead>
-								<tr>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th>空位</th>
-									<th>人数</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody id="time_tbody">
-								
-							</tbody>
-						</table>
-					
-					<div id="show_time_yy">
-						<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									安排客户
-						</button>
+					<div id="hide_project_time" style="display: none;margin-top: 10px;">
+						
 					</div>
+					
 					<div style="margin: 30px auto;" hidden="hidden" class="infoss">
 								<span style="margin-left: 50px;">团队</span>
 								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
@@ -480,55 +464,142 @@
 		
 		/*选择活动点击项目查询基地与工作人员*/
 		$("#project_table").on("click",".show_jd",function(){
-					$(".hide_jd").css("display","flex");
-					pid=$(this).attr("pid");
-					$(this).html("-");
-					$.ajax({
-						url:"/xjb_projectController/queryJd?pid="+pid,
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							console.log(result);
-							$("#project_jd_table").html("");
-							$.each(result,function(i,obj){
-								var jd_dt=$("<tr>"+
-										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
-										"<td scope='col'>"+
-						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-						                      "<a style='color: white;' class='show_project_time'>+</a>"+
-						                     "</div>"+
-						                   "</td>"+
-									"</tr>") 
-									
-								$("#project_jd_table").append(jd_dt);
+				$("#xin_paiban").css("display","block");
+				pid=$(this).attr("pid");
+		}) 
+		
+		$("[name=xin_paiban_button]").click(function(){
+			if(confirm("您以选完项目了吗")){
+				
+				alert(pid);
+				$("#hide_project_time").css("display","block");
+				var lis=[];
+				$(".show_jd").each(function(){
+					if(this.checked){
+						var o={};
+						o.iid=$(this).attr("pid");
+						o.typeid=1;
+						lis.push(o);
+					}
+				})
+				var list=JSON.stringify(lis);
+				var ordersssss = new Array();
+				$.ajax({
+					url:"queryWork",
+					data:JSON.stringify(lis),
+					type:"post",
+					dataType:"json",
+					processData:false, 
+	 				contentType:"application/json;charset=UTF-8",
+					success:function(result){
+						console.log(result)
+						/*循环ix*/
+						$.each(result,function(i,obj){
+							/*取ix*/
+							console.log(obj.ix);
+							/*取xi里面的基地*/
+							/* console.log(obj.ix.areas); */
+							/*循环基地*/
+							$.each(obj.ix.areas,function(a,aobj){
+								console.log(aobj);
+								console.log(aobj.aname);
+								
+								var dt=$("<div style='margin-top:50px' class='checkjdid_div'>"+
+											"<h5 jdid="+aobj.aname+">"+aobj.aname+"<h5>"+
+											"<span style='margin-left: 10px'>筛选时间</span>"+
+											"<input type='datetime-local' name='statrtime' placeholder='开始时间' style='margin-left: 20px;width:200px;height:22px;'/>"+
+									        	"<span style='color: white;margin-left: 20px;'>~</span>"+
+									        	"<input type='datetime-local' name='endtime' placeholder='结束时间' style='margin-left: 20px;width:200px;height:22px;'/>"+
+									        	"<input type='button' id='' style='border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 50px;' class='btn-primary' value='查询' />"+
+												"<table class='table' style='margin-top: 20px;width: 100%;'>"+
+													"<thead>"+
+														"<tr>"+
+															
+															"<th style='font-size:14px'>开始时间</th>"+
+															"<th style='font-size:14px'>结束时间</th>"+
+															"<th style='font-size:14px'>空位</th>"+
+															"<th style='font-size:14px'>人数</th>"+
+															"<th style='font-size:14px'></th>"+
+														"</tr>"+
+													"</thead>"+
+													"<tbody class='time_tbody'>"+
+														
+													"</tbody>"+
+												"</table>"+
+											"</div>");
+								$("#hide_project_time").append(dt);
+								/*循环排班*/
+								for(var val in aobj.worktimes){
+									$.each(aobj.worktimes[val],function(w,wobj){
+										console.log(wobj);
+										/*结束时间*/
+										var endtime=new Date(wobj.endTime);
+										var year=endtime.getFullYear();
+										var month=endtime.getMonth()+1;
+										var date=endtime.getDate(); 
+										var h=endtime.getHours();      
+										var m=endtime.getMinutes();     
+										var s=endtime.getSeconds();  
+										var end_time1=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+										
+										/*开始时间*/
+										var starttime=new Date(wobj.startTime);
+										var year1=starttime.getFullYear();
+										var month1=starttime.getMonth()+1;
+										var date1=starttime.getDate(); 
+										var h1=starttime.getHours();      
+										var m1=starttime.getMinutes();     
+										var s1=starttime.getSeconds();  
+										var start_time1=year1+'-'+month1+"-"+date1+" "+h1+':'+m1+":"+s1;
+										var pbdt=$("<tr>"+
+												
+												"<td>"+start_time1+"</td>"+
+												"<td>"+end_time1+"</td>"+
+												"<td>"+wobj.count+"</td>"+
+												"<td>"+
+													"<input type='number' placeholder='输入人数' value=''/>"+
+												"</td>"+
+												"<td><input type='checkbox' name='lr_time_ck'></td>"+
+											"</tr>"+
+											"<tr class='rytr'>"+
+												"<td>安排人员</td>"+
+											"</tr>");
+										/* start_time1 = eval('new Date(' + start_time1.replace(/\d+(?=-[^-]+$)/,    
+												function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');   */
+										
+										$(".time_tbody").append(pbdt);
+										/*取安排人员*/
+										/* console.log(wobj.ulist); */
+										/*循环安排人员*/
+										$.each(wobj.ulist,function(u,uobj){
+											/* console.log(uobj);
+											 var rydt="<td>"+uobj.staff.ulist.uname+"<input type='checkbox'></td>";
+											 $(".rytr").after(rydt);  */ 
+											
+											/* console.log(uobj.staff.ulist.uname) */ 
+											/* console.log(uobj); */
+											/*取员工*/
+											/* console.log(uobj.staff) */
+											/*取员工名称*/
+											/* console.log(uobj.staff.ulist.uname);  */
+										})
+									})
+								}
 							})
-						}
-					});
-					$.ajax({
-						url:"projectOrder_queryStaff",
-						type:"psot",
-						dataType:"json",
-						success:function(result){
-							$("#look_Staff_tbody").html("");
-							$.each(result,function(i,obj){
-								$.each(obj.stalist,function(k,obj1){
-											var dt=$("<tr>"+
-													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
-													"<td scope='col'>"+
-								                    	 "<input type='checkbox' name='ck_ry'/>"+
-								                    "</td>"+
-												"</tr>")
-											$("#look_Staff_tbody").append(dt);
-								})
-							})
-						}
-					});
-		})
+							
+						})
+					}
+				})
+			}else{
+				$(".show_jd").each(function(){
+					$(this).prop("checked",false);
+				})
+			}
+		});
 		
 		
 		/*选择项目点击项目查询基地与工作人员*/
-		$("#project-table").on("click",".show_jd",function(){
+		/* $("#project-table").on("click",".show_jd",function(){
 					$(".hide_jd").css("display","flex");
 					pid=$(this).attr("pid");
 					$(this).html("-");
@@ -572,17 +643,17 @@
 							})
 						}
 					});
-		})
+		}) */
 		
 		
 		
 		/*点击工作人员追加到项目下面*/
-		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
+		/* $("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
 			
 			if (this.checked) {
 				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
 				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
-				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
+				
 				if(document.querySelector("tr[pid='"+pid+"x']")==null){
 					ry_dt=$("<tr name='order_ry_tr'></tr>");
 					ry_dt.attr("pid",pid+"x");
@@ -597,11 +668,11 @@
 				
 			}
 			
-		})
+		}) */
 		
 		
 		/*根据基地id渲染排班时间*/
-		$("#project_jd_table").on("click",".show_project_time",function(){
+	/* 	$("#project_jd_table").on("click",".show_project_time",function(){
 			var aid=$(this).parents("tr").find("td:eq(0)").attr("aid");
 			var start_time=$("[name=starttime]").val();
 			var end_time=$("[name=endtime]").val();
@@ -618,7 +689,7 @@
 					for(var val in result.worktimes){
 						$("#time_tbody").html("");
 						$.each(result.worktimes[val],function(i,obj){
-							/*结束时间*/
+							结束时间
 							var endtime=new Date(obj.endTime);
 							var year=endtime.getFullYear();
 							var month=endtime.getMonth()+1;
@@ -628,7 +699,7 @@
 							var s=endtime.getSeconds();  
 							var end_time1=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
 							
-							/*开始时间*/
+							开始时间
 							var starttime=new Date(obj.startTime);
 							var year1=starttime.getFullYear();
 							var month1=starttime.getMonth()+1;
@@ -658,10 +729,13 @@
 			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
 			$("#hide_project_time").css("display","block");
 			$(this).html("-");
-		})
+		}) */
 		
 		/*点击排班复选框追加到项目下面*/
-		$("#time_tbody").on("click","[name=lr_time_ck]",function(){
+		 $("body").on("click","[name=lr_time_ck]",function(){
+			/*  alert(123); */
+			var jd_name=$(this).parents(".checkjdid_div").find("h5:eq(0)").html();
+			var jd_id=$(this).parents(".checkjdid_div").find("h5:eq(0)").attr("jdid");
 			var tid=$(this).parents("tr").attr("tid");
 			var thead=$("[pid='"+pid+"']").parents("thead"); 
 			var jia_tr=$(thead).find("tr [tid='"+tid+"']").html();
@@ -674,7 +748,7 @@
 			
 			var kw=$(this).parents("tr").find("td:eq(2)").html();
 			var kw1=kw-rs;
-			var index=0;
+			/* var index=0;
 			$("[name=ck_ry]").each(function(){
 				if(this.checked){
 					index=1;
@@ -682,9 +756,9 @@
 			})
 			if(index==0){
 				alert("请先选择工作人员");
-			}
+			} */
 			
-			if(index==1){
+			
 				if($(this).parent("td").prev("td").find("input").val()==""){
 					alert("您还没有输入人数");
 					this.checked=false;
@@ -698,40 +772,34 @@
 								
 								$(this).parents("tr").find("td:eq(2)").html(kw1);
 								var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
-										"<td style='color: orange;' order_pid='"+pid+"' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
+										"<td style='color: orange;' order_pid='"+pid+"' jd_id='"+jd_id+"'>"+jd_name+"</td>"+ 
 					                	"<td>"+$(obj).parents("tr").find("td:eq(0)").html()+"</td>"+
 					                	"<td>"+$(obj).parents("tr").find("td:eq(1)").html()+"</td>"+
 					                	"<td>"+kw1+"</td>"+
 					                	"<td>"+rs+"</td>"+
 					                "</tr>");
-					       		if(document.querySelector("[pid='"+pid+"y']")==null){
+								alert(pid)
+								alert($("[pid='"+pid+"']").parents("tr").html())
+								$("[pid='"+pid+"']").parents("tr").after(dt);
+					       		/* if(document.querySelector("[pid='"+pid+"']")==null){
 									var ry_dt1=$("<tr></tr>");
-									ry_dt1.attr("pid",pid+"y");
-									$("[pid='"+pid+"x']").after(ry_dt1);
+									ry_dt1.attr("pid",pid);
+									$("[pid='"+pid+"']").after(ry_dt1);
 									$(ry_dt1).after(dt);
 								}else{
 									
 									var ry_dt1=$("[pid='"+pid+"y']");
 									$(ry_dt1).after(dt);
 								}
-					       		return;
+					       		return;  */
 					       	}
 						})
 						
 					}
-				}/* else{
-				       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
-				       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
-				       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
-				       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
-				       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
-				      		$(thead).find("tr[tid='"+tid+"']").remove();
-				}  */
-			}else{
-				this.checked=false;
-			}
+				}
 			
-		})
+			
+		}) 
 		
 			
 		/* 
@@ -848,39 +916,7 @@
 				}
 			}); 
 		})
-		$("#queryByFzr").click(function(){
-			var card=$("[name=card]").val();
-			$.ajax({
-				url:"queryByIdCard?card="+card,
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					console.log(result);
-					var jia_name2;
-					if(result.typeid==1){
-						jia_name2="个人";
-					}else if(result.typeid==2){
-						jia_name2="团队";
-					}
-					$.ajax({
-						url:"queryByFzr",
-						data:{
-							orderCustomer:card,
-							name2:jia_name2
-						},
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							if(result==null){
-								
-							}
-						}
-					})
-				}
-			});
-		}) 
-     });
-      
+      })
     </script>
 
 	</body>
