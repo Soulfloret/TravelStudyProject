@@ -62,13 +62,15 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 				 Calendar cal = Calendar.getInstance();   
 			     cal.setTime(d1);  
 			     cal.add(Calendar.DAY_OF_MONTH, j);
-			     cal.set(Calendar.HOUR, 7);
+			     cal.set(Calendar.HOUR_OF_DAY, 7);
 			     cal.set(Calendar.MINUTE, 30);
+			     cal.set(Calendar.SECOND, 0);
 				 Calendar cal2 = Calendar.getInstance();   
-				 cal2.setTime(d1);  
+				 cal2.setTime(d1); 
 				 cal2.add(Calendar.DAY_OF_MONTH, j);
-				 cal2.set(Calendar.HOUR, 11);
+				 cal2.set(Calendar.HOUR_OF_DAY, 11);
 				 cal2.set(Calendar.MINUTE, 30);
+				 cal2.set(Calendar.SECOND, 0);
 			     List<workTime> list=new ArrayList<workTime>();
 				 for(int i=1;i<=(600/Long.parseLong(p.getNeedtime()));i++) { 
 					 workTime worktime=new workTime();

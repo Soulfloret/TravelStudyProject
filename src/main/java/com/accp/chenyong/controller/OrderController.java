@@ -46,7 +46,9 @@ public class OrderController {
 	@RequestMapping("queryById")
 	@ResponseBody
 	public Usermainorder queryById(Integer id) {
-		return service.query(id).get(0);
+		Usermainorder u=new Usermainorder();
+		u.setId(id);
+		return service.query(u).get(0);
 	}
 	@RequestMapping("godaychart")
 	public String daychart(Model mo) {

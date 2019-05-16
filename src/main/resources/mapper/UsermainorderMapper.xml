@@ -37,7 +37,10 @@
 		<where>
 		    <if test="id!=null">
 		  		and id=#{id}
-		  	</if>	
+		  	</if>
+		  	<if test="name1!=null">
+		  		and name1=#{name1}
+		  	</if>
 		</where>
   </select>
   <sql id="Example_Where_Clause" >

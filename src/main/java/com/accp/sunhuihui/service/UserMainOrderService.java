@@ -77,8 +77,9 @@ public class UserMainOrderService {
 	
 	
 	public List<Usermainorder> query(Integer id,Integer uid) {
-		// TODO Auto-generated method stub
-		List<Usermainorder> list=mapper.query(id);
+		Usermainorder u1=new Usermainorder();
+		u1.setId(id);
+		List<Usermainorder> list=mapper.query(u1);
 		List<Usermainorder> listss=new ArrayList<Usermainorder>();
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));

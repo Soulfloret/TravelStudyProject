@@ -261,9 +261,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	}
 
 	@Override
-	public List<Usermainorder> query(Integer id) {
-		// TODO Auto-generated method stub
-		List<Usermainorder> list=mapper.query(id);
+	public List<Usermainorder> query(Usermainorder record) {
+		List<Usermainorder> list=mapper.query(record);
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
 			if(umo.getName2().equals("个人")) {

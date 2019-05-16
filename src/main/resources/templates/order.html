@@ -111,6 +111,19 @@
 				overflow: scroll;
 				overflow-x:hidden;
 			}
+			.divbutton{
+				display:inline-block;
+				border-radius: 10px;
+				height:50px;
+				line-height: 50px;
+				width:100px;
+				border:#f5a623;
+				color:white;
+				background-color: #f5a623
+			}
+			.table td{
+				 white-space: nowrap;  
+			}
 		</style>
 	</head>
 	<body id="reportsPage">
@@ -266,11 +279,11 @@
 										</div>								
 										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
 										</table>
+										<div id="paiban" style="display:none">
+							         
+							             </div>
 										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
 							             value="生成排班"/>
-							             <div id="paiban" style="display:none">
-							             		
-							             </div>
 									</div>
 							</div>
 							<div id="" class="modal-footer">
@@ -698,6 +711,11 @@
 			})
 		</script>
 		<script th:line="javascript">
+			function a(obj){
+				var index=$(obj).parent().find(".divbutton").index(obj);
+				$(obj).parent().next().find(".table").css("display","none");
+				$(obj).parent().next().find(".table:eq("+index+")").css("display","table");
+			}
 			var typeid=5;
 			$("#checkboxs>[type='radio']").click(function(){
 				var index=$("#checkboxs>[type='radio']").index($(this));
@@ -758,12 +776,14 @@
 						console.log(data);
 						 $.each(data,function(index,item){
 							if(item.typeid==5){
-							var div=$("<div style='border:1px soild red'>活动"+(index+1)+"</div>");
+							var div=$("<div><h4>活动"+(index+1)+"</h4></div>");
 							$.each(item.ix,function(index1,item1){
 								var div1=$("<div style='border:1px soild blue'>"+item1.pname+"</div>");
+								var divbutton=$("<div></div>");
+								var divtable=$("<div></div>");
 								$.each(item1.areas,function(index2,item2){
-									var button=$("<button>"+item2.aname+"</button>");
-								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+									var button=$("<button class='divbutton' onclick='a(this)' style='margin:20px'><span>"+item2.aname+"</span></button>");
+									var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;display:none'>"
 										+"<thead>"
 										+"<tr>"
 										+"<th>开始时间</th>"
@@ -774,30 +794,31 @@
 										+"</tr>"
 										+"</thead>"
 										+"</table>");
-								    var tbody=$("<tbody id='time_tbody'></tbody>");
+									var tbody=$("<tbody></tbody>");
 									$.each(item2.worktimes,function(index3,item3){
 										$.each(item3,function(index4,item4){
 											var tr=$("<tr>"
 													+"<td>"+item4.startTime+"</td>"
 													+"<td>"+item4.endTime+"</td>"
 													+"<td>"+item4.count+"</td>"
-													+"<td></td>"
+													+"<td>&nbsp;</td>"
 													+"</tr>");
 											$(tbody).append(tr);
 										})
 									})
 									$(table).append(tbody);
-									$(div1).append(button);
-									$(div1).append(table);
+									$(divbutton).append(button);
+									$(divtable).append(table)
 								})
+								$(div1).append(divbutton).append(divtable);
 								$(div).append(div1);
 							})
 							$("#paiban").append(div);
 							}else{
-								var div=$("<div style='border:1px soild red'>"+item.ix.pname+"</div>");
+								var div=$("<div style='border:1px solid red'>"+item.ix.pname+"</div>");
 								$.each(item.ix.areas,function(index2,item2){
-									var button=$("<button>"+item2.aname+"</button>");
-								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;'>"
+									var button=$("<div class='divbutton'><span>"+item2.aname+"</span></div>");
+								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;display:none'>"
 										+"<thead>"
 										+"<tr>"
 										+"<th>开始时间</th>"
