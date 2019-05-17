@@ -21,6 +21,17 @@ public class product {
 
     private List<productproject> pplist;
     
+    public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	private Double price;
+    
+    
     private recommend recommend;
     
     private orderson orderson;

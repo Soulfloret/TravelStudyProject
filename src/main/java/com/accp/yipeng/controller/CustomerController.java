@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.users;
+import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
 import com.accp.yipeng.service.UserOrderService;
@@ -45,6 +46,8 @@ public class CustomerController {
 	TeammemberService TeammberService;
 	@Autowired
 	UserOrderService UseOrderService;
+	@Autowired
+	ShopCareServcie shopservice;
 	//陈勇 
 	@Autowired
 	UserMainOrderService UmoService;
@@ -155,7 +158,11 @@ public class CustomerController {
 	 * @return 去个人中心
 	 */
 	@RequestMapping("toPerson")
-	public  String toPerson() {
+	public  String toPerson(HttpSession session) {
+		users uses=(users)session.getAttribute("use");
+		if(uses==null) {
+			return "redirect:/Login/tologin";
+		}
 		return "Person";
 	}
 
@@ -168,14 +175,6 @@ public class CustomerController {
 		return "pagehome";
 	}
 
-	/**
-	 * 
-	 * @return 购物车
-	 */
-	@RequestMapping("tocart")
-	public  String tocart() {
-		return "cart";
-	}
 	
 	/**
 	 * 
@@ -234,6 +233,21 @@ public class CustomerController {
 		return "redirect:/customer/toPersonDetails";
 	}
 	
+	@RequestMapping("look")
+	public String look(Model model,HttpSession session){
+		users use=(users)session.getAttribute("use");
+		if(use==null) {
+			return "redirect:/Login/tologin";
+		}else {
+			model.addAttribute("list",shopservice.queryAll(use.getId()));
+			return "cart";
+		}
+	}
 	
+	@RequestMapping("delshopCart")
+	@ResponseBody 
+	public int delshopCart(Integer id) {
+		return shopservice.deleteByPrimaryKey(id);
+	}
 	
 }
