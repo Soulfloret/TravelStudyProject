@@ -342,7 +342,7 @@ public class menucontroller {
 		Shopcart shopcart=new Shopcart();
 		shopcart.setIid(iid);
 		shopcart.setTypeid(typeid);
-		shopcart.setName1(name1);
+		shopcart.setName2(name1);
 		shopcart.setUserid(1);//目前没有登录所以暂时用1
 		Shopcart  Shopcarts =sc.selectshopcartByid(shopcart);
 		if(Shopcarts==null) {
@@ -350,8 +350,8 @@ public class menucontroller {
 		}else {
 			Shopcart shopcart1=new Shopcart();
 			shopcart1.setId(Shopcarts.getId());
-			Integer num= Integer.parseInt(Shopcarts.getName1())+Integer.parseInt(name1);
-			shopcart1.setName1(num.toString());
+			Integer num= Integer.parseInt(Shopcarts.getName2())+Integer.parseInt(name1);
+			shopcart1.setName2(num.toString());
 			sc.updateByPrimaryKeySelective(shopcart1);
 		}
 		return "加入成功！";

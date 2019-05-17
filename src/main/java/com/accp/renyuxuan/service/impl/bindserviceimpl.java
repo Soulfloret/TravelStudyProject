@@ -60,5 +60,12 @@ public class bindserviceimpl implements bindservice{
 	}
 
 
+	@Override
+	public List<bind> selectByQtTj() {
+		// TODO Auto-generated method stub
+		return bb.selectByQtTj();
+	}
+
+
 	
 }
