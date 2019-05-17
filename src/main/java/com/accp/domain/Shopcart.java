@@ -23,7 +23,17 @@ public class Shopcart {
     
     private List<Shopcart> shop;
     
-    private recommend recommend;
+    private Object ix;
+    
+    public Object getIx() {
+		return ix;
+	}
+
+	public void setIx(Object ix) {
+		this.ix = ix;
+	}
+
+	private recommend recommend;
 
     public List<Shopcart> getShop() {
 		return shop;

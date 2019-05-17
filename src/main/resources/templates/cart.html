@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
-<!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
-<!--[if IE 9]><html class="ie ie9 lte9" lang="en-US"><![endif]-->
 <html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
@@ -14,13 +11,24 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
 	<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
 	<link rel="stylesheet" th:href="@{/css1/minified.css}">
-	<script th:src="@{/js1/modernizr.min.js}"></script>
 	<script th:src="@{/js1/jquery.min.js}"></script>
+	<script th:src="@{/js1/modernizr.min.js}"></script>
 	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
 	<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
 	<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
 	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 </head>
+<style>
+	
+	.img{
+		margin:0px 10px;
+		border-radius: 5px;
+	}
+	.taocan{
+		margin-left:10px;
+		color:orange;
+	}
+</style>
 <body>
 	<!--头部  -->
 			<header id="site-header" role="banner">
@@ -84,24 +92,6 @@
 										<a href="javascript:void(0);" id="total-cart">
 											<i class="iconfont-shopping-cart round-icon"></i>
 										</a>
-
-										<div id="sub-cart" class="sub-header">
-											<div class="cart-header">
-												<span>你的购物车是空的</span>
-												<small><a href="cart.html">(See All)</a></small>
-											</div>
-											<ul class="cart-items product-medialist unstyled clearfix"></ul>
-											<div class="cart-footer">
-												<div class="cart-total clearfix">
-													<span class="pull-left uppercase">总计</span>
-													<span class="pull-right total">￥ 0</span>
-												</div>
-												<div class="text-right">
-													<a th:href="@{/customer/tocart}" class="btn btn-default btn-round view-cart">查看</a>
-												</div>
-											</div>
-										</div>
-										<!-- // SHOPPING CART -->
 									</li>
 								</ul>
 							</div>
@@ -217,36 +207,116 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="hide empty-cart">
+							<tr class=" empty-cart" th:if="${#lists.size(list)==0}">
 								<td colspan="5">
-									<a href="productInfo.html">您的购物车目前没有项目,快去看看吧 </a>.
+									<a th:href="@{/xjb_projectController/query_Qt}">您的购物车目前没有项目,快去看看吧 </a>
 								</td>
 							</tr>
-							<tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
 								<td>
-									<a class="entry-thumbnail" href="images/women/legging/104331-0014_1.jpg" data-toggle="lightbox">
-										<img src="images/women/legging/104331-0014_1.jpg" alt="" />
+									<a class="entry-thumbnail" th:href="${item.ix.ilist[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.ilist[0].url}" alt="" class="img"/>
 									</a>
-									<a class="entry-title" href="product.html">樱花园</a>
+									<a class="entry-title" th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.ix.id})}" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
 								</td>
-								<td><span class="unit-price">$350.00</span></td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
-										<input type="text" value="1" />
+										<input type="text" th:value="${item.name2}" />
 										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
 									</div>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total">$350.00</strong></td>
-								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==2}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
+									</a>
+									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<div class="qty-btn-group">
+										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
+										<input type="text" th:value="${item.name2}" />
+										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==3}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
+									</a>
+									<a class="entry-title" th:href="@{/room/toqueryqtroomByid(id=${item.ix.id})}"  th:text="${item.ix.rname}">樱花园</a><span class="taocan">(房间)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<div class="qty-btn-group">
+										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
+										<input type="text" th:value="${item.name2}" />
+										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
+									</a>
+									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<div class="qty-btn-group">
+										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
+										<input type="text" th:value="${item.name2}" />
+										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
+								<td>
+									<a class="entry-title" href="#" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<div class="qty-btn-group">
+										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
+										<input type="text" th:value="${item.name2}" />
+										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
+								<td>
+									<a class="entry-title" href="product.html" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<div class="qty-btn-group">
+										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
+										<input type="text" th:value="${item.name2}" />
+										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
+								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="shopcart-total pull-right clearfix">
-						<div class="cart-subtotal text-xs m-b-sm clearfix">
-							<span class="pull-left">实际价格:</span>
-							<span class="pull-right">0.00</span>
-						</div>
 						<div class="cart-total text-bold m-b-lg clearfix">
 							<span class="pull-left">价格:</span>
 							<span class="pull-right">0.00</span>
@@ -447,7 +517,7 @@
 												<li>
 													<a href="#" class="circle add-to-cart" data-><i class="iconfont-shopping-cart"></i></a>
 												</li>
-											</ul>
+											</ul> 
 											<div class="rate-bar">
 												<input type="range" value="4" step="0.5" id="backing6" />
 												<div class="rateit" data-rateit-backingfld="#backing6" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5"></div>
@@ -728,15 +798,83 @@
 				</div>
 
 			</footer>
-		
+<script th:src="@{/js1/owl.carousel.js}"></script>
 <script th:src="@{/js1/minified.js}"></script>
-<script>
-
+<script>	
+	window.onload=function(){
+		
+		$(".close").click(function(){
+			var thi=$(this);
+			var falg=window.confirm("确认删除");
+			if(falg){
+				var id=$(this).next().val();
+				$.post('/customer/delshopCart?id='+id,function(data){
+					if(data>0){
+						thi.parent().parent().remove();
+						update_cart_total();		
+						location.reload();
+					}
+				},'json');
+				
+			}else{
+				return ;
+			}
+		})
+			$('.qty-btn-group button').on('click', function() {
+				var $this = $(this),
+					$input = $this.siblings('input'),
+					val = parseInt($input.val());
+				
+				val = ( $this.hasClass('up') ) ? ++val : --val;
+				if ( isNaN(val) || val < 1 ) val = 1;
+				
+				$input.val(val);
+				
+				var $row = $this.closest('tr'),
+					unit_price = $row.find('.unit-price').text(),
+					row_total = unit_price.replace( /^\D+/g, '') * val;
+				
+				$row.find('.row-total').text('￥' + row_total.toFixed(2));
+				
+				update_cart_total();
+			});			
+			function update_cart_total()
+		{
+			var total = 0,
+				subtotal = 0;
+				
+			$('.tbl-cart .row-total').each(function() {
+				temp = $(this).text();
+				temp = temp.replace( /^\D+/g, '');
+				temp = parseFloat(temp);
+				if ( ! isNaN(temp) )
+				{
+					total += temp;
+				}
+			});
+			$('.tbl-cart .unit-price').each(function() {
+				temp = $(this).text();
+				temp = temp.replace( /^\D+/g, '');
+				temp = parseFloat(temp);
+				
+				if ( ! isNaN(temp) )
+				{
+					subtotal += temp;
+				}
+			});
+			
+			$('.shopcart-total .cart-subtotal > .pull-right').text('￥' + subtotal.toFixed(2));
+			$('.shopcart-total .cart-total > .pull-right').text('￥' + total.toFixed(2));
+		}
+		$.each($(".qty-btn-group [type='text']"),function(i,obj){
+			$(obj).next().click();
+			$(obj).prev().click();
+		})
+		
+	}
 </script>
-	<!-- Particular Page Javascripts -->
-	<script th:src="@{/js1/products.js}"></script>
-	<script th:src="@{/js1/owl.carousel.js}"></script>
-	<!-- // Particular Page Javascripts -->
+	
+	
 	
 </body>
 </html>
