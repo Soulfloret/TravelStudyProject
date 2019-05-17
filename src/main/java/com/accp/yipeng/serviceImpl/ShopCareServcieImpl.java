@@ -91,7 +91,7 @@ public class ShopCareServcieImpl implements ShopCareServcie{
 				pro.setIlist(mapper2.queryimg(shopcart.getIid(), shopcart.getTypeid()));
 				shopcart.setIx(pro);
 			}else if(shopcart.getTypeid()==2) {
-				menu me= mapper3.selectByPrimaryKey(shopcart.getId());
+				menu me= mapper3.selectByPrimaryKey(shopcart.getIid());
 				me.setImgs(mapper2.queryimg(shopcart.getIid(), shopcart.getTypeid()));
 				shopcart.setIx(me);
 			}else if(shopcart.getTypeid()==3) {

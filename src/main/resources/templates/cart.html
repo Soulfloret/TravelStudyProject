@@ -322,11 +322,38 @@
 							<span class="pull-right">0.00</span>
 						</div>
 						<div class="text-center">
-							<a class="btn btn-round btn-default uppercase" href="dingdan.html">立即下单</a>
+							<a class="btn btn-round btn-default uppercase"  data-target="#orderInfo" data-toggle="modal" >立即下单</a>
+							<a  style="color: white;" class="fa fa-info tm-product-delete-link info">ss</a>
 						</div>
 					</div>
 				</div>
 			</section>
+			<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+								<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
+									<div class="modal-content" style="background-color: #435c70;color: white;">
+										<div id="" class="modal-header">
+											下单
+										</div>
+										<div id="" class="modal-body">
+											<div>
+												<p>
+												请选择下单方式:
+												<input type="radio" name="per" checked value="个人"><span>个人</span>
+												<input type="hidden" th:value="${session.use.id}" name="uid">
+												<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
+												<span th:if="${session.use.typeid==2}">团队</span>
+												</p>
+											</div>
+											<div class="box" style="margin:10px 0px 0px 20px;">
+											</div>	
+										</div>
+										<div id="" class="modal-footer">
+											<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
+											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+										</div>
+									</div>
+								</div>
+							</div>
 			<!-- RELATED PRODUCTS -->
 			<section class="section visible-items-4">
 				<div class="container">
@@ -802,6 +829,42 @@
 <script th:src="@{/js1/minified.js}"></script>
 <script>	
 	window.onload=function(){
+		$("#xiadan").click(function(){
+			var type=$("[name='per']:checked").val();
+			var umorder={};
+			umorder.orderuser=12;
+			umorder.name1="未开始";
+			umorder.name2=type;
+			if(type=="团队"){
+				var id=$(".box [name='team']:checked").val();
+				umorder.ordercustomer=id;
+			}else{
+				var uid=$("[name='uid']").val();
+				umorder.ordercustomer=uid;	
+			}
+			
+		})
+		
+		$("[name='per']").change(function(){
+			if($(this).val()=="团队"){
+				$(".box").show();
+				var id=$(this).prev().val();
+				$(".box").html(" ");
+				$.post('/team/queryAllteamByuid?uid='+id,function(data){
+					var div=$("<div></div>");
+					$.each(data,function(i,obj){
+						var input=$("<input type='radio' style='margin:0px 10px;' name='team' value="+obj.id+">");
+						var span=$("<span>"+obj.name1+"</span>");
+						$(div).append(input);
+						$(div).append(span);
+					})
+					$(".box").append(div);
+				},'json');
+			}else{
+				$(".box").hide();
+			}
+			
+		})
 		
 		$(".close").click(function(){
 			var thi=$(this);

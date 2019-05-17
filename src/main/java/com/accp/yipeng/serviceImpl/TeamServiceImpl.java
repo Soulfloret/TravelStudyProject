@@ -139,5 +139,12 @@ public class TeamServiceImpl implements TeamService{
 		
 		return num;
 	}
+
+	@Override
+	public List<team> selectBymainiUserId(Integer id) {
+		
+		return mapper.queryByuid(id);
+		
+	}
 	
 }
