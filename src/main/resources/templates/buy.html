@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>购物车</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="icon" th:href="@{/img1/favicon/favicon.html}" type="image/x-icon" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" th:href="@{/img1/favicon/apple-touch-icon-144x144-precomposed.html}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" th:href="@{/img1/favicon/apple-touch-icon-72x72-precomposed.html}">
+	<link rel="apple-touch-icon-precomposed" th:href="@{/img1/favicon/apple-touch-icon-precomposed.html}">
+	<link rel="stylesheet" th:href="@{/css1/minified.css}">
+	<script th:src="@{/js1/jquery.min.js}"></script>
+	<script th:src="@{/js1/modernizr.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
+	<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
+	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
+</head>
+<style>
+	
+	.img{
+		margin:0px 10px;
+		border-radius: 5px;
+	}
+	.taocan{
+		margin-left:10px;
+		color:orange;
+	}
+</style>
+<body>
+	<!--头部  -->
+			<header id="site-header" role="banner">
+				<!-- HEADER TOP -->
+				<div class="header-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-7">
+								<!-- CONTACT INFO -->
+								<div class="contact-info">
+									<i class="iconfont-headphones round-icon"></i>
+									<strong>+444 (100) 1234</strong>
+									<span>(周一- 周五: 09.00 - 21.00)</span>
+								</div>
+								<!-- // CONTACT INFO -->
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-5">
+								<ul class="actions unstyled clearfix">
+									<li>
+										<!-- SEARCH BOX -->
+										<div class="search-box">
+											<form action="#" method="post">
+												<div class="input-iconed prepend">
+													<button class="input-icon"><i class="iconfont-search"></i></button>
+													<label for="input-search" class="placeholder">在这里搜索</label>
+													<input type="text" name="q" id="input-search" class="round-input full-width" required />
+												</div>
+											</form>
+										</div>
+										<!-- // SEARCH BOX -->
+									</li>
+									<li data-toggle="sub-header" data-target="#sub-social">
+										<!-- SOCIAL ICONS -->
+										<a href="javascript:void(0);" id="social-icons">
+											<i class="iconfont-share round-icon"></i>
+										</a>
+
+										<div id="sub-social" class="sub-header">
+											<ul class="social-list unstyled text-center">
+												<li>
+													<a href="#"><i class="iconfont-facebook round-icon"></i></a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-twitter round-icon"></i></a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-google-plus round-icon"></i></a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-pinterest round-icon"></i></a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-rss round-icon"></i></a>
+												</li>
+											</ul>
+										</div>
+										<!-- // SOCIAL ICONS -->
+									</li>
+									<li data-toggle="sub-header" data-target="#sub-cart">
+										<!-- SHOPPING CART -->
+										<a href="javascript:void(0);" id="total-cart">
+											<i class="iconfont-shopping-cart round-icon"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- ADD TO CART MESSAGE -->
+					<div class="cart-notification">
+						<ul class="unstyled"></ul>
+					</div>
+					<!-- // ADD TO CART MESSAGE -->
+				</div>
+				<!-- // HEADER TOP -->
+				<!-- MAIN HEADER -->
+				<div class="main-header-wrapper">
+					<div class="container">
+						<div class="main-header">
+							<!-- CURRENCY / LANGUAGE / USER MENU -->
+							<div class="actions">
+								<div class="center-xs">
+									<!-- CURRENCY -->
+									<ul class="option-list unstyled">
+										<li class="active">
+											<a href="#" data-toggle="tooltip" title="人民币">￥</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="GBP - British Pound">£</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="EUR - Euro">€</a>
+										</li>
+									</ul>
+									<!-- // CURRENCY -->
+									<!-- LANGUAGES -->
+									<ul class="option-list unstyled">
+										<li class="active">
+											<a href="#" data-toggle="tooltip" title="中文">CH</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="French">FR</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="Deutsch">DE</a>
+										</li>
+									</ul>
+									<!-- // LANGUAGES -->
+								</div>
+								<div class="clearfix"></div>
+								<!-- USER RELATED MENU -->
+								<nav id="tiny-menu" class="clearfix">
+									<ul class="user-menu">
+										<li>
+											<a th:href="@{/customer/toPerson}">我的账户</a>
+										</li>
+										<li>
+											<a th:href="@{/customer/toPerson}">查看</a>
+										</li>
+										<li>
+											<a th:href="@{/Login/back}">登出</a>
+										</li>
+									</ul>
+								</nav>
+								<!-- // USER RELATED MENU -->
+							</div>
+							<!-- // CURRENCY / LANGUAGE / USER MENU -->
+							<!-- SITE LOGO -->
+							<div class="logo-wrapper">
+								<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
+									<img th:src="@{/images/logo2.png}" alt="Logo" />
+								</a>
+							</div>
+							<!-- // SITE LOGO -->
+							<!-- SITE NAVIGATION MENU -->
+							<nav id="site-menu" role="navigation">
+								<ul class="main-menu hidden-sm hidden-xs">
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
+									</li>
+									<li>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
+
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+								</ul>
+							</nav>
+							<!-- // SITE NAVIGATION MENU -->
+						</div>
+					</div>
+				</div>
+				<!-- // MAIN HEADER -->
+			</header>
+		
+	<div id="page-wrapper">
+		<main id="main-content" role="main">
+			<section class="section">
+				<div class="container">
+					<table class="tbl-cart">
+						<thead>
+							<tr>
+								<th>项目名称</th>
+								<th style="width: 15%;">单价</th>
+								<th style="width: 15%;">数量</th>
+								<th class="hidden-xs" style="width: 15%;">总价</th>
+								<th class="hidden-xs" style="width: 10%;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="empty-cart" th:if=" ${list}==null">
+								<td colspan="5">
+									<a th:href="@{/xjb_projectController/query_Qt}">您的购物车目前没有项目,快去看看吧 </a>
+								</td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.ilist[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.ilist[0].url}" alt="" class="img"/>
+									</a>
+									<a class="entry-title" th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.ix.id})}" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+										<input type="hidden" th:value="${item.typeid}">
+									<div class="qty-btn-group">
+										<input type="text" th:value="${item.name2}" />
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==2}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
+									</a>
+									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
+									<div class="qty-btn-group">
+										<input type="text" th:value="${item.name2}" />
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+							</tr>
+								<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
+								<td>
+									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
+										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
+									</a>
+									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
+									<div class="qty-btn-group">
+										<input type="text" th:value="${item.name2}" />
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
+								<td>
+									<a class="entry-title" href="#" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
+									<div class="qty-btn-group">
+										<input type="text" th:value="${item.name2}" />
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+							</tr>
+							<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
+								<td>
+									<a class="entry-title" href="product.html" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
+								</td>
+								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
+									<div class="qty-btn-group">
+										<input type="text" th:value="${item.name2}" />
+									</div>
+								</td>
+								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="shopcart-total pull-right clearfix">
+						<div class="cart-total text-bold m-b-lg clearfix">
+							<span class="pull-left">价格:</span>
+							<span class="pull-right" id="price">0.00</span>
+						</div>
+						<div class="text-center">
+							<a class="btn btn-round btn-default uppercase"  data-target="#orderInfo" data-toggle="modal" >付款</a>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+								<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
+									<div class="modal-content" style="background-color: #435c70;color: white;">
+										<div id="" class="modal-header">
+											下单
+										</div>
+										<div id="" class="modal-body">
+											<div>
+												<p>
+												请选择下单方式:
+												<input type="radio" name="per" checked value="个人"><span>个人</span>
+												<input type="hidden" th:value="${session.use.id}" name="uid">
+												<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
+												<span th:if="${session.use.typeid==2}">团队</span>
+												</p>
+											</div>
+											<div class="box" style="margin:10px 0px 0px 20px;">
+											</div>	
+										</div>
+										<div id="" class="modal-footer">
+											<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
+											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+										</div>
+									</div>
+								</div>
+							</div>
+			
+		</main>
+		<!-- // SITE MAIN CONTENT -->
+		
+		<!-- SITE FOOTER -->
+	
+		
+</div>
+<!-- 尾部 -->
+			<footer class="page-footer">
+
+				<!-- WIDGET AREA -->
+				<div class="widgets">
+
+					<!-- FIRST ROW -->
+					<div class="section">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-text">
+										<h5 class="widget-title">研学旅行 </h5>
+										<div class="widget-content">
+											<p>研学旅行是由学校根据区域特色、学生年龄特点和各学科教学内容需要，组织学生通过集体旅行、集中食宿的方式走出校园，在与平常不同的生活中拓展视野、丰富知识，加深与自然和文化的亲近感，增加对集体生活方式和社会公共道德的体验。</p>
+											<p>研学旅行继承和发展了我国传统游学、“读万卷书，行万里路”的教育理念和人文精神，成为素质教育的新内容和新方式。提升中小学生的自理能力、创新精神和实践能力。</p>
+										</div>
+									</section>
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-text">
+										<h5 class="widget-title">营业时间</h5>
+										<div class="widget-content">
+											<p>周一至周五:-------------------------9.00 至 18.00</p>
+											<p>星期六:--------------------------------10.00 至 16.00</p>
+											<p>星期天:----------------------------------10.00 至 16.00</p>
+											<br/>
+											<p>Every 30 day of month Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+										</div>
+									</section>
+								</div>
+
+								<div class="space40 visible-sm clearfix"></div>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-menu">
+										<h5 class="widget-title">信息</h5>
+										<div class="widget-content">
+											<ul class="menu iconed-menu unstyled">
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>加盟</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>应聘</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>了解我们</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>常见问题</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>网站地址</a>
+												</li>
+											</ul>
+										</div>
+									</section>
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									facebook
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- // FIRST ROW -->
+
+					<!-- SECOND ROW -->
+					<div class="section">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-xs-12 col-sm-12 col-md-3">
+									<section class="widget widget-menu">
+										<h5 class="widget-title">联系信息</h5>
+										<div class="widget-content">
+											<ul class="menu iconed-list unstyled">
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-map-marker"></i></span>
+													<div class="list-content">XX省 XX市 XX区 XX街道XX XXX XXX</div>
+												</li>
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-phone"></i></span>
+													<div class="list-content">(+86)15847381748</div>
+												</li>
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-envelope-alt"></i></span>
+													<div class="list-content">Travel study@qq.com</div>
+												</li>
+											</ul>
+										</div>
+									</section>
+								</div>
+
+								<div class="col-xs-12 col-sm-12 col-md-6">
+									<section class="widget widget-ads">
+										<div class="widget-content">
+											<div class="center-xs">
+												<div class="ads">
+													<a href="#">
+														<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
+													</a>
+													<div class="ads-caption bottom-right">
+														<a href="#" class="btn btn-default btn-round">
+															<i class="round-icon iconfont-angle-right"></i>
+															<span class="inline-middle">显示更多</span>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+
+								<div class="col-xs-12 col-sm-12 col-md-3">
+									<section class="widget widget-subscription">
+										<h5 class="widget-title">时事通讯</h5>
+										<div class="widget-content">
+											<p>订阅成为第一个了解销售，活动和独家优惠的人！</p>
+											<form action="#" method="post">
+												<div class="input-group">
+													<label for="subscription-email" class="placeholder">输入你的电子邮箱</label>
+													<input type="email" id="subscription-email" name="email" class="form-control" required />
+													<span class="input-group-btn">
+												<button class="btn btn-primary">订阅</button>
+											</span>
+												</div>
+											</form>
+										</div>
+									</section>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- // SECOND ROW -->
+
+				</div>
+				<!-- // WIDGET AREA -->
+
+				<div class="footer-sub">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="footer-links center-xs clearfix">
+									<ul class="unstyled">
+										<li>
+											<a href="#">网站地图</a>
+										</li>
+										<li>
+											<a href="#">常见问题</a>
+										</li>
+										<li>
+											<a href="#">为我们工作</a>
+										</li>
+										<li>
+											<a href="#">联系我们</a>
+										</li>
+									</ul>
+								</div>
+								<div class="space10"></div>
+								<div class="copyright center-xs">
+									<p>©2019页面版权所有归研学旅行所有</p>
+								</div>
+							</div>
+
+							<div class="space40 visible-xs"></div>
+
+							<div class="col-xs-12 col-sm-6 center-xs">
+								<div class="pull-right">
+									<div class="vmid">
+										<span class="uppercase">付款接受&emsp;</span>
+										<a href="#"><img th:src="@{/img1/visacard.png}" alt="" width="40" /></a>
+										<a href="#"><img th:src="@{/img1/mastercard.png}" alt="" width="40" /></a>
+										<a href="#"><img th:src="@{/img1/paypal.png}" alt="" width="40" /></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</footer>
+<script th:src="@{/js1/owl.carousel.js}"></script>
+<script th:src="@{/js1/minified.js}"></script>
+<script>
+		$(function(){
+			var sum=0;
+			$.each($("tbody tr .text-bold"),function(i,obj){
+				sum+=parseFloat($(obj).text());
+			})
+			$("#price").text(sum);
+		})
+</script>
+	
+	
+	
+</body>
+</html>
