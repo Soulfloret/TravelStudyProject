@@ -14,7 +14,7 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="QueryCunzai" resultMap="BaseResultMap">
-  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and name1='正在进行'
+  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and name1='正在进行中' or name1='未付款'
   </select>
   
   <!-- 活动详情查询参加活动人员 -->

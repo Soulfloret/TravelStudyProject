@@ -1,5 +1,7 @@
 package com.accp.chenyong.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
+import com.accp.domain.userorder;
+import com.accp.domain.users;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
 import com.accp.xiangjianbo.service.productService;
@@ -65,6 +69,7 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("queryPaiban")
 	public List<orderson> queryPaiban(@RequestBody List<orderson> list,Date startTime,Date endTime){
+		SimpleDateFormat d=new SimpleDateFormat("yyyy-MM-dd");
 			if(startTime==null) {
 				startTime=new Date();
 			}
@@ -72,5 +77,21 @@ public class OrderController {
 				endTime=new Date();
 			}
 			return service1.query(list,startTime,endTime);
+	}
+	@RequestMapping("insertOrder")
+	public String insertOrder(Usermainorder order) {
+		Usermainorder order1=service.QueryCunzaiInsert(order);
+		if(order.getUser()!=null) {
+				order1.getUser().getOrders().get(0).setList(order.getUser().getOrders().get(0).getList());;
+		}else {
+			for (users u : order.getList()) {
+				for (users u1 : order1.getList()) {
+					if(u.getId()==u1.getId()) {
+						u1.getOrders().get(0).setList(u.getOrders().get(0).getList());
+					}
+				}
+			}
+		}
+		return "";
 	}
 }

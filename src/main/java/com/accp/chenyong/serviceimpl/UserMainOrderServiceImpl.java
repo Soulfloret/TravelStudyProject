@@ -2,6 +2,7 @@ package com.accp.chenyong.serviceimpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,43 +106,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	}
 	@Override
 	public int insert(Usermainorder record) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-		int num;
-		record.setName2("个人");
-		record.setName1("正在进行中");
-		String date=new Date().toString();
-		record.setOrdertime(new Date());
-		try {
-			record.setOrderno(sdf.parse(date)+"yxlx");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int num=0;
+		Usermainorder usm=QueryCunzaiInsert(record);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmsss");
 		if(record.getList().size()>1) {
-				team t=new team();
-				t.setId(record.getUser().getId());
-				mapper12.insert(t);
-				record.setName2("团队");
-				record.setOrdercustomer(t.getId());
-				num=mapper.insert(record);
-				for (users u : record.getList()) {
-					teammember tm=new teammember();
-					tm.setMemberid(u.getId());
-					tm.setTeamid(t.getId());
-					mapper13.insert(tm);					
+				for (users u : record.getList()) {				
 					for (userorder uo : u.getOrders()) {
-						try {
-							uo.setOrderno(sdf.parse(date)+"yxlx");
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						uo.setOrdertime(new Date());
-						uo.setOrderuser(record.getOrderuser());
-						uo.setOrdercustomer(tm.getMemberid());
-						uo.setOrdermainid(record.getId());
-						uo.setOrderstatus("正在进行中");
-						mapper14.insert(uo);
 						for (orderson os : uo.getList()) {
 							os.setName1(uo.getId()+"");
 							mapper15.insert(os);
@@ -182,22 +152,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					}
 				}
 			}else {
-				num=mapper.insert(record);
-				for (userorder uo : record.getUser().getOrders()) {
-					try {
-						uo.setOrderno(sdf.parse(date)+"yxlx");
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					uo.setOrdertime(new Date());
-					uo.setOrderuser(record.getOrderuser());
-					uo.setOrdermainid(record.getId());
-					uo.setOrderstatus("正在进行中");
-					mapper14.insert(uo);
-					for (orderson os : uo.getList()) {
-						os.setName1(uo.getId()+"");
-						mapper15.insert(os);
+					for (orderson os : usm.getUser().getOrders().get(0).getList()) {
 						if(os.getTypeid()==1||os.getTypeid()==5) {
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
@@ -232,7 +187,6 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							
 						}
 					}
-				}
 			}
 		return num;
 	} 
@@ -454,11 +408,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	}
 	@Override
 	public Usermainorder QueryCunzaiInsert(Usermainorder o) {
-		o=QueryCunzai(o);
-		if(o!=null) {
+		Usermainorder o1=QueryCunzai(o);
+		if(o1!=null) {
+			return o1;
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-			if(o.getList().size()>0) {
+			if(o.getList()!=null&&o.getList().size()>0) {
 				o.setName1("正在进行中");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
@@ -492,6 +447,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					uo.setOrdermainid(o.getId());
 					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
+					List<userorder> lisss=new ArrayList<userorder>();
+					lisss.add(uo);
+					u.setOrders(lisss);
 				}
 			}else {
 				o.setName1("正在进行中");
@@ -515,13 +473,16 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 				uo.setOrdertime(new Date());
 				uo.setOrderuser(o.getOrderuser());
-				uo.setOrdercustomer(o.getId());
+				uo.setOrdercustomer(o.getOrdercustomer());
 				uo.setOrdermainid(o.getId());
 				uo.setOrderstatus("正在进行中");
 				mapper14.insert(uo);
+				List<userorder> lisss=new ArrayList<userorder>();
+				lisss.add(uo);
+				o.getUser().setOrders(lisss);
 			}
+			return o;
 		}
-		return o;
 	}
 
 }

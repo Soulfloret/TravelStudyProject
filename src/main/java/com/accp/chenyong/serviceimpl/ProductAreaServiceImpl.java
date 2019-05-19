@@ -1,5 +1,6 @@
 package com.accp.chenyong.serviceimpl;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -43,30 +44,27 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 	areasMapper mapper5;
 	@Override
 	public project queryByArearId(project p,Date startTime,Date endTime) {
-		 Instant fromDate=Instant.now();
-		 Instant toDate=Instant.now();
-		 if(startTime!=null) {
-			 fromDate=startTime.toInstant();
-		 }
-		 if(endTime!=null) {
-			 toDate=endTime.toInstant();
-		 }
-		 Date d1=new Date(fromDate.toEpochMilli());
-		 Date d2=new Date(toDate.toEpochMilli());
-		 long daysBetween=(d1.getTime()-d2.getTime()+1000000)/(60*60*24*1000);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date d1=startTime;
+		 Date d2=endTime;
+		 d2.setHours(d1.getHours());
+		 d2.setMinutes(d1.getMinutes());
+		 d2.setSeconds(d1.getSeconds());
+		 long daysBetween=(d2.getTime()-d1.getTime()+1000000)/(60*60*24*1000);
 		 List<areas> list2=new ArrayList<areas>();
 		 List<productarea> list1=mapper.queryByPid(p.getId());
 		 for (productarea productarea : list1) {
+			 Date d3=d1;
 			 areas area=mapper5.selectByPrimaryKey(productarea.getAreaid());
 			 for(int j=0;j<=daysBetween;j++) {
 				 Calendar cal = Calendar.getInstance();   
-			     cal.setTime(d1);  
+			     cal.setTime(d3);  
 			     cal.add(Calendar.DAY_OF_MONTH, j);
 			     cal.set(Calendar.HOUR_OF_DAY, 7);
 			     cal.set(Calendar.MINUTE, 30);
 			     cal.set(Calendar.SECOND, 0);
 				 Calendar cal2 = Calendar.getInstance();   
-				 cal2.setTime(d1); 
+				 cal2.setTime(d3); 
 				 cal2.add(Calendar.DAY_OF_MONTH, j);
 				 cal2.set(Calendar.HOUR_OF_DAY, 11);
 				 cal2.set(Calendar.MINUTE, 30);
@@ -95,8 +93,7 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 				 if(area.getWorktimes()==null) {
 					 area.setWorktimes(new HashMap<String,List<workTime>>());
 				 }
-			     d1 = cal.getTime();
-				 area.getWorktimes().put(d1.toString()+d2.toString(),list);	
+				 area.getWorktimes().put(sdf.format(cal.getTime()).toString()+d2.toString(),list);	
 				 list2.add(area);
 			 }
 		 }
