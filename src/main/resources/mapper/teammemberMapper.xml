@@ -11,6 +11,11 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="queryBytid" resultMap="BaseResultMap">
+  	SELECT * FROM teammember WHERE teamId=#{tid}
+  </select>
+  
   	<!-- 批量新增团员 -->
   <insert id="insertBylist">
   	 INSERT INTO teammember(`teamId`,`memberId`) VALUES

@@ -12,16 +12,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.users;
 import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
+import com.accp.yipeng.service.UserMainOrderService1;
 import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
@@ -51,6 +55,11 @@ public class CustomerController {
 	//陈勇 
 	@Autowired
 	UserMainOrderService UmoService;
+	@Autowired
+	OrderSonService ordersonservice;
+	@Autowired
+	UserMainOrderService1 umoService1;
+	
 	
 	
 	/**
@@ -249,5 +258,21 @@ public class CustomerController {
 	public int delshopCart(Integer id) {
 		return shopservice.deleteByPrimaryKey(id);
 	}
+	
+	@RequestMapping("addUserMainOrder")
+	@ResponseBody  
+	public int addUserMainOrder(@RequestBody Usermainorder umorder) {
+		return umoService1.addUserMainOrder(umorder);
+	}
+	
+	@RequestMapping("buy")
+	public String buy(Model model,HttpSession  session) {
+		users use=(users)session.getAttribute("use");
+		List<Shopcart> list=shopservice.queryAll(use.getId());
+		model.addAttribute("list",list);
+		
+		return "buy";
+	}
+	
 	
 }

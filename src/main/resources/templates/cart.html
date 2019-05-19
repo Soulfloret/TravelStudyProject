@@ -207,7 +207,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class=" empty-cart" th:if="${#lists.size(list)==0}">
+							<tr class="empty-cart" th:if=" ${list}==null">
 								<td colspan="5">
 									<a th:href="@{/xjb_projectController/query_Qt}">您的购物车目前没有项目,快去看看吧 </a>
 								</td>
@@ -221,13 +221,16 @@
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+										<input type="hidden" th:value="${item.typeid}">
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
 										<input type="text" th:value="${item.name2}" />
 										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
 									</div>
 								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total">$350.00</strong></td>
+								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
 								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
 							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==2}">
@@ -239,6 +242,9 @@
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
 										<input type="text" th:value="${item.name2}" />
@@ -248,25 +254,7 @@
 								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
 								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
 							</tr>
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==3}">
-								<td>
-									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
-										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
-									</a>
-									<a class="entry-title" th:href="@{/room/toqueryqtroomByid(id=${item.ix.id})}"  th:text="${item.ix.rname}">樱花园</a><span class="taocan">(房间)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<div class="qty-btn-group">
-										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
-										<input type="text" th:value="${item.name2}" />
-										<button type="button" class="up"><i class="iconfont-caret-up inline-middle"></i></button>
-									</div>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total">0.00</strong></td>
-								<td class="hidden-xs"><button type="button" class="close" aria-hidden="true">×</button><input type="hidden" th:value="${item.id}"></td>
-							</tr>
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
+								<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
 								<td>
 									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
@@ -275,6 +263,9 @@
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
 										<input type="text" th:value="${item.name2}" />
@@ -290,6 +281,9 @@
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
 										<input type="text" th:value="${item.name2}" />
@@ -305,6 +299,9 @@
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
+									<input type="hidden" th:value="${item.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.typeid}">
 									<div class="qty-btn-group">
 										<button type="button" class="down"><i class="iconfont-caret-down inline-middle"></i></button>
 										<input type="text" th:value="${item.name2}" />
@@ -323,7 +320,6 @@
 						</div>
 						<div class="text-center">
 							<a class="btn btn-round btn-default uppercase"  data-target="#orderInfo" data-toggle="modal" >立即下单</a>
-							<a  style="color: white;" class="fa fa-info tm-product-delete-link info">ss</a>
 						</div>
 					</div>
 				</div>
@@ -829,20 +825,52 @@
 <script th:src="@{/js1/minified.js}"></script>
 <script>	
 	window.onload=function(){
+		
+		function AddMainOrder(umorder){
+			$.ajax({
+				url:"/customer/addUserMainOrder",
+				type:"post",
+				dataType:"json",
+				data:JSON.stringify(umorder),
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					if(data>0){
+						alert("下单成功");
+						location.href="/customer/buy";
+					}
+				}
+			})
+		}
+		
 		$("#xiadan").click(function(){
 			var type=$("[name='per']:checked").val();
 			var umorder={};
 			umorder.orderuser=12;
-			umorder.name1="未开始";
+			umorder.name1="未付款";
 			umorder.name2=type;
+			if($(".qty-btn-group").length==0){
+				alert("不能不选商品哦");
+				return ;
+			}
 			if(type=="团队"){
 				var id=$(".box [name='team']:checked").val();
 				umorder.ordercustomer=id;
 			}else{
 				var uid=$("[name='uid']").val();
-				umorder.ordercustomer=uid;	
+				umorder.ordercustomer=uid;
 			}
-			
+			var olist=[];
+			$.each($("tbody tr .qty-btn-group"),function(i,obj){
+				var orderson={};
+				orderson.id=$(obj).prev().prev().prev().val();
+				orderson.iid=$(obj).prev().prev().val();
+				orderson.typeid=$(obj).prev().val();
+				orderson.name2=$(obj).find("input").val();
+				olist.push(orderson);
+			})
+			umorder.olist=olist;
+			console.log(umorder);
+			AddMainOrder(umorder);
 		})
 		
 		$("[name='per']").change(function(){
@@ -853,10 +881,19 @@
 				$.post('/team/queryAllteamByuid?uid='+id,function(data){
 					var div=$("<div></div>");
 					$.each(data,function(i,obj){
-						var input=$("<input type='radio' style='margin:0px 10px;' name='team' value="+obj.id+">");
-						var span=$("<span>"+obj.name1+"</span>");
-						$(div).append(input);
-						$(div).append(span);
+						if(i==0){
+							var input=$("<input type='radio'  style='margin:0px 10px;' name='team' checked value="+obj.id+"> ");
+							var span=$("<span>"+obj.name1+"</span>");
+							$(div).append(input);
+							$(div).append(span);
+						}else{
+							var input=$("<input type='radio'  style='margin:0px 10px;' name='team' value="+obj.id+">");
+							var span=$("<span>"+obj.name1+"</span>");
+							$(div).append(input);
+							$(div).append(span);
+						}
+						
+						
 					})
 					$(".box").append(div);
 				},'json');

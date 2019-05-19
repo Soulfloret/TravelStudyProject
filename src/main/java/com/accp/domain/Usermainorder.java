@@ -26,7 +26,17 @@ public class Usermainorder {
     
     private users user;
     
-    private staff staff;
+    private List<orderson> olist;
+    
+    public List<orderson> getOlist() {
+		return olist;
+	}
+
+	public void setOlist(List<orderson> olist) {
+		this.olist = olist;
+	}
+
+	private staff staff;
         
     private List<users> list;
     
