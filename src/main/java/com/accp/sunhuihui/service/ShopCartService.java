@@ -8,8 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.accp.domain.Shopcart;
 import com.accp.domain.productproject;
+import com.accp.domain.recommend;
 import com.accp.mapper.ShopcartMapper;
+import com.accp.mapper.imagesMapper;
+import com.accp.mapper.menuMapper;
+import com.accp.mapper.productMapper;
 import com.accp.mapper.productprojectMapper;
+import com.accp.mapper.projectMapper;
+import com.accp.mapper.roomMapper;
 
 @Service
 public class ShopCartService {
@@ -18,6 +24,16 @@ public class ShopCartService {
 	ShopcartMapper mapper;
 	@Autowired
 	productprojectMapper pdmapper;
+	@Autowired
+	projectMapper pmapper;
+	@Autowired
+	imagesMapper imapper;
+	@Autowired
+	productMapper pdmapper1;
+	@Autowired
+	menuMapper mmapper;
+	@Autowired
+	roomMapper rmapper;
 	
 	
 	public int insertList(Shopcart shop) {
@@ -47,5 +63,28 @@ public class ShopCartService {
 	
 	public List<productproject> queryByProdId(Integer productid){
 		return pdmapper.queryByProdId(productid);
+	}
+	
+	public recommend WholeRecommend(Integer iid,Integer typeid) {
+		if(typeid==1) {
+			recommend r= pmapper.recommendByidproject(iid);
+			r.setTid(1);
+			return r;
+		}else if(typeid==2) {
+			recommend r= mmapper.recommendByidmenu(iid);
+			r.setTid(2);
+			return r;
+		}else if(typeid==3) {
+			recommend r= rmapper.recommendByidroom(iid);
+			r.setTid(3);
+			return r;
+		}else if(typeid==5) {
+			recommend r= pdmapper1.recommendByidproduct(iid);
+			r.setTid(5);
+			return r;
+		}
+		
+		return null;
+		
 	}
 }
