@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UsermainorderMapper {
 	
-	Usermainorder queryorderCustomer(@Param("id")Integer id,@Param("lb")String lb);
+	Usermainorder queryorderCustomer(@Param("id")Integer id,@Param("lb")String lb,@Param("name1")String name1);
 	
     int countByExample(UsermainorderExample example);
 

@@ -248,7 +248,7 @@ public class menucontroller {
 				//调方法添加订单
 				mo.insertSelective(m);
 				lb="个人";
-				Usermainorder  usermainorder=umo.queryorderCustomer(us.getId(),lb);
+				Usermainorder  usermainorder=umo.queryorderCustomer(us.getId(),lb,"正在进行中");
 				userorder userorder=uo.selectByuid(usermainorder.getId());
 				for (int i = 0; i < vps.length; i++) {
 					ordershop o =new  ordershop();
@@ -269,7 +269,7 @@ public class menucontroller {
 				//身份证
 				users us=u.queryByIdCard(vps[0].getName3());
 				team t=te.selectBymainiUserId(us.getId());
-				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
 				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
 				for (userorder userorder : list) {
 					menuorder m=new menuorder();

@@ -34,6 +34,7 @@ import com.accp.renyuxuan.service.impl.roomordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomserviceimpl;
 import com.accp.renyuxuan.service.impl.teamserviceimpl;
 import com.accp.renyuxuan.service.impl.userorderserviceimpl;
+import com.accp.renyuxuan.service.impl.usersserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -61,6 +62,8 @@ public class roomcontroller {
 	teamserviceimpl te;
 	@Autowired
 	imagesserviceimpl im;
+	@Autowired
+	usersserviceimpl ru;
 	
 	
 	
@@ -107,7 +110,7 @@ public class roomcontroller {
 	
 	//查询出可以预订房间  去住宿后台下订单页面
 	@RequestMapping("/roomorder")
-	public String roomorder(Model model ,room ro) {
+	public String roomorder(Model model ,room ro,HttpSession session) {
 		List<room> list=r.queryByroomData(ro);
 		model.addAttribute("list", list);
 		model.addAttribute("ro", ro);
@@ -123,10 +126,9 @@ public class roomcontroller {
 		roo.setName1("1");
 		rd.insertSelective(roo);//添加记录
 		String lb ="";
-		if("1".equals(lx)) {
-			//个人
+		if(us.getTypeid()!=2) {
 			lb="个人";
-			Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb);
+			Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
 			userorder userorder=uo.selectByuid(usermainorder.getId());
 			//添加总订单从表
 			orderson ordersons=new orderson();
@@ -134,20 +136,22 @@ public class roomcontroller {
 			ordersons.setTypeid(3);
 			ordersons.setName1(userorder.getId().toString());
 			o.insertSelective(ordersons);
-		}else{
+		}else {
 			//团队
 			lb="团队";
-			team t=te.selectBymainiUserId(uid);
-			Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
-			List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
-			for (userorder userorder : list) {
-				//添加总订单从表
-				orderson ordersons=new orderson();
-				ordersons.setIid(roo.getId());
-				ordersons.setTypeid(3);
-				ordersons.setName1(userorder.getId().toString());
-				o.insertSelective(ordersons);
-			}
+				team t= te.selectBymainiUserId(uid);
+				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
+				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
+				for (userorder userorder : list) {
+					//添加总订单从表
+					orderson ordersons=new orderson();
+					ordersons.setIid(roo.getId());
+					ordersons.setTypeid(3);
+					ordersons.setName1(userorder.getId().toString());
+					o.insertSelective(ordersons);
+				}
+			
+			
 		}
 		return "redirect:/room/roomorder";
 	}
@@ -234,7 +238,7 @@ public class roomcontroller {
 		@RequestMapping("/roomaddorder")
 		public String roomaddorder(Integer [] id,Integer [] rid,String lx) {
 			//users us=(users) session.getAttribute("use");
-			int uid=5;//session里面的用户id
+			int uid=1;//session里面的用户id
 			for (int i = 0; i < rid.length; i++) {
 				roomdestine roomdestines=new roomdestine();
 				roomdestines.setId(rid[i]);
@@ -243,7 +247,7 @@ public class roomcontroller {
 				String lb="";
 				if("1".equals(lx)) {
 					lb="个人";
-					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb);
+					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
 					userorder userorder=uo.selectByuid(usermainorder.getId());
 					orderson ordersons=new orderson();
 					ordersons.setIid(id[i]);
@@ -253,7 +257,7 @@ public class roomcontroller {
 				}else {
 					lb="团队";
 					team t=te.selectBymainiUserId(uid);
-					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
 					List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
 					for (userorder userorder : list) {
 						//添加总订单从表

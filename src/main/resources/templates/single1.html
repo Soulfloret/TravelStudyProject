@@ -84,7 +84,7 @@
 				        	</div>
 				        	<div class="price_single">
 							 <!--  <span class="yj reducedfrom">$66.00</span> -->
-							  <span class="xj actual1" th:text="'$'+${item.price}"></span>
+							  <span class="xj actual1" th:text="'￥'+${item.price}"></span>
 							</div>
 				        	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
 							  <button type="button" class="jian btn btn-default">-</button>
@@ -106,10 +106,10 @@
 										$(this).prev().html(num);	
 										yj=yj.substring(1);
 										yj=parseFloat(yj)*num;
-										$(".yj").html("$"+yj.toFixed(2));
+										$(".yj").html("￥"+yj.toFixed(2));
 										xj=xj.substring(1);
 										xj=parseFloat(xj)*num;
-										$(".xj").html("$"+xj.toFixed(2));
+										$(".xj").html("￥"+xj.toFixed(2));
 									})
 									$(".jian").click(function(){
 										var yj=yj1;
@@ -120,10 +120,10 @@
 											$(this).next().html(num);
 											yj=yj.substring(1);
 											yj=parseFloat(yj)*num;
-											$(".yj").html("$"+yj.toFixed(2));
+											$(".yj").html("￥"+yj.toFixed(2));
 											xj=xj.substring(1);
 											xj=parseFloat(xj)*num;
-											$(".xj").html("$"+xj.toFixed(2));
+											$(".xj").html("￥"+xj.toFixed(2));
 										}
 										
 									})

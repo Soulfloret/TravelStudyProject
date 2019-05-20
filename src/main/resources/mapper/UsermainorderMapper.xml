@@ -28,7 +28,7 @@
   	SELECT * FROM `usermainorder`
   </select>
   <select id="queryorderCustomer" resultMap="BaseResultMap">
-  		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb}
+  		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb} and name1=#{name1}
   </select>
   
   
