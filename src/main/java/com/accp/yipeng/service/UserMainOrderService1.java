@@ -4,7 +4,7 @@ import com.accp.domain.Usermainorder;
 
 public interface UserMainOrderService1 {
 	
-	public int addUserMainOrder(Usermainorder o) ;
+	public Usermainorder addUserMainOrder(Usermainorder o) ;
 	
 	public Usermainorder QueryCunzai(Usermainorder o);
 }

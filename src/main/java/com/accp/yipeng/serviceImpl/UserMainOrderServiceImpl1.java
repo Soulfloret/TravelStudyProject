@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.chenyong.service.OrderSonService;
-import com.accp.domain.Meal;
-import com.accp.domain.Mealix;
 import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderproductwork;
@@ -98,7 +96,7 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 	@Autowired
 	ShopcartMapper mapper22;
 	
-	public int addUserMainOrder(Usermainorder o) {
+	public Usermainorder addUserMainOrder(Usermainorder o) {
 		int num=0;
 		for (orderson ods : o.getOlist()) {
 			Shopcart shop=new Shopcart(ods.getId(),ods.getIid(), ods.getTypeid(), ods.getName1(),ods.getName2());
@@ -113,7 +111,7 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 			o.setList(list1);
 		}
 		o=QueryCunzai(o);
-		return num;
+		return o;
 	}
 	
 	public Usermainorder QueryCunzai(Usermainorder o) {

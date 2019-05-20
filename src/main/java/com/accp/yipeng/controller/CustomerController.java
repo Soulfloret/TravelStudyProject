@@ -261,7 +261,7 @@ public class CustomerController {
 	
 	@RequestMapping("addUserMainOrder")
 	@ResponseBody  
-	public int addUserMainOrder(@RequestBody Usermainorder umorder) {
+	public Usermainorder addUserMainOrder(@RequestBody Usermainorder umorder) {
 		return umoService1.addUserMainOrder(umorder);
 	}
 	
@@ -270,7 +270,6 @@ public class CustomerController {
 		users use=(users)session.getAttribute("use");
 		List<Shopcart> list=shopservice.queryAll(use.getId());
 		model.addAttribute("list",list);
-		
 		return "buy";
 	}
 	
