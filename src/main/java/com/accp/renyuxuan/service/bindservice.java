@@ -6,6 +6,8 @@ import com.accp.domain.bind;
 
 public interface bindservice {
 	
+	List<bind> selectByQtTj();
+	
 	List<bind> querybindQt(bind bi);
 	
 	List<bind> selectbindByid(Integer id);

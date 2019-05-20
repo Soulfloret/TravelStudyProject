@@ -99,7 +99,9 @@ public class TeamServiceImpl implements TeamService{
 		t.setTeamid(cid);
 		t.setMemberid(user.getId());
 		num=TeammbeMapper.insert(t);
-		List<Usermainorder> list= UmoService.query(Mid);
+		Usermainorder u=new Usermainorder();
+		u.setId(Mid);
+		List<Usermainorder> list= UmoService.query(u);
 		Usermainorder usermo=list.get(0);
 		userorder useror=new userorder();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

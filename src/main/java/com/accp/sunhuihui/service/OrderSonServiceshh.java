@@ -19,6 +19,7 @@ import com.accp.domain.productproject;
 import com.accp.domain.project;
 import com.accp.domain.recommend;
 import com.accp.mapper.MealMapper;
+import com.accp.mapper.bindMapper;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
 import com.accp.mapper.ordersonMapper;
@@ -51,6 +52,8 @@ public class OrderSonServiceshh {
 		MealMapper mapper2;
 		@Autowired
 		ProductAreaService service;
+		@Autowired
+		bindMapper bmapper;
 		
 		public List<Object> recommdstatic(@Param("typeid")Integer typeid){
 			/**
@@ -97,6 +100,18 @@ public class OrderSonServiceshh {
 				type.setRecommend(com);
 			}
 			
+			/**
+			 * 餐饮套餐
+			 */
+			List<orderson> type4=omapper.recommdstatic(4);
+			for (orderson type : type4) { 
+				recommend com=bmapper.recommendBind(type.getIid());
+					com.setTid(type.getTypeid());
+					com.setImgs(imapper.queryimg(com.getId(), 4));
+				type.setRecommend(com);
+			}
+			
+			
 			List list = new ArrayList() ;
 	        Iterator it1 = typeid1.iterator() ;
 	        while(it1.hasNext()) {
@@ -116,11 +131,18 @@ public class OrderSonServiceshh {
 	        while(it4.hasNext()) {
 	            list.add(it4.next()) ;
 	        }
+	        
+	        Iterator it5 = type4.iterator() ;
+	        while(it5.hasNext()) {
+	            list.add(it5.next()) ;
+	        }
+	        
 	        Collections.shuffle(list);
 			return list;
 		}
 		
 		public List<orderson> query(List<orderson> o,Date startTime,Date endTime) {
+			List<orderson> o1=new ArrayList<orderson>();
 			for (orderson orderson : o) {
 				if(orderson.getTypeid()==1) {
 					project p=pmapper.selectByPrimaryKey(orderson.getIid());
@@ -151,8 +173,9 @@ public class OrderSonServiceshh {
 					}
 					orderson.setIx(list1);
 				}
+				o1.add(orderson);
 			}
-			return o;
+			return o1;
 		}
 		
 	}
