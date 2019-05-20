@@ -97,7 +97,6 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 	ShopcartMapper mapper22;
 	
 	public Usermainorder addUserMainOrder(Usermainorder o) {
-		int num=0;
 		for (orderson ods : o.getOlist()) {
 			Shopcart shop=new Shopcart(ods.getId(),ods.getIid(), ods.getTypeid(), ods.getName1(),ods.getName2());
 			mapper22.updateByPrimaryKeySelective(shop);
@@ -124,18 +123,14 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 					o.setName1("未付款");
 					Date date=new Date();
 					o.setOrdertime(new Date());
-						o.setOrderno(sdf.format(date)+"yxlx");
+					o.setOrderno(sdf.format(date)+"yxlx");
 					mapper.insert(o);
 					for(users u:o.getList()) {
-						teammember tm=new teammember();
-						tm.setMemberid(u.getId());
-						tm.setTeamid(o.getOrdercustomer());
-						mapper13.insert(tm);
 						userorder uo=new userorder();
 						uo.setOrderno(sdf.format(date)+"yxlx");
 						uo.setOrdertime(new Date());
 						uo.setOrderuser(o.getOrderuser());
-						uo.setOrdercustomer(o.getOrdercustomer());
+						uo.setOrdercustomer(u.getId());
 						uo.setOrdermainid(o.getId());
 						uo.setOrderstatus("未付款");
 						mapper14.insert(uo);

@@ -113,6 +113,7 @@ public class UserServiceImpl implements UsersService {
 				//获取所有行
 				int rows=sheet.getPhysicalNumberOfRows();
 				List<Integer> list=new ArrayList<Integer>();
+				list.add(t.getMainiuserid());
 				for (int i = 1; i < rows; i++) {
 					Row row=sheet.getRow(i);
 					Cell name=row.getCell(0);

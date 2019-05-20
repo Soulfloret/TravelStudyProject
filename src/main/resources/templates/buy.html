@@ -200,10 +200,10 @@
 						<thead>
 							<tr>
 								<th>项目名称</th>
-								<th style="width: 15%;">单价</th>
-								<th style="width: 15%;">数量</th>
-								<th class="hidden-xs" style="width: 15%;">总价</th>
-								<th class="hidden-xs" style="width: 10%;"></th>
+								<th style="width: 10%;">单价</th>
+								<th style="width: 10%;">数量</th>
+								<th class="hidden-xs" style="width: 10%;">总价</th>
+								<!-- <th class="hidden-xs" style="width: 10%;">操作</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -223,10 +223,8 @@
 								<td>
 									<input type="hidden" th:value="${item.id}" >
 									<input type="hidden" th:value="${item.ix.id}" >
-										<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" readonly />
-									</div>
+									<input type="hidden" th:value="${item.typeid}">
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -242,9 +240,7 @@
 									<input type="hidden" th:value="${item.id}" >
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}"  readonly/>
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -260,9 +256,7 @@
 									<input type="hidden" th:value="${item.id}" >
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" readonly />
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -273,11 +267,9 @@
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
 								<td>
 									<input type="hidden" th:value="${item.id}" >
-									<input type="hidden" th:value="${item.ix.id}" >
+									<input type="hidden" th:value="${item.ix.id}" >	
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" readonly/>
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -290,9 +282,7 @@
 									<input type="hidden" th:value="${item.id}" >
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" readonly/>
-									</div>
+									 <p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>

@@ -48,55 +48,11 @@
 										</div>
 										<!-- // SEARCH BOX -->
 									</li>
-									<li data-toggle="sub-header" data-target="#sub-social">
-										<!-- SOCIAL ICONS -->
-										<a href="javascript:void(0);" id="social-icons">
-											<i class="iconfont-share round-icon"></i>
-										</a>
-
-										<div id="sub-social" class="sub-header">
-											<ul class="social-list unstyled text-center">
-												<li>
-													<a href="#"><i class="iconfont-facebook round-icon"></i></a>
-												</li>
-												<li>
-													<a href="#"><i class="iconfont-twitter round-icon"></i></a>
-												</li>
-												<li>
-													<a href="#"><i class="iconfont-google-plus round-icon"></i></a>
-												</li>
-												<li>
-													<a href="#"><i class="iconfont-pinterest round-icon"></i></a>
-												</li>
-												<li>
-													<a href="#"><i class="iconfont-rss round-icon"></i></a>
-												</li>
-											</ul>
-										</div>
-										<!-- // SOCIAL ICONS -->
-									</li>
 									<li data-toggle="sub-header" data-target="#sub-cart">
 										<!-- SHOPPING CART -->
-										<a href="javascript:void(0);" id="total-cart">
+										<a th:href="@{/customer/look}" id="total-cart">
 											<i class="iconfont-shopping-cart round-icon"></i>
 										</a>
-
-										<div id="sub-cart" class="sub-header">
-											<div class="cart-header">
-												<span>你的购物车是空的</span>
-												<small><a href="cart.html">(See All)</a></small>
-											</div>
-											<ul class="cart-items product-medialist unstyled clearfix"></ul>
-											<div class="cart-footer">
-												<div class="cart-total clearfix">
-													<span class="pull-left uppercase">总计</span>
-													<span class="pull-right total">￥ 0</span>
-												</div>
-												<div class="text-right">
-													<a th:href="@{/customer/tocart}" class="btn btn-default btn-round view-cart">查看</a>
-												</div>
-											</div>
-										</div>
 										<!-- // SHOPPING CART -->
 									</li>
 								</ul>
@@ -197,6 +153,7 @@
 				</div>
 				<!-- // MAIN HEADER -->
 			</header>
+			
 		
 		<div class="breadcrumb-container">
 			<div class="container">

@@ -74,12 +74,14 @@ public class LoginController {
 	}
 	@RequestMapping("toregister")
 	public String toregister(Model model) {
-		
 		model.addAttribute("list",UsersType.selectByExample(null));
 		return "register";
 	}
 	@RequestMapping("register")
 	public String register(users user,MultipartFile file,String team) {
-		Use.addcustomer(user, file, team);
-		return "redirect:/Login/tologin";
+		int num=Use.addcustomer(user, file, team);
+		if(num>0) {
+			return "redirect:/Login/tologin";
+		}
+		return "redirect:/Login/toregister";
 	}}

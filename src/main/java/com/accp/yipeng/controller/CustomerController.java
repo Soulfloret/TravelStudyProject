@@ -1,6 +1,7 @@
 package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -248,7 +249,8 @@ public class CustomerController {
 		if(use==null) {
 			return "redirect:/Login/tologin";
 		}else {
-			model.addAttribute("list",shopservice.queryAll(use.getId()));
+			List<Shopcart> list=  shopservice.queryAll(use.getId());
+			model.addAttribute("list",list);
 			return "cart";
 		}
 	}
@@ -268,9 +270,13 @@ public class CustomerController {
 	@RequestMapping("buy")
 	public String buy(Model model,HttpSession  session) {
 		users use=(users)session.getAttribute("use");
-		List<Shopcart> list=shopservice.queryAll(use.getId());
-		model.addAttribute("list",list);
-		return "buy";
+		if(use==null) {
+			return "redirect:/Login/tologin";
+		}else {
+			List<Shopcart> list=shopservice.queryAll(use.getId());
+			model.addAttribute("list",list);
+			return "buy";
+		}
 	}
 	
 	
