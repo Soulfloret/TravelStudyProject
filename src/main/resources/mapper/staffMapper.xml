@@ -166,6 +166,22 @@ select * from staff where userid=#{userid}
 	<select id="projectOrder_queryUser" resultMap="result_projectOrder_queryUser">
 		select * from `staff` where id=#{id}
 	</select>
+	
+	
+	<!-- 添加项目查询负责人 -->
+	<resultMap type="com.accp.domain.staff" id="result_ByProjectName" extends="BaseResultMap">
+		<collection property="user" column="userid" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey"></collection>
+		<collection property="plist" column="postionid" ofType="com.accp.domain.positions"></collection>
+	</resultMap>
+	
+	<select id="ByProjectName" resultMap="result_ByProjectName">
+		SELECT * FROM `staff` AS `sta`
+		INNER JOIN `positions` AS `po`
+		ON `sta`.`PostionId`=`po`.`id`
+		INNER JOIN `users` AS `u`
+		ON `u`.`id`=`sta`.`userId`
+		WHERE `po`.`id`=1 AND `u`.`TypeId`=3
+	</select>
 
 	<sql id="Example_Where_Clause">
 		<where>

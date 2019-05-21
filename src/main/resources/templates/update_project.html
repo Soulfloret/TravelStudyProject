@@ -115,22 +115,23 @@
 								</div>
 						</div>
 						<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-							<div class="tm-product-img-edit mx-auto"
-								th:each="item1 : ${list.ilist}" style="border: 1px solid white;">
+							<div class="tm-product-img-edit mx-auto img_div"
+								th:each="item1 : ${list.ilist}">
 								<img th:src="'/'+${item1.url}"
 									style="width: 100%; height: 100%;">
 							</div>
 
-							<input type="button" class="btn btn-primary btn-block mx-auto"
-								value="上传图片"
+							<input id="fileInput" type="file" style="display: none;" multiple="multiple"/> <input
+								type="button" class="btn btn-primary btn-block mx-auto"
+								value="上传图片" id="commit_picture"
 								onclick="document.getElementById('fileInput').click();" />
 
-							<div class="tm-product-img-edit mx-auto"
+							<!-- <div class="tm-product-img-edit mx-auto"
 								style="margin-top: 20px;">
 								<input type="button" data-toggle="modal" data-target="#look_pl"
 									class="btn btn-primary btn-block text-uppercase"
 									value="查看评论(数量)" />
-							</div>
+							</div> -->
 							
 						</div>
 
@@ -139,7 +140,33 @@
 					</div>
 					<label for="stock" style="color: white; font-size: 20px;">已有基地</label>
 
-					<div>
+					<div style="text-align: center;">
+						<table class="table table-hover tm-table-small tm-product-table">
+							<thead>
+								<tr>
+									
+									<th scope="col">基地名称</th>
+									<th scope="col">基地位置</th>
+									<th scope="col">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="show_jd_tbody">
+								<tr th:each="item : ${list.palist}">
+									
+									<td class=""><a href="" style="color: white;"
+										th:text="${item.area.aname}"></a></td>
+									<td th:text="${item.area.pistion}"></td>
+									<td><a href="javascript:void(0)" style="color:red">删除</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="button" id="insert_project"
+							class="btn btn-primary text-uppercase" style="margin-top: 20px;border-radius: 30px 30px 30px 30px" data-toggle="modal" data-target="#insert_area">添加基地</button>
+					</div>
+					
+					<label for="stock" style="color: white; font-size: 20px;">已有职位</label>
+
+					<div style="text-align: center;">
 						<table class="table table-hover tm-table-small tm-product-table">
 							<thead>
 								<tr>
@@ -150,15 +177,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="item : ${list.palist}">
+								<tr th:each="item : ${list.palist}" class="show_zw_tbody">
 									<th scope="row"></th>
 									<td class=""><a href="" style="color: white;"
 										th:text="${item.area.aname}"></a></td>
 									<td th:text="${item.area.pistion}"></td>
-									<td></td>
+									<td><a href="javascript:void(0)" style="color:red">删除</a></td>
 								</tr>
 							</tbody>
 						</table>
+						<button type="button" id="insert_project"
+						class="btn btn-primary text-uppercase" style="margin-top: 20px;border-radius: 30px 30px 30px 30px" data-toggle="modal" data-target="#insert_pos">添加职位</button>
 					</div>
 					<div class="col-12" style="margin-top: 20px;">
 						<button type="button" id="insert_project"
@@ -170,114 +199,75 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="look_pl" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content" style="background: #435c70; color: white;">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">评论</h4>
+	<div class="modal fade" id="insert_area" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content"  style="background: #435c70;color: white;">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">添加基地</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>基地名称</th>
+										<th>基地位置</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody class="jd_tbody">
+									<tr th:each="item : ${alist}">
+										<td th:id="${item.id}" th:text="${item.aname}"></td>
+										<td th:text="${item.pistion}"></td>
+										<th><input type="checkbox" name="ck_jd" /></th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary jd_insert_button">添加</button>
+						</div>
 				</div>
-				<div class="modal-body">
-					<input type="text" placeholder="评论内容" /> <input type="button" id=""
-						style="border-radius: 30px 30px 30px 30px; width: 100px;"
-						class="btn-primary" value="查询" />
-					<ul style="list-style: none; margin-top: 20px;">
-						<li th:each="plitem : ${list.pllist}">
-							<div style="display: flex;">
-								<div
-									style="width: 60px; height: 60px; border-radius: 50%; border: 1px solid white;"></div>
-								<div style="margin-left: 20px;">
-									<p th:text="${plitem.user.uname}"></p>
-									<p>⭐⭐⭐⭐⭐</p>
-								</div>
-
-							</div>
-							<div style="float: right;">
-								<a href="#" class="tm-product-delete-link"> <i
-									class="far fa-trash-alt tm-product-delete-icon"></i>
-								</a>
-							</div>
-							<div>
-								<p th:text="${plitem.content}"></p>
-								<p>
-									<a style="color: orange;" id="look_hf">查看回复</a> <a
-										style="color: orange; display: none;" id="hide_hf_a">隐藏回复</a>
-								</p>
-							</div>
-
-							<div style="display: none;" id="hide_hf">
-								<ul style="list-style: none; margin-top: 20px;">
-									<li>
-										<div style="display: flex;">
-											<div
-												style="width: 60px; height: 60px; border-radius: 50%; border: 1px solid white;"></div>
-											<div style="margin-left: 20px;">
-												<p>姓名</p>
-												<p>时间</p>
-											</div>
-
-										</div>
-										<div style="float: right;">
-											<a href="#" class="tm-product-delete-link"> <i
-												class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</div>
-										<div>
-											<p>回复内容</p>
-
-										</div>
-										<div></div>
-									</li>
-								</ul>
-							</div>
-						</li>
-
-					</ul>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						style="border-radius: 30px 30px 30px 30px;">关闭</button>
-					<button type="button" class="btn btn-primary"
-						style="border-radius: 30px 30px 30px 30px;">提交</button>
-				</div>
+				<!-- /.modal-content -->
 			</div>
-		</div>
-		<!-- /.modal-content -->
+			<!-- /.modal -->
 	</div>
-	<div class="modal fade" id="look_dz" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content" style="background: #435c70; color: white;">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">点赞</h4>
+	
+	
+	
+	<div class="modal fade" id="insert_pos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content"  style="background: #435c70;color: white;">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">添加职位</h4>
+						</div>
+						<div class="modal-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>职位名称</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="position_item : ${pslist}">
+										<td th:id="${position_item.id}" th:text="${position_item.postion}"></td>
+										<th><input type="checkbox" name="ck_zw" /></th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary zw_insert_button">添加</button>
+						</div>
 				</div>
-				<div class="modal-body">
-					<input type="text" placeholder="客户姓名" /> <input type="button" id=""
-						style="border-radius: 30px 30px 30px 30px; width: 100px;"
-						class="btn-primary" value="查询" />
-					<ul style="list-style: none; margin-top: 20px;">
-						<li>
-							<div style="display: flex;">
-								<div
-									style="width: 60px; height: 60px; border-radius: 50%; border: 1px solid white;"></div>
-								<div style="margin-left: 20px;">
-									<p>姓名</p>
-									<p>时间</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						style="border-radius: 30px 30px 30px 30px;">关闭</button>
-					<button type="button" class="btn btn-primary"
-						style="border-radius: 30px 30px 30px 30px;">提交</button>
-				</div>
+				<!-- /.modal-content -->
 			</div>
-		</div>
+			<!-- /.modal -->
 	</div>
+	
+	
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<!-- https://jquery.com/download/ -->
 	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
@@ -289,15 +279,119 @@
 			$("#expire_date").datepicker({
 				defaultDate : "10/22/2020"
 			});
-			$("#look_hf").click(function() {
-				$("#hide_hf").css("display", "block");
-				$(this).hide();
-				$("#hide_hf_a").css("display", "block");
-			});
-			$("#hide_hf_a").click(function() {
-				$("#hide_hf").css("display", "none");
-				$(this).hide();
-				$("#look_hf").css("display", "block");
+			
+			$(".jd_insert_button").click(function(){
+				$("[name=ck_jd]").each(function(){
+					if(this.checked){
+						var xm = $(this).parents("tr").clone();
+						xm.find("input").remove();
+						var remove_xm = $("<td><a href='javascript:void(0)' style='color: red;' id='yc_ry_a' onclick='yc_xm(this)'>删除</a></td>");
+						$(xm).append(remove_xm);
+						alert(xm);
+						xm.find("th").remove();
+						$(".show_jd_tbody").append(xm);
+					}
+				})
+			})
+			
+			
+			$("#commit_picture").click(function(){
+				$(".img_div").html("");
+				$("#fileInput").change(function(){
+					
+					alert(123);
+					var formDataimg = new FormData(); 
+					var fileArr ;
+					$("[type=file]").each(function(i,obj){
+						fileArr = this.files;
+					})
+					if(fileArr.length>3){
+						alert("不好意思,最多选择三张图片");	
+					}else{
+						for(var i = 0;i < fileArr.length;i++){
+							formDataimg.append("file",fileArr[i]);
+						}
+					}	
+					$.ajax({
+		            		url:"file",
+		            		type:"post",
+		            		data:formDataimg,
+		            		processData:false,
+		    				contentType:false,
+		    				dataType:"json",
+		    				success:function(result){
+		    					console.log(result);
+		    					$.each(result,function(i,obj){
+		    						console.log(obj.url);
+		    						var dt=$("<img src='/"+obj.url+"' style='width: 100%; height: 100%;''>"+
+		    						"<input type='hidden' value='"+obj.url+"' name='url'><input type='hidden' value='1' name='typeid'>");
+		    						$(".img_div").append(dt);
+		    					}) 	
+		    				}
+		            });  
+				})
+			})
+			
+			$("#insert_project").click(function(){
+				var formData = new FormData(); 
+					$("[name=url]").each(function(m,obj1){
+						formData.append("ilist["+m+"].url",$(this).val());
+						formData.append("ilist["+m+"].typeid",1);		
+					})	
+					$("#show_jd_table tr").each(function(i,obj){
+						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
+					})
+					var pj="-1";
+					$("#show_zw_table tr").each(function(i,obj){
+						console.log($(this).find("td:eq(0)").attr("id"));
+						var id=$(this).find("td:eq(0)").attr("id");
+						pj+=","+id;
+					})
+					
+					var myDate = new Date();
+					//获取当前年
+					var year=myDate.getFullYear();
+					//获取当前月
+					var month=myDate.getMonth()+1;
+					//获取当前日
+					var date=myDate.getDate(); 
+					var h=myDate.getHours();       //获取当前小时数(0-23)
+					var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+					var s=myDate.getSeconds();  
+					var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+					var dt = new Date(now.replace(/-/,"/")) 
+					formData.append("pname",$("[name=name]").val());
+					formData.append("createtime",dt);
+					formData.append("tid",$("[name=ttype]").attr("id"));
+					formData.append("description",$("[name=descirption]").val());
+					formData.append("remark",$("[name=remark]").val());
+					formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+					formData.append("price",$("[name=price]").val());
+					formData.append("safetime",$("[name=safe_time]").val());
+					formData.append("needtime",$("[name=needTime]").val());
+					formData.append("galleryful",$("[name=galleryful]").val());
+					formData.append("cost",$("[name=Cost]").val());
+					formData.append("minheight",$("[name=minheight]").val());
+					formData.append("maxheight",$("[name=maxheight]").val());
+					formData.append("mincrowd",$("[name=mincrowd]").val());
+					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
+					formData.append("name1",pj);
+					
+					console.log(formData);
+				    /* $.ajax({
+						url:"project_insert",
+						type:"post",
+						data:formData,
+						processData:false,
+						contentType:false,
+						dataType:"json",
+						success:function(result){
+							console.log(123);
+							console.log(result);
+						}
+					});   */  
+				
+				 
 			})
 		});
 	</script>

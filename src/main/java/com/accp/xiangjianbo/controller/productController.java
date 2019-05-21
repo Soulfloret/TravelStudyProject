@@ -69,7 +69,12 @@ public class productController {
 		return "edit-product";
 	}
 	
-	
+	/*前台查询活动推荐*/
+	@RequestMapping("QueryQtproductByXq")
+	public List<product> QueryQtproductByXq() {
+		List<product> list= prod.QueryQtproductByXq();
+		return list;
+	}
 	
 	
 }

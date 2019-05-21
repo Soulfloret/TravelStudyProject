@@ -67,7 +67,25 @@
 		WHERE id=#{id}
   </select>
   
-
+	<!-- 前台查询活动推荐 -->
+	 <resultMap type="com.accp.domain.product" id="result_QueryQtproductByXq" extends="BaseResultMap">
+	  	<collection property="pplist" ofType="com.accp.domain.productproject" column="id" select="com.accp.mapper.productprojectMapper.queryByProdId">
+	  		<id column="id" property="id"/>
+	  		 <result column="productId" property="productid"/>
+	   		 <result column="ProjectId" property="projectid"/> 
+	  	</collection>
+	  	<collection property="orderson" ofType="com.accp.domain.orderson" column="id">
+	  		 <id column="id" property="id" jdbcType="INTEGER" />
+		    <result column="iid" property="iid" jdbcType="INTEGER" />
+		    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+	  	</collection>
+  	</resultMap>
+  
+  <select id="QueryQtproductByXq" resultMap="QueryQtproductByXq">
+ 	 SELECT * FROM `product`
+	 ORDER BY `id` DESC 
+	 LIMIT 0,8
+  </select>
   
   
   

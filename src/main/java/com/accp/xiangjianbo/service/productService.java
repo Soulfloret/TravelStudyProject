@@ -37,4 +37,10 @@ public class productService {
 		return prod.queryByXqById(id);
 	}
 	
+	/*前台查询活动推荐*/
+	public List<product> QueryQtproductByXq(){
+		List<product> list  = prod.QueryQtproductByXq();
+    	return list;
+    }
+	
 }

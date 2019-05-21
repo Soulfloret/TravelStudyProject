@@ -58,8 +58,8 @@
 							</div>
 							<div class="form-group mb-3">
 								<label for="">所属类型</label> <select
-									class="custom-select tm-select-accounts" id="">
-									<option th:each="item_type : ${typelist}"  name="ttype" th:id="${item_type.id}" th:text="${item_type.ptname}"></option>
+									class="custom-select tm-select-accounts" name="ttype" id="">
+									<option th:each="item_type : ${typelist}"  th:value="${item_type.id}" th:text="${item_type.ptname}"></option>
 								</select>
 							</div>
 							<div class="form-group mb-3">
@@ -71,9 +71,10 @@
 								<textarea name="remark" class="form-control validate" rows="3" required></textarea>
 							</div>
 							<div class="form-group mb-3">
-								<label for="">请输入负责人</label> <input
-									id="name" name="leadingofficial" type="text" class="form-control validate"
-									required />
+								<label for="">请选择负责人</label> 
+								<select class="custom-select tm-select-accounts" name="leadingofficial" id="">
+									<option th:each="item_sta : ${stalist}"  name="" th:value="${item_sta.user.id}" th:text="${item_sta.user.uname}"></option>
+								</select>
 							</div>
 
 							<div class="form-group mb-3">
@@ -314,11 +315,11 @@
 					$("#show_jd_table tr").each(function(i,obj){
 						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
 					})
-					var pj="-1";
+					var pj="0";
 					$("#show_zw_table tr").each(function(i,obj){
-						console.log($(this).find("td:eq(0)").attr("id"));
 						var id=$(this).find("td:eq(0)").attr("id");
 						pj+=","+id;
+						
 					})
 					
 					var myDate = new Date();
@@ -335,10 +336,10 @@
 					var dt = new Date(now.replace(/-/,"/")) 
 					formData.append("pname",$("[name=name]").val());
 					formData.append("createtime",dt);
-					formData.append("tid",$("[name=ttype]").attr("id"));
+					formData.append("tid",$("[name=ttype]").val());
 					formData.append("description",$("[name=descirption]").val());
 					formData.append("remark",$("[name=remark]").val());
-					formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+					formData.append("leadingoffcial",$("[name=leadingofficial]").val());
 					formData.append("price",$("[name=price]").val());
 					formData.append("safetime",$("[name=safe_time]").val());
 					formData.append("needtime",$("[name=needTime]").val());
@@ -349,9 +350,12 @@
 					formData.append("mincrowd",$("[name=mincrowd]").val());
 					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
 					formData.append("name1",pj);
-					
+					var a=pj.split(",");
+					for(var i=0;i<a.length;i++){
+						alert(a[i])
+					}
 					console.log(formData);
-				    $.ajax({
+				   /*  $.ajax({
 						url:"project_insert",
 						type:"post",
 						data:formData,
@@ -359,15 +363,18 @@
 						contentType:false,
 						dataType:"json",
 						success:function(result){
-							console.log(123);
-							console.log(result);
+							console.log(result)
+							if(result==0){
+								location.href="query";
+							}
+							
 						}
-					});    
+					});   */  
 				
 				 
 			})
 			
-			$("[name=leadingofficial]").change(function(){
+			/* $("[name=leadingofficial]").change(function(){
 				var name=$(this).val();
 				var th=this;
 				$.ajax({
@@ -383,7 +390,7 @@
 						}
 					}
 				})
-			})
+			}) */
 		});
 
 		function yc_xm(th) {
