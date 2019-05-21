@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.ProductAreaService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.chenyong.service.UserServicec;
 import com.accp.domain.Order_workAndOrderSon;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
@@ -62,6 +63,9 @@ public class projectOrderController {
 	
 	@Autowired
 	OrderSonService cyorderson;
+	
+	@Autowired
+	UserServicec cyuserservice;
 	
 	@RequestMapping("/toProjectOrder")
 	public String toProjectOrder() {
@@ -148,6 +152,18 @@ public class projectOrderController {
 		return o;
 	}
 	
-	
+	/*根据身份证查询客户*/
+	@RequestMapping("queryByCoard")
+	@ResponseBody
+	public List<users> queryByCoard(String uid,Integer typeId){
+		List<users> list=new ArrayList<users>();
+		users u=cyuserservice.queryByIdCard(uid);
+		if(typeId==1) {
+			list.add(u);
+		}else {
+			list=cyuserservice.selectBymainiUserId(u.getId());
+		}
+		return list;
+	}
 	
 }
