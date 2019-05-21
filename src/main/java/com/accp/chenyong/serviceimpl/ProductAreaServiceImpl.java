@@ -94,8 +94,8 @@ public class ProductAreaServiceImpl implements ProductAreaService{
 					 area.setWorktimes(new HashMap<String,List<workTime>>());
 				 }
 				 area.getWorktimes().put(sdf.format(cal.getTime()).toString()+d2.toString(),list);	
-				 list2.add(area);
 			 }
+			 list2.add(area);
 		 }
 		 p.setAreas(list2);
 		 return p;

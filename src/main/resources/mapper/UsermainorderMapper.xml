@@ -31,7 +31,6 @@
   		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb}
   </select>
   
-  
   <select id="query" resultMap="BaseResultMap">
 		select * from usermainorder 
 		<where>

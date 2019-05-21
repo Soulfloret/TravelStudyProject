@@ -2,6 +2,7 @@ package com.accp.chenyong.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.chenyong.service.UserServicec;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 import com.accp.domain.userorder;
@@ -38,6 +40,8 @@ public class OrderController {
 	menuservice service4;
 	@Autowired
 	roomservice service5;
+	@Autowired
+	UserServicec service6;
 	@RequestMapping("query")
 	public String query(Model mo) {
 		mo.addAttribute("list",service.query(null));
@@ -93,5 +97,17 @@ public class OrderController {
 			}
 		}
 		return "";
+	}
+	@ResponseBody
+	@RequestMapping("queryIdcard")
+	public List<users> queryIdcar(String uid,Integer typeId){
+		List<users> list=new ArrayList<users>();
+		users u=service6.queryByIdCard(uid);
+		if(typeId==1) {
+			list.add(u);
+		}else {
+			list=service6.selectBymainiUserId(u.getId());
+		}
+		return list;
 	}
 }
