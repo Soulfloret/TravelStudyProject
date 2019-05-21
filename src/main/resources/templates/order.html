@@ -206,9 +206,9 @@
 							<div class="modal-body" style="text-align: center;">
 									<div>
 										<span style="margin-left: 50px;margin-bottom:30px;">个人</span>
-										<input type="radio" style="width: 15px;height: 15px;" name="usertype" />
+										<input type="radio" style="width: 15px;height: 15px;" name="usertype" attr="1" />
 										<span style="margin-left: 70px;">团队</span>
-										<input type="radio"  style="width: 15px;height: 15px;" name="usertype"/>
+										<input type="radio"  style="width: 15px;height: 15px;" name="usertype" attr="2"/>
 										<div id="cardbox">
 											<span style="margin-right: 30px;" id="idcard">请输入身份证号</span>
 											<input type="text"  style="margin-right: 30px;"/>
@@ -298,15 +298,17 @@
 										</div>								
 										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
 										</table>
-										<div id="paiban" style="display:none">
+										<div class="xmpb">
 							         
+							             </div>
+							             <div class="time" style="display:none">
 							             </div>
 										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
 							             value="生成排班"/>
 									</div>
 							</div>
 							<div id="" class="modal-footer">
-								<a class="btn btn-dark">提交</a>
+								<a class="btn btn-dark" id="orderinsert">提交</a>
 								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 							</div>
 						</div>
@@ -730,161 +732,208 @@
 			})
 		</script>
 		<script th:line="javascript">
-		var pd=0;
+		function XmPb(id,pname,area,time,etime,pid,aid,typeid) {
+			var div = document.createElement("tr");
+			div.classList.add("detail1");
+			div.classList.add("row");
+			var p1 = document.createElement("td");
+			p1.classList.add("col-2");
+			p1.innerHTML = pname;
+			div.appendChild(p1)
+			var inputp=document.createElement("input");
+			inputp.value=pid;
+			inputp.setAttribute("type","hidden");
+			inputp.classList.add("pid");
+			div.appendChild(inputp);
+			var p2 = document.createElement("td");
+			p2.classList.add("col-2");
+			p2.innerHTML = area;
+			div.appendChild(p2)
+			var inputa=document.createElement("input");
+			inputa.value=aid;
+			inputa.setAttribute("type","hidden");
+			inputa.classList.add("aid");
+			div.appendChild(inputa);
+			var p3 = document.createElement("td");
+			p3.classList.add("col-4");
+			var span1 = document.createElement("span");
+			span1.classList.add("startTime");
+			span1.innerHTML = time;
+			p3.appendChild(span1);
+			div.appendChild(p3);
+			var p4 = document.createElement("td");
+			p4.classList.add("col-4");
+			var span2 = document.createElement("span");
+			span2.classList.add("endTime");
+			span2.innerHTML = etime;
+			p4.appendChild(span2);
+			div.appendChild(p4);
+			$.each($("#boxorder tr"),function(index,item){
+				if($(item).find("[name='productid']").val()==id&&$(item).find(".typeidss").val()==typeid)
+					$(item).after(div);
+			})
+		}
+		var pd=1;
 		var timelist=[];
-		var etimes=new Date();	
+		var etimes=new Date();
+		var orderson1;
+		var hd = 0; 
+		var startTime=new Date();
+		var i=0;
+		var j=0;
 		function Xm(number1){
-				mui.ajax('http://192.168.43.139:8080/shopcartshh/query',{
-				  		data:{"orderson":orderson1},
+				if(i%3==0&&i!=0){
+					j++;
+				}
+				var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
+				var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+i)+" "+"7:30:00";
+				i++;
+				$.ajax({
+						url:'/shopcartshh/query',
+				  		data:{"orderson":orderson1,"startTime":startTime1,"endTime":endTime1},
 				  		dataType:'json',//服务器返回json格式数据
 				  		type:'post',//HTTP请求类型
 				  		timeout:10000,//超时时间设置为10秒；
 				  		success:function(data){
 					  			DataXm(data,number1);
-					  			console.log(pd)
-					  			if(pd!=0){
+					  			if(pd==1){
 					  				for (var m=0;m<timelist.length;m++) {
-					  						var li=document.querySelector(".xmpb");
 					  						var times=new Date(timelist[m].time);
 					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
 					  						var etimes=new Date(timelist[m].etime);
 					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
-						  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
+						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid)
 					  				}
 	  									document.querySelector(".time").style.display="block";
-									    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
-									    var time1 = Date.parse(new Date(timelist[0].time));
-									    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
-									    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
 								}else{
-									var etimes=new Date();
-					  				var startTime=etimes.getFullYear()+"-"+(etimes.getMonth()+1)+"-"+(etimes.getDate()+1)+" "+"7:30:00";
-									mui.ajax('http://192.168.43.139:8080/shopcartshh/query',{
-										data:{"orderson":orderson1,"startTime":startTime},
-										dataType:'json',//服务器返回json格式数据
-										type:'post',//HTTP请求类型
-										timeout:10000,//超时时间设置为10秒；
-										success:function(data){
-											DataXm(data,number1);
-											for (var m=0;m<timelist.length;m++) {
-							  						var li=document.querySelector(".xmpb");
-							  						var times=new Date(timelist[m].time);
-							  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
-							  						var etimes=new Date(timelist[m].etime);
-							  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
-								  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
-							  				}
-											
-	  											document.querySelector(".time").style.display="block";
-											    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
-											    var time1 = Date.parse(new Date(timelist[0].time));
-											    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
-											    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
-										},
-										error:function(xhr,type,errorThrown){
-										}
-									});
-								}
-							},
-							error: function(xhr, type, errorThrown) {
-							
+										Xm(number1);
+								};
 						}
 					});
-				}
+		}
 		function DataXm(data,number1) {
+			pd=1;
 			timelist=[];
+			hd=0;
 			document.querySelector(".xmpb").innerHTML="";
-			var hd = 0;
 			var etime1 = Date.parse(new Date());
 			for(var i = 0; i < data.length; i++) {
 				var be1 = 0;
 				if(data[i].ix != null) {
 					if(data[i].ix.length == undefined) {
 						for(var h = 0; h < data[i].ix.areas.length; h++) {
-							mui.each(data[i].ix.areas[h].worktimes, function(index, item) {
-								mui.each(item, function(index1, item1) {
+							var indexss=0;
+							$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+								$.each(item, function(index1, item1) {
 									var time3 = Date.parse(new Date(item1.startTime));
 									var pro = {};
-									if(etime1<time3){
 										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
-											pro.id = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
 											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
 											timelist[hd] = pro;
 											be1++;
+											indexss=1;
 										} else
 										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
 											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
 											timelist[hd] = pro;
 											be1++;
+											indexss=1;
 										} else
-										if(timelist[hd] != null && timelist[hd - 1] != null && timelist[hd].time > item1.startTime && timelist[hd - 1].etime < item1.startTime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
 											var pro = {};
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
 											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
 											timelist[hd] = pro;
 											be1++;
+											indexss=1;
 										}
-										pd++;
-									}else{
-										pd=0;
-									}
-									
 								})
 							})
+							
+							if(indexss==0){
+								pd=0;
+							}
 							if(be1 != 0) {
 								break;
 								be1 = 0;
 							}
 						}
 						hd++;
-					} else {
+					}else {
 						for(var j = 0; j < data[i].ix.length; j++) {
 							var be = 0;
 							for(var h = 0; h < data[i].ix[j].areas.length; h++) {
-								mui.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
-									mui.each(item, function(index1, item1) {
+								var indexss=0
+								$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+									$.each(item, function(index1, item1) {
 										var time3 = Date.parse(new Date(item1.startTime));
 										var pro = {};
-											if(etime1<time3){
 												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-												pro.time = item1.startTime;
-												pro.area = data[i].ix[j].areas[h].aname;
-												pro.pname = data[i].ix[j].pname;
-												pro.etime = item1.endTime;
-												timelist[hd] = pro;
-												be++;
-											} else
-											if(timelist[hd] == null && hd != 0 && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-												pro.time = item1.startTime;
-												pro.area = data[i].ix[j].areas[h].aname;
-												pro.pname = data[i].ix[j].pname;
-												pro.etime = item1.endTime;
-												timelist[hd] = pro;
-												be++;
-											} else
-											if(timelist[hd] != null && timelist[hd].time > item1.startTime && timelist[hd - 1].etime < item1.startTime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-												var pro = {};
-												pro.time = item1.startTime;
-												pro.area = data[i].ix[j].areas[h].aname;
-												pro.pname = data[i].ix[j].pname;
-												pro.etime = item1.endTime;
-												timelist[hd] = pro;
-												be++;
-											}
-										pd++;
-									}else{
-										pd=0;
-									}
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid=data[i].ix[j].areas[h].id;
+													pro.id=data[i].iid;
+													pro.typeid=data[i].typeid;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid=data[i].ix[j].areas[h].id;
+													pro.id=data[i].iid;
+													pro.typeid=data[i].typeid;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+														var pro = {};
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														pro.pid=data[i].ix[j].id;
+														pro.aid=data[i].ix[j].areas[h].id;
+														pro.id=data[i].iid;
+														pro.typeid=data[i].typeid;
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+														console.log(timelist[hd].time>item1.startTime)
+													}
 									})
 								})
+								if(indexss==0){
+									pd=0;
+								}		
 								if(be != 0) {
 									break;
 									be = 0;
@@ -898,14 +947,24 @@
 		}		
 		</script>
 		<script th:line="javascript">
+			var users=[];
+			var usertype=1;
+			var number=0;
 			$("#queryUser").click(function(){
 				var crarNo=$(this).prev().val();
 				$.ajax({
-					url:"/customer/queryByIdCard?IdCardNo="+crarNo+"",
+					url:"/order/queryIdcard?uid="+crarNo+"&typeId="+usertype+"",
 					type:"post",
 					dataType:"json",
 					success:function(data){
 						alert("此用户存在");
+						if(data.length>0){
+							users=data;
+							number=data.length;
+						}
+						if(data.length==0){
+							alert("还未录入团员信息哦");
+						}
 						$("#checkboxs").css("display","block");
 					},
 					error:function(data){
@@ -914,7 +973,66 @@
 					}
 				})
 			})
+			$("#orderinsert").click(function(){
+				var usermainorder={};
+				usermainorder.list=users;
+				var odersons=[];
+				$.each($("#boxorder tr"),function(index1,item1){
+					var orderson={};
+					var types=$(item1).find(".typeidss").val();
+					orderson.typeid=types;
+					orderson.iid=$(item1).find(".productid").val();
+					if(types==1||types==5){
+						var orderwork={};
+						var orderproductwork=[];
+						var worduser=[];
+						$.each($(".detail1"),function(index,item){
+							var opw={};
+							opw.starttime=$(item).find(".startTime").text();
+							opw.endtime=$(item).find(".startTime").text();
+							opw.iid=$(item).find(".pid").val();
+							opw.name1=$(item).find(".aid").val();
+							orderproductwork.push(opw);
+						})
+						orderwork.list=orderproductwork;	
+						orderson.ix=orderwork;
+					}
+					if(types==7){
+						var types1;
+						var ix={};
+						var mealix={}; 
+						if(types1==1){
+							var orderwork={};
+							var orderproductwork=[];
+							var worduser=[];
+							$.each($(".detail1"),function(index,item){
+								var opw={};
+								opw.starttime=$(item).find(".startTime").text();
+								opw.endtime=$(item).find(".startTime").text();
+								opw.iid=$(item).find(".pid").val();
+								opw.name1=$(item).find(".aid").val();
+								orderproductwork.push(opw);
+							})
+							orderwork.list=orderproductwork;
+							mealix.ix=orderwork;
+							ix.list.push(mealix);
+						}
+					}
+					orderson.push(ix);
+				})
+				usermainorder.orderson=ordesons;
+				$.ajax({
+					url:"order/insertOrder",
+					type:"post",
+					dataType:"json",
+					data:{},
+					success:function(data){
+						
+					}
+				})
+			})
 			$("[name='usertype']").click(function(){
+				usertype=$(this).attr("attr");
 				$("#cardbox").css("display","block");
 			})
 			function a(obj){
@@ -956,7 +1074,6 @@
 					if(typeid==5){
 						type="活动";
 					}
-					console.log(typeid);
 					var td=$("<td><input type='hidden' class='typeidss' value='"+typeid+"'>"+type+"</td>");
 					$(tr).append(td);
 					var index1=0;
@@ -973,100 +1090,17 @@
 			$(".addsorder").click(function(){
 				var a=[];
 				$.each($("#boxorder tr"),function(index,item){
-					var x={};
-					x.typeid=$(this).find(".typeidss").val();
-					x.iid=$(this).find("[name='productid']").val();
-					if(x.typeid==1||x.typeid==5);
-					a.push(x);	
-				})
-				var a1=JSON.stringify(a);
-				$.ajax({
-					url:"/order/queryPaiban",
-					data:a1,
-					dataType:"json",
-					processData:false, 
-	 				contentType:"application/json;charset=UTF-8",
-					type:"post",
-					success:function(data){
-						$("#paiban").css("display","block");
-						console.log(data);
-						 $.each(data,function(index,item){
-							if(item.typeid==5){
-							var div=$("<div><h4>活动"+(index+1)+"</h4></div>");
-							$.each(item.ix,function(index1,item1){
-								var div1=$("<div style='border:1px soild blue'>"+item1.pname+"</div>");
-								var divbutton=$("<div></div>");
-								var divtable=$("<div></div>");
-								$.each(item1.areas,function(index2,item2){
-									var button=$("<button class='divbutton' onclick='a(this)' style='margin:20px'><span>"+item2.aname+"</span></button>");
-									var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;display:none'>"
-										+"<thead>"
-										+"<tr>"
-										+"<th>开始时间</th>"
-										+"<th>结束时间</th>"
-										+"<th>空位</th>"
-										+"<th>人数</th>"
-										+"<th></th>"
-										+"</tr>"
-										+"</thead>"
-										+"</table>");
-									var tbody=$("<tbody></tbody>");
-									$.each(item2.worktimes,function(index3,item3){
-										$.each(item3,function(index4,item4){
-											var tr=$("<tr>"
-													+"<td>"+item4.startTime+"</td>"
-													+"<td>"+item4.endTime+"</td>"
-													+"<td>"+item4.count+"</td>"
-													+"<td>&nbsp;</td>"
-													+"</tr>");
-											$(tbody).append(tr);
-										})
-									})
-									$(table).append(tbody);
-									$(divbutton).append(button);
-									$(divtable).append(table)
-								})
-								$(div1).append(divbutton).append(divtable);
-								$(div).append(div1);
-							})
-							$("#paiban").append(div);
-							}else{
-								var div=$("<div style='border:1px solid red'>"+item.ix.pname+"</div>");
-								$.each(item.ix.areas,function(index2,item2){
-									var button=$("<div class='divbutton'><span>"+item2.aname+"</span></div>");
-								    var table=$("<table class='table' style='margin-top: 20px;width: 90%;margin-left: 5%;display:none'>"
-										+"<thead>"
-										+"<tr>"
-										+"<th>开始时间</th>"
-										+"<th>结束时间</th>"
-										+"<th>空位</th>"
-										+"<th>人数</th>"
-										+"<th></th>"
-										+"</tr>"
-										+"</thead>"
-										+"</table>");
-								    var tbody=$("<tbody id='time_tbody'></tbody>");
-									$.each(item2.worktimes,function(index3,item3){
-										$.each(item3,function(index4,item4){
-											var tr=$("<tr>"
-													+"<td>"+item4.startTime+"</td>"
-													+"<td>"+item4.endTime+"</td>"
-													+"<td>"+item4.count+"</td>"
-													+"<td></td>"
-													+"</tr>");
-											$(tbody).append(tr);
-										})
-									})
-									$(table).append(tbody);
-									$(div).append(button);
-									$(div).append(table);
-								})
-								$("#paiban").append(div);
-							}
-						})
-						 
+					if($(item).find("[name='productid']").prop("checked")){
+						var x={};
+						x.typeid=$(item).find(".typeidss").val();
+						x.iid=$(item).find("[name='productid']").val();
+						if(x.typeid==1||x.typeid==5);
+						a.push(x);			
 					}
 				})
+				var a1=JSON.stringify(a);
+				orderson1=a1;
+				Xm(number);
 			})
 		</script>
 		

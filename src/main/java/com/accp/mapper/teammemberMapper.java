@@ -9,6 +9,7 @@ public interface teammemberMapper {
 	List<teammember> queryBytid(Integer tid);
 	
 	public int insertBylist(@Param("teamId") Integer teamId,@Param("list") List<Integer> list);
+	
     int countByExample(teammemberExample example);
 
     int deleteByExample(teammemberExample example);
