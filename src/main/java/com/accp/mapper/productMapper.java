@@ -41,4 +41,7 @@ public interface productMapper {
     product AppProductByid(@Param("id")Integer id);
     /*查询活动推荐*/
     List<product> recommendByidProudct(Integer id);
+    
+    /*前台查询活动推荐*/
+    List<product> QueryQtproductByXq();
 }

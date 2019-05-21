@@ -37,4 +37,6 @@ public interface productareaMapper {
     List<productarea> queryByPid(Integer pid);
     
     productarea queryByArearId(productarea p);
+    
+    int deleteProjectArea(Integer pid);
 }

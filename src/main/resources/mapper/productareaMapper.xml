@@ -28,10 +28,11 @@
   	SELECT * FROM `productarea` WHERE `productId`=#{pid}
   </select>
   
-  
-  
-  
-  
+  <!-- 删除项目时删除项目基地 -->
+  <delete id="deleteProjectArea">
+  	 delete from productarea
+     where productid = #{pid}
+  </delete>
   
   <sql id="Example_Where_Clause" >
     <where >

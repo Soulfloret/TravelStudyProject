@@ -61,6 +61,19 @@ public class project {
     
     private List<projectpl> pllistshh;
 
+    
+    private List<positions> poslist;
+    
+    
+    
+	public List<positions> getPoslist() {
+		return poslist;
+	}
+
+	public void setPoslist(List<positions> poslist) {
+		this.poslist = poslist;
+	}
+
 	public List<areas> getAreas() {
 		return areas;
 	}

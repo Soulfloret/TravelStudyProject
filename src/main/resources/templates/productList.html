@@ -174,7 +174,7 @@
 							<section class="sidebar push-up">
 								<section class="side-section bg-white">
 									<header class="side-section-header">
-										<h3 class="side-section-title">Categories</h3>
+										<h3 class="side-section-title">类型</h3>
 									</header>
 									<div class="side-section-content">
 										<ul id="category-list" class="vmenu unstyled">
@@ -190,7 +190,8 @@
 								<div class="promo inverse-background" th:style="'background:url('+@{${list[0].ilist[0].url}}+') no-repeat; background-size: auto 100%;'">
 									<div class="inner text-center np">
 										<div class="ribbon">
-											<h6 class="nmb">项目</h6>
+											<h6 class="nmb">项目推荐</h6>
+											<h5 class="text-semibold uppercase nmb">Leather Fashion</h5>
 											<div class="space10"></div>
 											<a th:href="@{/xjb_projectController/query_Qt}" class="with-icon prepend-icon"><i class="iconfont-caret-right"></i><span>前去选择</span></a>
 										</div>
@@ -240,18 +241,18 @@
 								<div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
 									<div th:each="item:${list}" class="product" th:data-product-id="${item.id}" th:data-category="${item.tid}">
 										<div class="entry-media">
-											<img th:data-src="${item.ilist[0].url}" alt=""  style="height:250px;" class="lazyLoad thumb"/>
+											<img th:data-src="'/'+${item.ilist[0].url}" alt=""  style="height:180px;" class="lazyLoad thumb"/>
 											<div class="hover">
 												<a th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.id})}" class="entry-url"></a>
 												<ul class="icons unstyled">
 													<li>
-														<div class="circle ribbon ribbon-sale">Sale</div>
+														<div class="circle ribbon ribbon-sale">出售</div>
 													</li>
 													<li>
-														<a th:href="${item.ilist[0].url}" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
+														<a th:href="'/'+${item.ilist[0].url}" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
 													</li>
 													<li>
-														<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart"></i></a>
+														<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart lbshop" th:iid="${item.id}"></i></a>
 													</li>
 												</ul>
 												<!-- <div class="rate-bar">
@@ -262,10 +263,12 @@
 										</div>
 										<div class="entry-main">
 											<h5 class="entry-title">
+												<a href="product.html" th:text="${item.pname}"></a>
 												<a th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.id})}" th:text="${item.pname}"></a>
+
 											</h5>
 											<div class="entry-description visible-list">
-												<p>Sed ornare cras donec litora integer curabitur orci, at nullam aliquam libero nam himenaeos, amet massa amet ut ipsum viverra mauris rhoncus neque aenean rhoncus gravida orci facilisis quis dui consectetur.</p>
+												<p th:text="${item.description}"></p>
 											</div>
 											<div class="entry-price">
 												<strong class="accent-color price" th:text="'￥'+${item.price}"></strong>
@@ -455,5 +458,31 @@
 	<script th:src="@{/js1/jquery.nouislider.js}"></script>
 	<script th:src="@{/js1/jquery.isotope.min.js}"></script>
 	<script th:src="@{/js1/products.js}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".lbshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+			$(".xqshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+		})
+	</script>
 </body>
 </html>
