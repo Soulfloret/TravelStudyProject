@@ -492,103 +492,7 @@
 					processData:false, 
 	 				contentType:"application/json;charset=UTF-8",
 					success:function(data){
-						var hd=0;
-						var etime1 = Date.parse(new Date());
-			  			for(var i=0;i<data.length;i++){
-			  				if(data[i].ix!=null){
-			  					if(data[i].ix.length==undefined){
-//			  						alert(JSON.stringify(data[i].ix))
-			  						for (var h=0;h<data[i].ix.areas.length;h++) {
-			  							$.each(data[i].ix.areas[h].worktimes,function(index,item){
-											$.each(item,function(index1,item1){
-												var time3 = Date.parse(new Date(item1.startTime));
-												var pro={};
-													if(hd==0&&timelist[hd]==null&&time3>etime1){
-														var index=Math.floor((Math.random()*item1.ulist.length));
-														console.log(item1.ulist[index].staff.ulist.id)
-														pro.time=item1.startTime;
-														pro.area=data[i].ix.areas[h].aname;
-														pro.aid=data[i].ix.areas[h].id;
-														pro.pname=data[i].ix.pname;
-														pro.etime=item1.endTime;
-														pro.ry_id=item1.ulist[index].staff.ulist.id;
-														pro.uname=item1.ulist[index].staff.ulist.uname;
-														timelist[hd]=pro;
-													}else
-													if(timelist[hd]==null&&hd!=0&&item1.startTime>timelist[hd-1].etime&&time3>etime1){
-														pro.time=item1.startTime;
-														pro.area=data[i].ix.areas[h].aname;
-														pro.aid=data[i].ix.areas[h].id;
-														pro.pname=data[i].ix.pname;
-														pro.etime=item1.endTime;
-														pro.ry_id=item1.ulist[index].staff.ulist.id;
-														pro.uname=item1.ulist[index].staff.ulist.uname;
-														timelist[hd]=pro;
-													}else
-													if(timelist[hd]!=null&&timelist[hd].time>item1.startTime&&timelist[hd-1].etime<item1.startTime&&time3>etime1){
-														var pro={};
-														pro.time=item1.startTime;
-														pro.area=data[i].ix.areas[h].aname;
-														pro.aid=data[i].ix.areas[h].id;
-														pro.pname=data[i].ix.pname;
-														pro.etime=item1.endTime;
-														pro.ry_id=item1.ulist[index].staff.ulist.id;
-														pro.uname=item1.ulist[index].staff.ulist.uname;																			
-														timelist[hd]=pro;
-													}
-											})
-										})
-			  						}
-			  						hd++;
-			  					}else{
-				  					for (var j=0;j<data[i].ix.length;j++) {
-				  						for (var h=0;h<data[i].ix[j].areas.length;h++) {
-											$.each(data[i].ix[j].areas[h].worktimes,function(index,item){
-												$.each(item,function(index1,item1){
-													var time3 = Date.parse(new Date(item1.startTime));
-													var pro={};
-													if(hd==0&&timelist[hd]==null&&time3>etime1){
-														pro.time=item1.startTime;
-														pro.area=data[i].ix.areas[h].aname;
-														pro.aid=data[i].ix.areas[h].id;
-														pro.pname=data[i].ix.pname;
-														pro.etime=item1.endTime;
-														pro.ry_id=item1.ulist[index].staff.ulist.id;
-														pro.uname=item1.ulist[index].staff.ulist.uname;;
-														timelist[hd]=pro;
-													}else
-														if(timelist[hd]==null&&hd!=0&&item1.startTime>timelist[hd-1].etime&&time3>etime1){
-															pro.time=item1.startTime;
-															pro.area=data[i].ix.areas[h].aname;
-															pro.aid=data[i].ix.areas[h].id;
-															pro.pname=data[i].ix.pname;
-															pro.etime=item1.endTime;
-															pro.ry_id=item1.ulist[index].staff.ulist.id;
-															pro.uname=item1.ulist[index].staff.ulist.uname;
-															timelist[hd]=pro;
-														}else
-													
-													
-													if(timelist[hd]!=null&&timelist[hd].time>item1.startTime&&timelist[hd-1].etime<item1.startTime&&time3>etime1){
-														var pro={};
-														pro.time=item1.startTime;
-														pro.area=data[i].ix.areas[h].aname;
-														pro.aid=data[i].ix.areas[h].id;
-														pro.pname=data[i].ix.pname;
-														pro.etime=item1.endTime;
-														pro.ry_id=item1.ulist[index].staff.ulist.id;
-														pro.uname=item1.ulist[index].staff.ulist.uname;																			1
-														timelist[hd]=pro;
-													}
-												})
-											})
-				  						}	
-				  						hd++;
-				  					}
-			  					}
-			  				}
-			  			}
-			  			console.log(timelist)
+						
 					}
 				})
 			}else{
@@ -828,6 +732,161 @@
 			}); 
 		})
       })
+      	var pd=1;
+		var timelist=[];
+		var etimes=new Date();
+		var orderson1;
+		var hd = 0; 
+      function DataXm(data,number1) {
+			pd=1;
+			timelist=[];
+			hd=0;
+			document.querySelector(".xmpb").innerHTML="";
+			var etime1 = Date.parse(new Date("2019-5-21 15:00:00"));
+			for(var i = 0; i < data.length; i++) {
+				var be1 = 0;
+				if(data[i].ix != null) {
+					if(data[i].ix.length == undefined) {
+						for(var h = 0; h < data[i].ix.areas.length; h++) {
+							var indexss=0;
+							$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+								$.each(item, function(index1, item1) {
+									var time3 = Date.parse(new Date(item1.startTime));
+									var pro = {};
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.id = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
+											var pro = {};
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										}
+								})
+							})
+							
+							if(indexss==0){
+								pd=0;
+							}
+							if(be1 != 0) {
+								break;
+								be1 = 0;
+							}
+						}
+						hd++;
+					}else {
+						for(var j = 0; j < data[i].ix.length; j++) {
+							var be = 0;
+							for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+								var indexss=0
+								$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+									$.each(item, function(index1, item1) {
+										var time3 = Date.parse(new Date(item1.startTime));
+										var pro = {};
+												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+														var pro = {};
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+														console.log(timelist[hd].time>item1.startTime)
+													}
+									})
+								})
+								if(indexss==0){
+									pd=0;
+								}		
+								if(be != 0) {
+									break;
+									be = 0;
+								}
+							}
+							hd++;
+						}
+					}
+				}
+			}
+		}
+      
+      	
+		function Xm(number1,startTime,ix){
+				console.log(ix);
+				if(ix%3==0&&ix!=0){
+					j++;
+				}
+				var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
+				var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+ix)+" "+"7:30:00";
+				ix++;
+				$.ajax({
+						url:"http://192.168.43.139:8080/shopcartshh/query",
+				  		data:{"orderson":orderson1,"startTime":startTime1,"endTime":endTime1},
+				  		dataType:'json',//服务器返回json格式数据
+				  		type:'post',//HTTP请求类型
+				  		timeout:10000,//超时时间设置为10秒；
+				  		success:function(data){
+					  			DataXm(data,number1);
+					  			if(pd==1){
+					  				for (var m=0;m<timelist.length;m++) {
+					  						var li=document.querySelector(".xmpb");
+					  						var times=new Date(timelist[m].time);
+					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var etimes=new Date(timelist[m].etime);
+					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+						  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
+					  				}
+	  									document.querySelector(".time").style.display="block";
+									    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
+									    var time1 = Date.parse(new Date(timelist[0].time));
+									    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
+									    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
+								}else{
+										Xm(number1,startTime,ix);
+								};
+						}
+					});
+		}
+
     </script>
 
 	</body>

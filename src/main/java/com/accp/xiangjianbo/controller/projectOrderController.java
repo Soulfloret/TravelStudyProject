@@ -1,9 +1,12 @@
 package com.accp.xiangjianbo.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,10 @@ import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectStaffService;
 import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("xjb_projectOrderController")
@@ -124,17 +131,22 @@ public class projectOrderController {
 	/*查询排班*/
 	@RequestMapping("queryWork")
 	@ResponseBody
-	public List<orderson> queryWork(@RequestBody List<orderson> list,Date startTime,Date endTime){
-		if(startTime==null) {
-			startTime=new Date();
+	public List<orderson> queryWork(String orderson, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, orderson.class);
+		List<orderson> list = mapper.readValue(orderson, jt);
+		System.out.println(startTime);
+		System.out.println(endTime);
+		if (startTime == null) {
+			startTime = new Date();
 		}
-		if(endTime==null) {
-			endTime=new Date();
+		if (endTime == null) {
+			endTime = new Date();
 		}
-		List<orderson> sj=cyorderson.query(list, startTime, endTime);
-		return sj;
+		List<orderson> o = cyorderson.query(list, startTime, endTime);
+		return o;
 	}
-	
 	
 	
 	
