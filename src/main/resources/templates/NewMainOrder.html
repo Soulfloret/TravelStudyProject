@@ -71,6 +71,7 @@
 		height:40px;
 		font-size:14px;
 		line-height: 40px;
+		 border: 1px solid #f2f2f2;
 	}
 	.box .status,.boxs .status {
 			margin-left: 15px;
@@ -163,17 +164,20 @@
 				</div>
 				<div id="checkout-collapse3" class="panel-collapse in">
 						<div class="panel-body" >
-							<table class="table table-bordered" border="1" cellspacing="0">
+							<table class="table table-bordered" border="1" style="border:1px solid #F2F2F2 " cellspacing="0">
 								<thead>
 									<tr>
 										<th scope="col">订单号</th>
 										<th scope="col">订单状态</th>
 										<th scope="col">订单生成时间</th>
 										<th scope="col">客户姓名</th>
-										<th scope="col" style="width: 40px">操作</th>
+										<th scope="col" style="width: 70px">操作</th>
 									</tr>
 								</thead>
 								<tbody>
+									<tr th:if="${#lists.size(list)==0}">
+										<th colspan="5" ><span style="margin-left:50px" >暂无订单</span></th>
+									</tr>
 									<tr th:each="item:${list}"	th:if="${#strings.trim(item.name2)=='个人' && item.ordercustomer==user.id}">
 										<th scope="row"><b th:text="${item.orderno}"></b></th>
 										<td th:text="${item.name1}">
@@ -205,7 +209,9 @@
 									<tr>
 										<th scope="row" colspan="5" style="height:20px;line-height:20px;"><span style="margin-left:50px;">团员订单(用户订单)</span></th>
 									</tr>
-									
+									<tr th:if="${#lists.size(olist)==0}">
+										<th colspan="5" ><span style="margin-left:50px" >暂无订单</span></th>
+									</tr>
 									<tr th:each="item:${olist}">
 										<th scope="row"><b th:text="${item.orderno}"></b></th>
 										<td th:text="${item.orderstatus}">

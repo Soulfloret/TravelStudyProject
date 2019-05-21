@@ -2,6 +2,7 @@ package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +22,9 @@ import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
+import com.accp.domain.orderson;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.bindservice;
 import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
@@ -30,6 +33,8 @@ import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 import com.accp.yipeng.util.AgeUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -59,7 +64,8 @@ public class CustomerController {
 	OrderSonService ordersonservice;
 	@Autowired
 	UserMainOrderService1 umoService1;
-	
+	@Autowired
+	bindservice service2;
 	
 	
 	/**
@@ -88,6 +94,8 @@ public class CustomerController {
 	 * 
 	 * @return 去客户新增页面 并查询出可以选择的客户类型
 	 */
+	 
+	 
 	@RequestMapping("toadd")
 	public String toadd(Model model) {
 		model.addAttribute("list",UsersType.selectByExample(null));
@@ -139,7 +147,6 @@ public class CustomerController {
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			return new ResponseEntity<byte[]>(bytes,headers,HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -180,7 +187,10 @@ public class CustomerController {
 	 * @return 首页
 	 */
 	@RequestMapping("topagehome")
-	public  String topagehome() {
+	public  String topagehome(Model model) {
+		
+		model.addAttribute("menulist", service2.selectByQtTj());
+		
 		return "pagehome";
 	}
 
@@ -248,7 +258,8 @@ public class CustomerController {
 		if(use==null) {
 			return "redirect:/Login/tologin";
 		}else {
-			model.addAttribute("list",shopservice.queryAll(use.getId()));
+			List<Shopcart> list=  shopservice.queryAll(use.getId());
+			model.addAttribute("list",list);
 			return "cart";
 		}
 	}
@@ -261,15 +272,22 @@ public class CustomerController {
 	
 	@RequestMapping("addUserMainOrder")
 	@ResponseBody  
-	public int addUserMainOrder(@RequestBody Usermainorder umorder) {
-		return umoService1.addUserMainOrder(umorder);
+	public String addUserMainOrder(@RequestBody Usermainorder umorder) {
+		 Usermainorder us= umoService1.addUserMainOrder(umorder);
+		 us.setOlist(umorder.getOlist());
+		 return JSON.toJSONString(us);
 	}
 	
 	@RequestMapping("buy")
-	public String buy(Model model,HttpSession  session) {
-		users use=(users)session.getAttribute("use");
-		List<Shopcart> list=shopservice.queryAll(use.getId());
-		model.addAttribute("list",list);
+	public String buy(Model model, String data) {
+		Usermainorder umo=JSON.parseObject(data,Usermainorder.class);
+			List<orderson> list=umoService1.queryDetails(umo.getOlist());
+			int num=1;
+			if("团队".equals(umo.getName2())) {
+				num=TeammberService.queryByteamId(umo.getOrdercustomer());
+			}
+			model.addAttribute("list",list);
+			model.addAttribute("number1", num);
 		
 		return "buy";
 	}

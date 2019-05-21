@@ -16,6 +16,10 @@
   	SELECT * FROM teammember WHERE teamId=#{tid}
   </select>
   
+  <select id="queryByteamId" resultType="Integer">
+  		 SELECT  COUNT(*) FROM teammember WHERE teamid=#{tid}
+  </select>
+  
   	<!-- 批量新增团员 -->
   <insert id="insertBylist">
   	 INSERT INTO teammember(`teamId`,`memberId`) VALUES

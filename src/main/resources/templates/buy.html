@@ -2,7 +2,7 @@
 <html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>购物车</title>
+	<title>确认订单</title>
 	<meta name="description" content=""/>
 	<meta name="keywords" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
 	<link rel="stylesheet" th:href="@{/css1/minified.css}">
 	<script th:src="@{/js1/jquery.min.js}"></script>
 	<script th:src="@{/js1/modernizr.min.js}"></script>
-	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">	
 	<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
 	<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
 	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
@@ -200,33 +200,25 @@
 						<thead>
 							<tr>
 								<th>项目名称</th>
-								<th style="width: 15%;">单价</th>
-								<th style="width: 15%;">数量</th>
-								<th class="hidden-xs" style="width: 15%;">总价</th>
-								<th class="hidden-xs" style="width: 10%;"></th>
+								<th style="width: 10%;">单价</th>
+								<th style="width: 10%;">数量</th>
+								<th class="hidden-xs" style="width: 10%;">总价</th>
+								<!-- <th class="hidden-xs" style="width: 10%;">操作</th> -->
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="empty-cart" th:if=" ${list}==null">
-								<td colspan="5">
-									<a th:href="@{/xjb_projectController/query_Qt}">您的购物车目前没有项目,快去看看吧 </a>
-								</td>
-							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
 								<td>
 									<a class="entry-thumbnail" th:href="${item.ix.ilist[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.ilist[0].url}" alt="" class="img"/>
 									</a>
-									<a class="entry-title" th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.ix.id})}" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
-										<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" />
-									</div>
+									<input type="hidden" th:value="${item.typeid}">
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -235,16 +227,13 @@
 									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
 									</a>
-									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
+									<a class="entry-title"  href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
 								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td><span class="unit-price" th:text="${item.ix.price}" ></span></td>
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" />
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -253,46 +242,37 @@
 									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
 									</a>
-									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" />
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
 								<td>
-									<a class="entry-title" href="#" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
-									<input type="hidden" th:value="${item.ix.id}" >
+								<td class="ors">
+									<input type="hidden" th:value="${item.ix.id}" >	
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" />
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
 								<td>
-									<a class="entry-title" href="product.html" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									<div class="qty-btn-group">
-										<input type="text" th:value="${item.name2}" />
-									</div>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -310,31 +290,37 @@
 				</div>
 			</section>
 			<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-								<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
-									<div class="modal-content" style="background-color: #435c70;color: white;">
-										<div id="" class="modal-header">
-											下单
-										</div>
-										<div id="" class="modal-body">
-											<div>
-												<p>
-												请选择下单方式:
-												<input type="radio" name="per" checked value="个人"><span>个人</span>
-												<input type="hidden" th:value="${session.use.id}" name="uid">
-												<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
-												<span th:if="${session.use.typeid==2}">团队</span>
-												</p>
-											</div>
-											<div class="box" style="margin:10px 0px 0px 20px;">
-											</div>	
-										</div>
-										<div id="" class="modal-footer">
-											<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
-											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
-										</div>
-									</div>
-								</div>
+				<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
+					<div class="modal-content" style="background-color: #435c70;color: white;">
+						<div id="" class="modal-header">
+							下单
+						</div>
+						<div id="" class="modal-body">
+							<div>
+								<p>
+									请选择下单方式:
+									<input type="radio" name="per" checked value="个人"><span>个人</span>
+									<input type="hidden" th:value="${session.use.id}" name="uid">
+									<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
+									<span th:if="${session.use.typeid==2}">团队</span>
+								</p>
 							</div>
+							<div class="box" style="margin:10px 0px 0px 20px;">
+								</div>	
+						</div>
+						<div id="" class="modal-footer">
+							<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
+							<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="xmpb">
+				
+			</div>
+			<div class="time">
+					
+				</div>	
 			
 		</main>
 		<!-- // SITE MAIN CONTENT -->
@@ -353,7 +339,6 @@
 					<div class="section">
 						<div class="container">
 							<div class="row">
-
 								<div class="col-xs-12 col-sm-6 col-md-3">
 									<section class="widget widget-text">
 										<h5 class="widget-title">研学旅行 </h5>
@@ -531,17 +516,257 @@
 			</footer>
 <script th:src="@{/js1/owl.carousel.js}"></script>
 <script th:src="@{/js1/minified.js}"></script>
-<script>
+<script th:inline="javascript">
+		var orderson1=[];
 		$(function(){
 			var sum=0;
+			 var number1 = [[${number1}]];
 			$.each($("tbody tr .text-bold"),function(i,obj){
 				sum+=parseFloat($(obj).text());
 			})
 			$("#price").text(sum);
+			$.each($("tbody tr .ors"),function(i,obj){
+				var orderson={};
+				orderson.iid=$(obj).find("input:eq(0)").val();
+				orderson.typeid=$(obj).find("input:eq(1)").val();
+				orderson.name2=$(obj).find("p").text();
+				orderson1.push(orderson);
+			})
+			console.log(orderson1);
+			console.log(number1);
+			Xm(number1);
 		})
+		var pd=0;
+var timelist=[];
+var etimes=new Date();	
+function Xm(number1){
+		$.ajax('/shopcartshh/query',{
+		  		data:{"orderson":JSON.stringify(orderson1)},
+		  		dataType:'json',//服务器返回json格式数据
+		  		type:'post',//HTTP请求类型
+		  		timeout:10000,//超时时间设置为10秒；
+//		  		processData:false, 
+//		  		contentType:"application/json;charset=UTF-8",j
+		  		success:function(data){
+			  			DataXm(data,number1);
+			  			console.log(pd)
+			  			if(pd!=0){
+			  				for (var m=0;m<timelist.length;m++) {
+			  						var li=document.querySelector(".xmpb");
+			  						var times=new Date(timelist[m].time);
+			  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+			  						var etimes=new Date(timelist[m].etime);
+			  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+				  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
+			  				}
+			  				
+						document.querySelector(".time").style.display="block";
+							    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
+							    var time1 = Date.parse(new Date(timelist[0].time));
+							    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
+							    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
+								/*if(2 > 0) {
+								
+								}*/
+						}else{
+							var etimes=new Date();
+			  				var startTime=etimes.getFullYear()+"-"+(etimes.getMonth()+1)+"-"+(etimes.getDate()+1)+" "+"7:30:00";
+							$.ajax('/shopcartshh/query',{
+								data:{"orderson":JSON.stringify(orderson1),"startTime":startTime},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								success:function(data){
+									DataXm(data,number1);
+									for (var m=0;m<timelist.length;m++) {
+					  						var li=document.querySelector(".xmpb");
+					  						var times=new Date(timelist[m].time);
+					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var etimes=new Date(timelist[m].etime);
+					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+						  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
+					  				}
+									
+											document.querySelector(".time").style.display="block";
+									    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
+									    var time1 = Date.parse(new Date(timelist[0].time));
+									    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
+									    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
+										/*if(nDays > 0) {
+										
+										}*/
+								},
+								error:function(xhr,type,errorThrown){
+								}
+							});
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+					
+				}
+			});
+		}
+
+
+function DataXm(data,number1) {
+	pd=1;
+	timelist=[];
+	hd=0;
+	document.querySelector(".xmpb").innerHTML="";
+	var etime1 = Date.parse(new Date());
+	for(var i = 0; i < data.length; i++) {
+		var be1 = 0;
+		if(data[i].ix != null) {
+			if(data[i].ix.length == undefined) {
+				for(var h = 0; h < data[i].ix.areas.length; h++) {
+					var indexss=0;
+					$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+						$.each(item, function(index1, item1) {
+							var time3 = Date.parse(new Date(item1.startTime));
+							var pro = {};
+								if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+									var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
+									pro.time = item1.startTime;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
+									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+									timelist[hd] = pro;
+									be1++;
+									indexss=1;
+								} else
+								if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+										var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
+									pro.time = item1.startTime;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
+									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+									timelist[hd] = pro;
+									be1++;
+									indexss=1;
+								} else
+									if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
+									var pro = {};
+									var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
+									
+									pro.time = item1.startTime;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
+									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+									timelist[hd] = pro;
+									be1++;
+									indexss=1;
+								}
+						})
+					})
+					
+					if(indexss==0){
+						pd=0;
+					}
+					if(be1 != 0) {
+						break;
+						be1 = 0;
+					}
+				}
+				hd++;
+			}else {
+				for(var j = 0; j < data[i].ix.length; j++) {
+					var be = 0;
+					for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+						var indexss=0;
+						$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+							$.each(item, function(index1, item1) {
+								var time3 = Date.parse(new Date(item1.startTime));
+								var pro = {};
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.ulist.id;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix[j].areas[h].aname;
+											pro.pname = data[i].ix[j].pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix[j].id;
+											pro.aid = data[i].ix[j].areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be++;
+											indexss=1;
+										} else
+										if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.ulist.id;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix[j].areas[h].aname;
+											pro.pname = data[i].ix[j].pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix[j].id;
+											pro.aid = data[i].ix[j].areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be++;
+											indexss=1;
+										} else
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+												var pro = {};
+												var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.ulist.id;
+													}
+												pro.time = item1.startTime;
+												pro.area = data[i].ix[j].areas[h].aname;
+												pro.pname = data[i].ix[j].pname;
+												pro.etime = item1.endTime;
+												pro.pid=data[i].ix[j].id;
+												pro.aid = data[i].ix[j].areas[h].id;
+												pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+												timelist[hd] = pro;
+												be++;
+												indexss=1;
+												console.log(timelist[hd].time>item1.startTime)
+											}
+							})
+						})
+						if(indexss==0){
+							pd=0;
+						}		
+						if(be != 0) {
+							break;
+							be = 0;
+						}
+					}
+					hd++;
+				}
+			}
+		}
+	}
+}
+
+
 </script>
-	
-	
+
+<script>
+</script>	
 	
 </body>
 </html>
