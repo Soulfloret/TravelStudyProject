@@ -215,6 +215,7 @@ public class ProjectServiceshh {
 			m1.setList(mealix);
 			m1.setName5(7+"");
 			m1.setName2(name2.substring(0, name2.length()-1));
+			m1.setRecommend(mealmapper.recommendMealAll(m1.getId()));
 		}
 		return meal;
 	}
@@ -236,6 +237,7 @@ public class ProjectServiceshh {
 			b1.setBlist(menubind);
 			b1.setName5(4+"");
 			b1.setName2(name2.substring(0, name2.length()-1));
+			b1.setRecommend(bindmapper.recommendBind(b1.getId()));
 		}
 	
 		return binds;
