@@ -1,6 +1,7 @@
 package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,9 @@ import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
+import com.accp.domain.orderson;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.bindservice;
 import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
@@ -31,6 +34,11 @@ import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 import com.accp.yipeng.util.AgeUtil;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -60,7 +68,8 @@ public class CustomerController {
 	OrderSonService ordersonservice;
 	@Autowired
 	UserMainOrderService1 umoService1;
-	
+	@Autowired
+	bindservice service2;
 	
 	
 	/**
@@ -89,6 +98,8 @@ public class CustomerController {
 	 * 
 	 * @return 去客户新增页面 并查询出可以选择的客户类型
 	 */
+	 
+	 
 	@RequestMapping("toadd")
 	public String toadd(Model model) {
 		model.addAttribute("list",UsersType.selectByExample(null));
@@ -140,7 +151,6 @@ public class CustomerController {
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			return new ResponseEntity<byte[]>(bytes,headers,HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -181,7 +191,10 @@ public class CustomerController {
 	 * @return 首页
 	 */
 	@RequestMapping("topagehome")
-	public  String topagehome() {
+	public  String topagehome(Model model) {
+		
+		model.addAttribute("menulist", service2.selectByQtTj());
+		
 		return "pagehome";
 	}
 
@@ -263,20 +276,31 @@ public class CustomerController {
 	
 	@RequestMapping("addUserMainOrder")
 	@ResponseBody  
-	public Usermainorder addUserMainOrder(@RequestBody Usermainorder umorder) {
-		return umoService1.addUserMainOrder(umorder);
+	public String addUserMainOrder(@RequestBody Usermainorder umorder) {
+		 umoService1.addUserMainOrder(umorder);
+		 return JSON.toJSONString(umorder.getOlist());
 	}
 	
 	@RequestMapping("buy")
-	public String buy(Model model,HttpSession  session) {
-		users use=(users)session.getAttribute("use");
-		if(use==null) {
-			return "redirect:/Login/tologin";
-		}else {
-			List<Shopcart> list=shopservice.queryAll(use.getId());
+	public String buy(Model model, String data) {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, orderson.class);
+		try {
+			List<orderson> list = mapper.readValue(data, jt);
+			list=umoService1.queryDetails(list);
 			model.addAttribute("list",list);
-			return "buy";
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		return "buy";
 	}
 	
 	

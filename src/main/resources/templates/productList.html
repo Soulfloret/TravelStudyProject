@@ -159,8 +159,8 @@
 			<div class="container">
 				<div class="relative">
 					<ul class="bc push-up unstyled clearfix">
-						<li><a href="index-2.html">Home</a></li>
-						<li class="active">Products</li>
+						<li><a th:href="@{/customer/topagehome}">首页</a></li>
+						<li class="active" >个人中心</li>
 					</ul>
 				</div>
 			</div>
@@ -190,10 +190,9 @@
 								<div class="promo inverse-background" th:style="'background:url('+@{${list[0].ilist[0].url}}+') no-repeat; background-size: auto 100%;'">
 									<div class="inner text-center np">
 										<div class="ribbon">
-											<h6 class="nmb">New Arrivals</h6>
-											<h5 class="text-semibold uppercase nmb">Leather Fashion</h5>
+											<h6 class="nmb">项目</h6>
 											<div class="space10"></div>
-											<a href="products.html" class="with-icon prepend-icon"><i class="iconfont-caret-right"></i><span> Shop Now</span></a>
+											<a th:href="@{/xjb_projectController/query_Qt}" class="with-icon prepend-icon"><i class="iconfont-caret-right"></i><span>前去选择</span></a>
 										</div>
 									</div>
 								</div>
@@ -269,8 +268,7 @@
 												<p>Sed ornare cras donec litora integer curabitur orci, at nullam aliquam libero nam himenaeos, amet massa amet ut ipsum viverra mauris rhoncus neque aenean rhoncus gravida orci facilisis quis dui consectetur.</p>
 											</div>
 											<div class="entry-price">
-												<s class="entry-discount" th:text="'￥'+${item.price}"></s>
-												<strong class="accent-color price">$ 250.00</strong>
+												<strong class="accent-color price" th:text="'￥'+${item.price}"></strong>
 												<!-- <a href="#" class="btn btn-round btn-default add-to-cart visible-list">Add to Cart</a> -->
 											</div>
 										</div>

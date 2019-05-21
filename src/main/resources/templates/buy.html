@@ -2,7 +2,7 @@
 <html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>购物车</title>
+	<title>确认订单</title>
 	<meta name="description" content=""/>
 	<meta name="keywords" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
 	<link rel="stylesheet" th:href="@{/css1/minified.css}">
 	<script th:src="@{/js1/jquery.min.js}"></script>
 	<script th:src="@{/js1/modernizr.min.js}"></script>
-	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">	
 	<link rel="stylesheet" th:href="@{/css1/owl.carousel.css}">
 	<link rel="stylesheet" th:href="@{/css1/owl.theme.css}">
 	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
@@ -207,21 +207,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="empty-cart" th:if=" ${list}==null">
-								<td colspan="5">
-									<a th:href="@{/xjb_projectController/query_Qt}">您的购物车目前没有项目,快去看看吧 </a>
-								</td>
-							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
 								<td>
 									<a class="entry-thumbnail" th:href="${item.ix.ilist[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.ilist[0].url}" alt="" class="img"/>
 									</a>
-									<a class="entry-title" th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.ix.id})}" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
 									<p th:text="${item.name2}"></p>
@@ -233,11 +227,10 @@
 									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
 									</a>
-									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
+									<a class="entry-title"  href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}" ></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
 									<p th:text="${item.name2}"></p>
@@ -249,11 +242,10 @@
 									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
 										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
 									</a>
-									<a class="entry-title" th:href="@{/menu/toquerymenu1Byid(id=${item.ix.id},type=${item.typeid})}" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
 									<p th:text="${item.name2}"></p>
@@ -262,11 +254,10 @@
 							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
 								<td>
-									<a class="entry-title" href="#" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >	
 									<input type="hidden" th:value="${item.typeid}">
 									<p th:text="${item.name2}"></p>
@@ -275,14 +266,13 @@
 							</tr>
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
 								<td>
-									<a class="entry-title" href="product.html" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
+									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
 								</td>
 								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td>
-									<input type="hidden" th:value="${item.id}" >
+								<td class="ors">
 									<input type="hidden" th:value="${item.ix.id}" >
 									<input type="hidden" th:value="${item.typeid}">
-									 <p th:text="${item.name2}"></p>
+									<p th:text="${item.name2}"></p>
 								</td>
 								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
 							</tr>
@@ -527,7 +517,15 @@
 				sum+=parseFloat($(obj).text());
 			})
 			$("#price").text(sum);
-			
+			var olist=[];
+			$.each($("tbody tr .ors"),function(i,obj){
+				var orderson={};
+				orderson.iid=$(obj).find("input:eq(0)").val();
+				orderson.typeid=$(obj).find("input:eq(1)").val();
+				orderson.name2=$(obj).find("p").text();
+				olist.push(orderson);
+			})
+			console.log(olist);
 		})
 </script>
 <!-- 

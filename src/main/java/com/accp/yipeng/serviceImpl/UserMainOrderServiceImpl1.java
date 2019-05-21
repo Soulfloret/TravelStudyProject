@@ -10,15 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.chenyong.service.OrderSonService;
-import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
-import com.accp.domain.orderproductwork;
+import com.accp.domain.bind;
+import com.accp.domain.menu;
 import com.accp.domain.orderson;
-import com.accp.domain.orderwork;
+import com.accp.domain.product;
+import com.accp.domain.productproject;
+import com.accp.domain.project;
+import com.accp.domain.team;
 import com.accp.domain.teammember;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
-import com.accp.domain.worduser;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.MealixMapper;
 import com.accp.mapper.ShopcartMapper;
@@ -31,6 +33,7 @@ import com.accp.mapper.orderproductworkMapper;
 import com.accp.mapper.ordersonMapper;
 import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
+import com.accp.mapper.productprojectMapper;
 import com.accp.mapper.projectMapper;
 import com.accp.mapper.projecttypeMapper;
 import com.accp.mapper.roomMapper;
@@ -95,13 +98,17 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 	MealixMapper mapper21;
 	@Autowired
 	ShopcartMapper mapper22;
+	@Autowired
+	productprojectMapper mapper23;
 	
 	public Usermainorder addUserMainOrder(Usermainorder o) {
-		for (orderson ods : o.getOlist()) {
-			Shopcart shop=new Shopcart(ods.getId(),ods.getIid(), ods.getTypeid(), ods.getName1(),ods.getName2());
-			mapper22.updateByPrimaryKeySelective(shop);
+		
+		if(o.getName2().equals("个人")) {
+			//mapper22.deleteUserid(o.getOrdercustomer());
 		}
 		if(o.getName2().equals("团队")) {
+			team t=mapper12.selectByPrimaryKey(o.getOrdercustomer());
+			//mapper22.deleteUserid(t.getMainiuserid());
 			List<users> list1= new ArrayList<users>();
 			List<teammember> list= mapper13.queryBytid(o.getOrdercustomer());
 			for (teammember teammember : list) {
@@ -154,5 +161,38 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 				}
 			}
 			return o;
+	}
+
+	@Override
+	public List<orderson> queryDetails(List<orderson> list) {
+		for (orderson orderson : list) {
+			if(orderson.getTypeid()==1) {
+				project pro= mapper4.selectByPrimaryKey(orderson.getIid());
+				pro.setIlist(mapper6.queryimg(orderson.getIid(), orderson.getTypeid()));
+				orderson.setIx(pro);
+			}else if(orderson.getTypeid()==2) {
+				menu me= mapper7.selectByPrimaryKey(orderson.getIid());
+				me.setImgs(mapper6.queryimg(orderson.getIid(), orderson.getTypeid()));
+				orderson.setIx(me);
+			}else if(orderson.getTypeid()==4) {
+				bind bid= mapper10.selectByPrimaryKey(orderson.getIid());
+				bid.setImg(mapper6.queryimg(orderson.getIid(), orderson.getTypeid()));
+				orderson.setIx(bid);
+			}else if(orderson.getTypeid()==5) {
+				product pro=mapper11.selectByPrimaryKey(orderson.getIid());
+				List<productproject> list1= mapper23.queryByProdId(pro.getId());
+				double sum=0;
+				for (productproject pje : list1) {
+					project p= mapper4.selectByPrimaryKey(pje.getProjectid());
+					 sum+=p.getPrice();
+				}
+				pro.setPrice(sum);
+				orderson.setIx(pro);
+			}else if(orderson.getTypeid()==7) {
+				orderson.setIx(mapper9.selectByPrimaryKey(orderson.getIid()));
+			}
+		}
+		
+		return list;
 	}
 }

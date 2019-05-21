@@ -168,6 +168,10 @@
 		
 	
 	<div id="page-wrapper">
+		<form method="post" th:action="@{/customer/buy}" name="form1">
+			<input type="hidden" id="data" name="data"> 
+		</form>
+	
 		<main id="main-content" role="main">
 			<section class="section">
 				<div class="container">
@@ -805,14 +809,16 @@
 			$.ajax({
 				url:"/customer/addUserMainOrder",
 				type:"post",
-				dataType:"json",
+				dataType:"text",
 				data:JSON.stringify(umorder),
 				contentType:"application/json;charset=utf-8",
 				success:function(data){
+					console.log(data);
 					if(data!=null){
 						alert("生成订单成功");
-						location.href="/customer/buy";
-					}
+						$("#data").val(data);
+						$("[name='form1']").submit();
+					}	
 				}
 			})
 		}
@@ -837,7 +843,6 @@
 			var olist=[];
 			$.each($("tbody tr .qty-btn-group"),function(i,obj){
 				var orderson={};
-				orderson.id=$(obj).prev().prev().prev().val();
 				orderson.iid=$(obj).prev().prev().val();
 				orderson.typeid=$(obj).prev().val();
 				orderson.name2=$(obj).find("input").val();
