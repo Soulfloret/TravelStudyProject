@@ -35,7 +35,7 @@ public class UserServicecImpl implements UserServicec{
 	@Override
 	public List<users> selectBymainiUserId(Integer id) {
 		// TODO Auto-generated method stub
-		List<team> t=mapper1.QueryTidUsers(id);
+		List<team> t=mapper1.queryByuid(id);
 		team ts=new team();
 		for (team team : t) {
 			Usermainorder uo=new Usermainorder();
@@ -49,7 +49,9 @@ public class UserServicecImpl implements UserServicec{
 		}
 		List<users> list=new ArrayList<users>();
 		for(teammember tm:mapper2.queryBytid(ts.getId())) {
-			list.add(mapper.selectByPrimaryKey(tm.getMemberid()));
+			users s=mapper.selectByPrimaryKey(tm.getMemberid());
+			list.add(s);
+			s.setMuid(ts.getId());
 		}
 		return list;
 	}

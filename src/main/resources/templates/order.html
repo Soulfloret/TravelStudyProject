@@ -298,11 +298,6 @@
 										</div>								
 										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
 										</table>
-										<div class="xmpb">
-							         
-							             </div>
-							             <div class="time" style="display:none">
-							             </div>
 										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
 							             value="生成排班"/>
 									</div>
@@ -735,9 +730,8 @@
 		function XmPb(id,pname,area,time,etime,pid,aid,typeid) {
 			var div = document.createElement("tr");
 			div.classList.add("detail1");
-			div.classList.add("row");
+			div.setAttribute("seachid",id+""+typeid);
 			var p1 = document.createElement("td");
-			p1.classList.add("col-2");
 			p1.innerHTML = pname;
 			div.appendChild(p1)
 			var inputp=document.createElement("input");
@@ -746,7 +740,6 @@
 			inputp.classList.add("pid");
 			div.appendChild(inputp);
 			var p2 = document.createElement("td");
-			p2.classList.add("col-2");
 			p2.innerHTML = area;
 			div.appendChild(p2)
 			var inputa=document.createElement("input");
@@ -755,14 +748,12 @@
 			inputa.classList.add("aid");
 			div.appendChild(inputa);
 			var p3 = document.createElement("td");
-			p3.classList.add("col-4");
 			var span1 = document.createElement("span");
 			span1.classList.add("startTime");
 			span1.innerHTML = time;
 			p3.appendChild(span1);
 			div.appendChild(p3);
 			var p4 = document.createElement("td");
-			p4.classList.add("col-4");
 			var span2 = document.createElement("span");
 			span2.classList.add("endTime");
 			span2.innerHTML = etime;
@@ -799,12 +790,11 @@
 					  			if(pd==1){
 					  				for (var m=0;m<timelist.length;m++) {
 					  						var times=new Date(timelist[m].time);
-					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var time=(times.getFullYear())+"-"+(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
 					  						var etimes=new Date(timelist[m].etime);
-					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+					  						var etime=(etimes.getFullYear())+"-"+(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
 						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid)
 					  				}
-	  									document.querySelector(".time").style.display="block";
 								}else{
 										Xm(number1);
 								};
@@ -815,7 +805,7 @@
 			pd=1;
 			timelist=[];
 			hd=0;
-			document.querySelector(".xmpb").innerHTML="";
+			$(".detail1").remove();
 			var etime1 = Date.parse(new Date());
 			for(var i = 0; i < data.length; i++) {
 				var be1 = 0;
@@ -853,7 +843,7 @@
 											be1++;
 											indexss=1;
 										} else
-											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
 											var pro = {};
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
@@ -976,60 +966,46 @@
 			$("#orderinsert").click(function(){
 				var usermainorder={};
 				usermainorder.list=users;
-				var odersons=[];
+				var ordersons=[];
 				$.each($("#boxorder tr"),function(index1,item1){
-					var orderson={};
-					var types=$(item1).find(".typeidss").val();
-					orderson.typeid=types;
-					orderson.iid=$(item1).find(".productid").val();
-					if(types==1||types==5){
-						var orderwork={};
-						var orderproductwork=[];
-						var worduser=[];
-						$.each($(".detail1"),function(index,item){
-							var opw={};
-							opw.starttime=$(item).find(".startTime").text();
-							opw.endtime=$(item).find(".startTime").text();
-							opw.iid=$(item).find(".pid").val();
-							opw.name1=$(item).find(".aid").val();
-							orderproductwork.push(opw);
-						})
-						orderwork.list=orderproductwork;	
-						orderson.ix=orderwork;
-					}
-					if(types==7){
-						var types1;
-						var ix={};
-						var mealix={}; 
-						if(types1==1){
+					if($(item1).hasClass("detail1")==false){
+						var orderson={};
+						var types=$(item1).find(".typeidss").val();
+						orderson.typeid=types;
+						var iid=$(item1).find("[name=productid]").val();
+						orderson.iid=iid;
+						if(types==1||types==5||types==7){
 							var orderwork={};
 							var orderproductwork=[];
 							var worduser=[];
-							$.each($(".detail1"),function(index,item){
-								var opw={};
-								opw.starttime=$(item).find(".startTime").text();
-								opw.endtime=$(item).find(".startTime").text();
-								opw.iid=$(item).find(".pid").val();
-								opw.name1=$(item).find(".aid").val();
-								orderproductwork.push(opw);
+							$.each($("#boxorder tr"),function(index,item){
+								if($(item).attr("seachid")==iid+""+types){
+									var opw={};
+									opw.starttime=$(item).find(".startTime").text();
+									opw.endtime=$(item).find(".startTime").text();
+									opw.iid=$(item).find(".pid").val();
+									opw.name1=$(item).find(".aid").val();
+									orderproductwork.push(opw);	
+								}
 							})
-							orderwork.list=orderproductwork;
-							mealix.ix=orderwork;
-							ix.list.push(mealix);
+							orderwork.list=orderproductwork;	
+							orderson.ow=orderwork;
+							ordersons.push(orderson);
 						}
 					}
-					orderson.push(ix);
 				})
-				usermainorder.orderson=ordesons;
-				$.ajax({
-					url:"order/insertOrder",
+				usermainorder.olist=ordersons;
+				console.log(usermainorder);
+		 		 $.ajax({
+					url:"/order/insertOrder",
 					type:"post",
 					dataType:"json",
-					data:{},
+					data:JSON.stringify(usermainorder),
+					contentType:"application/json;charset:utf-8",
 					success:function(data){
 						
 					}
-				})
+				}) 
 			})
 			$("[name='usertype']").click(function(){
 				usertype=$(this).attr("attr");

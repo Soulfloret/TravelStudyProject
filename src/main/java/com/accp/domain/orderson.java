@@ -31,8 +31,18 @@ public class orderson {
     
     private List<orderson> ordersons;
     
+    private orderwork ow;
     
+ 
    
+
+	public orderwork getOw() {
+		return ow;
+	}
+
+	public void setOw(orderwork ow) {
+		this.ow = ow;
+	}
 
 	public List<orderson> getOrdersons() {
 		return ordersons;

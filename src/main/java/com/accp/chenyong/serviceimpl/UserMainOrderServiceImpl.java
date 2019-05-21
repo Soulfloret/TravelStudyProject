@@ -114,18 +114,22 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					for (userorder uo : u.getOrders()) {
 						for (orderson os : uo.getList()) {
 							os.setName1(uo.getId()+"");
+							os.setId(null);
+							os.setName2(1+"");
 							mapper15.insert(os);
 							if(os.getTypeid()==1||os.getTypeid()==5) {
 								orderwork ow=(orderwork)os.getIx();
+								ow.setId(null);
 								ow.setOrderid(os.getId());
 								mapper3.insert(ow);
 								for (orderproductwork opw : ow.getList()) {
+									opw.setId(null);
 									opw.setOrderworkid(ow.getId());
 									mapper16.insert(opw);
-									for (worduser wu : opw.getList()) {
+									/*for (worduser wu : opw.getList()) {
 										wu.setWorkid(opw.getId());
 										mapper17.insert(wu);
-									}
+									}*/
 								}
 							}
 							if(os.getTypeid()==2) {
@@ -156,6 +160,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						if(os.getTypeid()==1||os.getTypeid()==5) {
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
+							os.setName2(1+"");
 							mapper3.insert(ow);
 							for (orderproductwork opw : ow.getList()) {
 								opw.setOrderworkid(ow.getId());
@@ -410,6 +415,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	public Usermainorder QueryCunzaiInsert(Usermainorder o) {
 		Usermainorder o1=QueryCunzai(o);
 		if(o1!=null) {
+			if(o1.getName2().equals("个人")) {
+				o1.setUser(mapper1.queryByMainOrderId(o1.getId(),o1.getOrdercustomer()).get(0));
+				for (userorder uo : o1.getUser().getOrders()) {
+					uo.setList(null);
+				}
+			}else {
+				o1.setList(mapper1.queryByMainOrderId(o1.getId(),null));
+				for(users u : o1.getList()) {
+					for (userorder uo : u.getOrders()) {
+						uo.setList(null);
+					}	
+				}
+			}
 			return o1;
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
@@ -424,7 +442,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					e.printStackTrace();
 				}
 				team t=new team();
-				t.setId(o.getUser().getId());
+				t.setMainiuserid(o.getUser().getId());
 				mapper12.insert(t);
 				o.setName2("团队");
 				o.setOrdercustomer(t.getId());

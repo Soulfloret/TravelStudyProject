@@ -8,8 +8,20 @@ public class users {
     private String uname;
 
     private String upassword;
+    
+    private Integer muid;
+    
+    
 
-    public users() {
+    public Integer getMuid() {
+		return muid;
+	}
+
+	public void setMuid(Integer muid) {
+		this.muid = muid;
+	}
+
+	public users() {
 		super();
 	}
     private dynamics dynamic;
