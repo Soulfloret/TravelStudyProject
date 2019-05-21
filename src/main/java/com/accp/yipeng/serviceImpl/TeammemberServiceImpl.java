@@ -52,5 +52,10 @@ public class TeammemberServiceImpl implements TeammemberService{
 		// TODO Auto-generated method stub
 		return mapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public int queryByteamId(Integer tid) {
+		return mapper.queryByteamId(tid);
+	}
 	
 }

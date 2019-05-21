@@ -290,31 +290,37 @@
 				</div>
 			</section>
 			<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-								<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
-									<div class="modal-content" style="background-color: #435c70;color: white;">
-										<div id="" class="modal-header">
-											下单
-										</div>
-										<div id="" class="modal-body">
-											<div>
-												<p>
-												请选择下单方式:
-												<input type="radio" name="per" checked value="个人"><span>个人</span>
-												<input type="hidden" th:value="${session.use.id}" name="uid">
-												<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
-												<span th:if="${session.use.typeid==2}">团队</span>
-												</p>
-											</div>
-											<div class="box" style="margin:10px 0px 0px 20px;">
-											</div>	
-										</div>
-										<div id="" class="modal-footer">
-											<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
-											<a class="btn btn-primary" data-dismiss="modal">关闭</a>
-										</div>
-									</div>
-								</div>
+				<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
+					<div class="modal-content" style="background-color: #435c70;color: white;">
+						<div id="" class="modal-header">
+							下单
+						</div>
+						<div id="" class="modal-body">
+							<div>
+								<p>
+									请选择下单方式:
+									<input type="radio" name="per" checked value="个人"><span>个人</span>
+									<input type="hidden" th:value="${session.use.id}" name="uid">
+									<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
+									<span th:if="${session.use.typeid==2}">团队</span>
+								</p>
 							</div>
+							<div class="box" style="margin:10px 0px 0px 20px;">
+								</div>	
+						</div>
+						<div id="" class="modal-footer">
+							<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
+							<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="xmpb">
+				
+			</div>
+			<div class="time">
+					
+				</div>	
 			
 		</main>
 		<!-- // SITE MAIN CONTENT -->
@@ -510,37 +516,37 @@
 			</footer>
 <script th:src="@{/js1/owl.carousel.js}"></script>
 <script th:src="@{/js1/minified.js}"></script>
-<script>
+<script th:inline="javascript">
+		var orderson1=[];
 		$(function(){
 			var sum=0;
+			 var number1 = [[${number1}]];
 			$.each($("tbody tr .text-bold"),function(i,obj){
 				sum+=parseFloat($(obj).text());
 			})
 			$("#price").text(sum);
-			var olist=[];
 			$.each($("tbody tr .ors"),function(i,obj){
 				var orderson={};
 				orderson.iid=$(obj).find("input:eq(0)").val();
 				orderson.typeid=$(obj).find("input:eq(1)").val();
 				orderson.name2=$(obj).find("p").text();
-				olist.push(orderson);
+				orderson1.push(orderson);
 			})
-			console.log(olist);
+			console.log(orderson1);
+			console.log(number1);
+			Xm(number1);
 		})
-</script>
-<!-- 
-<script>
-var pd=0;
+		var pd=0;
 var timelist=[];
 var etimes=new Date();	
 function Xm(number1){
-		mui.ajax('http://192.168.43.139:8080/shopcartshh/query',{
-		  		data:{"orderson":orderson1},
+		$.ajax('/shopcartshh/query',{
+		  		data:{"orderson":JSON.stringify(orderson1)},
 		  		dataType:'json',//服务器返回json格式数据
 		  		type:'post',//HTTP请求类型
 		  		timeout:10000,//超时时间设置为10秒；
 //		  		processData:false, 
-//		  		contentType:"application/json;charset=UTF-8",
+//		  		contentType:"application/json;charset=UTF-8",j
 		  		success:function(data){
 			  			DataXm(data,number1);
 			  			console.log(pd)
@@ -565,8 +571,8 @@ function Xm(number1){
 						}else{
 							var etimes=new Date();
 			  				var startTime=etimes.getFullYear()+"-"+(etimes.getMonth()+1)+"-"+(etimes.getDate()+1)+" "+"7:30:00";
-							mui.ajax('http://192.168.43.139:8080/shopcartshh/query',{
-								data:{"orderson":orderson1,"startTime":startTime},
+							$.ajax('/shopcartshh/query',{
+								data:{"orderson":JSON.stringify(orderson1),"startTime":startTime},
 								dataType:'json',//服务器返回json格式数据
 								type:'post',//HTTP请求类型
 								timeout:10000,//超时时间设置为10秒；
@@ -600,114 +606,167 @@ function Xm(number1){
 				}
 			});
 		}
+
+
 function DataXm(data,number1) {
-timelist=[];
-document.querySelector(".xmpb").innerHTML="";
-var hd = 0;
-var etime1 = Date.parse(new Date());
-for(var i = 0; i < data.length; i++) {
-	var be1 = 0;
-	if(data[i].ix != null) {
-		if(data[i].ix.length == undefined) {
-			for(var h = 0; h < data[i].ix.areas.length; h++) {
-				mui.each(data[i].ix.areas[h].worktimes, function(index, item) {
-					mui.each(item, function(index1, item1) {
-						var time3 = Date.parse(new Date(item1.startTime));
-						var pro = {};
-						if(etime1<time3){
-							if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
-								pro.time = item1.startTime;
-								pro.area = data[i].ix.areas[h].aname;
-								pro.id = data[i].ix.areas[h].aname;
-								pro.pname = data[i].ix.pname;
-								pro.etime = item1.endTime;
-								timelist[hd] = pro;
-								be1++;
-							} else
-							if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
-								pro.time = item1.startTime;
-								pro.area = data[i].ix.areas[h].aname;
-								pro.pname = data[i].ix.pname;
-								pro.etime = item1.endTime;
-								timelist[hd] = pro;
-								be1++;
-							} else
-							if(timelist[hd] != null && timelist[hd - 1] != null && timelist[hd].time > item1.startTime && timelist[hd - 1].etime < item1.startTime && time3 > etime1 && number1 < data[i].ix.galleryful) {
-								var pro = {};
-								pro.time = item1.startTime;
-								pro.area = data[i].ix.areas[h].aname;
-								pro.pname = data[i].ix.pname;
-								pro.etime = item1.endTime;
-								timelist[hd] = pro;
-								be1++;
-							}
-							pd++;
-						}else{
-							pd=0;
-						}
-						
-					})
-				})
-				if(be1 != 0) {
-					break;
-					be1 = 0;
-				}
-			}
-			hd++;
-		} else {
-			for(var j = 0; j < data[i].ix.length; j++) {
-				var be = 0;
-				for(var h = 0; h < data[i].ix[j].areas.length; h++) {
-					mui.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
-						mui.each(item, function(index1, item1) {
+	pd=1;
+	timelist=[];
+	hd=0;
+	document.querySelector(".xmpb").innerHTML="";
+	var etime1 = Date.parse(new Date());
+	for(var i = 0; i < data.length; i++) {
+		var be1 = 0;
+		if(data[i].ix != null) {
+			if(data[i].ix.length == undefined) {
+				for(var h = 0; h < data[i].ix.areas.length; h++) {
+					var indexss=0;
+					$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+						$.each(item, function(index1, item1) {
 							var time3 = Date.parse(new Date(item1.startTime));
 							var pro = {};
-								if(etime1<time3){
-									if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+								if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+									var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
 									pro.time = item1.startTime;
-									pro.area = data[i].ix[j].areas[h].aname;
-									pro.pname = data[i].ix[j].pname;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
 									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
 									timelist[hd] = pro;
-									be++;
+									be1++;
+									indexss=1;
 								} else
-								if(timelist[hd] == null && hd != 0 && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+								if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+										var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
 									pro.time = item1.startTime;
-									pro.area = data[i].ix[j].areas[h].aname;
-									pro.pname = data[i].ix[j].pname;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
 									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
 									timelist[hd] = pro;
-									be++;
+									be1++;
+									indexss=1;
 								} else
-								if(timelist[hd] != null && timelist[hd].time > item1.startTime && timelist[hd - 1].etime < item1.startTime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+									if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
 									var pro = {};
+									var index=Math.floor((Math.random()*item1.ulist.length));
+										if(item1.ulist[index].staff!=null){
+											pro.sid = item1.ulist[index].staff.ulist.id;
+										}
+									
 									pro.time = item1.startTime;
-									pro.area = data[i].ix[j].areas[h].aname;
-									pro.pname = data[i].ix[j].pname;
+									pro.area = data[i].ix.areas[h].aname;
+									pro.pname = data[i].ix.pname;
 									pro.etime = item1.endTime;
+									pro.pid=data[i].ix.id;
+									pro.aid = data[i].ix.areas[h].id;
+									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
 									timelist[hd] = pro;
-									be++;
+									be1++;
+									indexss=1;
 								}
-							pd++;
-						}else{
-							pd=0;
-						}
 						})
 					})
-					if(be != 0) {
+					
+					if(indexss==0){
+						pd=0;
+					}
+					if(be1 != 0) {
 						break;
-						be = 0;
+						be1 = 0;
 					}
 				}
 				hd++;
+			}else {
+				for(var j = 0; j < data[i].ix.length; j++) {
+					var be = 0;
+					for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+						var indexss=0;
+						$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+							$.each(item, function(index1, item1) {
+								var time3 = Date.parse(new Date(item1.startTime));
+								var pro = {};
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.ulist.id;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix[j].areas[h].aname;
+											pro.pname = data[i].ix[j].pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix[j].id;
+											pro.aid = data[i].ix[j].areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be++;
+											indexss=1;
+										} else
+										if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.ulist.id;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix[j].areas[h].aname;
+											pro.pname = data[i].ix[j].pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix[j].id;
+											pro.aid = data[i].ix[j].areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be++;
+											indexss=1;
+										} else
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+												var pro = {};
+												var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.ulist.id;
+													}
+												pro.time = item1.startTime;
+												pro.area = data[i].ix[j].areas[h].aname;
+												pro.pname = data[i].ix[j].pname;
+												pro.etime = item1.endTime;
+												pro.pid=data[i].ix[j].id;
+												pro.aid = data[i].ix[j].areas[h].id;
+												pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+												timelist[hd] = pro;
+												be++;
+												indexss=1;
+												console.log(timelist[hd].time>item1.startTime)
+											}
+							})
+						})
+						if(indexss==0){
+							pd=0;
+						}		
+						if(be != 0) {
+							break;
+							be = 0;
+						}
+					}
+					hd++;
+				}
 			}
 		}
 	}
 }
-}	
 
+
+</script>
+
+<script>
 </script>	
- -->	
 	
 </body>
 </html>

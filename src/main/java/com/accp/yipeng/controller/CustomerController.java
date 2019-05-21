@@ -1,9 +1,8 @@
 package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,10 +34,7 @@ import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 import com.accp.yipeng.util.AgeUtil;
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -277,28 +273,21 @@ public class CustomerController {
 	@RequestMapping("addUserMainOrder")
 	@ResponseBody  
 	public String addUserMainOrder(@RequestBody Usermainorder umorder) {
-		 umoService1.addUserMainOrder(umorder);
-		 return JSON.toJSONString(umorder.getOlist());
+		 Usermainorder us= umoService1.addUserMainOrder(umorder);
+		 us.setOlist(umorder.getOlist());
+		 return JSON.toJSONString(us);
 	}
 	
 	@RequestMapping("buy")
 	public String buy(Model model, String data) {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, orderson.class);
-		try {
-			List<orderson> list = mapper.readValue(data, jt);
-			list=umoService1.queryDetails(list);
+		Usermainorder umo=JSON.parseObject(data,Usermainorder.class);
+			List<orderson> list=umoService1.queryDetails(umo.getOlist());
+			int num=1;
+			if("团队".equals(umo.getName2())) {
+				num=TeammberService.queryByteamId(umo.getOrdercustomer());
+			}
 			model.addAttribute("list",list);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			model.addAttribute("number1", num);
 		
 		return "buy";
 	}
