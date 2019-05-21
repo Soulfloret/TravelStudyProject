@@ -23,9 +23,19 @@ public class Meal {
     
     private List<Mealix> list;
     
+   private recommend recommend;
+   
    
 
-    public List<Mealix> getList() {
+    public recommend getRecommend() {
+	return recommend;
+}
+
+public void setRecommend(recommend recommend) {
+	this.recommend = recommend;
+}
+
+	public List<Mealix> getList() {
 		return list;
 	}
 

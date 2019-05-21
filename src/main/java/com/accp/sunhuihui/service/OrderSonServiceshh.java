@@ -111,6 +111,17 @@ public class OrderSonServiceshh {
 				type.setRecommend(com);
 			}
 			
+			/**
+			 * 总套餐
+			 */
+			List<orderson> type5=omapper.recommdstatic(7);
+			for (orderson type : type4) { 
+				recommend com=mapper2.recommendMealAll(type.getIid());
+					com.setTid(type.getTypeid());
+					com.setImgs(imapper.queryimg(com.getId(), 7));
+				type.setRecommend(com);
+			}
+			
 			
 			List list = new ArrayList() ;
 	        Iterator it1 = typeid1.iterator() ;
@@ -135,6 +146,11 @@ public class OrderSonServiceshh {
 	        Iterator it5 = type4.iterator() ;
 	        while(it5.hasNext()) {
 	            list.add(it5.next()) ;
+	        }
+	        
+	        Iterator it6 = type5.iterator() ;
+	        while(it6.hasNext()) {
+	            list.add(it6.next()) ;
 	        }
 	        
 	        Collections.shuffle(list);
