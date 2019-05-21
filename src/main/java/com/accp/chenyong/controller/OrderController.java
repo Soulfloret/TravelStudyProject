@@ -66,6 +66,7 @@ public class OrderController {
 	public String monthchart(Model mo) {
 		return "monthChart";
 	}
+	@ResponseBody
 	@RequestMapping("insertOrder")
 	public String insertOrder(@RequestBody Usermainorder order) {
 		if(order.getList().size()>1) {
@@ -93,7 +94,7 @@ public class OrderController {
 			}
 		}
 		service.insert(order1);
-		return "";
+		return "ss";
 	}
 	@ResponseBody
 	@RequestMapping("queryIdcard")

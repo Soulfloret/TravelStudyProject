@@ -107,9 +107,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	@Override
 	public int insert(Usermainorder record) {
 		int num=0;
-		Usermainorder usm=QueryCunzaiInsert(record);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmsss");
-		if(record.getList().size()>1) {
+		if(record.getList()!=null&&record.getList().size()>1) {
 				for (users u : record.getList()) {				
 					for (userorder uo : u.getOrders()) {
 						for (orderson os : uo.getList()) {
@@ -126,24 +125,20 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									opw.setId(null);
 									opw.setOrderworkid(ow.getId());
 									mapper16.insert(opw);
-									/*for (worduser wu : opw.getList()) {
+									for (worduser wu : opw.getList()) {
 										wu.setWorkid(opw.getId());
 										mapper17.insert(wu);
-									}*/
+									}
 								}
 							}
 							if(os.getTypeid()==2) {
 								menuorder mo=new menuorder();
-								try {
-									mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
-								} catch (ParseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 								mo.setCreatetime(new Date());
 								mo.setStatuss("正在进行中");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
+								mo.setUserid(u.getId());
 								mapper18.insert(mo);
 							}
 							if(os.getTypeid()==3) {
@@ -156,7 +151,10 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					}
 				}
 			}else {
-					for (orderson os : usm.getUser().getOrders().get(0).getList()) {
+					for (orderson os : record.getUser().getOrders().get(0).getList()) {
+						os.setName1(record.getUser().getOrders().get(0).getId()+"");
+						os.setName2(1+"");
+						mapper15.insert(os);
 						if(os.getTypeid()==1||os.getTypeid()==5) {
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
@@ -173,16 +171,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						}
 						if(os.getTypeid()==2) {
 							menuorder mo=new menuorder();
-							try {
-								mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 							mo.setCreatetime(new Date());
 							mo.setStatuss("正在进行中");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
+							mo.setUserid(record.getOrdercustomer());
 							mapper18.insert(mo);
 						}
 						if(os.getTypeid()==3) {

@@ -394,7 +394,7 @@
 						count=data.name2;
 					}
 					var tr=$("<tr>"
-							+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+							+"<th scope='row'><img src='/"+data.ix.image.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
 							+"<td><b>"+data.ix.price+"</b></td>"
 							+"<td><b>"+data.ix.intorduce+"</b></td>"
 							+"<td><b>"+count+"</b></td>"
@@ -406,7 +406,7 @@
 					var h4=$("<h4>"+data.ix.mname+"</h4>");
 					$.each(data.ix.list,function(index3,item3){
 						var tr=$("<tr>"
-								+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+								+"<th scope='row'><b>"+item3.mname+"</b></th>"
 								+"<td><b>"+item3.price+"</b></td>"
 								+"<td><b>"+item3.intorduce+"</b></td>"
 								+"<td><b>1</b></td>"
@@ -524,7 +524,7 @@
 				var divbody=$("<tbody></tbody>");
 				if(data.typeid==2){
 				var tr=$("<tr>"
-						+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+						+"<th scope='row'><img src='/"+data.ix.image.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
 						+"<td><b>"+data.ix.price+"</b></td>"
 						+"<td><b>"+data.ix.intorduce+"</b></td>"
 						+"<td><b>"+count+"</b></td>"
@@ -536,7 +536,7 @@
 						var h4=$("<h4>"+data.ix.mname+"</h4>");
 						$.each(data.ix.list,function(index3,item3){
 							var tr=$("<tr>"
-									+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+									+"<th scope='row'><b>"+item3.mname+"</b></th>"
 									+"<td><b>"+item3.price+"</b></td>"
 									+"<td><b>"+item3.intorduce+"</b></td>"
 									+"<td><b>1</b></td>"
@@ -727,7 +727,7 @@
 			})
 		</script>
 		<script th:line="javascript">
-		function XmPb(id,pname,area,time,etime,pid,aid,typeid) {
+		function XmPb(id,pname,area,time,etime,pid,aid,typeid,sid) {
 			var div = document.createElement("tr");
 			div.classList.add("detail1");
 			div.setAttribute("seachid",id+""+typeid);
@@ -739,6 +739,11 @@
 			inputp.setAttribute("type","hidden");
 			inputp.classList.add("pid");
 			div.appendChild(inputp);
+			var inputs=document.createElement("input");
+			inputs.value=sid;
+			inputs.setAttribute("type","hidden");
+			inputs.classList.add("sid");
+			div.appendChild(inputs);
 			var p2 = document.createElement("td");
 			p2.innerHTML = area;
 			div.appendChild(p2)
@@ -793,7 +798,7 @@
 					  						var time=(times.getFullYear())+"-"+(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
 					  						var etimes=new Date(timelist[m].etime);
 					  						var etime=(etimes.getFullYear())+"-"+(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
-						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid)
+						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid,timelist[m].sid)
 					  				}
 								}else{
 										Xm(number1);
@@ -818,6 +823,10 @@
 									var time3 = Date.parse(new Date(item1.startTime));
 									var pro = {};
 										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
@@ -831,6 +840,10 @@
 											indexss=1;
 										} else
 										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
@@ -839,12 +852,17 @@
 											pro.aid=data[i].ix.areas[h].id;
 											pro.id=data[i].iid;
 											pro.typeid=data[i].typeid;
+											
 											timelist[hd] = pro;
+											
 											be1++;
 											indexss=1;
 										} else
 											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
-											var pro = {};
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
 											pro.time = item1.startTime;
 											pro.area = data[i].ix.areas[h].aname;
 											pro.pname = data[i].ix.pname;
@@ -879,6 +897,10 @@
 										var time3 = Date.parse(new Date(item1.startTime));
 										var pro = {};
 												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+													}
 													pro.time = item1.startTime;
 													pro.area = data[i].ix[j].areas[h].aname;
 													pro.pname = data[i].ix[j].pname;
@@ -892,6 +914,10 @@
 													indexss=1;
 												} else
 												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+													}
 													pro.time = item1.startTime;
 													pro.area = data[i].ix[j].areas[h].aname;
 													pro.pname = data[i].ix[j].pname;
@@ -905,7 +931,10 @@
 													indexss=1;
 												} else
 													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-														var pro = {};
+														var index=Math.floor((Math.random()*item1.ulist.length));
+														if(item1.ulist[index].staff!=null){
+															pro.sid = item1.ulist[index].staff.id;
+														}
 														pro.time = item1.startTime;
 														pro.area = data[i].ix[j].areas[h].aname;
 														pro.pname = data[i].ix[j].pname;
@@ -985,17 +1014,23 @@
 									opw.endtime=$(item).find(".startTime").text();
 									opw.iid=$(item).find(".pid").val();
 									opw.name1=$(item).find(".aid").val();
+									var list=[];
+									$.each($(item).find(".sid"),function(ins,item2){
+										var s={};
+										s.productstaffid=$(item).find(".sid").val();
+										list.push(s);
+									})
+									opw.list=list;
 									orderproductwork.push(opw);	
 								}
 							})
 							orderwork.list=orderproductwork;	
 							orderson.ow=orderwork;
-							ordersons.push(orderson);
 						}
+						ordersons.push(orderson);
 					}
 				})
 				usermainorder.olist=ordersons;
-				console.log(usermainorder);
 		 		 $.ajax({
 					url:"/order/insertOrder",
 					type:"post",
@@ -1003,7 +1038,10 @@
 					data:JSON.stringify(usermainorder),
 					contentType:"application/json;charset:utf-8",
 					success:function(data){
-						
+						location.href="/order/query";
+					},
+					error:function(){
+						location.href="/order/query";
 					}
 				}) 
 			})
