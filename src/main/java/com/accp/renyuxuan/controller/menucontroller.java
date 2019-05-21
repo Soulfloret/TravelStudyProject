@@ -149,6 +149,7 @@ public class menucontroller {
 		me.setLikecount(0);
 		me.setPutawaytime(new Date());
 		me.setIntorduce("1");
+		me.setStock(1);
 		m.insertSelective(me);
 		im.insertmenuimglist(me);
 		return "redirect:/menu/toquerymenu";
@@ -319,9 +320,11 @@ public class menucontroller {
 		if("2".equals(type)) {
 			List<menu> list=m.selectmenuByid(id);
 			model.addAttribute("list", list);
+			model.addAttribute("typeid", 2);
 		}else if("4".equals(type)) {
 			List<bind> list=b.selectbindByid(id);
 			model.addAttribute("list", list);
+			model.addAttribute("typeid", 4);
 		}
 		menucomment menucomments=new menucomment();
 		menucomments.setMenuid(id);

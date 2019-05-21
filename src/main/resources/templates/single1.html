@@ -57,7 +57,7 @@
 		   	   	<li th:each="li,stackss:${olist}">
 		   	   		<ul class="review1">
 		   	   			<li class="review1_img"><img  th:src="${li.menus.url}" class="img-responsive" alt=""/></li>
-		   	   			<li class="review1_desc"><h3><a th:href="@{/menu/toquerymenu1Byid(id=${li.menus.id},type='2')}" th:text="${li.menus.mname}"></a><span class="badge" style="color: white; background-color: red;" th:text="${stackss.index+1}"></span></h3><p><span class="actual1" style="color: red;" th:text="'$'+${li.menus.price}"></span></p></li>
+		   	   			<li class="review1_desc"><h3><a th:href="@{/menu/toquerymenu1Byid(id=${li.menus.id},type='2')}" th:text="${li.menus.mname}"></a><span class="badge" style="color: white; background-color: red;" th:text="${stackss.index+1}"></span></h3><p><span class="actual1" style="color: red;" th:text="'￥'+${li.menus.price}"></span></p></li>
 		   	   			<div class="clearfix"> </div>
 		   	   		</ul>
 		   	   	</li>
@@ -88,7 +88,7 @@
 							</div>
 				        	<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 10px;">
 							  <button type="button" class="jian btn btn-default">-</button>
-							  <button type="button" class="btn btn-default">1</button>
+							  <button type="button" class="btn btn-default" id="num">1</button>
 							  <button type="button" class="jia btn btn-default">+</button>
 							</div>
 							<script>
@@ -96,7 +96,7 @@
 									var yj1=$(".yj").html();
 									var xj1=$(".xj").html();
 									if(yj1=="" || yj1==null){
-										yj1="$0";
+										yj1="￥0";
 									}
 									$(".jia").click(function(){
 										var yj=yj1;
@@ -132,7 +132,9 @@
 							</script>
 							<div class="btn_form">
 							   <form>
-								 <input type="submit" value="加入购物车" title="">
+								 <input type="submit" class="jr" value="加入购物车" title="">
+								 <span style="display: none;" th:text="${typeid}"></span>
+								 <span style="display: none;" th:text="${item.id}"></span>
 							  </form>
 							</div>
 							<ul class="add-to-links">
@@ -169,5 +171,32 @@
 	</div>
 
 </body>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$(".jr").click(function(){
+					var id=$(this).next().next().text();
+					var typeid=$(this).next().text();
+					var name1=$("#num").text();
+					$.ajax({
+						url:"/menu/shopcartadd",
+						data:{
+							"iid":id,
+							"typeid":typeid,
+							"name1":name1
+							},
+						type:"post",
+						dataType:"text",
+						success:function(result){
+							alert(result);
+							window.location.href="toquerymenu1";
+						}
+					}) 
+				})
+				
+			});
+		</script>
+
+
 </html>
 
