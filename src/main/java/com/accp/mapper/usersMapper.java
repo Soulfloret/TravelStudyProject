@@ -50,4 +50,6 @@ public interface usersMapper {
     users project_queryByName(String name);
     
     users queryProjectOrderByUserId(Integer id);
+    
+    List<users> queryIcarno(@Param("idCardNo") String idCardNo);
 }

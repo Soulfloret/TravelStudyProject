@@ -81,7 +81,7 @@
 	  	</collection>
   	</resultMap>
   
-  <select id="QueryQtproductByXq" resultMap="QueryQtproductByXq">
+  <select id="QueryQtproductByXq" resultMap="result_QueryQtproductByXq">
  	 SELECT * FROM `product`
 	 ORDER BY `id` DESC 
 	 LIMIT 0,8

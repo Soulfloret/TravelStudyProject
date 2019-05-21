@@ -38,16 +38,13 @@
 								<form class="form-inline col-md-11" method="post" style="margin-bottom: 10px;" th:action="@{/customer/toCustomer}">
 									<div class="form-group" style="margin:0px 10px 0px 0px;">
 										<label for="exampleInputName2">客户姓名:</label>
-										<input type="text" th:value="${uname}" name="uname" style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="客户姓名">
+										<input type="text" th:value="${uname}" name="uname" autocomplete="off"  style="margin-left: 5px;" class="form-control" id="exampleInputName2" placeholder="客户姓名">
 									</div>
 									<div class="form-group" style="margin:0px 10px 0px 0px;">
 										<label>客户类别: </label>
 										<select name="typeId" style="padding: 5px 5px 5px 10px;margin-left: 5px;" class="form-control">
 											<option value="-1">请选择</option>
-											<option
-											 th:each="item,state : ${listUserType}" th:value="${item.id}" th:selected="${item.id}==${typeId}" th:text="${item.tname}"   
-											></option>
-											
+											<option	 th:each="item,state : ${listUserType}" th:value="${item.id}" th:if="${item.id!=3}" th:selected=" ${item.id}==${typeId}" th:text="${item.tname}"></option>
 										</select>
 									</div>
 									<input type="submit" class="btn btn-info urls" uri="customer/toCustomer" value="查询">
@@ -77,10 +74,6 @@
 											</td>
 											<td  th:if="${it.usetype.id==2}" >
 												<div class="tm-status-circle  pending" ></div>
-												<span th:text="${it.usetype.tname}" ></span>
-											</td>
-											<td  th:if="${it.usetype.id==3}" >
-												<div class="tm-status-circle  moving" ></div>
 												<span th:text="${it.usetype.tname}" ></span>
 											</td>
 											<td><b th:text=${it.name1}></b></td>

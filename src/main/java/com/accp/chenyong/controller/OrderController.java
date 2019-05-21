@@ -1,6 +1,7 @@
 package com.accp.chenyong.controller;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
+import com.accp.domain.userorder;
+import com.accp.domain.users;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
 import com.accp.xiangjianbo.service.productService;
@@ -47,7 +50,9 @@ public class OrderController {
 	@RequestMapping("queryById")
 	@ResponseBody
 	public Usermainorder queryById(Integer id) {
-		return service.query(id).get(0);
+		Usermainorder u=new Usermainorder();
+		u.setId(id);
+		return service.query(u).get(0);
 	}
 	@RequestMapping("godaychart")
 	public String daychart(Model mo) {
@@ -61,20 +66,22 @@ public class OrderController {
 	public String monthchart(Model mo) {
 		return "monthChart";
 	}
-	@ResponseBody
-	@RequestMapping("queryPaiban")
-	public List<orderson> queryPaiban(List<orderson> lit,Date startTime,Date endTime){
-			/*List<orderson> lit=new ArrayList<orderson>();
-			orderson o=new orderson();
-			o.setIid(8);
-			o.setTypeid(1);
-			lit.add(o);*/
-			if(startTime==null) {
-				startTime=new Date();
+	
+
+	@RequestMapping("insertOrder")
+	public String insertOrder(Usermainorder order) {
+		Usermainorder order1=service.QueryCunzaiInsert(order);
+		if(order.getUser()!=null) {
+				order1.getUser().getOrders().get(0).setList(order.getUser().getOrders().get(0).getList());;
+		}else {
+			for (users u : order.getList()) {
+				for (users u1 : order1.getList()) {
+					if(u.getId()==u1.getId()) {
+						u1.getOrders().get(0).setList(u.getOrders().get(0).getList());
+					}
+				}
 			}
-			if(endTime==null) {
-				endTime=new Date();
-			}
-			return service1.query(lit,startTime,endTime);
+		}
+		return "";
 	}
 }

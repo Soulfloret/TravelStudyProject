@@ -17,13 +17,36 @@ public class Shopcart {
 
     private String name3;
 
-    private String name4;
+    public Shopcart(Integer id, Integer iid, Integer typeid, String name1, String name2) {
+		super();
+		this.id = id;
+		this.iid = iid;
+		this.typeid = typeid;
+		this.name1 = name1;
+		this.name2 = name2;
+	}
+
+	private String name4;
 
     private String name5;
     
-    private List<Shopcart> shop;
+    public Shopcart() {
+		super();
+	}
+
+	private List<Shopcart> shop;
     
-    private recommend recommend;
+    private Object ix;
+    
+    public Object getIx() {
+		return ix;
+	}
+
+	public void setIx(Object ix) {
+		this.ix = ix;
+	}
+
+	private recommend recommend;
 
     public List<Shopcart> getShop() {
 		return shop;

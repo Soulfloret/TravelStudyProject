@@ -12,15 +12,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.users;
+import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
+import com.accp.yipeng.service.UserMainOrderService1;
 import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
@@ -45,9 +50,16 @@ public class CustomerController {
 	TeammemberService TeammberService;
 	@Autowired
 	UserOrderService UseOrderService;
+	@Autowired
+	ShopCareServcie shopservice;
 	//陈勇 
 	@Autowired
 	UserMainOrderService UmoService;
+	@Autowired
+	OrderSonService ordersonservice;
+	@Autowired
+	UserMainOrderService1 umoService1;
+	
 	
 	
 	/**
@@ -119,7 +131,7 @@ public class CustomerController {
 		
 		try {
 			//模版位置
-			FileInputStream fis=new FileInputStream("C:/Users/Administrator/Downloads/客户导入.xlsx");
+			FileInputStream fis=new FileInputStream("F:\\y2项目客户导入.xlsx");
 			byte [] bytes=new byte[fis.available()];
 			fis.read(bytes);
 			HttpHeaders headers= new HttpHeaders();
@@ -155,7 +167,11 @@ public class CustomerController {
 	 * @return 去个人中心
 	 */
 	@RequestMapping("toPerson")
-	public  String toPerson() {
+	public  String toPerson(HttpSession session) {
+		users uses=(users)session.getAttribute("use");
+		if(uses==null) {
+			return "redirect:/Login/tologin";
+		}
 		return "Person";
 	}
 
@@ -168,14 +184,6 @@ public class CustomerController {
 		return "pagehome";
 	}
 
-	/**
-	 * 
-	 * @return 购物车
-	 */
-	@RequestMapping("tocart")
-	public  String tocart() {
-		return "cart";
-	}
 	
 	/**
 	 * 
@@ -234,6 +242,37 @@ public class CustomerController {
 		return "redirect:/customer/toPersonDetails";
 	}
 	
+	@RequestMapping("look")
+	public String look(Model model,HttpSession session){
+		users use=(users)session.getAttribute("use");
+		if(use==null) {
+			return "redirect:/Login/tologin";
+		}else {
+			model.addAttribute("list",shopservice.queryAll(use.getId()));
+			return "cart";
+		}
+	}
+	
+	@RequestMapping("delshopCart")
+	@ResponseBody 
+	public int delshopCart(Integer id) {
+		return shopservice.deleteByPrimaryKey(id);
+	}
+	
+	@RequestMapping("addUserMainOrder")
+	@ResponseBody  
+	public int addUserMainOrder(@RequestBody Usermainorder umorder) {
+		return umoService1.addUserMainOrder(umorder);
+	}
+	
+	@RequestMapping("buy")
+	public String buy(Model model,HttpSession  session) {
+		users use=(users)session.getAttribute("use");
+		List<Shopcart> list=shopservice.queryAll(use.getId());
+		model.addAttribute("list",list);
+		
+		return "buy";
+	}
 	
 	
 }

@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 
 public interface bindMapper {
 	
+	List<bind> selectByQtTj();
+	
 	List<bind> selectbindByid(Integer id);
 	
 	int insertmenubind(bind bi);

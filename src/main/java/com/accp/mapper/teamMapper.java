@@ -6,10 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface teamMapper {
-	
+	List<team> queryByuid(Integer id);
 	team selectBymainiUserId(Integer id);
 	
-	public  List<team> selectAllTeam(@Param("uname") String uname,@Param("tname") String tname);
+   List<team> selectAllTeam(@Param("uname") String uname,@Param("tname") String tname);
 	
     int countByExample(teamExample example);
 

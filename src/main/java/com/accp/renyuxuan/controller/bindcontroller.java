@@ -123,5 +123,8 @@ public class bindcontroller {
 		im.insertbingimglist(binds);
 		return "redirect:/bing/toQuerybind";
 	}
+	
+	
+	
 		
 }

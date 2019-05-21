@@ -16,9 +16,4 @@ import com.alibaba.fastjson.JSON;
 public class controller {
 	@Autowired
 	ProductAreaService service;
-	@RequestMapping("query")
-	@ResponseBody
-	public String query(Integer areaid) {
-		return "";
-	}
 }
