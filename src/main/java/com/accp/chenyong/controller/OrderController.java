@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.chenyong.service.UserServicec;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
@@ -68,13 +71,15 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("insertOrder")
-	public String insertOrder(@RequestBody Usermainorder order) {
+	public String insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
 		if(order.getList().size()>1) {
 			order.setName2("团队");
 		}else {
 			order.setName2("个人");
 		}
 		order.setOrdercustomer(order.getList().get(0).getMuid());
+		staff f=(staff)req.getSession().getAttribute("staff");
+		order.setOrderuser(f.getId());
 		Usermainorder order1=service.QueryCunzaiInsert(order);
 		if(order.getList().size()==1) {
 				order1.getUser().getOrders().get(0).setList(order.getOlist());
@@ -98,14 +103,15 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("queryIdcard")
-	public List<users> queryIdcar(String uid,Integer typeId){
+	public List<users> queryIdcar(String uid,Integer typeId,HttpServletRequest req){
+		staff s=(staff)req.getSession().getAttribute("staff");
 		List<users> list=new ArrayList<users>();
 		users u=service6.queryByIdCard(uid);
 		if(typeId==1) {
 			u.setMuid(u.getId());
 			list.add(u);
 		}else {
-			list=service6.selectBymainiUserId(u.getId());
+			list=service6.selectBymainiUserId(u.getId(),s.getId());
 		}
 		
 		return list;

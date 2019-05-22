@@ -419,7 +419,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				for(users u : o1.getList()) {
 					for (userorder uo : u.getOrders()) {
 						uo.setList(null);
-					}	
+					}
 				}
 			}
 			return o1;
@@ -427,35 +427,17 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 			if(o.getList()!=null&&o.getList().size()>0) {
 				o.setName1("正在进行中");
-				String date=new Date().toString();
 				o.setOrdertime(new Date());
-				try {
-					o.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				team t=new team();
-				t.setMainiuserid(o.getUser().getId());
-				mapper12.insert(t);
 				o.setName2("团队");
-				o.setOrdercustomer(t.getId());
+				o.setOrderno(sdf.format(new Date())+"yxlx");
+				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				for(users u:o.getList()) {
-					teammember tm=new teammember();
-					tm.setMemberid(u.getId());
-					tm.setTeamid(t.getId());
-					mapper13.insert(tm);
 					userorder uo=new userorder();
-					try {
-						uo.setOrderno(sdf.parse(date)+"yxlx");
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					uo.setOrderno(sdf.format(new Date())+"yxlx");
 					uo.setOrdertime(new Date());
 					uo.setOrderuser(o.getOrderuser());
-					uo.setOrdercustomer(t.getId());
+					uo.setOrdercustomer(u.getId());
 					uo.setOrdermainid(o.getId());
 					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
@@ -467,22 +449,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				o.setName1("正在进行中");
 				String date=new Date().toString();
 				o.setOrdertime(new Date());
-				try {
-					o.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				o.setOrderno(sdf.format(date)+"yxlx");
 				o.setName2("个人");
-				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				userorder uo=new userorder();
-				try {
-					uo.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				uo.setOrderno(sdf.format(date)+"yxlx");
 				uo.setOrdertime(new Date());
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getOrdercustomer());

@@ -9,5 +9,5 @@ public interface UserServicec {
 	 
 	 users queryByIdCard(String idCardNo);
 	
-	 List<users> selectBymainiUserId(Integer id);
+	 List<users> selectBymainiUserId(Integer id,Integer sid);
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import com.accp.domain.product;
 import com.accp.domain.productarea;
 import com.accp.domain.productstaff;
 import com.accp.domain.project;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 import com.accp.xiangjianbo.service.orderProjecrService;
 import com.accp.xiangjianbo.service.productService;
@@ -155,13 +158,14 @@ public class projectOrderController {
 	/*根据身份证查询客户*/
 	@RequestMapping("queryByCoard")
 	@ResponseBody
-	public List<users> queryByCoard(String uid,Integer typeId){
+	public List<users> queryByCoard(String uid,Integer typeId,HttpServletRequest req){
+		staff s=(staff)req.getSession().getAttribute("staff");
 		List<users> list=new ArrayList<users>();
 		users u=cyuserservice.queryByIdCard(uid);
 		if(typeId==1) {
 			list.add(u);
 		}else {
-			list=cyuserservice.selectBymainiUserId(u.getId());
+			list=cyuserservice.selectBymainiUserId(u.getId(),s.getId());
 		}
 		return list;
 	}
