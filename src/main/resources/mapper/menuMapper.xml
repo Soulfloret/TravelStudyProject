@@ -42,7 +42,6 @@
   		</collection>
   		
   </resultMap>
-  
   <select id="querycountmenu" resultMap="count">
   	SELECT mu.*,COUNT(mu.id) as countnum FROM menu AS mu
 	LEFT JOIN ordershop AS os ON os.`menuId`=mu.`id`
@@ -50,6 +49,9 @@
 	WHERE mo.`createTime` between #{starttime} and #{endtime}
 	and mu.id=#{id}
 	GROUP BY mu.`id`;
+ </select>
+  <select id="queryByiidAndMenuid" resultType="com.accp.domain.menu">
+  			SELECT m.* FROM menu AS m INNER JOIN itype AS i WHERE i.id=#{iid} AND m.id=#{typeid}
   </select>
   
   <select id="selectmenuByid" resultMap="BaseResultMap2">

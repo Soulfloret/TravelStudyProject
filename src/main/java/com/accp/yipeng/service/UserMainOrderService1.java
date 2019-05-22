@@ -6,6 +6,7 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 
 public interface UserMainOrderService1 {
+	public int insertOrderSonAndWork(Usermainorder o);
 	
 	public Usermainorder addUserMainOrder(Usermainorder o) ;
 	

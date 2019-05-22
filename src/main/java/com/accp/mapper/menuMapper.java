@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menuMapper {
+	menu queryByiidAndMenuid(@Param("iid") Integer iid,@Param("iid") Integer typeid);
 	
 	List<menu> selectmenuByid(Integer id);
 	

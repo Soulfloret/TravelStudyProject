@@ -25,6 +25,7 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.bindservice;
+import com.accp.xiangjianbo.service.productService;
 import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
@@ -66,6 +67,8 @@ public class CustomerController {
 	UserMainOrderService1 umoService1;
 	@Autowired
 	bindservice service2;
+	@Autowired
+	productService prod;
 	
 	
 	/**
@@ -190,7 +193,7 @@ public class CustomerController {
 	public  String topagehome(Model model) {
 		
 		model.addAttribute("menulist", service2.selectByQtTj());
-		
+		model.addAttribute("productlist", prod.QueryQtproductByXq());
 		return "pagehome";
 	}
 
@@ -278,6 +281,8 @@ public class CustomerController {
 		 return JSON.toJSONString(us);
 	}
 	
+	
+	
 	@RequestMapping("buy")
 	public String buy(Model model, String data) {
 		Usermainorder umo=JSON.parseObject(data,Usermainorder.class);
@@ -288,8 +293,13 @@ public class CustomerController {
 			}
 			model.addAttribute("list",list);
 			model.addAttribute("number1", num);
-		
+			model.addAttribute("umo", umo);
 		return "buy";
+	}
+	@RequestMapping("insertOrder")
+	@ResponseBody
+	public int 	insertOrder(@RequestBody Usermainorder umo) {
+		return umoService1.insertOrderSonAndWork(umo);
 	}
 	
 	
