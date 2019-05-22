@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.accp.domain.Shopcart;
 import com.accp.domain.productproject;
 import com.accp.domain.recommend;
+import com.accp.domain.room;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.ShopcartMapper;
 import com.accp.mapper.bindMapper;
@@ -40,6 +41,8 @@ public class ShopCartService {
 	bindMapper bindmapper;
 	@Autowired
 	MealMapper mealmapper;
+	@Autowired
+	roomMapper roommapper;
 	
 	public int insertList(Shopcart shop) {
 		return mapper.insertList(shop);
@@ -99,5 +102,14 @@ public class ShopCartService {
 		
 		return null;
 		
+	}
+	
+	/**
+	 * 查询当前时间截止到结束时间空余的房间
+	 */
+	
+	public  List<room> queryByroomData(room roo) {
+		// TODO Auto-generated method stub
+		return roommapper.queryByroomData(roo);
 	}
 }

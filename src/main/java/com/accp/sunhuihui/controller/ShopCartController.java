@@ -18,6 +18,7 @@ import com.accp.domain.Shopcart;
 import com.accp.domain.orderson;
 import com.accp.domain.productproject;
 import com.accp.domain.recommend;
+import com.accp.domain.room;
 import com.accp.renyuxuan.service.ordersonservice;
 import com.accp.sunhuihui.service.OrderSonServiceshh;
 import com.accp.sunhuihui.service.ShopCartService;
@@ -123,5 +124,11 @@ public class ShopCartController {
 		recommend r =service.WholeRecommend(iid, typeid);
 		System.out.println(JSON.toJSONString(r));
 		return r;
+	}
+	
+	@RequestMapping("queryByroomData")
+	public  List<room> queryByroomData(room roo) {
+		// TODO Auto-generated method stub
+		return service.queryByroomData(roo);
 	}
 }
