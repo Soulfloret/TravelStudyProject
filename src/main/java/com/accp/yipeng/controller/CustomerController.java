@@ -278,6 +278,14 @@ public class CustomerController {
 		 return JSON.toJSONString(us);
 	}
 	
+	@RequestMapping("insertOrderSonAndWork")
+	@ResponseBody  
+	public int insertOrderSonAndWork(@RequestBody Usermainorder umorder) {
+		 
+		 return umoService1.insertOrderSonAndWork(umorder);
+	}
+	
+	
 	@RequestMapping("buy")
 	public String buy(Model model, String data) {
 		Usermainorder umo=JSON.parseObject(data,Usermainorder.class);

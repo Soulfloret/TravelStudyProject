@@ -13,6 +13,8 @@ public interface UsermainorderMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int updateByPrimaryKeySelective(Usermainorder record);
+    
     int insert(Usermainorder record);
 
     int insertSelective(Usermainorder record);

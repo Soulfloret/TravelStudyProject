@@ -195,4 +195,27 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 		
 		return list;
 	}
+
+	@Override
+	public int insertOrderSonAndWork(Usermainorder o) {
+		int num=0;
+		if(o.getName2().equals("团队")) {
+			List<users> list1= new ArrayList<users>();
+			List<teammember> list= mapper13.queryBytid(o.getOrdercustomer());
+			for (teammember teammember : list) {
+				list1.add(mapper1.selectByPrimaryKey(teammember.getMemberid()));
+			}
+			o.setList(list1);
+		}
+		Usermainorder uo=QueryCunzai(o);
+		uo.setName1("正在进行中");
+		num=mapper.updateByPrimaryKeySelective(uo);
+		List<userorder> list1=mapper14.selectByuidinlist(uo.getId());
+		for (userorder userorder : list1) {
+			userorder.setOrderstatus("正在进行中");
+			num=mapper14.updateByPrimaryKeySelective(userorder);
+		}
+		
+		return 0;
+	}
 }

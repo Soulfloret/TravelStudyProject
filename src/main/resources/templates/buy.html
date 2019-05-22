@@ -291,7 +291,7 @@
 						</div>
 						<div class="text-center">
 							<input type="button" class="btn btn-info" data-target="#orderInfo" data-toggle="modal" value="查看排班">
-							<a class="btn btn-round btn-default uppercase"   >付款</a>
+							<a class="btn btn-round btn-default uppercase" id="payMoney" >付款</a>
 						</div>
 					</div>
 				</div>
@@ -546,6 +546,11 @@
 			})
 
 		})
+		
+		$("#payMoney").click(function(){
+			
+		})
+		
 		var j=0;
 		var pd=1;
 		var timelist=[];
@@ -788,6 +793,7 @@
 					  		type:'post',
 					  		timeout:10000,
 					  		success:function(data){
+					  				console.log(data);
 						  			DataXm(data,number1);
 						  			if(pd==1){
 						  				for (var m=0;m<timelist.length;m++) {	
