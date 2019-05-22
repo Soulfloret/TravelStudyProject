@@ -162,6 +162,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								 mapper19.insert(rd);
 								 os.setIid(rd.getId());
 								 mapper15.insert(os);
+
 							}
 							if(os.getTypeid()==4) {
 								mapper15.insert(os);
@@ -620,5 +621,13 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 			return o;
 		}
 	}
+	
+	public static Date getNextDay(Date date,int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, +day);//+1今天的时间加一天
+        date = calendar.getTime();
+        return date;
+    }
 
 }

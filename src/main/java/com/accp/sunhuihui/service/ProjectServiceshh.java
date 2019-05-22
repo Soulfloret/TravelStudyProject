@@ -215,7 +215,9 @@ public class ProjectServiceshh {
 			m1.setList(mealix);
 			m1.setName5(7+"");
 			m1.setName2(name2.substring(0, name2.length()-1));
-			m1.setRecommend(mealmapper.recommendMealAll(m1.getId()));
+			recommend r=mealmapper.recommendMealAll(m1.getId());
+			r.setTid(7);
+			m1.setRecommend(r);
 		}
 		return meal;
 	}
