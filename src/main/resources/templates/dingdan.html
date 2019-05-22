@@ -243,11 +243,12 @@
 																		<div class="row">
 																			<div class="col-md-3">
 																				<div class="cart-item-info row">
-																					<h3><a href="javascript:void(0)" th:text="${item.room.rname}"></a><span></span></h3>
+																					<div>房间名称：<span  th:text="${item.room.rname}" style="color: red;"></span></div>
 																					<div>开始时间：<span th:text="${#dates.format(item.begintime, 'yyyy-MM-dd')}"></span></div>
 																					<div>结束时间：<span th:text="${#dates.format(item.endtime, 'yyyy-MM-dd')}"></span></div>
 																					<div>位置：<span th:text="${item.room.location}"></span></div>
 																					<div>价格：<span class="dj" th:text="${item.room.price}"></span></div>
+																					<div>状态：<span class="zt" th:if="${item.room.state == '1'}" th:text="可租"  style="color: red;"></span><span class="zt" th:if="${item.room.state == '2'}" th:text="不可租" style="color: red;"></span></div>
 																				</div>
 																			</div>
 																			<div class="col-md-5 col-md-offset-1">
@@ -266,9 +267,9 @@
 															</li>
 															
 														</ul>
-														<div class="panel-footer" style="height: 60px;line-height: 50px;margin-top: -8px;">
-															<span style="position: absolute; left: 50px;bottom:30px;font-size:16px ;">离订单取消还有30s</span>
-															<div style="float: right;">
+														<div class="panel-footer" style="height: 70px;line-height: 50px;margin-top: -8px;">															
+														<div style="float: right;">
+																<span style="position: absolute; left: 50px;bottom:30px;font-size:16px ;" class="del"><a th:href="@{/room/deletedingdan(id=${item.id})}" style="color: black;">取消订单</a></span>
 																<button type="button" class="dg btn-default btn-lg" style="margin-left: 50px;margin-top: 5px; " data-target="#md" data-toggle="modal">
 																   马上付款
 																</button>
@@ -278,6 +279,7 @@
 																<input type="hidden" th:value="${#dates.format(item.endtime, 'yyyy-MM-dd')}">
 																<input type="hidden" th:value="${item.room.price}">
 																<input type="hidden" th:value="${item.id}">
+																<input type="hidden" th:value="${item.room.state}">
 															</div>
 														</div>
 													</div>
@@ -354,37 +356,20 @@
 		<script type="text/javascript">
 				
 				
-				/* $(function(){
-					function show(){
-					   alert("ready");
-					}
-					setInterval(show,3000);// 注意函数名没有引号和括弧！ 
-					// 使用setInterval("show()",3000);会报“缺少对象” 
-				}); */
-				
-				
-				/* var x = 15,
-	            interval;
-		        window.onload = function() {
-		            var d = new Date("1111/1/1,0:" + x + ":0");
-		            interval = setInterval(function() {
-		                var m = d.getMinutes();
-		                var s = d.getSeconds();
-		                m = m < 10 ? "0" + m : m;
-		                s = s < 10 ? "0" + s : s;
-		                console.log(m + ":" + s);
-		                if (m == 0 && s == 0) {
-		                    clearInterval(interval);
-		                    return;
-		                }
-		                d.setSeconds(s - 1);
-		            }, 1000);
-		        } */
 		        
 				
 				
 				$(function(){
 				
+					
+					$(".del").click(function(){
+						var res = confirm("确定要删除吗？");
+						if(res==true){
+							
+						}else{
+							return false;
+						}
+					})
 					
 					var dj=0.0;
 					dj=parseFloat(dj);
@@ -402,6 +387,11 @@
 						var etime=$(this).next().next().next().next().val();
 						var price=$(this).next().next().next().next().next().val();
 						var rid=$(this).next().next().next().next().next().next().val();
+						var type=$(this).next().next().next().next().next().next().next().val();
+						if(type==2){
+							alert("该房已维修！")
+							return false;
+						}
 						var tr=$("<tr><td>"+rname+"</td><td>"+btime+"</td><td>"+etime+"</td><td>"+price+"</td><td style='display:none'><input value="+id+" name='id'></td><td style='display:none'><input value="+rid+" name='rid'></td></tr>");
 						$("#tbo").append(tr);
 						
@@ -416,8 +406,12 @@
 							var etime=$(obj).next().next().next().next().val();
 							var price=$(obj).next().next().next().next().next().val();
 							var rid=$(obj).next().next().next().next().next().next().val();
-							var tr=$("<tr><td>"+rname+"</td><td>"+btime+"</td><td>"+etime+"</td><td>"+price+"</td><td style='display:none'><input value="+id+" name='id'></td><td style='display:none'><input value="+rid+" name='rid'></td></tr>")
-							$("#tbo").append(tr);
+							var type=$(obj).next().next().next().next().next().next().next().val();
+							if(type==1){
+								var tr=$("<tr><td>"+rname+"</td><td>"+btime+"</td><td>"+etime+"</td><td>"+price+"</td><td style='display:none'><input value="+id+" name='id'></td><td style='display:none'><input value="+rid+" name='rid'></td></tr>")
+								$("#tbo").append(tr);
+							}
+							
 						})
 					})
 				

@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,7 @@ import com.accp.renyuxuan.service.impl.roomordersonserviceimpl;
 import com.accp.renyuxuan.service.impl.roomserviceimpl;
 import com.accp.renyuxuan.service.impl.teamserviceimpl;
 import com.accp.renyuxuan.service.impl.userorderserviceimpl;
+import com.accp.renyuxuan.service.impl.usersserviceimpl;
 import com.accp.yipeng.service.UsersService;
 import com.alibaba.fastjson.JSON;
 
@@ -53,6 +55,8 @@ public class roomcontroller {
 	teamserviceimpl te;
 	@Autowired
 	imagesserviceimpl im;
+	@Autowired
+	usersserviceimpl ru;
 	
 	
 	
@@ -99,7 +103,8 @@ public class roomcontroller {
 	
 	//鏌ヨ鍑哄彲浠ラ璁㈡埧闂�  鍘讳綇瀹垮悗鍙颁笅璁㈠崟椤甸潰
 	@RequestMapping("/roomorder")
-	public String roomorder(Model model ,room ro) {
+	public String roomorder(Model model ,room ro,HttpSession session) {
+		ro.setState("1");
 		List<room> list=r.queryByroomData(ro);
 		model.addAttribute("list", list);
 		model.addAttribute("ro", ro);
@@ -115,10 +120,9 @@ public class roomcontroller {
 		roo.setName1("1");
 		rd.insertSelective(roo);//娣诲姞璁板綍
 		String lb ="";
-		if("1".equals(lx)) {
-			//涓汉
-			lb="涓汉";
-			Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb);
+		if(us.getTypeid()!=2) {
+			lb="个人";
+			Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
 			userorder userorder=uo.selectByuid(usermainorder.getId());
 			//娣诲姞鎬昏鍗曚粠琛�
 			orderson ordersons=new orderson();
@@ -126,20 +130,23 @@ public class roomcontroller {
 			ordersons.setTypeid(3);
 			ordersons.setName1(userorder.getId().toString());
 			o.insertSelective(ordersons);
-		}else{
-			//鍥㈤槦
-			lb="鍥㈤槦";
-			team t=te.selectBymainiUserId(uid);
-			Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
-			List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
-			for (userorder userorder : list) {
-				//娣诲姞鎬昏鍗曚粠琛�
-				orderson ordersons=new orderson();
-				ordersons.setIid(roo.getId());
-				ordersons.setTypeid(3);
-				ordersons.setName1(userorder.getId().toString());
-				o.insertSelective(ordersons);
-			}
+
+		}else {
+			//团队
+			lb="团队";
+				team t= te.selectBymainiUserId(uid);
+				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
+				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
+				for (userorder userorder : list) {
+					//添加总订单从表
+					orderson ordersons=new orderson();
+					ordersons.setIid(roo.getId());
+					ordersons.setTypeid(3);
+					ordersons.setName1(userorder.getId().toString());
+					o.insertSelective(ordersons);
+				}
+			
+			
 		}
 		return "redirect:/room/roomorder";
 	}
@@ -218,15 +225,22 @@ public class roomcontroller {
 		public String querydingdan(HttpSession session,Model model) {
 			//users us=(users) session.getAttribute("use");
 			int id=5;
-			List<roomdestine> list =rd.selectByrdId(id);
+			List<roomdestine> list =rd.selectByrdId(id ,new Date());
 			model.addAttribute("list", list);
 			return "dingdan";
+		}
+		
+		//临时订单删除
+		@RequestMapping("/deletedingdan")
+		public String deletedingdan(Integer id) {
+			rd.deleteByPrimaryKey(id);
+			return "redirect:/room/querydingdan";
 		}
 		
 		@RequestMapping("/roomaddorder")
 		public String roomaddorder(Integer [] id,Integer [] rid,String lx) {
 			//users us=(users) session.getAttribute("use");
-			int uid=5;//session里面的用户id
+			int uid=1;//session里面的用户id
 			for (int i = 0; i < rid.length; i++) {
 				roomdestine roomdestines=new roomdestine();
 				roomdestines.setId(rid[i]);
@@ -235,7 +249,7 @@ public class roomcontroller {
 				String lb="";
 				if("1".equals(lx)) {
 					lb="个人";
-					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb);
+					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
 					userorder userorder=uo.selectByuid(usermainorder.getId());
 					orderson ordersons=new orderson();
 					ordersons.setIid(id[i]);
@@ -245,7 +259,7 @@ public class roomcontroller {
 				}else {
 					lb="团队";
 					team t=te.selectBymainiUserId(uid);
-					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb);
+					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
 					List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
 					for (userorder userorder : list) {
 						//添加总订单从表

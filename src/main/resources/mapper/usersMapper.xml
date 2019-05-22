@@ -43,6 +43,12 @@
 	    </collection>
   	</collection>
   </resultMap>
+  
+  
+  <select id="selectByteamsUser" resultMap="BaseResultMap"> 
+  		SELECT u.* FROM  `team` t LEFT JOIN `teammember` te ON t.`id`=te.`teamId` INNER JOIN `users` u ON te.`memberId`=u.`id`
+		WHERE t.`mainiUserId`=#{id}
+  </select>
 
  <update id="updateById">
  update users set uname=#{uname},phone=#{phone},upassword=#{upassword} where id=#{id}

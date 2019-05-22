@@ -6,21 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.accp.domain.team;
-import com.accp.mapper.teamMapper;
-import com.accp.renyuxuan.service.teamservice;
+import com.accp.domain.users;
+import com.accp.mapper.usersMapper;
+import com.accp.renyuxuan.service.usersservice;
 
 @Service
 @Transactional
-public class teamserviceimpl implements teamservice{
+public class usersserviceimpl implements usersservice{
 
 	@Autowired
-	teamMapper t;
+	usersMapper mapper;
 	
 	@Override
-	public team selectBymainiUserId(Integer id) {
+	public List<users> selectByteamsUser(Integer id) {
 		// TODO Auto-generated method stub
-		return t.selectBymainiUserId(id);
+		return mapper.selectByteamsUser(id);
 	}
 
 }

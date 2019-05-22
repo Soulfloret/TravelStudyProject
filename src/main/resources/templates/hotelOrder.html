@@ -119,18 +119,19 @@
 					    <div> 价格：<input type="text" name="price"  readonly="readonly" class="jg" style="color: red;"></div>
 					    <div> 房号：<input type="text" readonly="readonly" class="fh" style="color: red;"></div>
 					    <div> 类型：<input type="text"readonly="readonly" class="lx" style="color: red;"></div>
-					    <div class="form-group" style="margin:0px 10px 0px 0px;">
-							<label for="exampleInputName2" style="color: black;">身份证号码:</label>
-							<input type="text" name="sfz"  class="form-control" id="exampleInputName2" placeholder="身份证号码">
-						</div>
-					     <input type="hidden" name="roomid" class="id">
-					     <div class="form-group" style="margin:0px 10px 0px 0px;">
-						<label for="exampleInputName2" style="color: black;">生成订单类型:</label>
+					   <div class="form-group" id="lxs" style="margin:0px 10px 0px 0px;display: block;">
+							<label for="exampleInputName2" style="color: black;">生成订单类型:</label>
 							<select name="lx" style="padding: 5px 5px 5px 10px; border-bottom-color: white;" class="form-control">
 			        		<option value="1">个人</option>
 			        		<option value="2">团队</option>
 			        		</select>
 						</div>
+					    <div class="form-group" style="margin:0px 10px 0px 0px;">
+							<label for="exampleInputName2" style="color: black;">身份证号码:</label>
+							<input type="text" name="sfz"  class="form-control" id="exampleInputName2">
+						</div>
+					     <input type="hidden" name="roomid" class="id">
+					     
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -151,6 +152,11 @@
     <!-- https://getbootstrap.com/ -->
     <script>
     	$(function(){
+    		
+    		
+    		
+    		
+    		
     		$(".yd").click(function(){
     			var ksdata=$("[name='begintime']").val();
     			var jsdata=$("[name='endtime']").val();
@@ -174,21 +180,18 @@
     				var d=n+'-0'+(y+1)+'-0'+r;
     				if(ksdata<d){
     					alert("开始时间必须大于当前日期");
-    					return false;
-    				}else{
-    					$(".data1").val(ksdata);
-    	    			$(".data2").val(jsdata);
-    	    			$(".wz").val(wz);
-    	    			$(".jg").val(jg*date0);
-    	    			$(".fh").val(fh);
-    	    			$(".lx").val(lx);
-    	    			$(".id").val(id);
+    					
     				}
+    				$(".data1").val(ksdata);
+    	    		$(".data2").val(jsdata);
+    	    		$(".wz").val(wz);
+    	    		$(".jg").val(jg*date0);
+    	    		$(".fh").val(fh);
+    	    		$(".lx").val(lx);
+    	    		$(".id").val(id);
     			}else{
     				alert("请先选择日期！");
     				return false;
-    				
-    				
     			}
     			
     		})

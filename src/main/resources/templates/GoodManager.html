@@ -43,8 +43,14 @@
 							<span style="color: white;">一</span>
 							<input type="text" th:value="${menus.zgprice}" name="zgprice" style="margin-left: 5px; width: 100px" class="form-control"  placeholder="最高价">
 						</div>
+<<<<<<< HEAD
 						<input type="submit" class="btn btn-info urls"  value="查询">
 					<input type="submit" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 30px;" class="btn-primary" value="查询" />
+=======
+						<input type="submit" class="btn btn-info urls"  value="查询">
+
+					</select>
+>>>>>>> refs/remotes/origin/renyuxuan
 					</form>
 					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top:30px ;">
 						<div class="tm-product-table-container">
@@ -58,10 +64,8 @@
 										</th>
 										<th scope="col">所属类型</th>
 										<th scope="col">商品价格</th>
-										<th scope="col">商品库存</th>
 										<th scope="col">状态</th>
 										<th scope="col">点赞总数</th>
-										<th scope="col">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -71,16 +75,10 @@
 										<td class="tm-product-name"><a style="color: white;" th:href="@{/menu/toupdatemenu(id=${item.id})}" th:text="${item.mname}"></a></td>
 										<td th:text="${item.mtype.tname}"></td>
 										<td th:text="${item.price}"></td>
-										<td th:text="${item.stock}"></td>
+										<td th:text="${item.stock}" style="display: none;"></td>
 										<td><a class="sj" href="JavaScript:void(0)" th:if="${item.state=='1'}" th:text="上架" ></a><a class="xj"  href="JavaScript:void(0)"  th:if="${item.state=='2'}" th:text="下架" style="color: red;"></a></td>
 										<td style="display: none;" th:text="${item.id}"></td>
 										<td th:text="${item.likecount}"></td>
-										<td>
-											<a href="javascript:void(0)" class="tm-product-delete-link">
-												<input type="hidden" th:value="${item.id}">
-												<i class="sc far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
 									</tr>
 									
 								</tbody>

@@ -2,12 +2,14 @@ package com.accp.mapper;
 
 import com.accp.domain.roomdestine;
 import com.accp.domain.roomdestineExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface roomdestineMapper {
 	
-	List<roomdestine> selectByrdId(Integer id);
+	List<roomdestine> selectByrdId(@Param("id")Integer id,@Param("time")Date time); 
 	
 	List<roomdestine> selectByroomid(Integer id);
 	

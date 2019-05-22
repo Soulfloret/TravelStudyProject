@@ -39,7 +39,7 @@
 	FROM `roomdestine` ro
 	INNER JOIN `room` r ON ro.`roomId`=r.`id`
 	INNER JOIN `images` i ON r.`id`=i.`iid` AND i.`typeId`=3
-	WHERE ro.`userId`=#{id} AND ro.`name1`=2
+	WHERE ro.`userId`=#{id} AND ro.`name1`=2 AND ro.`begintime`>#{time}
   </select>
   
   <select id="selectByroomid" resultMap="BaseResultMap1">
