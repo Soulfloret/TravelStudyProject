@@ -3,6 +3,7 @@ package com.accp.chenyong.serviceimpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -143,6 +144,15 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							}
 							if(os.getTypeid()==3) {
 								 roomdestine rd=new roomdestine();
+								 room r=mapper20.selectByPrimaryKey(os.getIid());
+								 rd.setUserid(u.getId());
+								 rd.setBegintime(new Date());
+								 if(Integer.parseInt(record.getName4())>0) {
+									 Date d=getNextDay(new Date(),Integer.parseInt(record.getName4()));
+									 rd.setEndtime(d);
+									 System.out.println(d);
+								 }
+								
 							}
 							if(os.getTypeid()==4) {
 								
@@ -153,14 +163,17 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 			}else {
 					for (orderson os : record.getUser().getOrders().get(0).getList()) {
 						os.setName1(record.getUser().getOrders().get(0).getId()+"");
+						os.setId(null);
 						os.setName2(1+"");
 						mapper15.insert(os);
 						if(os.getTypeid()==1||os.getTypeid()==5) {
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
-							os.setName2(1+"");
+//							os.setName2(1+"");
+							ow.setId(null);
 							mapper3.insert(ow);
 							for (orderproductwork opw : ow.getList()) {
+								opw.setId(null);
 								opw.setOrderworkid(ow.getId());
 								mapper16.insert(opw);
 								for (worduser wu : opw.getList()) {
@@ -425,7 +438,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 			return o1;
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-			if(o.getList()!=null&&o.getList().size()>0) {
+			if(o.getList()!=null&&o.getList().size()>1) {
 				o.setName1("正在进行中");
 				o.setOrdertime(new Date());
 				o.setName2("团队");
@@ -447,13 +460,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 			}else {
 				o.setName1("正在进行中");
-				String date=new Date().toString();
 				o.setOrdertime(new Date());
-				o.setOrderno(sdf.format(date)+"yxlx");
+				o.setOrderno(sdf.format(new Date())+"yxlx");
 				o.setName2("个人");
 				mapper.insert(o);
 				userorder uo=new userorder();
-				uo.setOrderno(sdf.format(date)+"yxlx");
+				uo.setOrderno(sdf.format(new Date())+"yxlx");
 				uo.setOrdertime(new Date());
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getOrdercustomer());
@@ -462,10 +474,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				mapper14.insert(uo);
 				List<userorder> lisss=new ArrayList<userorder>();
 				lisss.add(uo);
+				o.setUser(mapper1.selectByPrimaryKey(o.getOrdercustomer()));
 				o.getUser().setOrders(lisss);
 			}
 			return o;
 		}
 	}
+	
+	public static Date getNextDay(Date date,int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, +day);//+1今天的时间加一天
+        date = calendar.getTime();
+        return date;
+    }
 
 }

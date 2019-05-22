@@ -115,8 +115,9 @@ public class OrderSonServiceshh {
 			 * 总套餐
 			 */
 			List<orderson> type5=omapper.recommdstatic(7);
-			for (orderson type : type4) { 
+			for (orderson type : type5) { 
 				recommend com=mapper2.recommendMealAll(type.getIid());
+				System.out.println(type.getTypeid());
 					com.setTid(type.getTypeid());
 					com.setImgs(imapper.queryimg(com.getId(), 7));
 				type.setRecommend(com);
