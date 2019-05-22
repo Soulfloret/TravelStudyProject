@@ -111,6 +111,7 @@ public class roomcontroller {
 	//查询出可以预订房间  去住宿后台下订单页面
 	@RequestMapping("/roomorder")
 	public String roomorder(Model model ,room ro,HttpSession session) {
+		ro.setState("1");
 		List<room> list=r.queryByroomData(ro);
 		model.addAttribute("list", list);
 		model.addAttribute("ro", ro);
@@ -230,9 +231,16 @@ public class roomcontroller {
 		public String querydingdan(HttpSession session,Model model) {
 			//users us=(users) session.getAttribute("use");
 			int id=5;
-			List<roomdestine> list =rd.selectByrdId(id);
+			List<roomdestine> list =rd.selectByrdId(id ,new Date());
 			model.addAttribute("list", list);
 			return "dingdan";
+		}
+		
+		//临时订单删除
+		@RequestMapping("/deletedingdan")
+		public String deletedingdan(Integer id) {
+			rd.deleteByPrimaryKey(id);
+			return "redirect:/room/querydingdan";
 		}
 		
 		@RequestMapping("/roomaddorder")
