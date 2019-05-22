@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.chenyong.service.OrderSonService;
+import com.accp.domain.Mealix;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.bind;
 import com.accp.domain.menu;
+import com.accp.domain.menuorder;
+import com.accp.domain.orderproductwork;
+import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.orderwork;
 import com.accp.domain.product;
 import com.accp.domain.productproject;
 import com.accp.domain.project;
@@ -21,6 +26,7 @@ import com.accp.domain.team;
 import com.accp.domain.teammember;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
+import com.accp.domain.worduser;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.MealixMapper;
 import com.accp.mapper.ShopcartMapper;
@@ -30,6 +36,7 @@ import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
 import com.accp.mapper.menuorderMapper;
 import com.accp.mapper.orderproductworkMapper;
+import com.accp.mapper.ordershopMapper;
 import com.accp.mapper.ordersonMapper;
 import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
@@ -100,6 +107,10 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 	ShopcartMapper mapper22;
 	@Autowired
 	productprojectMapper mapper23;
+	@Autowired
+	orderworkMapper mapper24;
+	@Autowired
+	ordershopMapper mapper25;
 	
 	public Usermainorder addUserMainOrder(Usermainorder o) {
 		
@@ -209,13 +220,69 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 		}
 		Usermainorder uo=QueryCunzai(o);
 		uo.setName1("正在进行中");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmsss");
 		num=mapper.updateByPrimaryKeySelective(uo);
 		List<userorder> list1=mapper14.selectByuidinlist(uo.getId());
+		List<orderson> list2=o.getOlist();
 		for (userorder userorder : list1) {
 			userorder.setOrderstatus("正在进行中");
 			num=mapper14.updateByPrimaryKeySelective(userorder);
+			for (orderson orderson : list2) {
+				orderson.setName1(userorder.getId().toString());
+				mapper15.insertSelective(orderson);
+				if(orderson.getOw()!=null) {
+					if(orderson.getTypeid()==1||orderson.getTypeid()==5) {
+						orderwork ow=orderson.getOw();
+						
+						ow.setOrderid(orderson.getId());
+						mapper3.insert(ow);
+						for (orderproductwork opw : ow.getList()) {
+							opw.setId(null);
+							opw.setOrderworkid(ow.getId());
+							mapper16.insert(opw);
+							for (worduser wu : opw.getList()) {
+								wu.setWorkid(opw.getId());
+								mapper17.insert(wu);
+							}
+						}
+					}else if(orderson.getTypeid()==7) {
+						orderwork ow=orderson.getOw();
+						ow.setOrderid(orderson.getId());
+						mapper3.insert(ow);
+						for (orderproductwork opw : ow.getList()) {
+							opw.setOrderworkid(ow.getId());
+							mapper16.insert(opw);
+							for (worduser wu : opw.getList()) {
+								wu.setWorkid(opw.getId());
+								num=mapper17.insert(wu);
+							}
+						}
+						List<Mealix> list3=mapper21.queryTid(orderson.getIid());
+						for (Mealix mix : list3) {
+							if(mix.getTypeid()==2) {
+							 menuorder mo=new menuorder();
+								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+								mo.setCreatetime(new Date());
+								mo.setStatuss("正在进行中");
+								menu mus=mapper7.selectByPrimaryKey(mix.getIid());
+								mo.setPrice(mus.getPrice());
+								mo.setUserid(userorder.getOrdercustomer());
+								num=mapper18.insert(mo);
+								ordershop oss=new ordershop();
+								oss.setMenuid(mix.getIid());
+								oss.setNum(1);
+								oss.setOrderid(mo.getId());
+								oss.setPrice(mus.getPrice());
+								num=mapper25.insertSelective(oss);
+							}
+						}
+					}
+					
+					
+				}
+			}
 		}
 		
-		return 0;
+		return num;
 	}
 }

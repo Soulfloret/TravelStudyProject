@@ -92,13 +92,13 @@ public class OrderSonServiceshh {
 			/**
 			 * 住宿
 			 */
-			List<orderson> type3=omapper.recommdstatic(3);
+			/*List<orderson> type3=omapper.recommdstatic(3);
 			for (orderson type : type3) { 
 				recommend com=rmapper.recommendByidroom(type.getIid());
 					com.setTid(type.getTypeid());
 					com.setImgs(imapper.queryimg(com.getId(), 3));
 				type.setRecommend(com);
-			}
+			}*/
 			
 			/**
 			 * 餐饮套餐
@@ -108,6 +108,17 @@ public class OrderSonServiceshh {
 				recommend com=bmapper.recommendBind(type.getIid());
 					com.setTid(type.getTypeid());
 					com.setImgs(imapper.queryimg(com.getId(), 4));
+				type.setRecommend(com);
+			}
+			
+			/**
+			 * 总套餐
+			 */
+			List<orderson> type5=omapper.recommdstatic(7);
+			for (orderson type : type4) { 
+				recommend com=mapper2.recommendMealAll(type.getIid());
+					com.setTid(type.getTypeid());
+					com.setImgs(imapper.queryimg(com.getId(), 7));
 				type.setRecommend(com);
 			}
 			
@@ -126,15 +137,20 @@ public class OrderSonServiceshh {
 	        while(it3.hasNext()) {
 	            list.add(it3.next()) ;
 	        }
-	        
+	       /* 
 	        Iterator it4 = type3.iterator() ;
 	        while(it4.hasNext()) {
 	            list.add(it4.next()) ;
 	        }
-	        
+	        */
 	        Iterator it5 = type4.iterator() ;
 	        while(it5.hasNext()) {
 	            list.add(it5.next()) ;
+	        }
+	        
+	        Iterator it6 = type5.iterator() ;
+	        while(it6.hasNext()) {
+	            list.add(it6.next()) ;
 	        }
 	        
 	        Collections.shuffle(list);

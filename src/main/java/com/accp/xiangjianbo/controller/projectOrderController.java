@@ -1,16 +1,23 @@
 package com.accp.xiangjianbo.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.ProductAreaService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.chenyong.service.UserServicec;
 import com.accp.domain.Order_workAndOrderSon;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
@@ -19,6 +26,7 @@ import com.accp.domain.product;
 import com.accp.domain.productarea;
 import com.accp.domain.productstaff;
 import com.accp.domain.project;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 import com.accp.xiangjianbo.service.orderProjecrService;
 import com.accp.xiangjianbo.service.productService;
@@ -26,6 +34,10 @@ import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectStaffService;
 import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("xjb_projectOrderController")
@@ -51,6 +63,12 @@ public class projectOrderController {
 	
 	@Autowired
 	ProductAreaService orderTimeService;
+	
+	@Autowired
+	OrderSonService cyorderson;
+	
+	@Autowired
+	UserServicec cyuserservice;
 	
 	@RequestMapping("/toProjectOrder")
 	public String toProjectOrder() {
@@ -111,11 +129,45 @@ public class projectOrderController {
 	public String query(Integer areaid,Date starttime,Date endtime) {
 		productarea p=new productarea();
 		p.setAreaid(areaid);
-		
-		return "";
+		System.out.println(starttime);
+		System.out.println(endtime);
+/*		orderTimeService.queryByArearId(p, starttime, endtime);
+*/		return "";
 	}
 	
+	/*查询排班*/
+	@RequestMapping("queryWork")
+	@ResponseBody
+	public List<orderson> queryWork(String orderson, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
+			@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, orderson.class);
+		List<orderson> list = mapper.readValue(orderson, jt);
+		System.out.println(startTime);
+		System.out.println(endTime);
+		if (startTime == null) {
+			startTime = new Date();
+		}
+		if (endTime == null) {
+			endTime = new Date();
+		}
+		List<orderson> o = cyorderson.query(list, startTime, endTime);
+		return o;
+	}
 	
-	
+	/*根据身份证查询客户*/
+	@RequestMapping("queryByCoard")
+	@ResponseBody
+	public List<users> queryByCoard(String uid,Integer typeId,HttpServletRequest req){
+		staff s=(staff)req.getSession().getAttribute("staff");
+		List<users> list=new ArrayList<users>();
+		users u=cyuserservice.queryByIdCard(uid);
+		if(typeId==1) {
+			list.add(u);
+		}else {
+			list=cyuserservice.selectBymainiUserId(u.getId(),s.getId());
+		}
+		return list;
+	}
 	
 }

@@ -16,9 +16,9 @@ public class Usermainorderserviceimpl implements Usermainorderservice{
 	UsermainorderMapper u;
 	
 	@Override
-	public Usermainorder queryorderCustomer(Integer id,String lb) {
+	public Usermainorder queryorderCustomer(Integer id,String lb,String name1) {
 		// TODO Auto-generated method stub
-		return u.queryorderCustomer(id ,lb);
+		return u.queryorderCustomer(id ,lb,name1);
 	}
 
 }

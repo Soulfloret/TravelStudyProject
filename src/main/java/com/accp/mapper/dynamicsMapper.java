@@ -32,4 +32,6 @@ public interface dynamicsMapper {
     int updateByPrimaryKey(dynamics record);
     
     dynamics queryByid(@Param("id")Integer id);
+    
+    List<dynamics> DynamicUid(@Param("uid")Integer uid);
 }

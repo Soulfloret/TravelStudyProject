@@ -1,338 +1,299 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www/thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>主页管理</title>
-		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
-		<style>
-			.box .status {
-				margin-left: 15px;
-			}
-			.box .sum {
-				margin-left: 5px;
-			}
-			.box .time {
-				margin-left: 15px;
-			}
-			.content {
-				margin: 10px;
-				color: white;
-				padding: 10px 20px 10px 10px;
-			}
-			
-			.dingdanhao {
-				margin-left: 5px;
-			}
-			
-			.box {
-				width: 100%;
-				padding: 0px 25px;
-				margin: 10px;
-			}
-			
-			.box .dingdanhead {
-				margin-bottom: 10px;
-				margin-top: 10px;
-				height: 40px;
-				padding: 0px 15px;
-				border: 1px solid rgb(225,225,225);
-			}
-			
-			.step {
-				margin: 4px 5px 0px 0px;
-				display: inline-block;
-				border: 1px solid rgb(227, 227, 227);
-				background-color: rgba(242, 242, 242, 0.2);
-				border-radius: 50%;
-				height: 30px;
-				line-height: 30px;
-				text-align: center;
-				width: 30px;
-			}
-			
-			.box .dingdanhead h4 a {
-				color: white;
-			}
-			
-			.box .dingdanhead:hover {
-				background-color:#34CE57;
-			}
-			
-			.box .dingdanhead h4 {
-				height: 100%;
-				line-height: 100%;
-				color: white;
-				font-size: 16px;
-				margin-bottom: 0px;
-			}
-			
-			#shuxing .form-group {
-				padding-bottom: 10px;
-			}
-			
-			.form-group p {
-				color: white;
-				margin-right: 10px;
-			}
-			
-			.form-group [type='radio']+span {
-				color: white;
-			}
-			
-			.tm-block {
-				padding: 40px;
-				width: 975px;
-				-webkit-box-shadow: 1px 1px 5px 0 #455c71;
-				-moz-box-shadow: 1px 1px 5px 0 #455c71;
-				box-shadow: 1px 1px 5px 0 #455c71;
-				height: 100%;
-			}
-			.panel-collapse in {
-				display: block;
-			}
-			.collapsed {
-				display: none;
-			}
-			.team{
-				color: #99ff99;
-				margin-left: 10px;
-			}
-			#xz_ry .modal-body span{
-				display: inline-block;
-				width: 150px;
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body id="reportsPage">
-		<div class="" id="home">
-			<div class="container">
-				<div id="xz_ry" >
-				<div class="modal-dialog" style="max-width: 80%;text-align: center;">
-				<div class="modal-content" style="background: #435c70;color: white;">
-					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">新增订单</h5>
-					</div>
-					<div class="modal-body" style="text-align: center;">
-							<div>
-								<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
-								<input type="radio" name="productOrProject" xz="1" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
-								<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px; " />
-								<div name="productHidden" style="display: none;">
-								<table class="table table-hover tm-table-small tm-product-table" style="width:80%;margin:30px auto;">
-					                <thead>
-					                  <tr>
-					                    <th scope="col">&nbsp;</th>
-					                    <th scope="col">活动名称</th>
-					                    
-					                  </tr>
-					                </thead>
-					                <tbody class="proucttable" id="product_tbody">
-					                  
-					        		</tbody>
-					             </table>									
-								</div>
-								<div name="projectHidden" style="display: none;">
-									<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:80%;margin: 30px auto;">
-					               
-					                  <tr>
-					                    <th scope="col">&nbsp;</th>
-					                    <th scope="col">项目名称</th>
-					                     <th scope="col">状态</th>
-					                  </tr>
-					                  
-					              </table>
-								</div>								
-							</div>
-							
-							
-							
-							<div id="hide_ry" style="display: none;margin-top: 30px;">
-								<div style="margin-top: 30px;">
-								<span>请输入身份证号</span>
-								<input  class="input-group-sm" style="width: 30%;" /><br>
-								<br>
-								
-								
-								</div>
-							</div>
-					</div>
-					
-					<div id="hide_cc" style="display: none;margin-top: 30px">
-								<h5>活动项目</h5>
-								<table class="table table-hover tm-table-small tm-product-table" id="project_table"  style="margin-top: 20px;">
-					                <thead>
-					                  <tr>
-					                  	<th>
-					                  		项目名称
-					                  	</th>
-					                  	<th>状态</th>	
-					                  	<th></th>
-					                  	<th></th>
-					                  </tr>	
-					                 </thead>
-					               	<tbody class="pruduct_project_tbody">
-					               		
-					               	</tbody>
-					               
-				             	</table>
-							</div>
-							
-							
-					<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-					<div class="col-lg-12">
-							<h4>安排人员</h4>
-							<select class="form-control-sm" style="width: 186px;">
-								<option>
-									教练
-								</option>
-								<option>
-									助理
-								</option>
-							</select>
-							<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-							<table class="table" style="margin-top: 20px;">
-								<thead>
-									<tr>
-										<th>人员名称</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody id="look_Staff_tbody">
-									
-								</tbody>
-							</table>
-						</div>
-					</div>
-							
-					<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-						<div class="col-lg-12">
-							<h4>选择基地</h4>
-							<table class="table" style="margin-top: 20px;">
-								<thead>
-									<tr>
-										<th>基地名称</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody id="project_jd_table">
-									
-								</tbody>
-							</table>
-						</div>
-						
-					</div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>主页管理</title>
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+<style>
+.box .status {
+	margin-left: 15px;
+}
 
-					<div id="hide_project_time" style="display: none;margin-top: 50px;">
-						<span style="margin-left: 100px;">筛选时间</span>
-						<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
-			        	<span style="color: white;margin-left: 20px;">~</span>
-			        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
-			        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-						<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
-							<thead>
-								<tr>
-									<th>开始时间</th>
-									<th>结束时间</th>
-									<th>空位</th>
-									<th>人数</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody id="time_tbody">
-								
-							</tbody>
-						</table>
-					
-					<div id="show_time_yy">
-						<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-									安排客户
-						</button>
-					</div>
-					<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-								<span style="margin-left: 50px;">团队</span>
-								<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-								<span style="margin-left: 70px;">个人</span>
-								<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
+.box .sum {
+	margin-left: 5px;
+}
+
+.box .time {
+	margin-left: 15px;
+}
+
+.content {
+	margin: 10px;
+	color: white;
+	padding: 10px 20px 10px 10px;
+}
+
+.dingdanhao {
+	margin-left: 5px;
+}
+
+.box {
+	width: 100%;
+	padding: 0px 25px;
+	margin: 10px;
+}
+
+.box .dingdanhead {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 40px;
+	padding: 0px 15px;
+	border: 1px solid rgb(225, 225, 225);
+}
+
+.step {
+	margin: 4px 5px 0px 0px;
+	display: inline-block;
+	border: 1px solid rgb(227, 227, 227);
+	background-color: rgba(242, 242, 242, 0.2);
+	border-radius: 50%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	width: 30px;
+}
+
+.box .dingdanhead h4 a {
+	color: white;
+}
+
+.box .dingdanhead:hover {
+	background-color: #34CE57;
+}
+
+.box .dingdanhead h4 {
+	height: 100%;
+	line-height: 100%;
+	color: white;
+	font-size: 16px;
+	margin-bottom: 0px;
+}
+
+#shuxing .form-group {
+	padding-bottom: 10px;
+}
+
+.form-group p {
+	color: white;
+	margin-right: 10px;
+}
+
+.form-group [type='radio']+span {
+	color: white;
+}
+
+.tm-block {
+	padding: 40px;
+	width: 975px;
+	-webkit-box-shadow: 1px 1px 5px 0 #455c71;
+	-moz-box-shadow: 1px 1px 5px 0 #455c71;
+	box-shadow: 1px 1px 5px 0 #455c71;
+	height: 100%;
+}
+
+.panel-collapse in {
+	display: block;
+}
+
+.collapsed {
+	display: none;
+}
+
+.team {
+	color: #99ff99;
+	margin-left: 10px;
+}
+
+#xz_ry .modal-body span {
+	display: inline-block;
+	width: 150px;
+	text-align: center;
+}
+</style>
+</head>
+<body id="reportsPage">
+	<div class="" id="home">
+		<div class="container">
+			<div id="xz_ry">
+				<div class="modal-dialog"
+					style="max-width: 90%; text-align: center;">
+					<div class="modal-content"
+						style="background: #435c70; color: white;">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">新增订单</h5>
+						</div>
+						<div class="modal-body" style="text-align: center;">
+							<div style="margin: 30px auto;" class="infoss">
+								<span style="margin-left: 50px;">团队</span> <input type="radio"
+									name="dd_radio" data="dd_radio" class=""
+									style="width: 15px; height: 15px;" /> <span
+									style="margin-left: 70px;">个人</span> <input type="radio"
+									name="dd_radio" data="gr_radio"
+									style="width: 15px; height: 15px;" />
 							</div>
 							<div id="hide_dd" style="display: none;">
-								<span style="margin-top: 20px;">请输入身份证号</span>
-								<input type="text" name="card" value="430424200106031438" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-								<input type="button" id="queryByFzr" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-								<br>
-					</div>
+								<span style="margin-top: 20px;">请输入身份证号</span> <input
+									type="text" name="card" value="123435231412312331"
+									style="margin-left: 20px; height: 30px; margin-top: 20px; width: 30%;" />
+								<input type="button" id="queryByFzr"
+									style="border-radius: 30px 30px 30px 30px; width: 100px; margin-left: 100px;"
+									class="btn-primary" value="查询" /> <br>
+							</div>
+							<div style="margin-top: 40px; display: none;"
+								id="projectproduct_div">
+								<span style="margin-left: 50px; margin-bottom: 30px"
+									name="ckprojectproduct">选择活动</span> <input type="radio"
+									name="productOrProject" xz="1"
+									style="width: 15px; height: 15px;" /> <span
+									style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
+								<input type="radio" name="productOrProject" xz="2"
+									style="width: 15px; height: 15px;" />
+								<div name="productHidden" style="display: none;">
+									<table
+										class="table table-hover tm-table-small tm-product-table"
+										style="width: 80%; margin: 30px auto;">
+										<thead>
+											<tr>
+												<th scope="col">&nbsp;</th>
+												<th scope="col">活动名称</th>
+
+											</tr>
+										</thead>
+										<tbody class="proucttable" id="product_tbody">
+
+										</tbody>
+									</table>
+								</div>
+								<div name="projectHidden" style="display: none;">
+									<table
+										class="table table-hover tm-table-small tm-product-table"
+										id="project-table" style="width: 80%; margin: 30px auto;">
+
+										<tr>
+											<th scope="col">&nbsp;</th>
+											<th scope="col">项目名称</th>
+											<th scope="col">状态</th>
+										</tr>
+
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+						<div id="hide_cc" style="display: none; margin-top: 30px">
+							<h5>活动项目</h5>
+							<table class="table table-hover tm-table-small tm-product-table"
+								id="project_table" style="margin-top: 20px;">
+								<thead>
+									<tr>
+										<th>项目名称</th>
+										<th>状态</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody class="pruduct_project_tbody">
+
+								</tbody>
+
+							</table>
+						</div>
+
+						<div id="xin_paiban" style="display: none;">
+							<button class="btn btn-primary" name="xin_paiban_button"
+								style="margin-top: 20px; margin-left: 25px; border-radius: 30px;">
+								排班</button>
+						</div>
+
+						<div id="hide_project_time"
+							style="margin-top: 10px;">
+							<table id="boxorder" class="table">
+							
+							</table>
+							
+							
+							</div>
+
+
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" name="order_submit" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
 			</div>
-				</div>
-			</div>
 		</div>
-		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-		<script th:src="@{/js/moment.min.js}"></script>
-		<script th:src="@{/js/Chart.min.js}"></script>
-		<script th:src="@{/js/bootstrap.min.js}"></script>
-    	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
-    	<script th:src="@{/js/vue.js}"></script>
-		
-		<script>
-      $(function() {
-      	var pid;
+	</div>
+	</div>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/moment.min.js}"></script>
+	<script th:src="@{/js/Chart.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+	<script th:src="@{/js/vue.js}"></script>
+
+	<script>
+		var pid;
       	var ry_dt;
       	var jd_name;
       	var jd_id;
+      	var usertype=1;
+		var number1=0;
+		var orderson1;
+		var pd=1;
+		var timelist=[];
+		var etimes=new Date();
+		var orderson1;
+		var hd = 0; 
+		var startTime=new Date();
+		var i=0;
+		var j=0;
+		
+      $(function() {
+      	
+		$("#queryByFzr").click(function(){
+			
+			var cord=$(this).prev("[name=card]").val();
+			$.ajax({
+				url:"/xjb_projectOrderController/queryByCoard?uid="+cord+"&typeId="+usertype+"",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					alert("此用户存在");
+					if(data.length>0){
+						users=data;
+						number=data.length;
+					}
+					if(data.length==0){
+						alert("还未录入团员信息哦");
+					}
+					$("#projectproduct_div").css("display","block");
+				},
+				error:function(data){
+					alert("此用户不存在，去注册吧");
+					location.href="/customer/toadd";
+				}
+			})
+		})
+		
         $("#expire_date").datepicker({
           defaultDate: "10/22/2020"
         });
-         $("[type=submit]").click(function(){
-			location.href="orders.html";
-		}) 
-		 $("#tj").click(function(){
-			var new_sj=$(this).parents("tr").clone(true);
-			new_sj.find("[type=text]").val("");
-			$("#ry_tb_body").append(new_sj);
-		}) 
-		$("#yc").click(function(){
-			var tr_length=$(".ry_tb_body_tr").length;
-			if(tr_length==1){
-				alert("已经是最后一个了,不能删除");
-			}else{
-				$(this).parents("tr").remove();
-			}
-		});
+        
          
-         /*显示团队*/
+         /*显示安排人身份证*/
 		$("[data=dd_radio]").click(function(){
 			if(true){
 				$("#hide_dd").css("display","block");
 			}
-			$("#hide_ry").css("display","none");
 		});
-         
-         /*显示个人*/
-		$("[data=gr_radio]").click(function(){
-			if(true){
-				$("#hide_ry").css("display","block");
-			}
-			$("#hide_dd").css("display","none");
-		});
-		
-		
-		
-		/* $(".show_project_time").click(function(){
-			
-			
-		}) */
 		
 		/*显示个人与团队*/
 		$("[name=ap_user]").click(function(){
@@ -480,272 +441,37 @@
 		
 		/*选择活动点击项目查询基地与工作人员*/
 		$("#project_table").on("click",".show_jd",function(){
-					$(".hide_jd").css("display","flex");
-					pid=$(this).attr("pid");
-					$(this).html("-");
-					$.ajax({
-						url:"/xjb_projectController/queryJd?pid="+pid,
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							console.log(result);
-							$("#project_jd_table").html("");
-							$.each(result,function(i,obj){
-								var jd_dt=$("<tr>"+
-										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
-										"<td scope='col'>"+
-						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-						                      "<a style='color: white;' class='show_project_time'>+</a>"+
-						                     "</div>"+
-						                   "</td>"+
-									"</tr>") 
-									
-								$("#project_jd_table").append(jd_dt);
-							})
-						}
-					});
-					$.ajax({
-						url:"projectOrder_queryStaff",
-						type:"psot",
-						dataType:"json",
-						success:function(result){
-							$("#look_Staff_tbody").html("");
-							$.each(result,function(i,obj){
-								$.each(obj.stalist,function(k,obj1){
-											var dt=$("<tr>"+
-													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
-													"<td scope='col'>"+
-								                    	 "<input type='checkbox' name='ck_ry'/>"+
-								                    "</td>"+
-												"</tr>")
-											$("#look_Staff_tbody").append(dt);
-								})
-							})
-						}
-					});
-		})
+				$("#xin_paiban").css("display","block");
+				pid=$(this).attr("pid");
+		}) 
 		
-		
-		/*选择项目点击项目查询基地与工作人员*/
-		$("#project-table").on("click",".show_jd",function(){
-					$(".hide_jd").css("display","flex");
-					pid=$(this).attr("pid");
-					$(this).html("-");
-					$.ajax({
-						url:"/xjb_projectController/queryJd?pid="+pid,
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							$("#project_jd_table").html("");
-							$.each(result,function(i,obj){
-								var jd_dt=$("<tr>"+
-										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
-										"<td scope='col'>"+
-						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-						                      "<a style='color: white;' class='show_project_time'>+</a>"+
-						                     "</div>"+
-						                   "</td>"+
-									"</tr>") 
-									
-								$("#project_jd_table").append(jd_dt);
-							})
-						}
-					});
-					$.ajax({
-						url:"projectOrder_queryStaff",
-						type:"psot",
-						dataType:"json",
-						success:function(result){
-							$("#look_Staff_tbody").html("");
-							$.each(result,function(i,obj){
-								$.each(obj.stalist,function(k,obj1){
-											var dt=$("<tr>"+
-													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
-													"<td scope='col'>"+
-								                    	 "<input type='checkbox' name='ck_ry'/>"+
-								                    "</td>"+
-												"</tr>")
-											$("#look_Staff_tbody").append(dt);
-								})
-							})
-						}
-					});
-		})
-		
-		
-		
-		/*点击工作人员追加到项目下面*/
-		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
-			
-			if (this.checked) {
-				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
-				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
-				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
-				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr name='order_ry_tr'></tr>");
-					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
-					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
-				}else{
-					ry_dt=$("[pid='"+pid+"x']");
-					var td=$("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
-					ry_dt.append(td);
-				}
-			}else{
-				
-			}
-			
-		})
-		
-		
-		/*根据基地id渲染排班时间*/
-		$("#project_jd_table").on("click",".show_project_time",function(){
-			var aid=$(this).parents("tr").find("td:eq(0)").attr("aid");
-			var start_time=$("[name=starttime]").val();
-			var end_time=$("[name=endtime]").val();
-			$.ajax({
-				url:"/qs/query",
-				data:{
-					areaid:aid,
-					starttime:start_time,
-					endtime:end_time
-				},
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					for(var val in result.worktimes){
-						$("#time_tbody").html("");
-						$.each(result.worktimes[val],function(i,obj){
-							/*结束时间*/
-							var endtime=new Date(obj.endTime);
-							var year=endtime.getFullYear();
-							var month=endtime.getMonth()+1;
-							var date=endtime.getDate(); 
-							var h=endtime.getHours();      
-							var m=endtime.getMinutes();     
-							var s=endtime.getSeconds();  
-							var end_time1=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
-							
-							/*开始时间*/
-							var starttime=new Date(obj.startTime);
-							var year1=starttime.getFullYear();
-							var month1=starttime.getMonth()+1;
-							var date1=starttime.getDate(); 
-							var h1=starttime.getHours();      
-							var m1=starttime.getMinutes();     
-							var s1=starttime.getSeconds();  
-							var start_time1=year1+'-'+month1+"-"+date1+" "+h1+':'+m1+":"+s1;
-							
-							
-							var dt=$("<tr tid='"+i+"'>"+
-										"<td>"+start_time1+"</td>"+
-										"<td>"+end_time1+"</td>"+
-										"<td>"+obj.count+"</td>"+
-										"<td>"+
-											"<input type='number' placeholder='输入人数' value=''/>"+
-										"</td>"+
-										"<td><input type='checkbox' name='lr_time_ck'></td>"+
-									"</tr>");
-							$("#time_tbody").append(dt);
-						});
+		$("[name=xin_paiban_button]").click(function(){
+			if(confirm("您以选完项目了吗")){
+				$("#hide_project_time").css("display","block");
+				var lis=[];
+				$(".show_jd").each(function(){
+					if(this.checked){
+						var o={};
+						o.iid=$(this).attr("pid");
+						o.typeid=1;
+						lis.push(o);
 					}
-				}
-			});
-			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
-		})
-		
-		/*点击排班复选框追加到项目下面*/
-		$("#time_tbody").on("click","[name=lr_time_ck]",function(){
-			var tid=$(this).parents("tr").attr("tid");
-			var thead=$("[pid='"+pid+"']").parents("thead"); 
-			var jia_tr=$(thead).find("tr [tid='"+tid+"']").html();
-			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
-			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
-			
-			$($(this).parents("tr").find("td:eq(3)").children("input")).change(function(){
-				alert($(this).val());
-			})
-			
-			var kw=$(this).parents("tr").find("td:eq(2)").html();
-			var kw1=kw-rs;
-			var index=0;
-			$("[name=ck_ry]").each(function(){
-				if(this.checked){
-					index=1;
-				}
-			})
-			if(index==0){
-				alert("请先选择工作人员");
-			}
-			
-			if(index==1){
-				if($(this).parent("td").prev("td").find("input").val()==""){
-					alert("您还没有输入人数");
-					this.checked=false;
-				}else if(jia_tr==null){
-					if(kw1<0){
-						alert("人数不能大于空位");
-						this.checked=false;
-					}else{
-						$("[name=lr_time_ck]").each(function(i,obj){
-							if(obj.checked){
-								
-								$(this).parents("tr").find("td:eq(2)").html(kw1);
-								var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
-										"<td style='color: orange;' order_pid='"+pid+"' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
-					                	"<td>"+$(obj).parents("tr").find("td:eq(0)").html()+"</td>"+
-					                	"<td>"+$(obj).parents("tr").find("td:eq(1)").html()+"</td>"+
-					                	"<td>"+kw1+"</td>"+
-					                	"<td>"+rs+"</td>"+
-					                "</tr>");
-					       		if(document.querySelector("[pid='"+pid+"y']")==null){
-									var ry_dt1=$("<tr></tr>");
-									ry_dt1.attr("pid",pid+"y");
-									$("[pid='"+pid+"x']").after(ry_dt1);
-									$(ry_dt1).after(dt);
-								}else{
-									
-									var ry_dt1=$("[pid='"+pid+"y']");
-									$(ry_dt1).after(dt);
-								}
-					       		return;
-					       	}
-						})
-						
-					}
-				}/* else{
-				       		var dt_rs=$(zhen_tr).find("td:eq(3)").html();
-				       		var dt_kw=$(zhen_tr).find("td:eq(2)").html();
-				       		var dt_rs1=parseInt(dt_kw)+parseInt(dt_rs);
-				       		$(this).parents("tr").find("td:eq(2)").html(dt_rs1);
-				       		$(this).parents("tr").find("td:eq(3)").children("input").val("");
-				      		$(thead).find("tr[tid='"+tid+"']").remove();
-				}  */
+				})
+				var list=JSON.stringify(lis);
+				orderson1=list;
+				console.log(orderson1);
+				console.log(number1);
+				Xm(number); 
 			}else{
-				this.checked=false;
+				$(".show_jd").each(function(){
+					$(this).prop("checked",false);
+				})
 			}
-			
-		})
-		
-			
-		/* 
-		$("#project_tbody").on("click","[name=look_project]",function(){
-			$(".infoss").removeAttr("hidden");
-		}) */
-		
-		$(".show_pb").click(function(){
-			
-			
-		})
+		});
 		
 		/*新增订单*/
 		$("[name=order_submit]").click(function(){
+			alert("qwe");
 			/*订单从表*/
 			var orderson=[];
 			var typeid;
@@ -764,35 +490,28 @@
 						orderson.push(odr);
 					}
 				})
-				var bl={};
-				$(".pruduct_project_tbody").each(function(){
+				wulist=[];
+				$("#boxorder").each(function(){
 					/*订单项目排班表*/
-					var order_time_tr=$(this).find("[name=order_time_tr]");
-					$.each(order_time_tr,function(){
-						wulist=[];
-						$.each($(this).prev().prev().find("td"),function(){
-							var wuser={};
-							/*排班安排人员id*/
-							wuser.productstaffid=$(this).attr("ry_id");
-							wulist.push(wuser);
-						})
-						var ordertime={};
-						/*订单项目id*/
-						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
-						/*排班开始时间*/
-						ordertime.starttime=$(this).find("td:eq(1)").text();
-						/*排班结束时间*/
-						ordertime.endtime=$(this).find("td:eq(2)").text();
-						/*基地id*/
-						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
+					var wuser={};
+					/*安排人员*/
+					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr(sid);
+					wulist.push(wuser);
+					var ordertime={};
+					/*开始时间*/
+					ordertime.starttime=$(this).find("td:eq(2)").text();
+					/*结束时间*/
+					ordertime.endtime=$(this).find("td:eq(3)").text();
+					/*基地id*/
+					ordertime.name1=$(this).find("td:eq(1)").next("input").val();
 						ordertime.list=wulist;
 						opklist.push(ordertime);
 				})
+				
 				/* if(xzid==2){
 					
 				} */
 				orderwork.push({list:opklist});
-			})
 			}else if(xzid==2){
 				$(".show_jd").each(function(){
 					if(this.checked){
@@ -804,31 +523,24 @@
 						orderson.push(odr1);
 					}
 				})
-				$(".one_project_tbody").each(function(){
+				wulist=[];
+				$("#boxorder").each(function(){
 					/*订单项目排班表*/
-					var order_time_tr=$(this).find("[name=order_time_tr]");
-					$.each(order_time_tr,function(){
-						wulist=[];
-						$.each($(this).prev().prev().find("td"),function(){
-							var wuser={};
-							/*排班安排人员id*/
-							wuser.productstaffid=$(this).attr("ry_id");
-							wulist.push(wuser);
-						})
-						var ordertime={};
-						/*订单项目id*/
-						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
-						/*排班开始时间*/
-						ordertime.starttime=$(this).find("td:eq(1)").text();
-						/*排班结束时间*/
-						ordertime.endtime=$(this).find("td:eq(2)").text();
-						/*基地id*/
-						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
-						ordertime.list=wulist;
-						opklist.push(ordertime);
+					var wuser={};
+					/*安排人员*/
+					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr(sid);
+					wulist.push(wuser);
+					var ordertime={};
+					/*开始时间*/
+					ordertime.starttime=$(this).find("td:eq(2)").text();
+					/*结束时间*/
+					ordertime.endtime=$(this).find("td:eq(3)").text();
+					/*基地id*/
+					ordertime.name1=$(this).find("td:eq(1)").next("input").val();
+					ordertime.list=wulist;
+					opklist.push(ordertime);
 				})
 				orderwork.push({list:opklist});
-				})
 			}
 			
 			var o={};
@@ -836,7 +548,7 @@
 			o.order_son=orderson;
 			o=JSON.stringify(o);
 			console.log(o);
-			$.ajax({
+		/* 	$.ajax({
 				url:"insert",
 				type:"post",
 				data:o,
@@ -846,43 +558,262 @@
 				success:function(result){
 					alert("新增成功")
 				}
-			}); 
+			});  */
 		})
-		$("#queryByFzr").click(function(){
-			var card=$("[name=card]").val();
-			$.ajax({
-				url:"queryByIdCard?card="+card,
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					console.log(result);
-					var jia_name2;
-					if(result.typeid==1){
-						jia_name2="个人";
-					}else if(result.typeid==2){
-						jia_name2="团队";
-					}
-					$.ajax({
-						url:"queryByFzr",
-						data:{
-							orderCustomer:card,
-							name2:jia_name2
-						},
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							if(result==null){
-								
+      })
+      
+function XmPb(id,pname,area,time,etime,pid,aid,typeid,staffid,staname) {
+    	  console.log(staffid)
+    	  console.log(staname)
+			var div = document.createElement("tr");
+			div.classList.add("detail1");
+			div.classList.add("row");
+			var p1 = document.createElement("td");
+			p1.classList.add("col-2");
+			p1.innerHTML = pname;
+			div.appendChild(p1)
+			var inputp=document.createElement("input");
+			inputp.value=pid;
+			inputp.setAttribute("type","hidden");
+			inputp.classList.add("pid");
+			div.appendChild(inputp);
+			var p2 = document.createElement("td");
+			p2.classList.add("col-2");
+			p2.innerHTML = area;
+			div.appendChild(p2)
+			var inputa=document.createElement("input");
+			inputa.value=aid;
+			inputa.setAttribute("type","hidden");
+			inputa.classList.add("aid");
+			div.appendChild(inputa);
+			var p3 = document.createElement("td");
+			p3.classList.add("col-3");
+			var span1 = document.createElement("span");
+			span1.classList.add("startTime");
+			span1.innerHTML = time;
+			p3.appendChild(span1);
+			div.appendChild(p3);
+			var p4 = document.createElement("td");
+			p4.classList.add("col-3");
+			var span2 = document.createElement("span");
+			span2.classList.add("endTime");
+			span2.innerHTML = etime;
+			p4.appendChild(span2);
+			div.appendChild(p4);
+			
+			var p5 = document.createElement("td");
+			p5.classList.add("col-2");
+			var span3 = document.createElement("span");
+			span3.setAttribute("sid",staffid);
+			span3.innerHTML = staname;
+			p5.appendChild(span3);
+			div.appendChild(p5);
+			$("#boxorder").append(div);
+			/* $.each($("#boxorder tr"),function(index,item){
+				if($(item).find("[name='productid']").val()==id&&$(item).find(".typeidss").val()==typeid)
+					$(item).after(div);
+			}) */
+		}
+		
+      function DataXm(data,number1) {
+			pd=1;
+			timelist=[];
+			hd=0;
+			var etime1 = Date.parse(new Date());
+			for(var i = 0; i < data.length; i++) {
+				var be1 = 0;
+				if(data[i].ix != null) {
+					if(data[i].ix.length == undefined) {
+						for(var h = 0; h < data[i].ix.areas.length; h++) {
+							var indexss=0;
+							$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+								$.each(item, function(index1, item1) {
+									var time3 = Date.parse(new Date(item1.startTime));
+									var pro = {};
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.id;
+													pro.staffname= item1.ulist[index].staff.ulist.uname;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid = data[i].ix.areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+												var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.id;
+													pro.staffname= item1.ulist[index].staff.ulist.uname;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id ;
+											pro.aid = data[i].ix.areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
+											var pro = {};
+											var index=Math.floor((Math.random()*item1.ulist.length));
+												if(item1.ulist[index].staff!=null){
+													pro.sid = item1.ulist[index].staff.id;
+													pro.staffname= item1.ulist[index].staff.ulist.uname;
+												}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid = data[i].ix.areas[h].id;
+											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										}
+								})
+							})
+							
+							if(indexss==0){
+								pd=0;
+							}
+							if(be1 != 0) {
+								break;
+								be1 = 0;
 							}
 						}
-					})
+						hd++;
+					}else {
+						for(var j = 0; j < data[i].ix.length; j++) {
+							var be = 0;
+							for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+								var indexss=0;
+								$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+									$.each(item, function(index1, item1) {
+										
+										var time3 = Date.parse(new Date(item1.startTime));
+										var pro = {};
+												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+														if(item1.ulist[index].staff!=null){
+															pro.sid = item1.ulist[index].staff.id;
+															pro.staffname= item1.ulist[index].staff.ulist.uname;
+														}
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid = data[i].ix[j].areas[h].id;
+													pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+														if(item1.ulist[index].staff!=null){
+															pro.sid = item1.ulist[index].staff.id;
+															pro.staffname= item1.ulist[index].staff.ulist.uname;
+														}
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid = data[i].ix[j].areas[h].id;
+													pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+														var pro = {};
+														var index=Math.floor((Math.random()*item1.ulist.length));
+															if(item1.ulist[index].staff!=null){
+																pro.sid = item1.ulist[index].staff.id;
+																pro.staffname= item1.ulist[index].staff.ulist.uname;
+															}
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														pro.pid=data[i].ix[j].id;
+														pro.aid = data[i].ix[j].areas[h].id;
+														pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+														console.log(timelist[hd].time>item1.startTime)
+													}
+									})
+								})
+								if(indexss==0){
+									pd=0;
+								}		
+								if(be != 0) {
+									break;
+									be = 0;
+								}
+							}
+							hd++;
+						}
+					}
 				}
-			});
-		}) 
-     });
-      
+			}
+		}
+
+	      
+	      	
+	      function Xm(number1){
+				if(i%3==0&&i!=0){
+					j++;
+				}
+				var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
+				var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+i)+" "+"7:30:00";
+				i++;
+				console.log(number1);
+				console.log(orderson1);
+				console.log(startTime1);
+				console.log(endTime1);
+				 $.ajax({
+						url:'/shopcartshh/query',
+				  		data:{"orderson":orderson1,"startTime":startTime1,"endTime":endTime1},
+				  		dataType:'json',
+				  		type:'post',
+				  		timeout:10000,
+				  		success:function(data){
+					  			DataXm(data,number1);
+					  			if(pd==1){
+					  				for (var m=0;m<timelist.length;m++) {
+					  						console.log(timelist);
+					  						var times=new Date(timelist[m].time);
+					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var etimes=new Date(timelist[m].etime);
+					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid,timelist[m].sid,timelist[m].staffname)
+					  				}
+	  									
+								}else{
+										Xm(number1);
+								};
+						}
+					}); 
+		}
     </script>
 
-	</body>
+</body>
 
 </html>

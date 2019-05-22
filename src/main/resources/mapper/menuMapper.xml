@@ -41,6 +41,10 @@
   		
   </resultMap>
   
+  <select id="queryByiidAndMenuid" resultType="com.accp.domain.menu">
+  			SELECT m.* FROM menu AS m INNER JOIN itype AS i WHERE i.id=#{iid} AND m.id=#{typeid}
+  </select>
+  
   <select id="selectmenuByid" resultMap="BaseResultMap2">
   		SELECT m.*,i.`id`AS iiid ,i.`iid`,i.`url`,i.`typeId` FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2
 		WHERE m.`id`=#{id}

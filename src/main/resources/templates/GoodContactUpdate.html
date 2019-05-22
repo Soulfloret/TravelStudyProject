@@ -11,6 +11,7 @@
 	<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
 </head>
 <body id="reportsPage">
+<<<<<<< HEAD
 	<div class="" id="home">
 	  	<div class="container tm-mt-big tm-mb-big" th:each="item,state :${list}">
 			<form th:action="@{/bing/updatebing}" class="tm-edit-product-form">
@@ -191,6 +192,183 @@
 		        </div>
 		     </form>
 	    </div>
+=======
+    <div class="" id="home">
+  <div class="container tm-mt-big tm-mb-big" th:each="item,state :${list}">
+	<form th:action="@{/bing/updatebing}" class="tm-edit-product-form">
+      <input type="hidden" th:value="${item.id}" name="id">
+      <div class="row" >
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+         
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">修改套餐</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+               
+                  <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >套餐名称
+                    </label>
+                    <input
+                      id="name"
+                      name="mname"
+                      type="text"
+                      class="form-control validate"
+                      required
+                      th:value="${item.mname}"
+                    />
+                  </div>
+                  
+                  
+                  <div class="form-group mb-3">
+					<label for="description">商品介绍</label
+                    >
+                    <textarea
+                      class="form-control validate"
+                      rows="3"
+                      required
+                      name="name1"
+                      th:text="${item.name1}"
+                    ></textarea>
+                  </div>
+                  
+                 <div class="form-group mb-3">
+                    <label
+                      for=""
+                      >选择套餐商品</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      id="hd_xz_ry"
+                    >
+                      <option value="0">请选择</option>
+                      <option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}" ></option>
+                    </select>
+                     <div class="tm-product-table-container">
+              <table class="table table-hover tm-table-small tm-product-table">
+                <thead>
+                  <tr>
+                  	<th scope="col">&nbsp;</th>
+                    <th scope="col">样式</th>
+                    <th scope="col">名称</th>
+                    <th scope="col">价格</th>
+                  </tr>
+                </thead>
+                <tbody id="tbod">
+                  
+                 
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >套餐价格
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="price"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                            th:value="${item.price}"
+                          />
+                        </div>
+                  </div>
+                   <div class="form-group mb-3">
+                    <label
+                      for=""
+                      >是否上架</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      name="state"
+                    >
+                      <option value="1" th:selected="${item.state=='1'}">是</option>
+                      <option value="2" th:selected="${item.state=='2'}">否</option>
+                    </select>
+                  </div>
+            
+                  </div>
+                  
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                <div id="imgadd">
+                	<span th:each="iitem,stack : ${mlist}" >
+                	<img th:src="${iitem.url}"  width="100" height="80">
+                	<input type="hidden" th:name="mlist[+${stack.index}+].typeid" value="4">
+                	<input type='hidden' th:name='mlist[+${stack.index}+].url' th:value="${iitem.url}">
+                	</span>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+                  <input id="fileInput" type="file" multiple="multiple" style="display:none;" />
+                  <input
+                  	id="sc"
+                    type="button"
+                    class="btn btn-primary btn-block mx-auto"
+                    value="上传图片"
+                    onclick="document.getElementById('fileInput').click();"
+                  />
+                </div> 
+                
+                  
+                  
+                  <div class="form-group mb-3">
+                  	<label for="">已选套餐商品</label>
+                  	<div class="tm-product-table-container">
+		              <table class="table table-hover tm-table-small tm-product-table">
+		                <thead>
+		                  <tr>
+		                  	<th scope="col">编号</th>
+		                    <th scope="col">名称</th>
+		                    <th scope="col">价格</th>
+		                    <th scope="col">数量</th>
+		                    <th scope="col">&nbsp;</th>
+		                  </tr>
+		                </thead>
+		                <tbody id="tbo">
+		                  <tr th:each="items,state1 : ${item.list}">
+		                  	<td style="display: none;"><input type="hidden" th:name="blist[+${state1.index}+].menuid"  th:value="${items.id}"></td>
+		                    <td class="bh tm-product-name" th:text="${items.id}"></td>
+		                    <td th:text="${items.mname}"></td>
+		                    <td class='jg' th:text="${items.price}"></td>
+		                    <td class='sl'><span th:text="${items.mename}"></span><input type='hidden' th:name="blist[+${state1.index}+].name1"   th:value="${items.mename}"></td>
+		                     <td class='del'>
+		                      <a  href="javascript:void(0)" class=" tm-product-delete-link">
+		                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+		                      </a>
+		                    </td>
+		                  </tr>
+		                </tbody>
+		                <tfoot>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col">&nbsp;</td>
+		                	<td scope="col" id="jg">0</td>
+		                	<td scope="col" id="sl">&nbsp;</td>
+		                	<td scope="col" id="zj">&nbsp;</td>
+		                </tfoot>
+		              </table>
+		            </div>
+                  </div>
+                
+              </div>
+              <div class="col-12" style="margin-top: 20px;">
+                <input type="submit" value="修改" class="btn btn-primary btn-block text-uppercase">
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+			
+>>>>>>> refs/remotes/origin/renyuxuan
     </div>
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>

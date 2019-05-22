@@ -43,6 +43,12 @@
 	    </collection>
   	</collection>
   </resultMap>
+  
+  
+  <select id="selectByteamsUser" resultMap="BaseResultMap"> 
+  		SELECT u.* FROM  `team` t LEFT JOIN `teammember` te ON t.`id`=te.`teamId` INNER JOIN `users` u ON te.`memberId`=u.`id`
+		WHERE t.`mainiUserId`=#{id}
+  </select>
 
  <update id="updateById">
  update users set uname=#{uname},phone=#{phone},upassword=#{upassword} where id=#{id}
@@ -68,13 +74,13 @@
 	 os.`id` AS osid,os.`iid` AS osiid,os.`name1` AS osname1,os.`name2` AS osname2,os.`name3` AS osname3,
 	 os.`name4` AS osname4,os.`name5` AS osname5,os.`typeId` AS ostypeId
 	 FROM users AS u INNER JOIN userorder AS uo ON u.`id`=uo.`orderCustomer`
-	 INNER JOIN orderson AS os ON os.`name1`=uo.`id`
+	 left JOIN orderson AS os ON os.`name1`=uo.`id`
 	 <where>
 	 	<if test="id!=null">
 	 		and uo.`orderMainId`=#{id}		
 	 	</if>
 	 	<if test="uid!=null">
-	 		and u.id=#{id}
+	 		and u.id=#{uid}
 	 	</if>
 	   </where>
   </select>

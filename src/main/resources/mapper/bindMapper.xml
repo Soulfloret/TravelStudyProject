@@ -64,6 +64,7 @@
   		SELECT b.*,i.`id`AS iiid,i.`iid`,i.`url`,i.`typeId`
 		FROM `bind` b LEFT JOIN `images` i 
 		ON b.id=i.`iid` AND i.`typeId`=4
+		WHERE b.`state`=1
 		GROUP BY b.`createTime` DESC
 		LIMIT 8
   </select>

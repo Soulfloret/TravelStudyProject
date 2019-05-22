@@ -2,6 +2,8 @@ package com.accp.mapper;
 
 import com.accp.domain.Meal;
 import com.accp.domain.MealExample;
+import com.accp.domain.recommend;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +33,6 @@ public interface MealMapper {
     List<Meal> query(@Param("id")Integer id);
     
     List<Meal> queryMeal(@Param("id")Integer id);
+    
+    recommend recommendMealAll(@Param("id")Integer id);
 }

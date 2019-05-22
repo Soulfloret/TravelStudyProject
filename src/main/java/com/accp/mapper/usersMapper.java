@@ -52,4 +52,6 @@ public interface usersMapper {
     users queryProjectOrderByUserId(Integer id);
     
     List<users> queryIcarno(@Param("idCardNo") String idCardNo);
+    
+    List<users> selectByteamsUser(Integer id);
 }

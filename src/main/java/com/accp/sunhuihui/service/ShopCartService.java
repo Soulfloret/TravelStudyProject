@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.accp.domain.Shopcart;
 import com.accp.domain.productproject;
 import com.accp.domain.recommend;
+import com.accp.domain.room;
+import com.accp.mapper.MealMapper;
 import com.accp.mapper.ShopcartMapper;
+import com.accp.mapper.bindMapper;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
 import com.accp.mapper.productMapper;
@@ -34,7 +37,12 @@ public class ShopCartService {
 	menuMapper mmapper;
 	@Autowired
 	roomMapper rmapper;
-	
+	@Autowired
+	bindMapper bindmapper;
+	@Autowired
+	MealMapper mealmapper;
+	@Autowired
+	roomMapper roommapper;
 	
 	public int insertList(Shopcart shop) {
 		return mapper.insertList(shop);
@@ -82,9 +90,26 @@ public class ShopCartService {
 			recommend r= pdmapper1.recommendByidproduct(iid);
 			r.setTid(5);
 			return r;
+		}else if(typeid==7) {
+			recommend r= mealmapper.recommendMealAll(iid);
+			r.setTid(7);
+			return r;
+		}else if(typeid==4) {
+			recommend r= bindmapper.recommendBind(iid);
+			r.setTid(4);
+			return r;
 		}
 		
 		return null;
 		
+	}
+	
+	/**
+	 * 查询当前时间截止到结束时间空余的房间
+	 */
+	
+	public  List<room> queryByroomData(room roo) {
+		// TODO Auto-generated method stub
+		return roommapper.queryByroomData(roo);
 	}
 }

@@ -18,6 +18,7 @@ import com.accp.domain.Shopcart;
 import com.accp.domain.orderson;
 import com.accp.domain.productproject;
 import com.accp.domain.recommend;
+import com.accp.domain.room;
 import com.accp.renyuxuan.service.ordersonservice;
 import com.accp.sunhuihui.service.OrderSonServiceshh;
 import com.accp.sunhuihui.service.ShopCartService;
@@ -96,6 +97,7 @@ public class ShopCartController {
 	@RequestMapping("query")
 	public List<orderson> query(String orderson, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date startTime,
 		@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime) throws JsonParseException, JsonMappingException, IOException {
+		
 		ObjectMapper mapper = new ObjectMapper();
 		JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, orderson.class);
 		List<orderson> list = mapper.readValue(orderson, jt);
@@ -121,5 +123,11 @@ public class ShopCartController {
 		recommend r =service.WholeRecommend(iid, typeid);
 		System.out.println(JSON.toJSONString(r));
 		return r;
+	}
+	
+	@RequestMapping("queryByroomData")
+	public  List<room> queryByroomData(room roo) {
+		// TODO Auto-generated method stub
+		return service.queryByroomData(roo);
 	}
 }

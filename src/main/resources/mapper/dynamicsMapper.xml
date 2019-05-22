@@ -22,6 +22,11 @@
   		SELECT * FROM `dynamics` WHERE `id`=#{id}
   </select>
   
+  <!-- 查询我自己的动态 -->
+  <select id="DynamicUid" resultType="com.accp.domain.dynamics">
+  	SELECT * FROM `dynamics` WHERE uid=#{uid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

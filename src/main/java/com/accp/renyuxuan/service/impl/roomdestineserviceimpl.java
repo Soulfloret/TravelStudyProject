@@ -1,5 +1,6 @@
 package com.accp.renyuxuan.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,21 @@ public class roomdestineserviceimpl implements roomdestineservice{
 	}
 
 	@Override
-	public List<roomdestine> selectByrdId(Integer id) {
+	public List<roomdestine> selectByrdId(Integer id,Date time) {
 		// TODO Auto-generated method stub
-		return r.selectByrdId(id);
+		return r.selectByrdId(id,time); 
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(roomdestine record) {
 		// TODO Auto-generated method stub
 		return r.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return r.deleteByPrimaryKey(id);
 	}
 
 }

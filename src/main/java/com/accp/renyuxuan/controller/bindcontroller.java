@@ -96,6 +96,7 @@ public class bindcontroller {
 	public String addbind(bind binds) {
 		binds.setLikecount(0);
 		binds.setCreatetime(new Date());
+		binds.setStock(1);
 		b.insert(binds);
 		b.insertmenubind(binds);
 		im.insertbingimglist(binds);

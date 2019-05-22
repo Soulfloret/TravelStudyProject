@@ -19,6 +19,7 @@ import com.accp.domain.bind;
 import com.accp.domain.menu;
 import com.accp.domain.menuorder;
 import com.accp.domain.orderproductwork;
+import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.room;
@@ -35,6 +36,7 @@ import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
 import com.accp.mapper.menuorderMapper;
 import com.accp.mapper.orderproductworkMapper;
+import com.accp.mapper.ordershopMapper;
 import com.accp.mapper.ordersonMapper;
 import com.accp.mapper.orderworkMapper;
 import com.accp.mapper.productMapper;
@@ -94,6 +96,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	roomdestineMapper mapper19;
 	@Autowired
 	roomMapper mapper20;
+	@Autowired
+	ordershopMapper mapper21;
 	
 	public int countByExample(UsermainorderExample example) {
 		// TODO Auto-generated method stub
@@ -107,19 +111,22 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	@Override
 	public int insert(Usermainorder record) {
 		int num=0;
-		Usermainorder usm=QueryCunzaiInsert(record);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmsss");
-		if(record.getList().size()>1) {
+		if(record.getList()!=null&&record.getList().size()>1) {
 				for (users u : record.getList()) {				
 					for (userorder uo : u.getOrders()) {
 						for (orderson os : uo.getList()) {
 							os.setName1(uo.getId()+"");
+							os.setId(null);
+							os.setName2(1+"");
 							mapper15.insert(os);
 							if(os.getTypeid()==1||os.getTypeid()==5) {
 								orderwork ow=(orderwork)os.getIx();
+								ow.setId(null);
 								ow.setOrderid(os.getId());
 								mapper3.insert(ow);
 								for (orderproductwork opw : ow.getList()) {
+									opw.setId(null);
 									opw.setOrderworkid(ow.getId());
 									mapper16.insert(opw);
 									for (worduser wu : opw.getList()) {
@@ -130,17 +137,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							}
 							if(os.getTypeid()==2) {
 								menuorder mo=new menuorder();
-								try {
-									mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
-								} catch (ParseException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 								mo.setCreatetime(new Date());
 								mo.setStatuss("正在进行中");
 								menu m=mapper7.selectByPrimaryKey(os.getIid());
 								mo.setPrice(m.getPrice());
+								mo.setUserid(u.getId());
 								mapper18.insert(mo);
+								ordershop oss=new ordershop();
+								oss.setMenuid(os.getIid());
+								oss.setNum(1);
+								oss.setOrderid(mo.getId());
+								oss.setPrice(m.getPrice());
+								mapper21.insert(oss);
 							}
 							if(os.getTypeid()==3) {
 								 roomdestine rd=new roomdestine();
@@ -152,12 +161,18 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 					}
 				}
 			}else {
-					for (orderson os : usm.getUser().getOrders().get(0).getList()) {
+					for (orderson os : record.getUser().getOrders().get(0).getList()) {
+						os.setName1(record.getUser().getOrders().get(0).getId()+"");
+						os.setId(null);
+						os.setName2(1+"");
+						mapper15.insert(os);
 						if(os.getTypeid()==1||os.getTypeid()==5) {
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
+							ow.setId(null);
 							mapper3.insert(ow);
 							for (orderproductwork opw : ow.getList()) {
+								opw.setId(null);
 								opw.setOrderworkid(ow.getId());
 								mapper16.insert(opw);
 								for (worduser wu : opw.getList()) {
@@ -168,17 +183,19 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						}
 						if(os.getTypeid()==2) {
 							menuorder mo=new menuorder();
-							try {
-								mo.setOrderrreference(sdf.parse(new Date().toString())+"yxlxcy");
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+							mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 							mo.setCreatetime(new Date());
 							mo.setStatuss("正在进行中");
 							menu m=mapper7.selectByPrimaryKey(os.getIid());
 							mo.setPrice(m.getPrice());
+							mo.setUserid(record.getOrdercustomer());
 							mapper18.insert(mo);
+							ordershop oss=new ordershop();
+							oss.setMenuid(os.getIid());
+							oss.setNum(1);
+							oss.setOrderid(mo.getId());
+							oss.setPrice(m.getPrice());
+							mapper21.insert(oss);
 						}
 						if(os.getTypeid()==3) {
 							 
@@ -410,40 +427,35 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 	public Usermainorder QueryCunzaiInsert(Usermainorder o) {
 		Usermainorder o1=QueryCunzai(o);
 		if(o1!=null) {
+			if(o1.getName2().equals("个人")) {
+				o1.setUser(mapper1.queryByMainOrderId(o1.getId(),o1.getOrdercustomer()).get(0));
+				for (userorder uo : o1.getUser().getOrders()) {
+					uo.setList(null);
+				}
+			}else {
+				o1.setList(mapper1.queryByMainOrderId(o1.getId(),null));
+				for(users u : o1.getList()) {
+					for (userorder uo : u.getOrders()) {
+						uo.setList(null);
+					}
+				}
+			}
 			return o1;
 		}else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-			if(o.getList()!=null&&o.getList().size()>0) {
+			if(o.getList()!=null&&o.getList().size()>1) {
 				o.setName1("正在进行中");
-				String date=new Date().toString();
 				o.setOrdertime(new Date());
-				try {
-					o.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				team t=new team();
-				t.setId(o.getUser().getId());
-				mapper12.insert(t);
 				o.setName2("团队");
-				o.setOrdercustomer(t.getId());
+				o.setOrderno(sdf.format(new Date())+"yxlx");
+				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				for(users u:o.getList()) {
-					teammember tm=new teammember();
-					tm.setMemberid(u.getId());
-					tm.setTeamid(t.getId());
-					mapper13.insert(tm);
 					userorder uo=new userorder();
-					try {
-						uo.setOrderno(sdf.parse(date)+"yxlx");
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					uo.setOrderno(sdf.format(new Date())+"yxlx");
 					uo.setOrdertime(new Date());
 					uo.setOrderuser(o.getOrderuser());
-					uo.setOrdercustomer(t.getId());
+					uo.setOrdercustomer(u.getId());
 					uo.setOrdermainid(o.getId());
 					uo.setOrderstatus("正在进行中");
 					mapper14.insert(uo);
@@ -453,24 +465,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				}
 			}else {
 				o.setName1("正在进行中");
-				String date=new Date().toString();
 				o.setOrdertime(new Date());
-				try {
-					o.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				o.setOrderno(sdf.format(new Date())+"yxlx");
 				o.setName2("个人");
-				o.setOrdercustomer(o.getOrdercustomer());
 				mapper.insert(o);
 				userorder uo=new userorder();
-				try {
-					uo.setOrderno(sdf.parse(date)+"yxlx");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				uo.setOrderno(sdf.format(new Date())+"yxlx");
 				uo.setOrdertime(new Date());
 				uo.setOrderuser(o.getOrderuser());
 				uo.setOrdercustomer(o.getOrdercustomer());
@@ -479,6 +479,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 				mapper14.insert(uo);
 				List<userorder> lisss=new ArrayList<userorder>();
 				lisss.add(uo);
+				o.setUser(mapper1.selectByPrimaryKey(o.getOrdercustomer()));
 				o.getUser().setOrders(lisss);
 			}
 			return o;

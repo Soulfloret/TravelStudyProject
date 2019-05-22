@@ -13,6 +13,16 @@
   <select id="positionsById" resultMap="BaseResultMap">
   	SELECT * FROM positions WHERE id=#{id}
   </select>
+  
+  <!-- 详情查询职位 -->
+  <select id="project_queryById">
+  	SELECT * FROM positions where id in (
+	  	<foreach collection="id.split(',')" item="i" separator=",">
+	  		#{i}
+	  	</foreach>
+  	)
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -1,10 +1,9 @@
 package com.accp.chenyong.controller;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.chenyong.service.UserServicec;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
-import com.accp.domain.userorder;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
@@ -71,43 +70,50 @@ public class OrderController {
 		return "monthChart";
 	}
 	@ResponseBody
-	@RequestMapping("queryPaiban")
-	public List<orderson> queryPaiban(@RequestBody List<orderson> list,Date startTime,Date endTime){
-		SimpleDateFormat d=new SimpleDateFormat("yyyy-MM-dd");
-			if(startTime==null) {
-				startTime=new Date();
-			}
-			if(endTime==null) {
-				endTime=new Date();
-			}
-			return service1.query(list,startTime,endTime);
-	}
 	@RequestMapping("insertOrder")
-	public String insertOrder(Usermainorder order) {
+	public String insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
+		if(order.getList().size()>1) {
+			order.setName2("团队");
+		}else {
+			order.setName2("个人");
+		}
+		order.setOrdercustomer(order.getList().get(0).getMuid());
+		staff f=(staff)req.getSession().getAttribute("staff");
+		order.setOrderuser(f.getId());
 		Usermainorder order1=service.QueryCunzaiInsert(order);
-		if(order.getUser()!=null) {
-				order1.getUser().getOrders().get(0).setList(order.getUser().getOrders().get(0).getList());;
+		if(order.getList().size()==1) {
+				order1.getUser().getOrders().get(0).setList(order.getOlist());
+				for (orderson os : order1.getUser().getOrders().get(0).getList()) {
+					os.setIx(os.getOw());
+				}
 		}else {
 			for (users u : order.getList()) {
 				for (users u1 : order1.getList()) {
 					if(u.getId()==u1.getId()) {
-						u1.getOrders().get(0).setList(u.getOrders().get(0).getList());
+						u1.getOrders().get(0).setList(order.getOlist());
+						for (orderson os : u1.getOrders().get(0).getList()) {
+							os.setIx(os.getOw());
+						}
 					}
 				}
 			}
 		}
-		return "";
+		service.insert(order1);
+		return "ss";
 	}
 	@ResponseBody
 	@RequestMapping("queryIdcard")
-	public List<users> queryIdcar(String uid,Integer typeId){
+	public List<users> queryIdcar(String uid,Integer typeId,HttpServletRequest req){
+		staff s=(staff)req.getSession().getAttribute("staff");
 		List<users> list=new ArrayList<users>();
 		users u=service6.queryByIdCard(uid);
 		if(typeId==1) {
+			u.setMuid(u.getId());
 			list.add(u);
 		}else {
-			list=service6.selectBymainiUserId(u.getId());
+			list=service6.selectBymainiUserId(u.getId(),s.getId());
 		}
+		
 		return list;
 	}
 }
