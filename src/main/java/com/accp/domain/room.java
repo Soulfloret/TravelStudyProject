@@ -34,6 +34,7 @@ public class room {
     
     private List<images> imgs;
         
+    private Integer countnum;
     
     private recommend recommend;
     
@@ -50,9 +51,15 @@ public class room {
     private Date endtime;
     
     
-    
-    
-    public Date getBegintime() {
+    public Integer getCountnum() {
+		return countnum;
+	}
+
+	public void setCountnum(Integer countnum) {
+		this.countnum = countnum;
+	}
+
+	public Date getBegintime() {
 		return begintime;
 	}
 

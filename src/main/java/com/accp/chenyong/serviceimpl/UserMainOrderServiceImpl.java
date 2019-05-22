@@ -1,8 +1,8 @@
 package com.accp.chenyong.serviceimpl;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +24,6 @@ import com.accp.domain.orderson;
 import com.accp.domain.orderwork;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
-import com.accp.domain.team;
-import com.accp.domain.teammember;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
 import com.accp.domain.worduser;
@@ -119,8 +117,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							os.setName1(uo.getId()+"");
 							os.setId(null);
 							os.setName2(1+"");
-							mapper15.insert(os);
 							if(os.getTypeid()==1||os.getTypeid()==5) {
+								mapper15.insert(os);
 								orderwork ow=(orderwork)os.getIx();
 								ow.setId(null);
 								ow.setOrderid(os.getId());
@@ -136,6 +134,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								}
 							}
 							if(os.getTypeid()==2) {
+								mapper15.insert(os);
 								menuorder mo=new menuorder();
 								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 								mo.setCreatetime(new Date());
@@ -152,10 +151,73 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								mapper21.insert(oss);
 							}
 							if(os.getTypeid()==3) {
+								 Calendar ca1 = Calendar.getInstance();
+								 ca1.setTime(new Date());//设置起时间
+								 ca1.add(Calendar.DATE, 1);
 								 roomdestine rd=new roomdestine();
+								 rd.setBegintime(new Date());
+								 rd.setEndtime(ca1.getTime());
+								 rd.setRoomid(os.getIid());
+								 rd.setUserid(u.getId());
+								 mapper19.insert(rd);
+								 os.setIid(rd.getId());
+								 mapper15.insert(os);
 							}
 							if(os.getTypeid()==4) {
-								
+								mapper15.insert(os);
+								bind b=new bind();
+								b.setId(os.getIid());
+								b=mapper10.querybind(b).get(0);
+								for (menu mu : b.getList()) {
+									menuorder mo=new menuorder();
+									mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+									mo.setCreatetime(new Date());
+									mo.setStatuss("正在进行中");
+									mo.setPrice(mu.getPrice());
+									mo.setUserid(u.getId());
+									mapper18.insert(mo);
+									ordershop oss=new ordershop();
+									oss.setMenuid(mu.getId());
+									oss.setNum(1);
+									oss.setOrderid(mo.getId());
+									oss.setPrice(mu.getPrice());
+									mapper21.insert(oss);
+								}
+							}
+							if(os.getTypeid()==7) {
+								Meal m=mapper9.query(os.getIid()).get(0);
+								mapper15.insert(os);
+								orderwork ow=(orderwork)os.getIx();
+								ow.setId(null);
+								ow.setOrderid(os.getId());
+								mapper3.insert(ow);
+								for (orderproductwork opw : ow.getList()) {
+									opw.setId(null);
+									opw.setOrderworkid(ow.getId());
+									mapper16.insert(opw);
+									for (worduser wu : opw.getList()) {
+										wu.setWorkid(opw.getId());
+										mapper17.insert(wu);
+									}
+								}
+								for (Mealix ix  : m.getList()) {
+									if(ix.getTypeid()==2) {
+										menuorder mo=new menuorder();
+										mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+										mo.setCreatetime(new Date());
+										mo.setStatuss("正在进行中");
+										menu mX=mapper7.selectByPrimaryKey(os.getIid());
+										mo.setPrice(mX.getPrice());
+										mo.setUserid(u.getId());
+										mapper18.insert(mo);
+										ordershop oss=new ordershop();
+										oss.setMenuid(os.getIid());
+										oss.setNum(1);
+										oss.setOrderid(mo.getId());
+										oss.setPrice(m.getPrice());
+										mapper21.insert(oss);
+									}
+								}
 							}
 						}
 					}
@@ -165,8 +227,8 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 						os.setName1(record.getUser().getOrders().get(0).getId()+"");
 						os.setId(null);
 						os.setName2(1+"");
-						mapper15.insert(os);
 						if(os.getTypeid()==1||os.getTypeid()==5) {
+							mapper15.insert(os);
 							orderwork ow=(orderwork)os.getIx();
 							ow.setOrderid(os.getId());
 							ow.setId(null);
@@ -182,6 +244,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							}
 						}
 						if(os.getTypeid()==2) {
+							mapper15.insert(os);
 							menuorder mo=new menuorder();
 							mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 							mo.setCreatetime(new Date());
@@ -198,10 +261,73 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 							mapper21.insert(oss);
 						}
 						if(os.getTypeid()==3) {
-							 
+							Calendar ca1 = Calendar.getInstance();
+							 ca1.setTime(new Date());//设置起时间
+							 ca1.add(Calendar.DATE, 1);
+							 roomdestine rd=new roomdestine();
+							 rd.setBegintime(new Date());
+							 rd.setEndtime(ca1.getTime());
+							 rd.setRoomid(os.getIid());
+							 rd.setUserid(record.getUser().getId());
+							 mapper19.insert(rd);
+							 os.setIid(rd.getId());
+							 mapper15.insert(os);
 						}
 						if(os.getTypeid()==4) {
-							
+							mapper15.insert(os);
+							bind b=new bind();
+							b.setId(os.getIid());
+							b=mapper10.querybind(b).get(0);
+							for (menu mu : b.getList()) {
+								menuorder mo=new menuorder();
+								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+								mo.setCreatetime(new Date());
+								mo.setStatuss("正在进行中");
+								mo.setPrice(mu.getPrice());
+								mo.setUserid(record.getOrdercustomer());
+								mapper18.insert(mo);
+								ordershop oss=new ordershop();
+								oss.setMenuid(mu.getId());
+								oss.setNum(1);
+								oss.setOrderid(mo.getId());
+								oss.setPrice(mu.getPrice());
+								mapper21.insert(oss);
+							}
+						}
+						if(os.getTypeid()==7) {
+							Meal m=mapper9.query(os.getIid()).get(0);
+							mapper15.insert(os);
+							orderwork ow=(orderwork)os.getIx();
+							ow.setId(null);
+							ow.setOrderid(os.getId());
+							mapper3.insert(ow);
+							for (orderproductwork opw : ow.getList()) {
+								opw.setId(null);
+								opw.setOrderworkid(ow.getId());
+								mapper16.insert(opw);
+								for (worduser wu : opw.getList()) {
+									wu.setWorkid(opw.getId());
+									mapper17.insert(wu);
+								}
+							}
+							for (Mealix ix  : m.getList()) {
+								if(ix.getTypeid()==2) {
+									menuorder mo=new menuorder();
+									mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+									mo.setCreatetime(new Date());
+									mo.setStatuss("正在进行中");
+									menu mX=mapper7.selectByPrimaryKey(ix.getIid());
+									mo.setPrice(mX.getPrice());
+									mo.setUserid(record.getOrdercustomer());
+									mapper18.insert(mo);
+									ordershop oss=new ordershop();
+									oss.setMenuid(ix.getIid());
+									oss.setNum(1);
+									oss.setOrderid(mo.getId());
+									oss.setPrice(m.getPrice());
+									mapper21.insert(oss);
+								}
+							}
 						}
 					}
 			}
@@ -276,6 +402,7 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								r.setId(ro.getRoomid());
 								ro.setRoom(mapper20.queryByroom(r).get(0));
 								ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+								ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 								orderson.setIx(ro);
 							}
 							if(orderson.getTypeid()==4) {
@@ -311,7 +438,9 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 									if(mx.getTypeid()==3) {
 										roomdestine ro=new roomdestine();
 										ro=mapper19.selectByPrimaryKey(mx.getIid());
-										ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
+										room r=new room();
+										r.setId(ro.getRoomid());
+										ro.setRoom(mapper20.queryByroom(r).get(0));
 										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
 										ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 										mx.setIx(ro);
@@ -364,8 +493,11 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 								if(orderson.getTypeid()==3) {
 									roomdestine ro=new roomdestine();
 									ro=mapper19.selectByPrimaryKey(orderson.getIid());
-									ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
-									ro.setUser(umo.getUser());
+									room r=new room();
+									r.setId(ro.getRoomid());
+									ro.setRoom(mapper20.queryByroom(r).get(0));
+									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+									ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 									orderson.setIx(ro);
 								}
 								if(orderson.getTypeid()==4) {
@@ -400,9 +532,12 @@ public class UserMainOrderServiceImpl implements UserMainOrderService {
 										}
 										if(mx.getTypeid()==3) {
 											roomdestine ro=new roomdestine();
-											ro=mapper19.selectByPrimaryKey(orderson.getIid());
-											ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
-											ro.setUser(umo.getUser());
+											ro=mapper19.selectByPrimaryKey(mx.getIid());
+											room r=new room();
+											r.setId(ro.getRoomid());
+											ro.setRoom(mapper20.queryByroom(r).get(0));
+											ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+											ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 											mx.setIx(ro);
 										}
 										if(mx.getTypeid()==4) {

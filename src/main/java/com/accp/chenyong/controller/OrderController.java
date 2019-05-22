@@ -19,6 +19,9 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 import com.accp.domain.staff;
 import com.accp.domain.users;
+import com.accp.mapper.MealMapper;
+import com.accp.mapper.MealixMapper;
+import com.accp.renyuxuan.service.bindservice;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
 import com.accp.xiangjianbo.service.productService;
@@ -41,6 +44,10 @@ public class OrderController {
 	roomservice service5;
 	@Autowired
 	UserServicec service6;
+	@Autowired
+	bindservice service7;
+	@Autowired
+	MealMapper mapper;
 	@RequestMapping("query")
 	public String query(Model mo) {
 		mo.addAttribute("list",service.query(null));
@@ -48,6 +55,8 @@ public class OrderController {
 		mo.addAttribute("projectlist",service3.queryAll(null));
 		mo.addAttribute("goodlist",service4.QueryMenu(null));
 		mo.addAttribute("hotellist",service5.queryByroom(null));
+		mo.addAttribute("bindlist",service7.querybind(null));
+		mo.addAttribute("meallist",mapper.selectByExample(null));
 		return "order";
 	}
 	@RequestMapping("queryById")
@@ -56,18 +65,6 @@ public class OrderController {
 		Usermainorder u=new Usermainorder();
 		u.setId(id);
 		return service.query(u).get(0);
-	}
-	@RequestMapping("godaychart")
-	public String daychart(Model mo) {
-		return "dayChart";
-	}
-	@RequestMapping("goweekendchart")
-	public String weekendchart(Model mo) {
-		return "weekendChart";
-	}
-	@RequestMapping("gomonthchart")
-	public String monthchart(Model mo) {
-		return "monthChart";
 	}
 	@ResponseBody
 	@RequestMapping("insertOrder")

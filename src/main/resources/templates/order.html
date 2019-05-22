@@ -223,6 +223,10 @@
 											<span  style="margin-left: 50px;" name="checkgood">选择餐饮</span>
 											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
 											<span style="margin-left: 70px;" name="checkhotel">选择住宿</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkgoodmenu">选择餐饮套餐</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkmeal">选择总套餐</span>
 											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />											
 											<div name="Hiddens" id="hd" style="display: none;">
 												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin:30px auto;">
@@ -292,6 +296,42 @@
 								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
 								                  		<td scope="col" th:text="${item.rname}"></td>
 								                  		<td scope="col" th:text="${item.introduce}"></td>
+								                  	</tr>
+								                </tbody>
+								              </table>
+										</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               	<thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">餐饮套餐名称</th>
+								                     <th scope="col">描述</th>
+								                  </tr>
+								                </thead>
+								                <tbody>
+								                  	<tr th:each="item:${bindlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.mname}"></td>
+								                  		<td scope="col" th:text="${item.name1}"></td>
+								                  	</tr>
+								                </tbody>
+								              </table>
+										</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               	<thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">总套餐名称</th>
+								                     <th scope="col">描述</th>
+								                  </tr>
+								                </thead>
+								                <tbody>
+								                  	<tr th:each="item:${meallist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+ 								                  		<td scope="col" th:text="${item.name}"></td>
+								                  		<td scope="col" th:text="${item.name1}"></td>
 								                  	</tr>
 								                </tbody>
 								              </table>
@@ -433,7 +473,7 @@
 					type="总统套房";
 				}
 				var status;
-				if(data.ix.room.status==1){
+				if(data.ix.name1==1){
 					status="正在入住";
 				}else{
 					status="已退房";
@@ -555,31 +595,29 @@
 				var div=$("<div class='content col-md-11'></div>");
 				var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
 				var tbody=$("<tbody></tbody>");
-				$.each(data.list,function(item3,index3){
-					var type="单人间";
-					if(item3.ix.room.typeid==2){
-						type="双人间";
-					}
-					if(item3.ix.room.typeid==3){
-						type="总统套房";
-					}
-					var status;
-					if(item3.ix.room.status==1){
-						status="正在入住";
-					}else{
-						status="已退房";
-					}
-					var tr=$("<tr>"
-							+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
-							+"<td><b>"+item3.ix.room.price+"</b></td>"
-							+"<td><b>"+type+"</b></td>"
-							+"<td><b>"+status+"</b></td>"
-							+"</tr>");
+				var type="单人间";
+				if(data.ix.room.typeid==2){
+					type="双人间";
+				}
+				if(data.ix.room.typeid==3){
+					type="总统套房";
+				}
+				var status;
+				if(data.ix.name1==1){
+					status="正在入住";
+				}else{
+					status="已退房";
+				}
+				var tr=$("<tr>"
+					+"<th scope='row'><img src='/"+data.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.room.rname+"</b></th>"
+					+"<td><b>"+data.ix.room.price+"</b></td>"
+					+"<td><b>"+type+"</b></td>"
+					+"<td><b>"+status+"</b></td>"
+					+"</tr>");
 					$(tbody).append(tr);
-					price+=item3.ix.room.price;
-				})
 				$(table).append(tbody);
 				$(div).append(table);
+				price+=data.ix.room.price;
 				return div;
 			}
 			$(".info").click(function(){
@@ -660,7 +698,7 @@
 											$(divh1).append(teamMenu(item2,0));
 										}
 										if(item2.typeid==3){
-											$(divh1).append(div4);
+											$(divh1).append(teamRoom(item2));
 										}
 										if(item2.typeid==7){
 											var divs=$("<div class='content col-md-11'></div>")
@@ -669,7 +707,7 @@
 												 if(item3.typeid==1||item3.typeid==5){
 													$(divs).append(teamProject(item3,1));
 												}
-												if(itme3.typeid==2||item3.typeid==4){
+												if(item3.typeid==2||item3.typeid==4){
 													$(divs).append(teamMenu(item3));
 												}
 												if(item3.typeid==3){
@@ -822,7 +860,7 @@
 								$.each(item, function(index1, item1) {
 									var time3 = Date.parse(new Date(item1.startTime));
 									var pro = {};
-										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 <= data[i].ix.galleryful) {
 											var index=Math.floor((Math.random()*item1.ulist.length));
 											if(item1.ulist[index].staff!=null){
 												pro.sid = item1.ulist[index].staff.id;
@@ -839,7 +877,7 @@
 											be1++;
 											indexss=1;
 										} else
-										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 <= data[i].ix.galleryful) {
 											var index=Math.floor((Math.random()*item1.ulist.length));
 											if(item1.ulist[index].staff!=null){
 												pro.sid = item1.ulist[index].staff.id;
@@ -856,7 +894,7 @@
 											be1++;
 											indexss=1;
 										} else
-											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 <= data[i].ix.galleryful) {
 											var index=Math.floor((Math.random()*item1.ulist.length));
 											if(item1.ulist[index].staff!=null){
 												pro.sid = item1.ulist[index].staff.id;
@@ -894,7 +932,7 @@
 									$.each(item, function(index1, item1) {
 										var time3 = Date.parse(new Date(item1.startTime));
 										var pro = {};
-												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
 													var index=Math.floor((Math.random()*item1.ulist.length));
 													if(item1.ulist[index].staff!=null){
 														pro.sid = item1.ulist[index].staff.id;
@@ -911,7 +949,7 @@
 													be++;
 													indexss=1;
 												} else
-												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
 													var index=Math.floor((Math.random()*item1.ulist.length));
 													if(item1.ulist[index].staff!=null){
 														pro.sid = item1.ulist[index].staff.id;
@@ -928,7 +966,7 @@
 													be++;
 													indexss=1;
 												} else
-													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
 														var index=Math.floor((Math.random()*item1.ulist.length));
 														if(item1.ulist[index].staff!=null){
 															pro.sid = item1.ulist[index].staff.id;
@@ -1008,7 +1046,7 @@
 								if($(item).attr("seachid")==iid+""+types){
 									var opw={};
 									opw.starttime=$(item).find(".startTime").text();
-									opw.endtime=$(item).find(".startTime").text();
+									opw.endtime=$(item).find(".endTime").text();
 									opw.iid=$(item).find(".pid").val();
 									opw.name1=$(item).find(".aid").val();
 									var list=[];
@@ -1068,6 +1106,12 @@
 				if(index==0){
 					typeid=5;
 				}
+				if(index==4){
+					typeid=4;
+				}
+				if(index==5){
+					typeid=7;
+				}
 			});
 			$("[name='Hiddens'] [type='checkbox']").click(function(){
 					$(".addsorder").css("display","block");
@@ -1084,6 +1128,9 @@
 					}
 					if(typeid==5){
 						type="活动";
+					}
+					if(typeid==7){
+						type="总套餐";
 					}
 					var td=$("<td><input type='hidden' class='typeidss' value='"+typeid+"'>"+type+"</td>");
 					$(tr).append(td);

@@ -64,8 +64,17 @@ public class project {
     
     private List<positions> poslist;
     
+    private int countnum;
     
     
+	public int getCountnum() {
+		return countnum;
+	}
+
+	public void setCountnum(int countnum) {
+		this.countnum = countnum;
+	}
+
 	public List<positions> getPoslist() {
 		return poslist;
 	}

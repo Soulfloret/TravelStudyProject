@@ -32,7 +32,7 @@
 	    <result column="url" property="url" jdbcType="VARCHAR" />
   	</association>
   </resultMap>
-  
+
   <select id="selectByrdId" resultMap="BaseResultMap2">
   	SELECT ro.*,r.`id`AS rid,r.`rname`,r.`location`,r.`introduce`,r.`typeId`,r.`price`,r.`state`,
 	i.`url`
@@ -140,7 +140,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.roomdestine" >
+  <insert id="insert" parameterType="com.accp.domain.roomdestine"  keyProperty="id" useGeneratedKeys="true">
     insert into roomdestine (id, roomId, begintime, 
       endTime, userId, name1, 
       name2, name3, name4, 

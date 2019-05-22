@@ -21,12 +21,6 @@
 				<div class="row tm-content-row">
 					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 						<div class="tm-bg-primary-dark tm-block">
-							<h2 class="tm-block-title">项目客流量图</h2>
-							<canvas id="lineChart"></canvas>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block">
 							<h2 class="tm-block-title">项目收入图</h2>
 							<canvas id="barChart"></canvas>
 						</div>
@@ -78,22 +72,14 @@
 		<script th:src="@{/js/Chart.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
 		<script th:src="@{/js/tooplate-scripts-cy.js}"></script>
-		<script>
+		<script th:inline="javascript">
+			function getColor() {
+		    return (function(m, s, c) {
+		        return (c ? arguments.callee(m, s, c - 1) : '#') +
+		            s[m.floor(m.random() * 16)]
+		    })(Math, '0123456789abcdef', 5)
+			}
 			Chart.defaults.global.defaultFontColor = 'white';
-			var newlinetitle = "客流量统计图"
-			var newlinelables = [
-				"8:00",
-				"9:00",
-				"10:00",
-				"11:00",
-				"12:00",
-				"13:00",
-				"14:00",
-				"15:00",
-				"16:00",
-				"17:00",
-				"18:00",
-			];
 			var newlinedatasets = [{
 				label: "项目一",
 				data: [80, 70, 90, 10, 50, 40, 10, 500, 750, 600, 750],
@@ -158,61 +144,49 @@
 				],
 				borderWidth: 0
 			}];
-			var newpielable = [
-				"项目一 (100)",
-				"项目二 (200)",
-				"项目三 (300)",
-				"项目四 (200)",
-				"项目五 (400)",
-				"项目六 (600)",
-				"项目七 (700)",
-				"项目八 (200)",
-				"项目九 (100)",
-				"项目十 (300)"
-				
-			];
-			var newpiedatasets = [{
-				data: [100, 200, 300,200,400,600,700,200,100,300],
-				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
-				label: "Storage"
-			}];
-			var newpielable1 = [
-				"餐饮一 (100)",
-				"餐饮二 (200)",
-				"餐饮三 (300)",
-				"餐饮四 (200)",
-				"餐饮五 (400)",
-				"餐饮六 (600)",
-				"餐饮七 (700)",
-				"餐饮八 (200)",
-				"餐饮九 (100)",
-				"餐饮十 (300)"
-				
-			];
-			var newpiedatasets1 = [{
-				data: [100, 200, 300,200,400,600,700,200,100,300],
-				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
-				label: "Storage"
-			}];
-			var newpielable2 = [
-				"酒店一 (100)",
-				"酒店二 (200)",
-				"酒店三 (300)",
-				"酒店四 (200)",
-				"酒店五 (400)",
-				"酒店六 (600)",
-				"酒店七 (700)",
-				"酒店八 (200)",
-				"酒店九 (100)",
-				"酒店十 (300)"
-				
-			];
-			var newpiedatasets2 = [{
-				data: [100, 200, 300,200,400,600,700,200,100,300],
-				backgroundColor: ["#F7604D", "#4ED6B8", "#A8D582","#F7605B","#4ED611","#A8D510","#F7104D","#4EH6B8","#A8B582","#455555"],
-				label: "Storage"
-			}];
-			
+			 
+			var newpielable=[]
+			var newpiedatasets =[]
+			var s={};
+			var data=[];
+			var backgroundColor=[];
+			$.each([[${listp}]],function(index,item){
+				data.push(item.countnum);
+				backgroundColor.push(getColor());
+				newpielable.push(item.pname+"("+item.countnum+")");
+			})
+			s.data=data;
+			s.label="Storage";
+			s.backgroundColor=backgroundColor;
+			newpiedatasets.push(s);
+			var newpielable1 =[]
+			var newpiedatasets1 = [];
+			s={};
+			data=[];
+			backgroundColor=[];
+			$.each([[${listm}]],function(index,item){
+				data.push(item.countnum);
+				backgroundColor.push(getColor());
+				newpielable1.push(item.mname+"("+item.countnum+")");
+			})
+			s.data=data;
+			s.label="Storage";
+			s.backgroundColor=backgroundColor;
+			newpiedatasets1.push(s);
+			 var newpielable2 = [];
+			var newpiedatasets2 = [];
+			s={};
+			data=[];
+			backgroundColor=[];
+			$.each([[${listr}]],function(index,item){
+				data.push(item.countnum);
+				backgroundColor.push(getColor());
+				newpielable2.push(item.rname+"("+item.countnum+")");
+			})
+			s.data=data;
+			s.label="Storage";
+			s.backgroundColor=backgroundColor;
+			newpiedatasets2.push(s); 
 			let ctxLine,
 				ctxBar,
 				ctxPie,
@@ -226,7 +200,6 @@
 			barChart, pieChart;
 			// DOM is ready
 			$(function() {
-				var linename = "lineChart";
 				var barname = "barChart";
 				var barname1="Food1";
 				var barname2="Hotel";			
@@ -236,7 +209,6 @@
 				var piecontainer = "pieChartContainer";
 				var piecontainer1="pieChartContainer1";
 				var piecontainer2="pieChartContainer2";
-				drawLineChart(newlinetitle, newlinelables, newlinedatasets, linename); // Line Chart
 				drawBarChart(bartitle,newbarlables, newbardatasets, barname); // Bar Chart
 				drawPieChart(newpielable, newpiedatasets, piechart, piecontainer); // Pie Chart
 				drawBarChart(bartitle1,newbarlables1,newbardatasets1,barname1);

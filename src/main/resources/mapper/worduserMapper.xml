@@ -12,19 +12,20 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="queryByTime" resultMap="BaseResultMap">
-    SELECT s.id as productStaffId  FROM staff AS s
+  	SELECT s.id AS productStaffId  FROM staff AS s
 	INNER JOIN  users AS u ON u.`id`=s.`userId`
-	INNER JOIN project AS p ON p.`name1`=s.`PostionId` 
+	INNER JOIN project AS p ON s.`PostionId` IN (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(p.name1,',',help_topic_id+1),',',-1) AS num 
+		FROM  mysql.help_topic WHERE help_topic_id &lt; LENGTH(p.name1)-LENGTH(REPLACE(p.name1,',',''))+1)
 	LEFT JOIN worduser AS wu ON s.`id`=wu.`productStaffId`
 	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id` 
-	<if test="starttime!=null and endtime!=null">
-		and (opw.startTime!=#{starttime} and opw.endTime!=#{endtime})
-	</if>
-	<if test="pid!=null">
-		and p.id=#{pid}
-	</if>
+	<where>
+		
+		<if test="pid!=null">
+			and p.id=#{pid}
+		</if>
+	</where>
 	group by s.id
-  </select>
+</select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

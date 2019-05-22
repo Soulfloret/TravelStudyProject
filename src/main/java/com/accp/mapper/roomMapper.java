@@ -46,4 +46,6 @@ public interface roomMapper {
     recommend recommendByidroom(@Param("id")Integer id);
     
     List<room> queryRoomAll(room room);
+    
+    room querycountroom(@Param("starttime")Date startime,@Param("endtime")Date endtime,@Param("id") Integer id);
 }

@@ -61,6 +61,16 @@
   		<result property="typeid" column="typeid"/>
   	</collection>
   </resultMap>
+  <resultMap type="com.accp.domain.project" id="count" extends="BaseResultMap">
+  	<result column="countnum" property="countnum"/>
+  </resultMap>
+  <select id="querycountproject" resultMap="count">
+  	SELECT p.*,COUNT(p.`id`) as countnum FROM project AS p
+	LEFT JOIN orderproductwork AS opw ON p.`id`=opw.`iid`
+	WHERE opw.`startTime` between #{starttime} and #{endtime}
+	and p.id=#{id}
+	GROUP BY p.`id` 
+  </select>
   <select id="queryAll" resultMap="queryAll_result">
   	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
 	INNER JOIN `projecttype` AS `pt`
