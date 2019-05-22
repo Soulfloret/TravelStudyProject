@@ -28,6 +28,12 @@
 		margin-left:10px;
 		color:orange;
 	}
+	.time li{
+		list-style: none;
+	}
+	.cen{
+		text-align: center;
+	}
 </style>
 <body>
 	<!--头部  -->
@@ -284,7 +290,8 @@
 							<span class="pull-right" id="price">0.00</span>
 						</div>
 						<div class="text-center">
-							<a class="btn btn-round btn-default uppercase"  data-target="#orderInfo" data-toggle="modal" >付款</a>
+							<input type="button" class="btn btn-info" data-target="#orderInfo" data-toggle="modal" value="查看排班">
+							<a class="btn btn-round btn-default uppercase"   >付款</a>
 						</div>
 					</div>
 				</div>
@@ -293,34 +300,39 @@
 				<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
 					<div class="modal-content" style="background-color: #435c70;color: white;">
 						<div id="" class="modal-header">
-							下单
+							排班
 						</div>
 						<div id="" class="modal-body">
-							<div>
-								<p>
-									请选择下单方式:
-									<input type="radio" name="per" checked value="个人"><span>个人</span>
-									<input type="hidden" th:value="${session.use.id}" name="uid">
-									<input type="radio" name="per" value="团队"  th:if="${session.use.typeid==2}">
-									<span th:if="${session.use.typeid==2}">团队</span>
-								</p>
-							</div>
 							<div class="box" style="margin:10px 0px 0px 20px;">
-								</div>	
+								<div class="time">
+									<ul class="">
+										<li class="li xmpb">
+											<table class="tbl-cart">
+												<thead>	
+													<tr>
+														<th style="width: 10%;">名称:</th>
+														<th style="width: 10%;">区域</th>
+														<th style="width: 10%;">开始时间</th>
+														<th style="width: 10%;">结束时间</th>
+														<th style="width:10%">安排人员</th>
+													</tr>
+												</thead>
+												<tbody id="boxorder">
+													
+												</tbody>
+											</table>
+										</li>
+									</ul>
+								</div>
+							</div>	
 						</div>
 						<div id="" class="modal-footer">
-							<a class="btn btn-info" id="xiadan" data-dismiss="modal">下单</a>
 							<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="xmpb">
-				
-			</div>
-			<div class="time">
-					
-				</div>	
+			
 			
 		</main>
 		<!-- // SITE MAIN CONTENT -->
@@ -517,10 +529,10 @@
 <script th:src="@{/js1/owl.carousel.js}"></script>
 <script th:src="@{/js1/minified.js}"></script>
 <script th:inline="javascript">
-		var orderson1=[];
+		var ordersons=[];
+		var number1 = [[${number1}]];
 		$(function(){
 			var sum=0;
-			 var number1 = [[${number1}]];
 			$.each($("tbody tr .text-bold"),function(i,obj){
 				sum+=parseFloat($(obj).text());
 			})
@@ -530,237 +542,270 @@
 				orderson.iid=$(obj).find("input:eq(0)").val();
 				orderson.typeid=$(obj).find("input:eq(1)").val();
 				orderson.name2=$(obj).find("p").text();
-				orderson1.push(orderson);
+				ordersons.push(orderson);
 			})
-			console.log(orderson1);
-			console.log(number1);
-			Xm(number1);
+
 		})
-		var pd=0;
-var timelist=[];
-var etimes=new Date();	
-function Xm(number1){
-		$.ajax('/shopcartshh/query',{
-		  		data:{"orderson":JSON.stringify(orderson1)},
-		  		dataType:'json',//服务器返回json格式数据
-		  		type:'post',//HTTP请求类型
-		  		timeout:10000,//超时时间设置为10秒；
-//		  		processData:false, 
-//		  		contentType:"application/json;charset=UTF-8",j
-		  		success:function(data){
-			  			DataXm(data,number1);
-			  			console.log(pd)
-			  			if(pd!=0){
-			  				for (var m=0;m<timelist.length;m++) {
-			  						var li=document.querySelector(".xmpb");
-			  						var times=new Date(timelist[m].time);
-			  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
-			  						var etimes=new Date(timelist[m].etime);
-			  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
-				  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
-			  				}
-			  				
-						document.querySelector(".time").style.display="block";
-							    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
-							    var time1 = Date.parse(new Date(timelist[0].time));
-							    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
-							    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
-								/*if(2 > 0) {
-								
-								}*/
-						}else{
-							var etimes=new Date();
-			  				var startTime=etimes.getFullYear()+"-"+(etimes.getMonth()+1)+"-"+(etimes.getDate()+1)+" "+"7:30:00";
-							$.ajax('/shopcartshh/query',{
-								data:{"orderson":JSON.stringify(orderson1),"startTime":startTime},
-								dataType:'json',//服务器返回json格式数据
-								type:'post',//HTTP请求类型
-								timeout:10000,//超时时间设置为10秒；
-								success:function(data){
-									DataXm(data,number1);
-									for (var m=0;m<timelist.length;m++) {
-					  						var li=document.querySelector(".xmpb");
-					  						var times=new Date(timelist[m].time);
-					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
-					  						var etimes=new Date(timelist[m].etime);
-					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
-						  					XmPb(li,timelist[m].pname,timelist[m].area,time,etime)
-					  				}
-									
-											document.querySelector(".time").style.display="block";
-									    //Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
-									    var time1 = Date.parse(new Date(timelist[0].time));
-									    var time2 = Date.parse(new Date(timelist[timelist.length-1].time));
-									    var nDays = Math.abs(parseInt((time2 - time1)/1000/3600 / 24));
-										/*if(nDays > 0) {
-										
-										}*/
-								},
-								error:function(xhr,type,errorThrown){
-								}
-							});
-						}
-					},
-					error: function(xhr, type, errorThrown) {
-					
-				}
-			});
-		}
+		var j=0;
+		var pd=1;
+		var timelist=[];
+		var etimes=new Date();
+		var hd = 0; 
+		var i=0;
+		var pid;
+      	var ry_dt;
+      	var jd_name;
+      	var jd_id;
+      	var usertype=1;
+		var etimes=new Date();
+		var startTime=new Date();
 
+		$("[value='查看排班']").click(function(){
+			i=0;
+			Xm(number1);	
+		})
 
-function DataXm(data,number1) {
-	pd=1;
-	timelist=[];
-	hd=0;
-	document.querySelector(".xmpb").innerHTML="";
-	var etime1 = Date.parse(new Date());
-	for(var i = 0; i < data.length; i++) {
-		var be1 = 0;
-		if(data[i].ix != null) {
-			if(data[i].ix.length == undefined) {
-				for(var h = 0; h < data[i].ix.areas.length; h++) {
-					var indexss=0;
-					$.each(data[i].ix.areas[h].worktimes, function(index, item) {
-						$.each(item, function(index1, item1) {
-							var time3 = Date.parse(new Date(item1.startTime));
-							var pro = {};
-								if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
-									var index=Math.floor((Math.random()*item1.ulist.length));
-										if(item1.ulist[index].staff!=null){
-											pro.sid = item1.ulist[index].staff.ulist.id;
-										}
-									pro.time = item1.startTime;
-									pro.area = data[i].ix.areas[h].aname;
-									pro.pname = data[i].ix.pname;
-									pro.etime = item1.endTime;
-									pro.pid=data[i].ix.id;
-									pro.aid = data[i].ix.areas[h].id;
-									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
-									timelist[hd] = pro;
-									be1++;
-									indexss=1;
-								} else
-								if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
-										var index=Math.floor((Math.random()*item1.ulist.length));
-										if(item1.ulist[index].staff!=null){
-											pro.sid = item1.ulist[index].staff.ulist.id;
-										}
-									pro.time = item1.startTime;
-									pro.area = data[i].ix.areas[h].aname;
-									pro.pname = data[i].ix.pname;
-									pro.etime = item1.endTime;
-									pro.pid=data[i].ix.id;
-									pro.aid = data[i].ix.areas[h].id;
-									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
-									timelist[hd] = pro;
-									be1++;
-									indexss=1;
-								} else
-									if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
-									var pro = {};
-									var index=Math.floor((Math.random()*item1.ulist.length));
-										if(item1.ulist[index].staff!=null){
-											pro.sid = item1.ulist[index].staff.ulist.id;
-										}
-									
-									pro.time = item1.startTime;
-									pro.area = data[i].ix.areas[h].aname;
-									pro.pname = data[i].ix.pname;
-									pro.etime = item1.endTime;
-									pro.pid=data[i].ix.id;
-									pro.aid = data[i].ix.areas[h].id;
-									pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
-									timelist[hd] = pro;
-									be1++;
-									indexss=1;
-								}
-						})
-					})
-					
-					if(indexss==0){
-						pd=0;
-					}
-					if(be1 != 0) {
-						break;
-						be1 = 0;
-					}
-				}
-				hd++;
-			}else {
-				for(var j = 0; j < data[i].ix.length; j++) {
-					var be = 0;
-					for(var h = 0; h < data[i].ix[j].areas.length; h++) {
-						var indexss=0;
-						$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
-							$.each(item, function(index1, item1) {
-								var time3 = Date.parse(new Date(item1.startTime));
-								var pro = {};
-										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-											var index=Math.floor((Math.random()*item1.ulist.length));
-												if(item1.ulist[index].staff!=null){
-													pro.sid = item1.ulist[index].staff.ulist.id;
-												}
-											pro.time = item1.startTime;
-											pro.area = data[i].ix[j].areas[h].aname;
-											pro.pname = data[i].ix[j].pname;
-											pro.etime = item1.endTime;
-											pro.pid=data[i].ix[j].id;
-											pro.aid = data[i].ix[j].areas[h].id;
-											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
-											timelist[hd] = pro;
-											be++;
-											indexss=1;
-										} else
-										if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
-											var index=Math.floor((Math.random()*item1.ulist.length));
-												if(item1.ulist[index].staff!=null){
-													pro.sid = item1.ulist[index].staff.ulist.id;
-												}
-											pro.time = item1.startTime;
-											pro.area = data[i].ix[j].areas[h].aname;
-											pro.pname = data[i].ix[j].pname;
-											pro.etime = item1.endTime;
-											pro.pid=data[i].ix[j].id;
-											pro.aid = data[i].ix[j].areas[h].id;
-											pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
-											timelist[hd] = pro;
-											be++;
-											indexss=1;
-										} else
-											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+		function XmPb(id,pname,area,time,etime,pid,aid,typeid,staffid,staname) {
+				var div = document.createElement("tr");
+				var p1 = document.createElement("td");
+				p1.classList.add("cen");
+				p1.classList.add("col-2");
+				p1.innerHTML = pname;
+				div.appendChild(p1)
+				var inputp=document.createElement("input");
+				inputp.value=pid;
+				inputp.setAttribute("type","hidden");
+				inputp.classList.add("pid");
+				div.appendChild(inputp);
+				var p2 = document.createElement("td");
+				p2.classList.add("col-2");
+				p2.innerHTML = area;
+				div.appendChild(p2)
+				var inputa=document.createElement("input");
+				inputa.value=aid;
+				inputa.setAttribute("type","hidden");
+				inputa.classList.add("aid");
+				div.appendChild(inputa);
+				var p3 = document.createElement("td");
+				p3.classList.add("col-3");
+				var span1 = document.createElement("span");
+				span1.classList.add("startTime");
+				span1.innerHTML = time;
+				p3.appendChild(span1);
+				div.appendChild(p3);
+				var p4 = document.createElement("td");
+				p4.classList.add("col-3");
+				var span2 = document.createElement("span");
+				span2.classList.add("endTime");
+				span2.innerHTML = etime;
+				p4.appendChild(span2);
+				div.appendChild(p4);
+				var p5 = document.createElement("td");
+				p5.classList.add("col-2");
+				var span3 = document.createElement("span");
+				span3.setAttribute("sid",staffid);
+				span3.innerHTML = staname;
+				p5.appendChild(span3);
+				div.appendChild(p5);
+				$("#boxorder").append(div);
+				/* $.each($("#boxorder tr"),function(index,item){
+					if($(item).find("[name='productid']").val()==id&&$(item).find(".typeidss").val()==typeid)
+						$(item).after(div);
+				}) */
+			}
+
+		
+
+		 function DataXm(data,number1) {
+				pd=1;
+				timelist=[];
+				hd=0;
+				var etime1 = Date.parse(new Date());
+				for(var i = 0; i < data.length; i++) {
+					var be1 = 0;
+					if(data[i].ix != null) {
+						if(data[i].ix.length == undefined) {
+							for(var h = 0; h < data[i].ix.areas.length; h++) {
+								var indexss=0;
+								$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+									$.each(item, function(index1, item1) {
+										var time3 = Date.parse(new Date(item1.startTime));
+										var pro = {};
+											if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix.galleryful) {
+												var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+														pro.staffname= item1.ulist[index].staff.ulist.uname;
+													}
+												pro.time = item1.startTime;
+												pro.area = data[i].ix.areas[h].aname;
+												pro.pname = data[i].ix.pname;
+												pro.etime = item1.endTime;
+												pro.pid=data[i].ix.id;
+												pro.aid = data[i].ix.areas[h].id;
+												pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+												
+												timelist[hd] = pro;
+												be1++;
+												indexss=1;
+											} else
+											if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix.galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+														pro.staffname= item1.ulist[index].staff.ulist.uname;
+													}
+												pro.time = item1.startTime;
+												pro.area = data[i].ix.areas[h].aname;
+												pro.pname = data[i].ix.pname;
+												pro.etime = item1.endTime;
+												pro.pid=data[i].ix.id ;
+												pro.aid = data[i].ix.areas[h].id;
+												pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+												timelist[hd] = pro;
+												be1++;
+												indexss=1;
+											} else
+												if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix.galleryful) {
 												var pro = {};
 												var index=Math.floor((Math.random()*item1.ulist.length));
 													if(item1.ulist[index].staff!=null){
-														pro.sid = item1.ulist[index].staff.ulist.id;
+														pro.sid = item1.ulist[index].staff.id;
+														pro.staffname= item1.ulist[index].staff.ulist.uname;
 													}
 												pro.time = item1.startTime;
-												pro.area = data[i].ix[j].areas[h].aname;
-												pro.pname = data[i].ix[j].pname;
+												pro.area = data[i].ix.areas[h].aname;
+												pro.pname = data[i].ix.pname;
 												pro.etime = item1.endTime;
-												pro.pid=data[i].ix[j].id;
-												pro.aid = data[i].ix[j].areas[h].id;
+												pro.pid=data[i].ix.id;
+												pro.aid = data[i].ix.areas[h].id;
 												pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
 												timelist[hd] = pro;
-												be++;
+												be1++;
 												indexss=1;
-												console.log(timelist[hd].time>item1.startTime)
 											}
-							})
-						})
-						if(indexss==0){
-							pd=0;
-						}		
-						if(be != 0) {
-							break;
-							be = 0;
+									})
+								})
+								
+								if(indexss==0){
+									pd=0;
+								}
+								if(be1 != 0) {
+									break;
+									be1 = 0;
+								}
+							}
+							hd++;
+	}else {
+							for(var j = 0; j < data[i].ix.length; j++) {
+								var be = 0;
+								for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+									var indexss=0;
+									$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+										$.each(item, function(index1, item1) {
+											var time3 = Date.parse(new Date(item1.startTime));
+											var pro = {};
+													if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+														var index=Math.floor((Math.random()*item1.ulist.length));
+															if(item1.ulist[index].staff!=null){
+																pro.sid = item1.ulist[index].staff.id;
+																pro.staffname= item1.ulist[index].staff.ulist.uname;
+															}
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														pro.pid=data[i].ix[j].id;
+														pro.aid = data[i].ix[j].areas[h].id;
+														pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+													} else
+													if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+														var index=Math.floor((Math.random()*item1.ulist.length));
+															if(item1.ulist[index].staff!=null){
+																pro.sid = item1.ulist[index].staff.id;
+																pro.staffname= item1.ulist[index].staff.ulist.uname;
+															}
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														pro.pid=data[i].ix[j].id;
+														pro.aid = data[i].ix[j].areas[h].id;
+														pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+													} else
+														if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 < data[i].ix[j].galleryful) {
+															var pro = {};
+															var index=Math.floor((Math.random()*item1.ulist.length));
+																if(item1.ulist[index].staff!=null){
+																	pro.sid = item1.ulist[index].staff.id;
+																	pro.staffname= item1.ulist[index].staff.ulist.uname;
+																}
+															pro.time = item1.startTime;
+															pro.area = data[i].ix[j].areas[h].aname;
+															pro.pname = data[i].ix[j].pname;
+															pro.etime = item1.endTime;
+															pro.pid=data[i].ix[j].id;
+															pro.aid = data[i].ix[j].areas[h].id;
+															pro.pd=""+data[i].iid+""+""+data[i].typeid+"";
+															timelist[hd] = pro;
+															be++;
+															indexss=1;
+														}
+										})
+									})
+									if(indexss==0){
+										pd=0;
+									}		
+									if(be != 0) {
+										break;
+										be = 0;
+									}
+								}
+								hd++;
+							}
 						}
 					}
-					hd++;
 				}
 			}
-		}
-	}
-}
+	 function Xm(number1){
+					if(i%3==0&&i!=0){
+						j++;
+					}
+					var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
+					var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+i)+" "+"7:30:00";
+					i++;
+					$("#boxorder").html(" ");
+					 $.ajax({
+							url:'/shopcartshh/query',
+					  		data:{"orderson":JSON.stringify(ordersons),"startTime":startTime1,"endTime":endTime1},
+					  		dataType:'json',
+					  		type:'post',
+					  		timeout:10000,
+					  		success:function(data){
+						  			DataXm(data,number1);
+						  			if(pd==1){
+						  				for (var m=0;m<timelist.length;m++) {	
+						  						console.log(timelist);
+						  						var times=new Date(timelist[m].time);
+						  						var time="2019-"+(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+						  						var etimes=new Date(timelist[m].etime);
+						  						var etime="2019-"+(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+							  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid,timelist[m].sid,timelist[m].staffname)
+						  				}
+		  									
+									}else{
+											Xm(number1);
+									};
+							}
+						}); 
+			}
+
 
 
 </script>
