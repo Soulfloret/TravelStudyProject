@@ -12,17 +12,18 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="queryByTime" resultMap="BaseResultMap">
-  	SELECT wu.* FROM worduser AS wu
-	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id`
-	LEFT JOIN staff AS s ON s.`id`=wu.`productStaffId`
-	LEFT JOIN  users AS u ON u.`id`=s.`userId`
-	LEFT JOIN project AS p ON p.`name1`=s.`PostionId` 
+    SELECT s.id as productStaffId  FROM staff AS s
+	INNER JOIN  users AS u ON u.`id`=s.`userId`
+	INNER JOIN project AS p ON p.`name1`=s.`PostionId` 
+	LEFT JOIN worduser AS wu ON s.`id`=wu.`productStaffId`
+	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id` 
 	<if test="starttime!=null and endtime!=null">
 		and (opw.startTime!=#{starttime} and opw.endTime!=#{endtime})
 	</if>
 	<if test="pid!=null">
 		and p.id=#{pid}
 	</if>
+	group by s.id
   </select>
   <sql id="Example_Where_Clause" >
     <where >

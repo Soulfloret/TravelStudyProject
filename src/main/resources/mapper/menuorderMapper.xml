@@ -106,7 +106,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.accp.domain.menuorder" >
+  <insert id="insert" parameterType="com.accp.domain.menuorder" keyProperty="id" useGeneratedKeys="true" >
     insert into menuorder (id, orderrReference, createTime, 
       statuss, price, userId, 
       name1, name2, name3, 
