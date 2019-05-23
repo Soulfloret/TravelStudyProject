@@ -142,7 +142,10 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/customer/insertOrder")
 		.excludePathPatterns("/fri/**")
 		.excludePathPatterns("/Login/**")
-		.excludePathPatterns("/team/queryAllteamByuid");
+		.excludePathPatterns("/fileupload/**")
+		.excludePathPatterns("/error/**")
+		.excludePathPatterns("/team/queryAllteamByuid")
+		.excludePathPatterns("/*.ico");
 		super.addInterceptors(registry);
 	}
 

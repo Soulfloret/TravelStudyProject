@@ -61,7 +61,7 @@
 
 	<!-- 项目查询图片 -->
 	<select id="queryByIid" resultType="com.accp.domain.images">
-		SELECT * FROM `images` WHERE `iid`=#{id}
+		SELECT * FROM `images` WHERE `iid`=#{id} and typeid=1
 	</select>
 	
 	<insert id="insertimglist">

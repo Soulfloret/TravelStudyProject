@@ -154,10 +154,16 @@
 						<!-- USER RELATED MENU -->
 						<nav id="tiny-menu" class="clearfix">
 							<ul class="user-menu">
-								<li><a href="Person.html">我的账户</a></li>
-								<li><a href="Person.html">查看</a></li>
-								<li><a href="login-page.html">登出</a></li>
-							</ul>
+										<li>
+											<a th:href="@{/customer/toPerson}">我的账户</a>
+										</li>
+										<li>
+											<a th:href="@{/customer/toPerson}">查看</a>
+										</li>
+										<li>
+											<a th:href="@{/Login/back}">登出</a>
+										</li>
+									</ul>
 						</nav>
 						<!-- // USER RELATED MENU -->
 					</div>
@@ -172,24 +178,23 @@
 					<!-- SITE NAVIGATION MENU -->
 					<nav id="site-menu" role="navigation">
 						<ul class="main-menu hidden-sm hidden-xs">
-							<li class="active">
-								<a href="pagehome.html">首页</a>
-							</li>
-							<li>
-								<a href="productList.html">活动</a>
-							</li>
-							<li>
-								<a href="menu1.html">餐饮</a>
-							</li>
-							<li>
-								<a href="hotel.html">住宿</a>
-							</li>
-							
-							<li>	
-								<a href="Person.html">个人中心</a>
-							</li>
-						</ul>
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
+									</li>
+									<li>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
 
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+								</ul>
 					</nav>
 					<!-- // SITE NAVIGATION MENU -->
 				</div>
