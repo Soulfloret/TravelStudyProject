@@ -16,6 +16,9 @@
   <select id="queryByTime" resultType="INTEGER">
   	SELECT count(*) FROM orderproductwork WHERE startTime=#{starttime} and endTime=#{endtime}
   </select>
+  <select id="queryByTimeiid" resultType="com.accp.domain.orderproductwork">
+  	SELECT * FROM orderproductwork WHERE startTime &gt; NOW() AND  startTime &lt; DATE_ADD(NOW(),INTERVAL 30 MINUTE)
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

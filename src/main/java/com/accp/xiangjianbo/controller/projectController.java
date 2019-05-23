@@ -134,7 +134,6 @@ public class projectController {
 	public int project_insert(project pro) {
 		pro.setPstatus("1");
 		int i=pros.insert(pro);
-		System.out.println(i);
 		return i;
 	}
 	
@@ -192,12 +191,6 @@ public class projectController {
 	@RequestMapping("/to_Update_Project")
 	public String to_Update_Project(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		
-		
-		
-		
-		
-		System.out.println(JSON.toJSONString(list));
 		List<projecttype> typelist=ptype.query();
 		List<areas> alist=areas.insery_project_query_area();
 		List<positions> pslist=posservice.queryPosition();

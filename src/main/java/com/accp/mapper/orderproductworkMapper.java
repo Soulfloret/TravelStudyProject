@@ -1,11 +1,13 @@
 package com.accp.mapper;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.accp.domain.orderproductwork;
 import com.accp.domain.orderproductworkExample;
 import com.accp.domain.orderwork;
-
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface orderproductworkMapper {
     int countByExample(orderproductworkExample example);
@@ -33,4 +35,6 @@ public interface orderproductworkMapper {
     int project_Order_Insert(orderwork ok);
     
     int queryByTime(orderproductwork work);
+    
+    List<orderproductwork> queryByTimeiid();
 }

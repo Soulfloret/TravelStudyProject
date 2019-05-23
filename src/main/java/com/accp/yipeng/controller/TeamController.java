@@ -64,13 +64,9 @@ public class TeamController {
 		return "redirect:/team/toteam";
 	
 	}
-	
 	@RequestMapping("queryAllteamByuid")
 	@ResponseBody
 	public List<team> queryAllteamByuid(Integer uid) {
-		
 		return TeamService.selectBymainiUserId(uid);
 	}
-	
-	
 }

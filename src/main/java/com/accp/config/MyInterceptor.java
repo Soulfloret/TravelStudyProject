@@ -1,4 +1,4 @@
-package com.accp.chenyong.controller;
+package com.accp.config;
 
 
 import java.util.Map;
