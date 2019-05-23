@@ -254,30 +254,10 @@
 										<figcaption class="m-b-sm">
 											<h5 class="subheader uppercase">注意事项</h5>
 											<p th:text="${list.remark}"></p>	
-										</figcaption><!-- 
-										<div id="kehu_xinxi">
-											<div>
-												<span>团队/个人</span><br>
-												<span>团队</span>
-												<input type="radio" name="dd_radio" data="dd_radio" style="width: 15px;height: 15px;"/>
-												<span style="margin-left: 20px;">个人</span>
-												<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;"/>
-											</div>
-											<div hidden="hidden" id="hide_dd">
-												<span style="margin-top: 20px;">请输入负责人</span><input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;"/><br>
-												s<button class="btn btn-primary" data-toggle="modal" data-target="#xz_ddry" style="margin-top: 20px;">填写团队人员</button>
-											</div>
-											<div hidden="hidden" id="hide_ry">
-												<span>请输入姓名</span>
-												<input type="text" style="height: 30px;"/><br>
-												<span>请输入年龄</span>
-												<input type="text" style="height: 30px;"/>
-											</div>
-										</div> -->
-										
+										</figcaption>
 										<ul class="inline-li li-m-r-l m-t-lg">
 											<li>
-												<a href="#" class="btn btn-default btn-lg btn-round add-to-cart">加入购物车</a>
+												<a href="#" class="btn btn-default btn-lg btn-round add-to-cart" id="insert_shop" th:pid="${list.id}">加入购物车</a>
 											</li>
 										</ul>
 										
@@ -569,6 +549,23 @@
 			}
 			$("#hide_dd").hide();
 		});
+		
+		$("#insert_shop").click(function(){
+			var iid=$(this).attr("pid");
+			alert(iid);
+			var i={};
+			i.iid=iid;
+			var a=JSON.stringify(i);
+			$.ajax({
+				url:"insert_shop",
+				type:"post",
+				data:a,
+				processData:false,
+				contentType:"application/json;charset=UTF-8",
+				success:function(result){
+				}
+			})
+		})
 	})
 </script>
 </body>

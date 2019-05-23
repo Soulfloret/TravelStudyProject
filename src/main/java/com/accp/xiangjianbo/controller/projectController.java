@@ -210,8 +210,10 @@ public class projectController {
 		users user=(users) session.getAttribute("use");
 		record.setUserid(user.getId());
 		record.setTypeid(1);
+		System.out.println("asdasdasd");
+		System.out.println(JSON.toJSONString(record));
 		int i=shopservice.insert(record);
-		return "";
+		return "asdas";
 	}
 
 }

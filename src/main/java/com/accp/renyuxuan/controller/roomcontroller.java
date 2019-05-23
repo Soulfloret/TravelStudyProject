@@ -271,7 +271,7 @@ public class roomcontroller {
 		
 		@RequestMapping("/roomaddorder")
 		public String roomaddorder(Integer [] id,Integer [] rid,String lx,HttpSession session) {
-			users us=(users) session.getAttribute("user");
+			users us=(users) session.getAttribute("use");
 			int uid=us.getId();//session里面的用户id
 			for (int i = 0; i < rid.length; i++) {
 				roomdestine roomdestines=new roomdestine();

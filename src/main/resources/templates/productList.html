@@ -458,10 +458,15 @@
 			$(".lbshop").click(function(){
 				var iid=$(this).attr("iid");
 				alert(iid);
+				var i={};
+				i.iid=iid;
+				var a=JSON.stringify(i);
 				$.ajax({
-					url:"insert_shop",,
+					url:"insert_shop",
 					type:"post",
-					data:iid,
+					data:a,
+					processData:false,
+					contentType:"application/json;charset=UTF-8",
 					success:function(result){
 					}
 				})
@@ -469,10 +474,15 @@
 			$(".xqshop").click(function(){
 				var iid=$(this).attr("iid");
 				alert(iid);
+				var i={};
+				i.iid=iid;
+				var a=JSON.stringify(i);
 				$.ajax({
-					url:"insert_shop",,
+					url:"insert_shop",
 					type:"post",
-					data:iid,
+					data:a,
+					processData:false,
+					contentType:"application/json;charset=UTF-8",
 					success:function(result){
 					}
 				})
