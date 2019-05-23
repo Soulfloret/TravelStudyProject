@@ -70,11 +70,19 @@ public class productController {
 	}
 	
 	/*前台查询活动推荐*/
-	@RequestMapping("QueryQtproductByXq")
-	public List<product> QueryQtproductByXq() {
+	@RequestMapping("Queryshouye")
+	public List<product> Queryshouye() {
 		List<product> list= prod.QueryQtproductByXq();
 		return list;
 	}
 	
+	/*前台查询活动详情*/
+	@RequestMapping("QueryQtproductByXq")
+	public String QueryQtproductByXq(Model model,Integer id) {
+		product product=prod.queryByXqById(13);
+		System.out.println(JSON.toJSONString(product));
+		model.addAttribute("product", product);
+		return "Qt_product_Xq";
+	}
 	
 }

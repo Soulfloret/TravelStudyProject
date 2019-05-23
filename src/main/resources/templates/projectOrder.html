@@ -222,12 +222,15 @@
 
 
 					</div>
-					<div class="modal-footer">
-						<button type="button" name="order_submit" class="btn btn-primary">提交</button>
-					</div>
+					
 				</div>
 				<!-- /.modal-content -->
 			</div>
+			<div class="modal-footer">
+					
+						<input type="button" value="提交" class="btn btn-primary order_submit" style="z-index:999;">
+						<!-- <button type="button" name="order_submit" class="btn btn-primary">提交</button> -->
+					</div>
 		</div>
 	</div>
 	</div>
@@ -238,7 +241,7 @@
 	<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
 	<script th:src="@{/js/vue.js}"></script>
 
-	<script>
+	<script type="text/javascript">
 		var pid;
       	var ry_dt;
       	var jd_name;
@@ -457,10 +460,10 @@
 						lis.push(o);
 					}
 				})
+				i=0;
 				var list=JSON.stringify(lis);
 				orderson1=list;
-				console.log(orderson1);
-				console.log(number1);
+				
 				Xm(number); 
 			}else{
 				$(".show_jd").each(function(){
@@ -470,8 +473,9 @@
 		});
 		
 		/*新增订单*/
-		$("[name=order_submit]").click(function(){
+		$(".order_submit").click(function(){
 			alert("qwe");
+			console.log("qweqweqw");
 			/*订单从表*/
 			var orderson=[];
 			var typeid;
@@ -480,6 +484,7 @@
 			var wulist=[];
 			var iid;
 			if(xzid==1){
+				alert("活动")
 				$("[name=look_product]").each(function(){
 					if(this.checked){
 						var odr = {};
@@ -490,22 +495,25 @@
 						orderson.push(odr);
 					}
 				})
-				wulist=[];
-				$("#boxorder").each(function(){
+				
+				$("#boxorder tr").each(function(){
 					/*订单项目排班表*/
+					wulist=[];
 					var wuser={};
 					/*安排人员*/
-					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr(sid);
+					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr("sid");
 					wulist.push(wuser);
 					var ordertime={};
 					/*开始时间*/
 					ordertime.starttime=$(this).find("td:eq(2)").text();
 					/*结束时间*/
 					ordertime.endtime=$(this).find("td:eq(3)").text();
+					/*项目id*/
+					ordertime.iid=$(this).find("td:eq(0)").next("input").val();
 					/*基地id*/
 					ordertime.name1=$(this).find("td:eq(1)").next("input").val();
-						ordertime.list=wulist;
-						opklist.push(ordertime);
+					ordertime.list=wulist;
+					opklist.push(ordertime);
 				})
 				
 				/* if(xzid==2){
@@ -513,6 +521,7 @@
 				} */
 				orderwork.push({list:opklist});
 			}else if(xzid==2){
+				alert("项目")
 				$(".show_jd").each(function(){
 					if(this.checked){
 						var odr1={};
@@ -528,7 +537,7 @@
 					/*订单项目排班表*/
 					var wuser={};
 					/*安排人员*/
-					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr(sid);
+					wuser.productstaffid=$(this).find("td:eq(4)").find("span").attr("sid");
 					wulist.push(wuser);
 					var ordertime={};
 					/*开始时间*/
@@ -548,7 +557,7 @@
 			o.order_son=orderson;
 			o=JSON.stringify(o);
 			console.log(o);
-		/* 	$.ajax({
+		 	$.ajax({
 				url:"insert",
 				type:"post",
 				data:o,
@@ -556,9 +565,11 @@
  				contentType:"application/json;charset=UTF-8",
  				dataType:"text",
 				success:function(result){
+					
 					alert("新增成功")
+					location.href="order/query";
 				}
-			});  */
+			});  
 		})
       })
       
@@ -784,10 +795,6 @@ function XmPb(id,pname,area,time,etime,pid,aid,typeid,staffid,staname) {
 				var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
 				var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+i)+" "+"7:30:00";
 				i++;
-				console.log(number1);
-				console.log(orderson1);
-				console.log(startTime1);
-				console.log(endTime1);
 				 $.ajax({
 						url:'/shopcartshh/query',
 				  		data:{"orderson":orderson1,"startTime":startTime1,"endTime":endTime1},
@@ -800,9 +807,9 @@ function XmPb(id,pname,area,time,etime,pid,aid,typeid,staffid,staname) {
 					  				for (var m=0;m<timelist.length;m++) {
 					  						console.log(timelist);
 					  						var times=new Date(timelist[m].time);
-					  						var time=(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var time="2019-"+(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
 					  						var etimes=new Date(timelist[m].etime);
-					  						var etime=(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+					  						var etime="2019-"+(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
 						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid,timelist[m].sid,timelist[m].staffname)
 					  				}
 	  									
