@@ -36,7 +36,7 @@
 	}
 </style>
 <body>
-		<!--头部  -->
+			<!--头部  -->
 			<header id="site-header" role="banner">
 				<!-- HEADER TOP -->
 				<div class="header-top">
@@ -163,6 +163,9 @@
 									<li>
 										<a th:href="@{/customer/toPerson}">个人中心</a>
 									</li>
+									<li>	
+										<a th:href="@{/customer/toOrders}">订单管理</a>
+									</li>
 								</ul>
 							</nav>
 							<!-- // SITE NAVIGATION MENU -->
@@ -172,150 +175,150 @@
 				<!-- // MAIN HEADER -->
 			</header>
 		
-	<div id="page-wrapper">
-		<main id="main-content" role="main">
-			<section class="section">
-				<div class="container">
-					<table class="tbl-cart">
-						<thead>
-							<tr>
-								<th>项目名称</th>
-								<th style="width: 10%;">单价</th>
-								<th style="width: 10%;">数量</th>
-								<th class="hidden-xs" style="width: 10%;">总价</th>
-								<!-- <th class="hidden-xs" style="width: 10%;">操作</th> -->
-							</tr>
-						</thead>
-						<tbody id="cart">
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
-								<td>
-									<a class="entry-thumbnail" th:href="'/'+${item.ix.ilist[0].url}" data-toggle="lightbox">
-										<img th:src="'/'+${item.ix.ilist[0].url}" alt="" class="img"/>
-									</a>
-									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td class="ors">
-									<input type="hidden" th:value="${item.ix.id}" name="productid" >
-									<input type="hidden" th:value="${item.typeid}" class="typeidss">
-									<p th:text="${item.name2}"></p>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
-							</tr>
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==2}">
-								<td>
-									<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
-										<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
-									</a>
-									<a class="entry-title"  href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}" ></span></td>
-								<td class="ors">
-									<input type="hidden" th:value="${item.ix.id}"  name="productid">
-									<input type="hidden" th:value="${item.typeid}" class="typeidss">
-									<p th:text="${item.name2}"></p>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
-							</tr>
-								<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
-								<td>
-									<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
-										<img th:src="${item.ix.img[0].url}" alt="" class="img" />
-									</a>
-									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td class="ors">
-									<input type="hidden" th:value="${item.ix.id}" name="productid" >
-									<input type="hidden" th:value="${item.typeid}" class="typeidss">
-									<p th:text="${item.name2}"></p>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
-							</tr>
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
-								<td>
-									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td class="ors">
-									<input type="hidden" th:value="${item.ix.id}" name="productid">	
-									<input type="hidden" th:value="${item.typeid}" class="typeidss">
-									<p th:text="${item.name2}"></p>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
-							</tr>
-							<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
-								<td>
-									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
-								</td>
-								<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
-								<td class="ors">
-									<input type="hidden" th:value="${item.ix.id}" name="productid">
-									<input type="hidden" th:value="${item.typeid}" class="typeidss">
-									<p th:text="${item.name2}"></p>
-								</td>
-								<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="shopcart-total pull-right clearfix">
-						<div class="cart-total text-bold m-b-lg clearfix">
-							<span class="pull-left">价格:</span>
-							<span class="pull-right" id="price">0.00</span>
-						</div>
-						<div class="text-center">
-							<input type="button" class="btn btn-info" data-target="#orderInfo" data-toggle="modal" value="查看排班">
-							<a class="btn btn-round btn-default uppercase" id="payMoney" disabled="disabled" >付款</a>
-						</div>
-					</div>
-				</div>
-			</section>
-			<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-				<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
-					<div class="modal-content" style="background-color: #435c70;color: white;">
-						<div id="" class="modal-header">
-							排班
-						</div>
-						<div id="" class="modal-body">
-							<div class="box" style="margin:10px 0px 0px 20px;">
-								<div class="time">
-									<ul class="">
-										<li class="li xmpb">
-											<table class="tbl-cart">
-												<thead>	
-													<tr>
-														<th style="width: 10%;">名称:</th>
-														<th style="width: 10%;">区域</th>
-														<th style="width: 10%;">开始时间</th>
-														<th style="width: 10%;">结束时间</th>
-														<th style="width:10%">安排人员</th>
-													</tr>
-												</thead>
-												<tbody id="boxorder">
-													
-												</tbody>
-											</table>
-										</li>
-									</ul>
+			<div id="page-wrapper">
+				<main id="main-content" role="main">
+					<section class="section">
+						<div class="container">
+							<table class="tbl-cart">
+								<thead>
+									<tr>
+										<th>项目名称</th>
+										<th style="width: 10%;">单价</th>
+										<th style="width: 10%;">数量</th>
+										<th class="hidden-xs" style="width: 10%;">总价</th>
+										<!-- <th class="hidden-xs" style="width: 10%;">操作</th> -->
+									</tr>
+								</thead>
+								<tbody id="cart">
+									<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
+										<td>
+											<a class="entry-thumbnail" th:href="'/'+${item.ix.ilist[0].url}" data-toggle="lightbox">
+												<img th:src="'/'+${item.ix.ilist[0].url}" alt="" class="img"/>
+											</a>
+											<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
+										</td>
+										<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+										<td class="ors">
+											<input type="hidden" th:value="${item.ix.id}" name="productid" >
+											<input type="hidden" th:value="${item.typeid}" class="typeidss">
+											<p th:text="${item.name2}"></p>
+										</td>
+										<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+									</tr>
+									<tr th:each="item,index : ${list}"  th:if="${item.typeid==2}">
+										<td>
+											<a class="entry-thumbnail" th:href="${item.ix.imgs[0].url}" data-toggle="lightbox">
+												<img th:src="${item.ix.imgs[0].url}" alt="" class="img" />
+											</a>
+											<a class="entry-title"  href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮)</span>
+										</td>
+										<td><span class="unit-price" th:text="${item.ix.price}" ></span></td>
+										<td class="ors">
+											<input type="hidden" th:value="${item.ix.id}"  name="productid">
+											<input type="hidden" th:value="${item.typeid}" class="typeidss">
+											<p th:text="${item.name2}"></p>
+										</td>
+										<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+									</tr>
+										<tr th:each="item,index : ${list}"  th:if="${item.typeid==4}">
+										<td>
+											<a class="entry-thumbnail" th:href="${item.ix.img[0].url}" data-toggle="lightbox">
+												<img th:src="${item.ix.img[0].url}" alt="" class="img" />
+											</a>
+											<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.mname}">樱花园</a><span class="taocan">(餐饮套餐)</span>
+										</td>
+										<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+										<td class="ors">
+											<input type="hidden" th:value="${item.ix.id}" name="productid" >
+											<input type="hidden" th:value="${item.typeid}" class="typeidss">
+											<p th:text="${item.name2}"></p>
+										</td>
+										<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+									</tr>
+									<tr th:each="item,index : ${list}"  th:if="${item.typeid==5}">
+										<td>
+											<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}">樱花园</a><span class="taocan">(活动)</span>
+										</td>
+										<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+										<td class="ors">
+											<input type="hidden" th:value="${item.ix.id}" name="productid">	
+											<input type="hidden" th:value="${item.typeid}" class="typeidss">
+											<p th:text="${item.name2}"></p>
+										</td>
+										<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+									</tr>
+									<tr th:each="item,index : ${list}"  th:if="${item.typeid==7}">
+										<td>
+											<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.name}">樱花园</a><span class="taocan">(总套餐)</span>
+										</td>
+										<td><span class="unit-price" th:text="${item.ix.price}"></span></td>
+										<td class="ors">
+											<input type="hidden" th:value="${item.ix.id}" name="productid">
+											<input type="hidden" th:value="${item.typeid}" class="typeidss">
+											<p th:text="${item.name2}"></p>
+										</td>
+										<td class="hidden-xs"><strong class="text-bold row-total" th:text="${item.name2}*${item.ix.price}"></strong></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="shopcart-total pull-right clearfix">
+								<div class="cart-total text-bold m-b-lg clearfix">
+									<span class="pull-left">价格:</span>
+									<span class="pull-right" id="price">0.00</span>
 								</div>
-							</div>	
+								<div class="text-center">
+									<input type="button" class="btn btn-info" data-target="#orderInfo" data-toggle="modal" value="查看排班">
+									<a class="btn btn-round btn-default uppercase" id="payMoney" disabled="disabled" >付款</a>
+								</div>
+							</div>
 						</div>
-						<div id="" class="modal-footer">
-							<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+					</section>
+					<div class="modal fade bs-example-modal-lg" id="orderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						<div class="modal-dialog modal-lg" style="max-width: 80%;width:1000px;" role="document" > 
+							<div class="modal-content" style="background-color: #435c70;color: white;">
+								<div id="" class="modal-header">
+									排班
+								</div>
+								<div id="" class="modal-body">
+									<div class="box" style="margin:10px 0px 0px 20px;">
+										<div class="time">
+											<ul class="">
+												<li class="li xmpb">
+													<table class="tbl-cart">
+														<thead>	
+															<tr>
+																<th style="width: 10%;">名称:</th>
+																<th style="width: 10%;">区域</th>
+																<th style="width: 10%;">开始时间</th>
+																<th style="width: 10%;">结束时间</th>
+																<th style="width:10%">安排人员</th>
+															</tr>
+														</thead>
+														<tbody id="boxorder">
+															
+														</tbody>
+													</table>
+												</li>
+											</ul>
+										</div>
+									</div>	
+								</div>
+								<div id="" class="modal-footer">
+									<a class="btn btn-primary" data-dismiss="modal">关闭</a>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+					
+					
+				</main>
+				<!-- // SITE MAIN CONTENT -->
+				
+				<!-- SITE FOOTER -->
 			
-			
-		</main>
-		<!-- // SITE MAIN CONTENT -->
-		
-		<!-- SITE FOOTER -->
-	
-		
-</div>
-<!-- 尾部 -->
+				
+		</div>
+			<!-- 尾部 -->
 			<footer class="page-footer">
 
 				<!-- WIDGET AREA -->
@@ -325,6 +328,7 @@
 					<div class="section">
 						<div class="container">
 							<div class="row">
+
 								<div class="col-xs-12 col-sm-6 col-md-3">
 									<section class="widget widget-text">
 										<h5 class="widget-title">研学旅行 </h5>
@@ -420,7 +424,7 @@
 														<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
 													</a>
 													<div class="ads-caption bottom-right">
-														<a href="#" class="btn btn-default btn-round">
+														<a href="#" class="btn btn-round">
 															<i class="round-icon iconfont-angle-right"></i>
 															<span class="inline-middle">显示更多</span>
 														</a>
@@ -500,6 +504,8 @@
 				</div>
 
 			</footer>
+		
+
 <script th:src="@{/js1/owl.carousel.js}"></script>
 <script th:src="@{/js1/minified.js}"></script>
 
@@ -800,7 +806,7 @@ function Xm(number1){
 				})
 			usermainorder.olist=ordersonse;
 			console.log(usermainorder);
-	 		   $.ajax({
+	 		    $.ajax({
 				url:"/customer/insertOrder",
 				type:"post",
 				dataType:"json",
@@ -809,13 +815,13 @@ function Xm(number1){
 				success:function(data){
 					if(data>0){
 						alert("新增成功");
-						location.href="/customer/toPerson";
+						location.href="/customer/toOrders";
 					}
 				},
 				error:function(){
-					location.href="/customer/toPerson";
+					location.href="/customer/toOrders";
 				}
-			})   
+			})    
 		})
 		
 		var j=0;

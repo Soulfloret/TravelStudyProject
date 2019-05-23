@@ -228,12 +228,12 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 			userorder.setOrderstatus("正在进行中");
 			num=mapper14.updateByPrimaryKeySelective(userorder);
 			for (orderson orderson : list2) {
+				orderson.setId(null);
 				orderson.setName1(userorder.getId().toString());
-				mapper15.insertSelective(orderson);
-				if(orderson.getOw()!=null) {
 					if(orderson.getTypeid()==1||orderson.getTypeid()==5) {
+						mapper15.insertSelective(orderson);
 						orderwork ow=orderson.getOw();
-						
+						ow.setId(null);
 						ow.setOrderid(orderson.getId());
 						mapper3.insert(ow);
 						for (orderproductwork opw : ow.getList()) {
@@ -241,15 +241,55 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 							opw.setOrderworkid(ow.getId());
 							mapper16.insert(opw);
 							for (worduser wu : opw.getList()) {
+								wu.setId(null);
 								wu.setWorkid(opw.getId());
 								mapper17.insert(wu);
 							}
 						}
+					}else if(orderson.getTypeid()==2) {
+						mapper15.insertSelective(orderson);
+						menuorder mo=new menuorder();
+						mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+						mo.setCreatetime(new Date());
+						mo.setStatuss("正在进行中");
+						menu m=mapper7.selectByPrimaryKey(orderson.getIid());
+						mo.setPrice(m.getPrice());
+						mo.setUserid(userorder.getOrdercustomer());
+						mapper18.insert(mo);
+						ordershop oss=new ordershop();
+						oss.setMenuid(orderson.getIid());
+						oss.setNum(1);
+						oss.setOrderid(mo.getId());
+						oss.setPrice(m.getPrice());
+						mapper25.insert(oss);
+					}else if(orderson.getTypeid()==4){
+						mapper15.insertSelective(orderson);
+						bind b=new bind();
+						b.setId(orderson.getIid());
+						b=mapper10.querybind(b).get(0);
+						for (menu mu : b.getList()) {
+							menuorder mo=new menuorder();
+							mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
+							mo.setCreatetime(new Date());
+							mo.setStatuss("正在进行中");
+							mo.setPrice(mu.getPrice());
+							mo.setUserid(userorder.getOrdercustomer());
+							mapper18.insert(mo);
+							ordershop oss=new ordershop();
+							oss.setMenuid(mu.getId());
+							oss.setNum(1);
+							oss.setOrderid(mo.getId());
+							oss.setPrice(mu.getPrice());
+							mapper25.insert(oss);
+						}
 					}else if(orderson.getTypeid()==7) {
+						mapper15.insertSelective(orderson);
 						orderwork ow=orderson.getOw();
+						ow.setId(null);
 						ow.setOrderid(orderson.getId());
 						mapper3.insert(ow);
 						for (orderproductwork opw : ow.getList()) {
+							opw.setId(null);
 							opw.setOrderworkid(ow.getId());
 							mapper16.insert(opw);
 							for (worduser wu : opw.getList()) {
@@ -277,12 +317,8 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 							}
 						}
 					}
-					
-					
 				}
 			}
-		}
-		
 		return num;
 	}
 }
