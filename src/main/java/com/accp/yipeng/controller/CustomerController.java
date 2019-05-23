@@ -143,7 +143,7 @@ public class CustomerController {
 		
 		try {
 			//模版位置
-			FileInputStream fis=new FileInputStream("F:\\y2项目客户导入.xlsx");
+			FileInputStream fis=new FileInputStream("F:\\y2项目\\客户导入模版.xlsx");
 			byte [] bytes=new byte[fis.available()];
 			fis.read(bytes);
 			HttpHeaders headers= new HttpHeaders();

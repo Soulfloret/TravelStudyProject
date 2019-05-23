@@ -291,7 +291,7 @@
 				<!-- // MAIN HEADER -->
 			</header>
 		
-		<div class="panel-group checkout" id="checkout-collapse" style="margin-top:20px;margin-bottom:20px;">
+		<div class="panel-group checkout" id="checkout-collapse" style="margin-top:20px;margin-bottom:20px;width:80%;padding-left:250px;">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
@@ -314,9 +314,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:if="${#lists.size(list)==0}">
-										<th colspan="5" ><span style="margin-left:50px" >暂无订单</span></th>
-									</tr>
+									
 									<tr th:each="item:${list}"	th:if="${#strings.trim(item.name2)=='个人' && item.ordercustomer==user.id}">
 										<th scope="row"><b th:text="${item.orderno}"></b></th>
 										<td th:text="${item.name1}">
@@ -349,7 +347,7 @@
 										<th scope="row" colspan="5" style="height:20px;line-height:20px;"><span style="margin-left:50px;">团员订单(用户订单)</span></th>
 									</tr>
 									<tr th:if="${#lists.size(olist)==0}">
-										<th colspan="5" ><span style="margin-left:50px" >暂无订单</span></th>
+										<th colspan="5" ><span style="margin-left:50px" >暂无成员订单</span></th>
 									</tr>
 									<tr th:each="item:${olist}">
 										<th scope="row"><b th:text="${item.orderno}"></b></th>
@@ -360,7 +358,7 @@
 										<td><b th:text="${item.user.uname}"></b></td>
 										<td>
 										 <input type="hidden" th:value="${item.id}">
-										 <a data-target="#userorderInfo" data-toggle="modal" style="color: white;"class="fa fa-info tm-product-delete-link userorderinfo"></a>
+										 <a data-target="#userorderInfos" data-toggle="modal" style="color: white;"class="fa fa-info tm-product-delete-link userorderinfo"></a>
 										</td>
 									</tr>
 								
@@ -383,7 +381,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="modal fade bs-example-modal-lg" id="userorderInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						<div class="modal fade bs-example-modal-lg" id="userorderInfos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 							<div class="modal-dialog modal-lg" style="max-width: 90%;" role="document" > 
 								<div class="modal-content" style="background-color: #394e64;">
 									<div id="" class="modal-header" style="color:white">
@@ -1000,12 +998,13 @@
 		</script>	 
 	
 		
-	<script  th:line="javascript" >
-	$(".userorderinfo").click(function(){
+	<script  th:inline="javascript" >
+	$(".userorderinfo").on("click",function(){
 		var id=$(this).prev().val();
 		 $.ajaxSettings.async = false;
 		$.post("/customer/queryById?id="+id+"",function(data){
-				$("#userorderInfo .boxs").text("");
+				console.log(data);
+				$("#userorderInfos .boxs").text("");
 				var div1=$("<div class='dingdanhead'></div>");
 				var h41=$("<h4></h4>");
 				var timestamp= new Date(data.ordertime);
@@ -1059,7 +1058,62 @@
 	    					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
 							$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
 	    					$(div1).append(h41);
-							$("#userorderInfo .boxs").append(div1).append(div);
+							$("#userorderInfos .boxs").append(div1).append(div);
+				}else{
+					var div=$("<div class='content col-md-12 collapsed' id='checkout-collapse4'></div>");
+					var divh;
+					var divh1;
+					var use=[[${session.use}]];
+					price=0;
+					$.each(data.list,function(index,item){
+						var div2=$("<div></div>");
+						var div3=$("<div></div>");
+						var div4=$("<div></div>");
+						var div5=$("<div></div>");
+						divh1=$("<div class='content col-md-12 collapsed' id='checkout-collapses"+index+"'></div>");
+						$.each(item.orders,function(index1,item1){
+							if(item.user!=null){
+								if(item1.user.id==use.id){
+									$.each(item1.list,function(index2,item2){
+										if(item2.typeid==1||item2.typeid==5){
+											$(divh1).append(teamProject(item2));
+										}
+										if(item2.typeid==2||item2.typeid==4){
+											$(divh1).append(teamMenu(item2,0));
+										}
+										if(item2.typeid==3){
+											$(divh1).append(teamRoom(item2));
+										}
+										if(item2.typeid==7){
+											var divs=$("<div class='content col-md-11'></div>")
+											var h4=$("<h4>"+item2.ix.name+"</h4>");
+											$.each(item2.ix.list,function(index3,item3){
+												 if(item3.typeid==1||item3.typeid==5){
+													$(divs).append(teamProject(item3,1));
+												}
+												if(item3.typeid==2||item3.typeid==4){
+													$(divs).append(teamMenu(item3));
+												}
+												if(item3.typeid==3){
+													$(divs).append(teamRoom(item3));
+												} 
+											})
+											$(divh1).append(divs);
+										}
+									})
+								}	
+							}
+					})
+						if(item.id==use.id){
+							divh=$("<div class='dingdanhead'><h4><a data-toggle='collase'  href='#checkout-collapses"+index+"'><span class='step'>01</span><span>队员名称</span></a></h4></div>");
+							$(div).append(divh).append(divh1);
+							$("#userorderInfos .boxs").append(div1);
+							$("#userorderInfos .boxs").append(div);
+						}
+					})
+					var span3=$("<span class='sum'>订单总价:</span><span>"+price+"</span>");
+					$(h41).append(a1).append(span1).append(span2).append(span3).append(span4);
+					$(div1).append(h41);
 				}
 			},"json");
 	})

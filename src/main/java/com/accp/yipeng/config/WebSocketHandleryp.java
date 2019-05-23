@@ -24,8 +24,8 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 	//建立连接后
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		users use=(users)session.getAttributes().get("use");
-		if(map.get( use.getId()+"")==null) {
-			map.put(use.getId()+"", session);
+		if(map.get(use.getId()+"")==null) {
+			map.put(use.getId()+"",session);
 		}
 	}
 	public void sendMsg(String message,String  did,String uid) {
@@ -33,8 +33,8 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 			try {
 				WebSocketSession webSession= map.get(uid+"");
 				for (WebSocketSession wss : ws) {
-						if(wss!=webSession) {
-							wss.sendMessage(new TextMessage(message));	
+						if(wss!=null && wss!=webSession) {
+							wss.sendMessage(new TextMessage(message+"id="+uid));	
 						}
 				}
 			} catch (IOException e) {
@@ -49,16 +49,8 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 	}
 	
 	public   void addGroupItem(String groupId,String userid) {
-		 List<WebSocketSession> webList= MAP1.get(groupId);
 		 WebSocketSession webSession = map.get(userid);
-		 int index=0;
-		 for (WebSocketSession webSocketSession : webList) {
-			 if(webSocketSession==webSession) {
-				index++;
-			 }
-		}
-		
-		if(index==0) {
+		if(webSession!=null) {
 			 MAP1.get(groupId).add(webSession);
 		}
 	}
@@ -73,7 +65,6 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 	}
 	
 	public void initGroup(List<discussiongroup> list) {
-		
 		for (discussiongroup discussiongroup : list) {
 			addGroup(discussiongroup.getId()+"");
 		}

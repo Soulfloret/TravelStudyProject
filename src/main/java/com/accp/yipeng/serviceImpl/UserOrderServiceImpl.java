@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Meal;
 import com.accp.domain.Mealix;
 import com.accp.domain.Usermainorder;
@@ -17,6 +18,7 @@ import com.accp.domain.orderwork;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
 import com.accp.domain.userorder;
+import com.accp.domain.users;
 import com.accp.domain.worduser;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.UsermainorderMapper;
@@ -86,6 +88,8 @@ public class UserOrderServiceImpl implements UserOrderService{
 	roomdestineMapper mapper19;
 	@Autowired
 	roomMapper mapper20;
+	@Autowired
+	UserMainOrderService UmoService;
 	
 	@Override
 	public List<userorder> selectAllUserOrderById(Integer uid) {
@@ -100,99 +104,104 @@ public class UserOrderServiceImpl implements UserOrderService{
 	public Usermainorder queryByUserOrderId(Integer id) {
 		userorder uor= mapper14.selectByPrimaryKey(id);
 		Usermainorder umo=mapper.selectByPrimaryKey(uor.getOrdermainid());
-		umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
-			umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
-			umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
-			for (userorder uo : umo.getUser().getOrders()) {
-				uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
-				uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
-				uo.getStaff().setUser(mapper1.selectByPrimaryKey(uo.getStaff().getUserid()));
-					for (orderson orderson : uo.getList()) {
-						if(orderson.getTypeid()==1||orderson.getTypeid()==5) {
-							orderwork p=mapper3.queryByOrderId(orderson.getId());
-							if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
-								for (orderproductwork opw  : p.getList()) {
-									opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
-									opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
-									opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
-									for (worduser  wu: opw.getList()) {
-										wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
-										wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
-									}
-								}
-							}
-							if(orderson.getTypeid()==5) {
-								p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
-							}
-							orderson.setIx(p);
-						}
-						if(orderson.getTypeid()==2) {
-							menu m=new menu();
-							m.setId(orderson.getIid());
-							m=mapper7.QueryMenu(m).get(0);
-							orderson.setIx(m);
-						}
-						if(orderson.getTypeid()==3) {
-							roomdestine ro=new roomdestine();
-							ro=mapper19.selectByPrimaryKey(orderson.getIid());
-							room r=new room();
-							r.setId(ro.getRoomid());
-							ro.setRoom(mapper20.queryByroom(r).get(0));
-							ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
-							ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
-							orderson.setIx(ro);
-						}
-						if(orderson.getTypeid()==4) {
-							bind b=new bind();
-							b.setId(orderson.getIid());
-							orderson.setIx(mapper10.querybind(b).get(0));
-						}
-						if(orderson.getTypeid()==7) {
-							Meal m=new Meal();
-							m=mapper9.query(orderson.getIid()).get(0);
-							m.setImg(mapper6.queryimg(m.getId(), 7));
-							for (Mealix mx : m.getList()) {
-								if(mx.getTypeid()==1) {
-									orderwork p=mapper3.queryByOrderId(orderson.getId());
-									if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
-										for (orderproductwork opw  : p.getList()) {
-											opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
-											opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
-											opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
-											for (worduser  wu: opw.getList()) {
-												wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
-												wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
-											}
+		umo.setList(mapper1.queryByMainOrderId(umo.getId(),null));
+		umo.setUser(mapper1.selectByPrimaryKey(mapper12.selectByPrimaryKey(umo.getOrdercustomer()).getMainiuserid()));
+		umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
+		umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
+		for (users u : umo.getList()) {
+			if(u.getId()==uor.getOrdercustomer()) {
+				for (userorder uo : u.getOrders()) {
+					uo.setUser(mapper1.selectByPrimaryKey(uo.getOrdercustomer()));
+					uo.setStaff(mapper2.selectByPrimaryKey(uo.getOrderuser()));
+					uo.getStaff().setUser(mapper1.selectByPrimaryKey(uo.getStaff().getUserid()));
+						for (orderson orderson : uo.getList()) {
+							if(orderson.getTypeid()==1||orderson.getTypeid()==5) {
+								orderwork p=mapper3.queryByOrderId(orderson.getId());
+								if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
+									for (orderproductwork opw  : p.getList()) {
+										opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
+										opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
+										opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
+										for (worduser  wu: opw.getList()) {
+											wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
+											wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
 										}
 									}
-									mx.setIx(p);
 								}
-								if(mx.getTypeid()==2) {
-									menu mu=new menu();
-									mu.setId(mx.getIid());
-									mx.setIx(mapper7.QueryMenu(mu).get(0));
+								if(orderson.getTypeid()==5) {
+									p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
 								}
-								if(mx.getTypeid()==3) {
-									roomdestine ro=new roomdestine();
-									ro=mapper19.selectByPrimaryKey(mx.getIid());
-									room r=new room();
-									r.setId(ro.getRoomid());
-									ro.setRoom(mapper20.queryByroom(r).get(0));
-									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
-									ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
-									mx.setIx(ro);
-								}
-								if(mx.getTypeid()==4) {
-									bind b=new bind();
-									b.setId(mx.getIid());
-									mx.setIx(mapper10.querybind(b).get(0));
-								}
+								orderson.setIx(p);
 							}
-							orderson.setIx(m);
+							if(orderson.getTypeid()==2) {
+								menu m=new menu();
+								m.setId(orderson.getIid());
+								m=mapper7.QueryMenu(m).get(0);
+								orderson.setIx(m);
+							}
+							if(orderson.getTypeid()==3) {
+								roomdestine ro=new roomdestine();
+								ro=mapper19.selectByPrimaryKey(orderson.getIid());
+								room r=new room();
+								r.setId(ro.getRoomid());
+								ro.setRoom(mapper20.queryByroom(r).get(0));
+								ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+								ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
+								orderson.setIx(ro);
+							}
+							if(orderson.getTypeid()==4) {
+								bind b=new bind();
+								b.setId(orderson.getIid());
+								orderson.setIx(mapper10.querybind(b).get(0));
+							}
+							if(orderson.getTypeid()==7) {
+								Meal m=new Meal();
+								m=mapper9.query(orderson.getIid()).get(0);
+								m.setImg(mapper6.queryimg(m.getId(), 7));
+								for (Mealix mx : m.getList()) {
+									if(mx.getTypeid()==1) {
+										orderwork p=mapper3.queryByOrderId(orderson.getId());
+										if(p!=null&&p.getList()!=null&&p.getList().size()>0) {
+											for (orderproductwork opw  : p.getList()) {
+												opw.setProject(mapper4.selectByPrimaryKey(opw.getIid()));
+												opw.getProject().setPt(mapper5.selectByPrimaryKey(opw.getProject().getTid()));
+												opw.getProject().setIlist(mapper6.queryimg(opw.getProject().getId(),1));
+												for (worduser  wu: opw.getList()) {
+													wu.setStaff(mapper2.selectByPrimaryKey(wu.getProductstaffid()));
+													wu.getStaff().setUser(mapper1.selectByPrimaryKey(wu.getStaff().getUserid()));
+												}
+											}
+										}
+										mx.setIx(p);
+									}
+									if(mx.getTypeid()==2) {
+										menu mu=new menu();
+										mu.setId(mx.getIid());
+										mx.setIx(mapper7.QueryMenu(mu).get(0));
+									}
+									if(mx.getTypeid()==3) {
+										roomdestine ro=new roomdestine();
+										ro=mapper19.selectByPrimaryKey(mx.getIid());
+										room r=new room();
+										r.setId(ro.getRoomid());
+										ro.setRoom(mapper20.queryByroom(r).get(0));
+										ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+										ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
+										mx.setIx(ro);
+									}
+									if(mx.getTypeid()==4) {
+										bind b=new bind();
+										b.setId(mx.getIid());
+										mx.setIx(mapper10.querybind(b).get(0));
+									}
+									orderson.setIx(m);
+								}
 						}
+						
 					}
+				}
 			}
+		}
 		return umo;
 	}
 		

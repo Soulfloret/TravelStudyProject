@@ -84,7 +84,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	/**
 	 * 拦截器
 	 */
-	protected void addInterceptors(InterceptorRegistry registry) {
+	/*protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(my).addPathPatterns("/**")
 		.excludePathPatterns("/login/mode")
 		.excludePathPatterns("/js/**")
@@ -145,10 +145,11 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/fileupload/**")
 		.excludePathPatterns("/error/**")
 		.excludePathPatterns("/team/queryAllteamByuid")
+		.excludePathPatterns("/customer/queryById")
 		.excludePathPatterns("/*.ico");
 		super.addInterceptors(registry);
 	}
-
+*/
 	@Override
 	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -107,7 +108,7 @@ public class FriendCotrller {
 
 	@RequestMapping("upload")
 	public void goupload(MultipartFile file0,MultipartFile file1,MultipartFile file2,String groupname,String uid,String groupdescribe, String   ids,HttpSession session) {
-			String url = "f:/fileupload/";
+			String url = "d:/fileupload/";
 			List<images> list1=new ArrayList<images>();
 			MultipartFile []file= {file0,file1,file2};
 			File filePath = new File(url);
@@ -217,6 +218,11 @@ public class FriendCotrller {
 		}
 		use.setDlist(list);
 		return use;
+	}
+	@ResponseBody
+	@RequestMapping("queryByUid")
+	public users queryByUid(Integer uid) {
+		return uservice.query(uid);
 	}
 	
 }
