@@ -79,7 +79,7 @@ public class productController {
 	/*前台查询活动详情*/
 	@RequestMapping("QueryQtproductByXq")
 	public String QueryQtproductByXq(Model model,Integer id) {
-		product product=prod.queryByXqById(13);
+		product product=prod.queryByXqById(id);
 		System.out.println(JSON.toJSONString(product));
 		model.addAttribute("product", product);
 		return "Qt_product_Xq";
