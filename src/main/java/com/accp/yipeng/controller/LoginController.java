@@ -50,11 +50,6 @@ public class LoginController {
 	public users Applogin(String uname,String upassword,HttpSession session) {
 		users use=sunService.queryByName(uname, upassword);
 		if(use!=null){
-			List<discussiongroup> list= disService.selectAllDiscussionGroup(use.getId());
-			for (discussiongroup discussiongroup : list) {
-				discussiongroup.setDlist(disSonService.selectAllusersBydid(discussiongroup.getId()));
-			}
-			use.setDlist(list);
 			session.setAttribute("user", use);
 			return use;
 		}else {

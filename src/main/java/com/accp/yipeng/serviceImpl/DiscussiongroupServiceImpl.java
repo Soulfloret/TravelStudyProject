@@ -80,7 +80,7 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 	
 	@Override
 	public int add(discussiongroup record,String ids,List<images> list) {
-		int i=dismapper.insert(record);
+		int i=0;
 		String [] args=ids.split(",");
 		Integer [] id=new Integer[args.length];
 		for (int j = 0; j < args.length; j++) {
@@ -168,5 +168,11 @@ public class DiscussiongroupServiceImpl implements DiscussiongroupService{
 		mes.setSendtime(new Date());
 		mes.setContent(content);
 		return messmapper.insert(mes);
+	}
+
+	@Override
+	public int insertSelective(discussiongroup record) {
+		// TODO Auto-generated method stub
+		return dismapper.insertSelective(record);
 	}
 }

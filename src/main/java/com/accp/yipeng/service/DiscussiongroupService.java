@@ -6,7 +6,8 @@ import com.accp.domain.discussiongroup;
 import com.accp.domain.images;
 
 public interface DiscussiongroupService {
-    
+    int insertSelective(discussiongroup record);
+
     //模糊查询 查用户 或讨论组
     discussiongroup selectByPrimaryKey(Integer id);
     List<Object> query(String name,Integer Id);

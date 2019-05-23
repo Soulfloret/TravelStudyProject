@@ -331,11 +331,11 @@
 								</div>
 
 								<div class="owl-carousel owl-theme" data-visible-items="4" data-navigation="true" data-lazyload="true">
-									<div class="product" data-product-id="1" th:each="item : ${productlist}">
+									<div class="product" data-product-id="${item.id}" th:each="item : ${productlist}">
 										<div class="entry-media">
 											<img th:src="'/'+${item.pplist[0].pro.ilist[0].url}" alt="" class="lazyOwl thumb img" />
 											<div class="hover">
-												<a th:href="@{/xjb_productController}" class="entry-url"></a>
+												<a th:href="@{/xjb_productController/QueryQtproductByXq(id=${item.id})}" class="entry-url"></a>
 												<ul class="icons unstyled">
 													<li>
 														<div class="circle ribbon ribbon-new">New</div>
@@ -386,7 +386,7 @@
 									</div>
 								</div>
 								<div class="owl-carousel owl-theme" data-visible-items="5" data-navigation="true" data-lazyload="true">
-									<div class="product" data-product-id="9" th:each="item : ${menulist}">
+									<div class="product" data-product-id="${item.id}" th:each="item : ${menulist}">
 										<div class="entry-media">
 											<img th:src="${item.image.url}" alt="" class="lazyOwl thumb img"  />
 											<div class="hover">

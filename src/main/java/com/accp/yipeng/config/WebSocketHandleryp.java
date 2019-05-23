@@ -24,7 +24,7 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 	//建立连接后
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		users use=(users)session.getAttributes().get("use");
-		if(use.getType()!=null && use.getDid()!=null) {
+		/*if(use.getType()!=null && use.getDid()!=null) {
 			if(use.getType()==1) {
 				MAP1.remove(use.getDid()+"");
 			}else {
@@ -41,11 +41,11 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 					list1.remove(map.get(use.getId()+""));
 				}
 			}
-		}
+		}*/
 		if(map.get( use.getId()+"")==null) {
 			map.put(use.getId()+"", session);
 		}
-		List<discussiongroup> list =use.getDlist();
+		/*List<discussiongroup> list =use.getDlist();
 		for (discussiongroup discussiongroup : list) {
 			for (discussiongroupson discussiongroupson : discussiongroup.getDlist()) {
 				if(discussiongroupson.getUserid()==use.getId()) {
@@ -72,7 +72,7 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 					
 				}
 			}
-		}
+		}*/
 		session.sendMessage(new TextMessage("建立连接成功，可以进行通信"));
 	}
 	public void sendMsg(String message,String  did,String uid) {
@@ -91,5 +91,34 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 				e.printStackTrace();
 			}
 	}
+	
+	public    void addGroup(String groupId) {
+		List<WebSocketSession> groupSession = new ArrayList<WebSocketSession>();
+		MAP1.put(groupId, groupSession);
+	}
+	
+	public   void addGroupItem(String groupId,String userid) {
+		WebSocketSession webSession = map.get(userid);
+		MAP1.get(groupId).add(webSession);
+	}
+	
+	public   void removeGroupItem(String groupId,String userid) {
+		WebSocketSession webSession = map.get(userid);
+		MAP1.get(groupId).remove(webSession);
+	}
+	
+	public   void removeGroup(String groupId) {
+		MAP1.remove(groupId);
+	}
+	
+	public void initGroup(List<discussiongroup> list) {
+		
+		for (discussiongroup discussiongroup : list) {
+			addGroup(discussiongroup.getId()+"");
+		}
+	}
+	
+	
+	
 
 }

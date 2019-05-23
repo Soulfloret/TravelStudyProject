@@ -116,11 +116,12 @@
 	SELECT s.*,ut.tName FROM users  AS s INNER JOIN usertype AS ut
 	ON s.TypeId=ut.id
 	<where>
+		and	 s.typeId!=3
 		<if test="uname!=null and uname!=''">
 		 and  s.uname LIKE CONCAT('%',#{uname},'%')
 		</if>
 		<if test="typeId!=null">
-			AND s.typeId=#{typeId}	
+			AND s.typeId=#{typeId} 
 		</if>
 	</where>
 	ORDER BY id

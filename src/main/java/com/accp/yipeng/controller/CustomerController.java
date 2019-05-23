@@ -191,7 +191,6 @@ public class CustomerController {
 	 */
 	@RequestMapping("topagehome")
 	public  String topagehome(Model model) {
-		
 		model.addAttribute("menulist", service2.selectByQtTj());
 		model.addAttribute("productlist", prod.QueryQtproductByXq());
 		return "pagehome";
