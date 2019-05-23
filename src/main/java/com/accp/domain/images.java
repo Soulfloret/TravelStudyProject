@@ -19,9 +19,20 @@ public class images {
 
     private String name5;
     
+    private Notice noti;
+    
+    
     
 
-    public images() {
+    public Notice getNoti() {
+		return noti;
+	}
+
+	public void setNoti(Notice noti) {
+		this.noti = noti;
+	}
+
+	public images() {
 		super();
 	}
 

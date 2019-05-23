@@ -6,27 +6,40 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MealMapper {
-    int countByExample(MealExample example);
+	int countByExample(MealExample example);
 
-    int deleteByExample(MealExample example);
+	int deleteByExample(MealExample example);
 
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insert(Meal record);
+	int insert(Meal record);
 
-    int insertSelective(Meal record);
+	int insertSelective(Meal record);
 
-    List<Meal> selectByExample(MealExample example);
+	List<Meal> selectByExample(MealExample example);
 
-    Meal selectByPrimaryKey(Integer id);
+	Meal selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") Meal record, @Param("example") MealExample example);
+	int updateByExampleSelective(@Param("record") Meal record, @Param("example") MealExample example);
 
-    int updateByExample(@Param("record") Meal record, @Param("example") MealExample example);
+	int updateByExample(@Param("record") Meal record, @Param("example") MealExample example);
 
-    int updateByPrimaryKeySelective(Meal record);
+	int updateByPrimaryKeySelective(Meal record);
 
-    int updateByPrimaryKey(Meal record);
-    
-    List<Meal> query(@Param("id")Integer id);
+	int updateByPrimaryKey(Meal record);
+
+	List<Meal> query(@Param("id") Integer id);
+
+	List<Meal> mealQuery(Meal record);
+
+	List<Meal> mealProjectQueryById(@Param("id") Integer id);
+
+	List<Meal> mealRoomQueryById(@Param("id") Integer id);
+
+	List<Meal> mealMenuQueryById(@Param("id") Integer id);
+
+	List<Meal> projectAjaxQuery(@Param("id") Integer id);
+
+	List<Meal> menuAjaxQuery(@Param("id") Integer id);
+
 }

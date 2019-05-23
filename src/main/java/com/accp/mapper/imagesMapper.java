@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface imagesMapper {
+	
     int countByExample(imagesExample example);
 
     int deleteByExample(imagesExample example);

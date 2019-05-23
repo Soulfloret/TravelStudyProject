@@ -105,6 +105,12 @@ public class staffService implements staffServiceImpl{
 		return cmapper.commissionQuery(stid);
 	}
 
+	@Override
+	public List<staff> mySalary(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.mySalary(id);
+	}
+
 	
 	
 

@@ -31,4 +31,6 @@ public interface staffServiceImpl {
 	
 	commission commissionQuery(Integer stid);
 	
+	List<staff> mySalary(Integer id);
+	
 }

@@ -23,83 +23,24 @@
 	<body id="reportsPage">
 		<div class="" id="home">
 			<div class="container">
-				<div class="modal fade bs-example-modal-lg" id="JJ_tan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			
+			<div class="modal fade bs-example-modal-lg" id="xq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
-							<div id="" class="modal-header JJ_shang">
-								<span class="closeModal" style="font-size: 20px;">
-									套餐详情
-								</span>
-								<span class="close" data-dismiss="modal">&times;</span>
-							</div>
-							<div id="" class="modal-body JJ_tao">
-								<table class="table">
-									<tr>
-										<td>套餐名称</td>
-										<td>数量</td>
-										<td>价格</td>
-									</tr>
-									<tr>
-										<td>去玩儿</td>
-										<td>50</td>
-										<td>￥650</td>
-									</tr>
-								</table>
-								<!-- <span>活动</span>
-								<table class="table">
-									<thead>
-										<tr>
-											<td>活动名称</td>
-											<td>人数</td>
-											<td>价格</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>青青草原</td>
-											<td>20</td>
-											<td>￥499</td>
-										</tr>
-									</tbody>
-								</table> -->
-								<span>餐饮</span>
-								<table class="table">
-									<thead>
-										<tr>
-											<td>餐饮名称</td>
-											<td>类型</td>
-											<td>数量</td>
-											<td>价格</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>奶酪</td>
-											<td>奶制品</td>
-											<td>2</td>
-											<td>￥50</td>
-										</tr>
-										<tr>
-											<td>卫龙</td>
-											<td>油炸</td>
-											<td>2</td>
-											<td>￥10</td>
-										</tr>
-										<tr>
-											<td>白云边</td>
-											<td>酒类</td>
-											<td>1</td>
-											<td>￥150</td>
-										</tr>
-									</tbody>
-								</table>
+							<h1>详情</h1>
+							<div class="container xqs">
+								
 							</div>
 							<div id="" class="modal-footer">
+								<a class="btn">提交</a>
 								<a class="btn" data-dismiss="modal">关闭</a>
 							</div>
 						</div>
+
 					</div>
 				</div>
+			
+			
 
 				<div class="modal fade bs-example-modal-lg" id="JJ_taocan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-lg" role="document">
@@ -111,11 +52,11 @@
 									<input type="text" />
 								</p>
 								<p>
-									<label>选择项目:</label>
+									<label>选择活动:</label>
 									<input type="radio" class="JJ_xzhd" />
 								</p>
 								<p class="JJ_hdadd">
-
+									
 								</p>
 								<p>
 									<label>选择餐饮:</label>
@@ -149,29 +90,29 @@
 									<th scope="col">套餐名称</th>
 									<th scope="col">内容</th>
 									<th scope="col">价格</th>
-									<th scope="col">库存</th>
-									<th scope="col">详情</th>
+									<th scope="col">库存</th><!-- 
+									<th scope="col">详情</th> -->
 									<th scope="col">操作</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="item:${list}">
-									<td>
-										<b th:text="${item.mname}">去玩儿</b>
-									</td>
-									<td>
-										<b th:text="${item.list[0].mname}"></b>+<b th:text="${item.list[1].mname}"></b>
-									</td>
+									<td class="tm-product-name"><p th:text="${item.name}" class="tc" th:mi="${item.id}" data-target="#xq" data-toggle="modal"></p></td>
+                   					<td>
+				                    	<p>项目:   <a th:each="items,state1 : ${item.plist}" th:text="${items.pname}" th:href="@{/xjb_projectController/toproject_xq(id=${item.id})}"></a></p>
+				                    	<p>餐饮:   <a th:each="items,state2 : ${item.blist}" th:text="${items.mname}" th:href="@{/bing/toupdatebing(id=${items.id})}"></a></p>
+				                    	<p>房间:   <a th:each="items,state3 : ${item.rlist}" th:text="${items.rname}" th:href="@{/room/toupdateroom(id=${items.id})}"></a></p>
+				                    </td>
 									<td>￥<b th:text="${item.price}"></b></td>
 									<td>
-									<b th:text="${item.stock}" th:if="${item.stock!=0}"></b>
-									<b th:text="已售完" th:if="${item.stock==0}" style="color: red"></b>
+									<b th:text="${item.name1}" th:if="${item.name1!=0}"></b>
+									<b th:text="已售完" th:if="${item.name1==0}" style="color: red"></b>
 									</td>
-									<td><b>
+									<!-- <td><b>
 	                                    	<a href="#" data-target="#JJ_tan" th:value="${item.id}" data-toggle="modal" class="tm-product-delete-link JJ_tc JJ_xiang">
 	                                    		<i class="fa fa-info"></i>
 	                                    	</a>
-                                    </b></td>
+                                    </b></td> -->
 									<td><b>
                                     	<a href="javascript:void(0)" class="tm-product-delete-link JJ_delete">
 					                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
@@ -194,19 +135,103 @@
 		<script th:src="@{/js/bootstrap.min.js}"></script>
 		<!-- https://getbootstrap.com/ -->
 		<script>
-			$(function() {
+		
+		$(function(){
+			$(".tc").click(function(){
+				var mid=$(this).attr("mi");
+				$(".xqs").html("");
+				$.ajax({
+					url : "/meal/mealProjectQueryById",
+					data : {
+						id : mid
+					},
+					type : "POST",
+					dataTyoe : "json",
+					success:function(data1){
+						console.log(data1);
+						$(data1).each(function(i1,obj1){
+							console.log(obj1);
+							var k1=""+obj1.plist[0].pname+".."+obj1.plist[0].price+"";
+							console.log("项目"+k1);
+						})
+						
+						
+						$.ajax({
+							url : "/meal/mealMenuQueryById",
+							data : {
+								id : mid
+							},
+							type : "POST",
+							dataTyoe : "json",
+							success:function(data2){
+								$(data2).each(function(i2,obj2){
+									console.log(obj2);
+									var k2=""+obj2.blist[0].mname+".."+obj2.blist[0].price+"";
+									console.log("餐饮"+k2);
+								})
+							}
+						})
+						
+						
+						$.ajax({
+							url : "/meal/mealRoomQueryById",
+							data : {
+								id : mid
+							},
+							type : "POST",
+							dataTyoe : "json",
+							success:function(data3){
+								console.log(data3);
+								$(data3).each(function(i3,obj3){
+									console.log(obj3);
+									var k3=""+obj3.rlist[0].rname+".."+obj3.rlist[0].price+"";
+									console.log("房间"+k3);
+								})
+							}
+						})
+					}
+				})
+			})
+		})
+		
+		
+			/* $(function() {
+				
 				$(".JJ_xzhd").click(function() {
+					var d1;
+					$(".JJ_hdadd").html("");
 					if(true) {
-						var xm = $("<label>骑马</label>&nbsp;<input type='radio' />&nbsp;" +
-							"<label>射击</label>&nbsp;<input type='radio' />&nbsp;" +
-							"<label>务农</label>&nbsp;<input type='radio' />&nbsp;" +
-							"<label>绘画</label>&nbsp;<input type='radio' />&nbsp;" +
-							"<label>游泳</label>&nbsp;<input type='radio' />&nbsp;");
-						$(".JJ_hdadd").append(xm);
+						$.ajax({
+							url : "/menu/productQuery",
+							type : "POST",
+							dataTyoe : "json",
+							contentType : "application/json;charset=utf-8",
+							success:function(data1){
+								console.log(data1);
+								$(data1).each(function(i1,obj1){
+									var tr="<tr>"+
+									"<td><input type='checkbox'/></td>"+
+									"<td>"+obj1.pname+"</td>"+
+									"<td>"+obj1.content+"</td>"+
+									"</tr>";
+									d1+=tr;
+								})
+								var d2="<table class='table ts'>"+
+										"<tr>"+
+											"<td>选择</td>"+
+											"<td>活动</td>"+
+											"<td>内容</td>"+
+										"</tr>"+
+									"</table>";
+								$(".JJ_hdadd").append(d2);
+								$(".ts").append(d1);
+							}
+								})
 					}
 				})
 
 				$(".JJ_xzcy").click(function() {
+					$(".JJ_cyfladd").html("");
 					var cyfl = $("<label>油炸</label>&nbsp;<input type='radio' name='names' class='cyfl' value='1'/>&nbsp;" +
 						"<label>饮料</label>&nbsp;<input type='radio' name='names' class='cyfl' value='2' />&nbsp;" +
 						"<label>奶制品</label>&nbsp;<input type='radio' name='names' class='cyfl' value='3' />&nbsp;" +
@@ -267,7 +292,7 @@
 				$(".JJ_tc").click(function(){
 					
 				})
-			})
+			}) */
 		</script>
 	</body>
 

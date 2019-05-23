@@ -1,127 +1,215 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>个人薪资管理</title>
-		<link rel="stylesheet" th:href="@{/https://fonts.googleapis.com/css?family=Roboto:400,700}" />
-		<!-- https://fonts.google.com/specimen/Roboto -->
-		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
-		<!-- https://fontawesome.com/ -->
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-		<!-- https://getbootstrap.com/ -->
-		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
-		<style>
-			th {
-				text-align: center;
-			}
-			
-			td {
-				text-align: center;
-			}
-		</style>
-	</head>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>个人薪资管理</title>
+<link rel="stylesheet"
+	th:href="@{/https://fonts.googleapis.com/css?family=Roboto:400,700}" />
+<!-- https://fonts.google.com/specimen/Roboto -->
+<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
+<!-- https://fontawesome.com/ -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<!-- https://getbootstrap.com/ -->
+<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+<style>
+th {
+	text-align: center;
+}
 
-	<body id="reportsPage">
-		<div class="container">
+td {
+	text-align: center;
+}
+</style>
+</head>
+
+<body id="reportsPage">
+	<div class="container">
 		<div class="row">
-				<div class="col">
-					<p class="text-white ">薪资列表</p>
-				</div>
+			<div class="col">
+				<p class="text-white ">薪资列表</p>
 			</div>
-			<div class="row tm-content-row">
-				<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-					<div class="tm-bg-primary-dark tm-block tm-block-products" style="margin-top: 20px;">
-						<div class="tm-product-table-container">
-							<table class="table table-hover tm-table-small tm-product-table">
-								<thead>
-									<tr>
-										<th scope="col">&nbsp;</th>
-										<th scope="col">发放月份</th>
-										<th scope="col">月薪</th>
-										<th scope="col">奖金</th>
-										<th scope="col">罚款</th>
-										<th scope="col">总计</th>
-										<th scope="col">详情</th>
-										<th scope="col">操作</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td class="tm-product-name">1月份</td>
-										<td>1500</td>
-										<td>100</td>
-										<td>200</td>
-										<td>￥1400</td>
-										<td>
-											<a href="salaryInfo.html" class="tm-product-delete-link">
-												<i class="fa fa-info" style="color: white;"></i>
-											</a>
-										</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td class="tm-product-name">1月份</td>
-										<td>1500</td>
-										<td>100</td>
-										<td>200</td>
-										<td>￥1400</td>
-										<td>
-											<a href="salaryInfo.html" class="tm-product-delete-link">
-												<i class="fa fa-info" style="color: white;"></i>
-											</a>
-										</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><input type="checkbox" /></th>
-										<td class="tm-product-name">1月份</td>
-										<td>1500</td>
-										<td>100</td>
-										<td>200</td>
-										<td>￥1400</td>
-										<td>
-											<a href="salaryInfo.html" class="tm-product-delete-link">
-												<i class="fa fa-info" style="color: white;"></i>
-											</a>
-										</td>
-										<td>
-											<a href="#" class="tm-product-delete-link">
-												<i class="far fa-trash-alt tm-product-delete-icon"></i>
-											</a>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+		</div>
+		<div class="row tm-content-row">
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+				<div class="tm-bg-primary-dark tm-block tm-block-products"
+					style="margin-top: 20px;">
+					<div class="tm-product-table-container">
+						<table class="table table-hover tm-table-small tm-product-table">
+							<thead>
+								<tr>
+									<th scope="col">&nbsp;</th>
+									<th scope="col">姓名</th>
+									<th scope="col">月薪</th>
+									<th scope="col">奖金</th>
+									<th scope="col">打卡次数</th>
+									<th scope="col">总计</th>
+									<!-- <th scope="col">详情</th>
+									<th scope="col">操作</th> -->
+								</tr>
+							</thead>
+							<tbody class="td">
+								<!-- <tr th:each="item:${list}">
+									<th scope="row"><input type="checkbox" /></th>
+									<td><b th:text="${item.ulist.uname}"></b></td>
+									<td>
+										<div class="tm-status-circle moving"></div>
+										<b th:text="${item.plist.postion}"></b>
+									</td>
+									<td><b th:text="${item.salist.basesalary}"></b></td>
+									<td><b th:text="${item.slist.staffid}"></b></td>
+									<td><b> <a data-target="#JJ_xztan" data-toggle="modal"
+											href="javascript:void(0)"
+											class="tm-product-delete-link JJ_delete salary"> <i
+												class="fa fa-info"></i>
+										</a></b></td>
+									<td><a href="#" class="tm-product-delete-link"> <i
+											class="far fa-trash-alt tm-product-delete-icon"></i>
+									</a></td>
+								</tr> -->
+								<!-- <tr>
+									<th scope="row"><input type="checkbox" /></th>
+									<td class="tm-product-name">1月份</td>
+									<td>1500</td>
+									<td>100</td>
+									<td>200</td>
+									<td>￥1400</td>
+									<td><a href="salaryInfo.html"
+										class="tm-product-delete-link"> <i class="fa fa-info"
+											style="color: white;"></i>
+									</a></td>
+									<td><a href="#" class="tm-product-delete-link"> <i
+											class="far fa-trash-alt tm-product-delete-icon"></i>
+									</a></td>
+								</tr>
+								<tr>
+									<th scope="row"><input type="checkbox" /></th>
+									<td class="tm-product-name">1月份</td>
+									<td>1500</td>
+									<td>100</td>
+									<td>200</td>
+									<td>￥1400</td>
+									<td><a href="salaryInfo.html"
+										class="tm-product-delete-link"> <i class="fa fa-info"
+											style="color: white;"></i>
+									</a></td>
+									<td><a href="#" class="tm-product-delete-link"> <i
+											class="far fa-trash-alt tm-product-delete-icon"></i>
+									</a></td>
+								</tr> -->
+							</tbody>
+						</table>
+						<br>
+						<br>
+						<br>
+						<h4 style="text-align: center;color: red;">打卡</h4>
+						<div class="d1">
+						
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<!-- https://jquery.com/download/ -->
-		<script src="js/bootstrap.min.js"></script>
-		<!-- https://getbootstrap.com/ -->
-		<script>
-			$(function() {
-				$(".tm-product-name").on("click", function() {
-					window.location.href = "edit-product.html";
-				});
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<!-- https://jquery.com/download/ -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- https://getbootstrap.com/ -->
+	<script>
+		$(function() {
+			var id=2;
+			var si;
+			var xz=0;
+			var tabs;
+			$.ajax({
+				url : "/mySalary/queryById?id=" + id,
+				type : "POST",
+				dataTyoe : "json",
+				contentType : "application/json;charset=utf-8",
+				success : function(data) {
+				$(data).each(function(i,obj){
+					var di="<tr>"+
+						"<th scope='row'><input type='checkbox' /></th>"+
+						"<td><b>"+obj.ulist.uname+"</b></td>"+
+						"<td><b>"+obj.salist.basesalary+"</b></td>"+
+						"<td class='jj'></td>"+
+						"<td><b>"+obj.slist.staffid+"</b></td>"+
+						"<td class='zj'></td>"+
+						/* "<td><b> <a data-target='#JJ_xztan' data-toggle='modal'"+
+								"href='javascript:void(0)'"+
+								"class='tm-product-delete-link JJ_delete salary'> <i"+
+									"class='fa fa-info'></i>"+
+							"</a></b></td>"+
+						"<td><a href='#' class='tm-product-delete-link'> <i"+
+								"class='far fa-trash-alt tm-product-delete-icon'></i>"+
+						"</a></td>"+ */
+					"</tr>";
+					xz+=obj.salist.basesalary;
+					$(".td").append(di);
+				})
+				$.ajax({
+					url : "/salary/commissionQueryById?stid=" + id,
+					type : "POST",
+					dataTyoe : "json",
+					contentType : "application/json;charset=utf-8",
+					success:function(cdata){
+					if(cdata!=null&&cdata.royaltyamount!=null&&cdata.royaltyamount!=""){
+						si="<span>"+cdata.royaltyamount;+"</span>";
+						xz+=cdata.royaltyamount;
+					}else{
+						xz+=cdata.royaltyamount;
+						si="<span>暂无奖金</span>";
+					}
+					var ji="<b>"+xz+"</b>";
+					$(".jj").append(si);
+					$(".zj").append(ji);
+						}
+					})
+					$.ajax({
+						url : "/salary/signinQuery?id=" + id,
+							type : "POST",
+							dataTyoe : "json",
+							contentType : "application/json;charset=utf-8",
+							success : function(data2) {
+								$(data2).each(function(i1,obj1){
+									var ri=new Date(obj1.signintime).getDate();
+									var yue=new Date(obj1.signintime).getMonth();
+									var nian=new Date(obj1.signintime).getFullYear();
+									var shi=new Date(obj1.signintime).getHours();
+									var fen=new Date(obj1.signintime).getMinutes();
+									var miao=new Date(obj1.signintime).getSeconds();
+									var dates=nian+"-"+yue+"-"+ri+" "+shi+":"+fen+":"+miao;
+										var tr="<tr><td>"+(i1+1)+"</td>"
+										+"<td>"+dates+"</td>"
+										+"</tr>";
+									tabs+=tr;
+								})
+								var tab2="<table class='table table-hover tm-table-small tm-product-table'>"
+								+"<thead>"
+								+"<tr>"
+								+"<td>次数</td>"
+								+"<td>时间</td>"
+								+"</tr>"
+								+"</thead>"
+								+"<tbody class='tb'>"
+								+tabs
+								+"</tbody>"
+								+"</table>";
+								$(".d1").append(tab2);
+							}
+					})	
+				
+				}
+			})
+
+			$(".tm-product-name").on("click", function() {
+				window.location.href = "edit-product.html";
 			});
-		</script>
-	</body>
+		});
+	</script>
+</body>
 
 </html>

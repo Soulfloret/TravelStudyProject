@@ -123,7 +123,7 @@ a {
 							$.ajax({
 								url : "/salary/salaryQueryId?id=" + h,
 								type : "POST",
-								dataTyoe : "json",
+								dataType : "json",
 								contentType : "application/json;charset=utf-8",
 								success : function(data) {
 										var zhi = "<label>姓名:</label>&nbsp;<span>"
@@ -148,7 +148,7 @@ a {
 								$.ajax({
 													url : "/salary/commissionQueryById?stid=" + h,
 													type : "POST",
-													dataTyoe : "json",
+													dataType : "json",
 													contentType : "application/json;charset=utf-8",
 													success:function(cdata){
 														if(cdata!=null&&cdata.royaltyamount!=null&&cdata.royaltyamount!="")
@@ -160,7 +160,7 @@ a {
 								$.ajax({
 									url : "/salary/signinQuery?id=" + h,
 										type : "POST",
-										dataTyoe : "json",
+										dataType : "json",
 										contentType : "application/json;charset=utf-8",
 										success : function(data1) {
 											$(data1).each(function(i,obj){

@@ -54,9 +54,4 @@ public class salaryController {
 		List<signin> list1=service.signinQuery(id);
 		return list1;
 	}
-	
-	@RequestMapping("/query")
-	public String query() {
-		return "salaryInfo";
-	}
 }

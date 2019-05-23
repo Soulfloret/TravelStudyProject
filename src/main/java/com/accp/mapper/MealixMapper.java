@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MealixMapper {
+	
     int countByExample(MealixExample example);
 
     int deleteByExample(MealixExample example);
