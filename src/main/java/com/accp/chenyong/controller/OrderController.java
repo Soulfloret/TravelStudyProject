@@ -71,9 +71,8 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("insertOrder")
-	public String insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
-		System.out.println(1);
-		/*if(order.getList().size()>1) {
+	public int insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
+		if(order.getList().size()>1) {
 			order.setName2("团队");
 		}else {
 			order.setName2("个人");
@@ -99,9 +98,14 @@ public class OrderController {
 				}
 			}
 		}
-		service.insert(order1);*/
-		return "ss";
+		service.insert(order1);
+		return 1;
 	}
+	
+	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("queryIdcard")
 	public List<users> queryIdcar(String uid,Integer typeId,HttpServletRequest req){
@@ -114,7 +118,6 @@ public class OrderController {
 		}else {
 			list=service6.selectBymainiUserId(u.getId(),s.getId());
 		}
-		
 		return list;
 	}
 	

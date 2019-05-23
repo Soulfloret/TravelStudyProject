@@ -16,6 +16,11 @@
   <select id="queryByTime" resultType="INTEGER">
   	SELECT count(*) FROM orderproductwork WHERE startTime=#{starttime} and endTime=#{endtime}
   </select>
+  
+  <select id="queryByTimeEWM" resultType="com.accp.domain.orderproductwork">
+  	SELECT * FROM orderproductwork WHERE startTime=#{starttime} and endTime=#{endtime} and iid=#{iid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

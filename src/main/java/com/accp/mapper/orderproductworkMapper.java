@@ -33,4 +33,6 @@ public interface orderproductworkMapper {
     int project_Order_Insert(orderwork ok);
     
     int queryByTime(orderproductwork work);
+    
+    orderproductwork queryByTimeEWM(orderproductwork work);
 }
