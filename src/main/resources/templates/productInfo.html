@@ -31,6 +31,18 @@
 	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
 	<!-- // PARTICULAR PAGES CSS FILES -->
 	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
+	
+	<style type="text/css">
+		.product-preview .thumbs > li > a {
+		    display: block;
+		    width: 103px;
+		    height: 70px;
+		    border: 3px solid #919191;
+		    border-radius: 50%;
+		    overflow: hidden;
+		    margin-top: 10px;
+		}
+	</style>
 </head>
 <body class="product-single">
 	
@@ -237,7 +249,7 @@
 										<figcaption class="m-b-sm">
 											<h5 class="subheader uppercase">注意事项</h5>
 											<p th:text="${list.remark}"></p>	
-										</figcaption>
+										</figcaption><!-- 
 										<div id="kehu_xinxi">
 											<div>
 												<span>团队/个人</span><br>
@@ -248,7 +260,7 @@
 											</div>
 											<div hidden="hidden" id="hide_dd">
 												<span style="margin-top: 20px;">请输入负责人</span><input type="text" style="margin-left: 20px;height: 30px;margin-top: 20px;"/><br>
-												<button class="btn btn-primary" data-toggle="modal" data-target="#xz_ddry" style="margin-top: 20px;">填写团队人员</button>
+												s<button class="btn btn-primary" data-toggle="modal" data-target="#xz_ddry" style="margin-top: 20px;">填写团队人员</button>
 											</div>
 											<div hidden="hidden" id="hide_ry">
 												<span>请输入姓名</span>
@@ -256,7 +268,7 @@
 												<span>请输入年龄</span>
 												<input type="text" style="height: 30px;"/>
 											</div>
-										</div>
+										</div> -->
 										
 										<ul class="inline-li li-m-r-l m-t-lg">
 											<li>
@@ -277,10 +289,10 @@
 			<section class="section featured visible-items-4">
 				<div class="container">
 					<div class="row">
-						<header class="section-header clearfix col-sm-offset-3 col-sm-6">
+						<!-- <header class="section-header clearfix col-sm-offset-3 col-sm-6">
 							<h3 class="section-title">项目推荐</h3>
 							
-						</header>
+						</header> -->
 						
 						<div class="clearfix"></div>
 						
