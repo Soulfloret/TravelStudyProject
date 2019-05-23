@@ -127,6 +127,8 @@ public class roomcontroller {
 			xusid=xus.getId();
 		}
 		Integer uid=us.getId();//数据库没有
+		roo.setUserid(uid);
+		roo.setName1("1");
 		rd.insertSelective(roo);//添加记录
 		if("1".equals(lx)) {
 			Usermainorder usermainorders=new Usermainorder();
@@ -161,7 +163,7 @@ public class roomcontroller {
 					team t= te.selectBymainiUserId(uid);
 					Usermainorder usermainorders=new Usermainorder();
 					usermainorders.setOrdercustomer(t.getId());
-					usermainorders.setOrderuser(xus.getId());
+					usermainorders.setOrderuser(xusid); 
 					usermainorders.setName2("团队");
 					Usermainorder  usermainorderser=cyu.QueryCunzaiInsert(usermainorders);
 					for (users u :usermainorderser.getList()) {
@@ -253,8 +255,8 @@ public class roomcontroller {
 		//鍓嶅彴涓存椂璁㈠崟椤甸潰
 		@RequestMapping("/querydingdan")
 		public String querydingdan(HttpSession session,Model model) {
-			//users us=(users) session.getAttribute("use");
-			int id=5;
+			users us=(users) session.getAttribute("use");
+			int id=us.getId();
 			List<roomdestine> list =rd.selectByrdId(id ,new Date());
 			model.addAttribute("list", list);
 			return "dingdan";
@@ -268,13 +270,13 @@ public class roomcontroller {
 		}
 		
 		@RequestMapping("/roomaddorder")
-		public String roomaddorder(Integer [] id,Integer [] rid,String lx) {
-			//users us=(users) session.getAttribute("use");
-			int uid=1;//session里面的用户id
+		public String roomaddorder(Integer [] id,Integer [] rid,String lx,HttpSession session) {
+			users us=(users) session.getAttribute("user");
+			int uid=us.getId();//session里面的用户id
 			for (int i = 0; i < rid.length; i++) {
 				roomdestine roomdestines=new roomdestine();
 				roomdestines.setId(rid[i]);
-				roomdestines.setName1("1");
+				roomdestines.setName1("1"); 
 				rd.updateByPrimaryKeySelective(roomdestines);//修改预订记录表状态
 				if("1".equals(lx)) {
 					Usermainorder usermainorders=new Usermainorder();
@@ -284,7 +286,7 @@ public class roomcontroller {
 					Usermainorder Usermainorders =cyu.QueryCunzaiInsert(usermainorders);
 					userorder userorder=Usermainorders.getUser().getOrders().get(0);
 					orderson ordersons=new orderson();
-					ordersons.setIid(id[i]);
+					ordersons.setIid(roomdestines.getId());
 					ordersons.setTypeid(3);
 					ordersons.setName1(userorder.getId().toString());
 					o.insertSelective(ordersons);
@@ -299,7 +301,7 @@ public class roomcontroller {
 						for (userorder userorder : u.getOrders()) {
 							//添加总订单从表
 							orderson ordersons=new orderson();
-							ordersons.setIid(id[i]);
+							ordersons.setIid(roomdestines.getId());
 							ordersons.setTypeid(3);
 							ordersons.setName1(userorder.getId().toString());
 							o.insertSelective(ordersons);
@@ -308,7 +310,7 @@ public class roomcontroller {
 					
 				}
 			}
-			return "redirect:/room/querydingdan";
+			return "redirect:/room/toqueryqtroom";
 		}
 		
 		

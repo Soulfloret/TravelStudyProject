@@ -281,7 +281,7 @@ public class menucontroller {
 				team t= te.selectBymainiUserId(us.getId());
 				Usermainorder usermainorders=new Usermainorder();
 				usermainorders.setOrdercustomer(t.getId());
-				usermainorders.setOrderuser(xus.getId());
+				usermainorders.setOrderuser(xusid); 
 				usermainorders.setName2("团队");
 				Usermainorder  usermainorderser=cyu.QueryCunzaiInsert(usermainorders);
 				for (users u :usermainorderser.getList()) {
@@ -362,7 +362,7 @@ public class menucontroller {
 		shopcart.setIid(iid);
 		shopcart.setTypeid(typeid);
 		shopcart.setName2(name1);
-		shopcart.setUserid(1);//目前没有登录所以暂时用1
+		shopcart.setUserid(use.getId());//目前没有登录所以暂时用1
 		Shopcart  Shopcarts =sc.selectshopcartByid(shopcart);
 		if(Shopcarts==null) {
 			sc.insertSelective(shopcart);
