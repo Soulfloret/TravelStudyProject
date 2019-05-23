@@ -15,15 +15,9 @@
   	SELECT s.id AS productStaffId  FROM staff AS s
 	INNER JOIN  users AS u ON u.`id`=s.`userId`
 	INNER JOIN project AS p ON s.`PostionId` IN (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(p.name1,',',help_topic_id+1),',',-1) AS num 
-		FROM  mysql.help_topic WHERE help_topic_id &lt; LENGTH(p.name1)-LENGTH(REPLACE(p.name1,',',''))+1)
+		FROM  mysql.help_topic WHERE help_topic_id &lt; LENGTH(p.name1)-LENGTH(REPLACE(p.name1,',',''))+1 and p.id=#{pid})
 	LEFT JOIN worduser AS wu ON s.`id`=wu.`productStaffId`
-	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id` 
-	<where>
-		
-		<if test="pid!=null">
-			and p.id=#{pid}
-		</if>
-	</where>
+	LEFT JOIN orderproductwork AS opw ON wu.`workId`=opw.`id`
 	group by s.id
 </select>
   <sql id="Example_Where_Clause" >

@@ -70,17 +70,16 @@ public class OrderController {
 		return service.query(u).get(0);
 	}
 	@ResponseBody
-	@RequestMapping("insertOrder")
-	public String insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
-		System.out.println(1);
-		/*if(order.getList().size()>1) {
+	@RequestMapping("insertOrder1")
+	public String insertOrder1(@RequestBody Usermainorder order,HttpServletRequest req) {
+		if(order.getList().size()>1) {
 			order.setName2("团队");
 		}else {
 			order.setName2("个人");
 		}
-		order.setOrdercustomer(order.getList().get(0).getId());
-//		staff f=(staff)req.getSession().getAttribute("staff");
-		order.setOrderuser(2);
+		order.setOrdercustomer(order.getList().get(0).getMuid());
+		staff f=(staff)req.getSession().getAttribute("staff");
+		order.setOrderuser(f.getId());
 		Usermainorder order1=service.QueryCunzaiInsert(order);
 		if(order.getList().size()==1) {
 				order1.getUser().getOrders().get(0).setList(order.getOlist());
@@ -99,7 +98,7 @@ public class OrderController {
 				}
 			}
 		}
-		service.insert(order1);*/
+		service.insert(order1);
 		return "ss";
 	}
 	@ResponseBody
