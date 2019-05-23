@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.staff;
+import com.accp.domain.team;
 import com.accp.domain.teammember;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.teamservice;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
 import com.accp.yipeng.service.UsersService;
@@ -45,7 +48,6 @@ public class TeamController {
 	@RequestMapping("toTeamDetails")
 	public String toTeamDetails(Integer id,Model model) {
 		model.addAttribute("list",UmoService.query(null));
-		List<Usermainorder> list=UmoService.query(null);
 		model.addAttribute("tid",id);
 		return "TeamDetails";
 	}
@@ -58,10 +60,17 @@ public class TeamController {
 	@RequestMapping("addteam")
 	public String addteam(Integer cid,Integer Mid,users user,String team,HttpSession httpsession) {
 		staff staff=(staff)httpsession.getAttribute("staff");
-		int num=TeamService.insertTeamUsers(cid, Mid, user,team,staff);
+		TeamService.insertTeamUsers(cid, Mid, user,team,staff);
 		return "redirect:/team/toteam";
+	
 	}
 	
-
+	@RequestMapping("queryAllteamByuid")
+	@ResponseBody
+	public List<team> queryAllteamByuid(Integer uid) {
+		
+		return TeamService.selectBymainiUserId(uid);
+	}
+	
 	
 }

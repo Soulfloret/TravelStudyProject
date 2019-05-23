@@ -19,5 +19,9 @@ public class productareasService {
 	public List<productarea> queryByPid(Integer pid){
 		return pa.queryByPid(pid);
 	}
+	
+	public int deleteProjectArea(Integer pid) {
+		return pa.deleteProjectArea(pid);
+	}
  	
 }

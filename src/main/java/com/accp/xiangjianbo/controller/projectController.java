@@ -7,18 +7,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.accp.domain.projecttype;
+import com.accp.domain.staff;
 import com.accp.domain.users;
-
 import com.accp.xiangjianbo.service.areasService;
 import com.accp.xiangjianbo.service.project_PositionsService;
+import com.accp.xiangjianbo.service.project_staffservice;
+import com.accp.xiangjianbo.service.shopcartService;
 import com.accp.xiangjianbo.service.productareasService;
 import com.accp.xiangjianbo.service.projectService;
 import com.accp.xiangjianbo.service.projectTypeService;
@@ -26,7 +31,7 @@ import com.accp.xiangjianbo.service.usersService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+import com.accp.domain.Shopcart;
 import com.accp.domain.areas;
 import com.accp.domain.images;
 import com.accp.domain.positions;
@@ -55,51 +60,43 @@ public class projectController {
 	@Autowired
 	project_PositionsService posservice;
 	
-	/*鏌ヨ鎵�鏈�*/
+	@Autowired
+	shopcartService shopservice;
+	
+	@Autowired
+	project_staffservice staffservice;
+	
+	/*閺屻儴顕楅幍锟介張锟�*/
 	@RequestMapping("query")
 	public String query(Model model,project pro) {
 		List<project> list=pros.queryAll(pro);
-		
 		model.addAttribute("list", list);
 		return "project";
 	}
 	
-	/*鍒伴」鐩柊澧為〉闈�*/
+	/*閸掍即銆嶉惄顔芥煀婢х偤銆夐棃锟�*/
 	@RequestMapping("toinsert")
 	public String toinsert(Model model,areas area,String name) {
 		List<projecttype> typelist=ptype.query();
 		List<areas> alist=areas.insery_project_query_area();
 		List<positions> pslist=posservice.queryPosition();
+		List<staff> stalist=staffservice.ByProjectName();
 		model.addAttribute("pslist", pslist);
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("alist", alist);
+		model.addAttribute("stalist", stalist);
 		return "insert_project";
 	}
 	
-	
-	/*鏂板椤圭洰鏌ヨ璐熻矗浜篿d*/
-	@RequestMapping("/queryName")
-	@ResponseBody
-	public users queryName(String name) {
-		users project_user=user.queryByName(name);
-		if(project_user!=null) {
-			
-			return project_user;
-		}else {
-			return null;
-		}
-	}
-	
-	/*鏌ヨ椤圭洰璇︽儏*/
+	/*閺屻儴顕楁い鍦窗鐠囷附鍎�*/
 	@RequestMapping("toproject_xq")
 	public String toproject_xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		
 		model.addAttribute("list",list);
 		return "edit-project";
 	}
 	
-	/*鏂板椤圭洰*/
+	/*閺傛澘顤冩い鍦窗*/
 	@RequestMapping("file")
 	@ResponseBody
 	public String file(MultipartFile [] file,project pro) {
@@ -111,11 +108,11 @@ public class projectController {
 		List<images> ilist=new ArrayList<images>(); 
 		try {
 			for (MultipartFile f : file) {			
-				String uuid=UUID.randomUUID().toString();//锟斤拷锟斤拷锟斤拷锟斤拷募锟铰凤拷锟�
-				String name=f.getOriginalFilename();//锟斤拷取锟斤拷锟侥硷拷锟斤拷锟斤拷锟斤拷
-				String suffix=name.substring(name.lastIndexOf("."),name.length());//锟斤拷取锟斤拷锟侥硷拷锟侥猴拷缀锟斤拷
-				File fileImg=new File(url+uuid+suffix);//锟斤拷锟斤拷锟侥硷拷路锟斤拷
-				f.transferTo(fileImg);//锟斤拷锟斤拷锟侥硷拷
+				String uuid=UUID.randomUUID().toString();//閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹鍕熼敓閾板嚖鎷烽敓锟�
+				String name=f.getOriginalFilename();//閿熸枻鎷峰彇閿熸枻鎷烽敓渚ョ》鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹
+				String suffix=name.substring(name.lastIndexOf("."),name.length());//閿熸枻鎷峰彇閿熸枻鎷烽敓渚ョ》鎷烽敓渚ョ尨鎷风紑閿熸枻鎷�
+				File fileImg=new File(url+uuid+suffix);//閿熸枻鎷烽敓鏂ゆ嫹閿熶茎纭锋嫹璺敓鏂ゆ嫹
+				f.transferTo(fileImg);//閿熸枻鎷烽敓鏂ゆ嫹閿熶茎纭锋嫹
 				String img_json="fileupload/"+fileImg.getName();
 				images i=new images();
 				i.setUrl(img_json);
@@ -129,22 +126,42 @@ public class projectController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		pro.setIlist(ilist);
+		return JSON.toJSONString(ilist);
+	}
+	
+	@RequestMapping("/project_insert")
+	@ResponseBody
+	public int project_insert(project pro) {
 		pro.setPstatus("1");
 		int i=pros.insert(pro);
+		System.out.println(i);
+		return i;
+	}
+	
+	/*修改项目*/
+	@RequestMapping("/project_update")
+	@ResponseBody
+	public String project_update(project pro) {
+		return "";
+	}
+	
+	/*删除项目*/
+	@RequestMapping("/project_delete")
+	public String project_delete(Integer id) {
+		int i=pros.deleteByPrimaryKey(id);
+		pas.deleteProjectArea(id);
 		return "redirect:query";
 	}
 	
-	/*椤圭洰鏌ヨ鍩哄湴*/
+	/*妞ゅ湱娲伴弻銉嚄閸╁搫婀�*/
 	@RequestMapping("queryJd")
 	@ResponseBody
 	public List<productarea> queryJd(Integer pid){
 		List<productarea> list=pas.queryByPid(pid);
-		
 		return list;
 	}
 	
-	/*璺宠浆鍓嶅彴鏌ヨ椤圭洰*/
+	/*鐠哄疇娴嗛崜宥呭酱閺屻儴顕楁い鍦窗*/
 	@RequestMapping("query_Qt")
 	public String query_Qt(Model model,project pro,Integer currentPage) {
 		Integer cPage=1;
@@ -163,26 +180,45 @@ public class projectController {
 	
 	
 	
-	/*鍓嶅彴鏌ヨ璇︽儏*/
+	/*閸撳秴褰撮弻銉嚄鐠囷附鍎�*/
 	@RequestMapping("queryBy_Qt_Xq")
 	public String queryBy_Qt_Xq(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
-		
-		/*for(int i=0;i<list.getIlist().size();i++) {
-			project plist=new project();
-			if(list.getIlist().get(i)!=null) {
-				
-			}
-		}*/
 		model.addAttribute("list",list);
 		return "productInfo";
 	}
 	
-	/*璺宠浆淇敼椤甸潰*/
+	/*鐠哄疇娴嗘穱顔芥暭妞ょ敻娼�*/
 	@RequestMapping("/to_Update_Project")
 	public String to_Update_Project(Model model,Integer id) {
 		project list=pros.projectXq_queryById(id);
+		
+		
+		
+		
+		
+		System.out.println(JSON.toJSONString(list));
+		List<projecttype> typelist=ptype.query();
+		List<areas> alist=areas.insery_project_query_area();
+		List<positions> pslist=posservice.queryPosition();
+		List<staff> stalist=staffservice.ByProjectName();
+		model.addAttribute("pslist", pslist);
+		model.addAttribute("typelist", typelist);
+		model.addAttribute("alist", alist);
+		model.addAttribute("stalist", stalist);
 		model.addAttribute("list",list);
 		return "update_project";
 	}
+	
+	/*项目加入购物车*/
+	@RequestMapping("/insert_shop")
+	@ResponseBody
+	public String insert_shop(@RequestBody Shopcart record,HttpSession session) {
+		users user=(users) session.getAttribute("use");
+		record.setUserid(user.getId());
+		record.setTypeid(1);
+		int i=shopservice.insert(record);
+		return "";
+	}
+
 }

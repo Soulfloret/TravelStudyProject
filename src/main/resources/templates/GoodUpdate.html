@@ -6,30 +6,120 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>商品修改</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 		<link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
-						<!-- https://fontawesome.com/ -->
-						<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-						<!-- https://getbootstrap.com/ -->
-						<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
-
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+		<style>
+			#reportsPage{
+				height:900px;
+			}
+		</style>
 	</head>
 
 	<body id="reportsPage">
 		<div class="" id="home">
-			<div class="container tm-mt-big tm-mb-big"  th:each="item,state : ${list}">
+			<div  class="container tm-mt-big tm-mb-big" th:each="item,state : ${list}">
 			<form th:action="@{/menu/updatemenu}" class="tm-edit-product-form">
-			<input type="hidden" th:value="${item.id}" name="id">
+				<input type="hidden" th:value="${item.id}" name="id">
 				<div class="row">
-				
 					<div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
 						<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 							<div class="row">
-								<div class="col-12">
-									<h2 class="tm-block-title d-inline-block">修改商品</h2>
-								</div>
-							</div>
+												<div class="col-12">
+													<h2 class="tm-block-title d-inline-block">修改商品</h2>
+												</div>
+											</div>
 							<div class="row tm-edit-product-row" >
+<<<<<<< HEAD
+							<div class="col-xl-6 col-lg-6 col-md-12">
+														<div class="form-group mb-3">
+															<label for="name">商品名称
+				                    </label>
+															<input id="name" name="mname"th:value="${item.mname}" type="text" class="form-control validate" required />
+														</div>
+														<div class="form-group mb-3">
+															<label for="description">商品介绍</label
+				                    >
+				                    <textarea
+				                      class="form-control validate"
+				                      rows="3"
+				                      required
+				                      th:text="${item.name1}"
+				                      name="name1"
+				                    ></textarea>
+				                  </div>
+				                 <div class="form-group mb-3">
+				                    <label
+				                      for=""
+				                      >选择商品类型</label
+				                    >
+				                    <select
+				                      class="custom-select tm-select-accounts"
+				                      id="hd_xz_ry"
+				                      onchange="xsry()"
+				                      name="menutypeid"
+				                    >
+				                       <option th:each="itemtype,state : ${listtype}" th:value="${itemtype.id}" th:text="${itemtype.tname}"  th:selected="${item.menutypeid==itemtype.id }"></option>
+				                    </select>
+				                  </div>
+				                  
+				                  <div class="row">
+				                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+				                          <label
+				                            for="expire_date"
+				                            >商品价格
+				                          </label>
+															<input id="expire_date" th:value="${item.price}" name="price" type="text" class="form-control validate" data-large-mode="true" />
+														</div>
+														<div class="form-group mb-3 col-xs-12 col-sm-6">
+															<label for="stock">商品库存
+				                          </label>
+															<input id="stock" th:value="${item.stock}" name="stock" type="text" class="form-control validate" required />
+														</div>
+												</div>
+												<div class="form-group mb-3">
+													<label for="">是否上架</label
+				                    >
+				                    <select
+				                      class="custom-select tm-select-accounts"
+				                      name="state"
+				                    >
+				                      <option value="1" th:selected="${item.state=='1'}">是</option>
+				                      <option value="2" th:selected="${item.state=='2'}">否</option>
+				                    </select>
+				                  </div>
+				              </div>
+				            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+				              	
+				                <div id="imgadd">
+				                	<span th:each="iitem,stack : ${item.mlist}" >
+				                	<img th:src="${iitem.url}"  width="100" height="80">
+				                	<input type="hidden" th:name="mlist[+${stack.index}+].typeid" value="2">
+				                	<input type='hidden' th:name='mlist[+${stack.index}+].url' th:value="${iitem.url}">
+				                	</span>
+				                </div>
+				                <div class="custom-file mt-3 mb-3">
+				                  <input id="fileInput" type="file" multiple="multiple" style="display:none;" />
+				                  <input
+				                  	id="sc"
+				                    type="button"
+				                    class="btn btn-primary btn-block mx-auto"
+				                    value="更换图片"
+				                    onclick="document.getElementById('fileInput').click();"
+				                  />
+				                </div>  
+				              </div>
+				            <div class="col-12">
+				                <input type="submit" value="修改" class="btn btn-primary btn-block text-uppercase">
+				              </div>
+				            </div>
+			            </div>
+		        	</div>
+	      		</div>
+      		</form>
+    		</div>
+    	</div>
+=======
 								<div class="col-xl-6 col-lg-6 col-md-12">
 										<div class="form-group mb-3">
 											<label for="name">商品名称
@@ -115,6 +205,7 @@
     </div>
 
     </div>
+>>>>>>> refs/remotes/origin/renyuxuan
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<!-- https://jquery.com/download/ -->
 	<script th:src="@{/js/bootstrap.min.js}"></script>

@@ -58,8 +58,8 @@
 							</div>
 							<div class="form-group mb-3">
 								<label for="">所属类型</label> <select
-									class="custom-select tm-select-accounts" id="">
-									<option th:each="item_type : ${typelist}"  name="ttype" th:id="${item_type.id}" th:text="${item_type.ptname}"></option>
+									class="custom-select tm-select-accounts" name="ttype" id="">
+									<option th:each="item_type : ${typelist}"  th:value="${item_type.id}" th:text="${item_type.ptname}"></option>
 								</select>
 							</div>
 							<div class="form-group mb-3">
@@ -71,9 +71,10 @@
 								<textarea name="remark" class="form-control validate" rows="3" required></textarea>
 							</div>
 							<div class="form-group mb-3">
-								<label for="">请输入负责人</label> <input
-									id="name" name="leadingofficial" type="text" class="form-control validate"
-									required />
+								<label for="">请选择负责人</label> 
+								<select class="custom-select tm-select-accounts" name="leadingofficial" id="">
+									<option th:each="item_sta : ${stalist}"  name="" th:value="${item_sta.user.id}" th:text="${item_sta.user.uname}"></option>
+								</select>
 							</div>
 
 							<div class="form-group mb-3">
@@ -152,14 +153,14 @@
 							</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-						<div class="tm-product-img-dummy mx-auto">
-							<i class="fas fa-cloud-upload-alt tm-upload-icon"
-								onclick="document.getElementById('fileInput').click();"></i>
-						</div>
+						<div class="tm-product-img-edit mx-auto img_div" style="border: 1px solid white;">
+								
+							</div>
+						
 						<div class="custom-file mt-3 mb-3">
 							<input id="fileInput" type="file" style="display: none;" multiple="multiple"/> <input
 								type="button" class="btn btn-primary btn-block mx-auto"
-								value="上传图片"
+								value="上传图片" id="commit_picture"
 								onclick="document.getElementById('fileInput').click();" />
 						</div>
 					</div>
@@ -173,7 +174,7 @@
 		</div>
 	</div>
 	<div id="jd_tc"
-		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 870px; overflow-y: scroll; overflow-x: scroll; display: none;">
+		style="width: 520px; height: 208px; border: 1px solid #466675;background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 770px; overflow-y: scroll; overflow-x: scroll; display: none;">
 		<div style="background: #466675;">
 			<input type="text" name="anmae" placeholder="基地名称" class="form-group">
 			<input type="text" name="pistion" placeholder="基地位置"
@@ -204,7 +205,7 @@
 	</div>
 	
 	<div id="zw_tc"
-		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 0px; overflow-y: scroll; overflow-x: scroll; display: none;">
+		style="width: 520px; height: 208px; border: 1px solid #466675;; background: white; filter: alpha(opacity : 80); opacity: 0.9; -moz-opacity: 0.2; -khtml-opacity: 0.5; position: relative; bottom: 320px; left: 770px; overflow-y: scroll; overflow-x: scroll; display: none;">
 		<div style="background: #466675;">
 			<table class="table">
 				<thead>
@@ -271,35 +272,53 @@
 			})
 			
 			
-			$("#insert_project").click(function(){
-				/* var form=$("form"); */
-				var formData = new FormData(); 
-				var fileArr ;
-				$("[type=file]").each(function(i,obj){
-					fileArr = this.files;
+			$("#commit_picture").click(function(){
+				$("#fileInput").change(function(){
+					var formDataimg = new FormData(); 
+					var fileArr ;
+					$("[type=file]").each(function(i,obj){
+						fileArr = this.files;
+					})
+					if(fileArr.length>3){
+						alert("不好意思,最多选择三张图片");	
+					}else{
+						for(var i = 0;i < fileArr.length;i++){
+							formDataimg.append("file",fileArr[i]);
+						}
+					}	
+					 $.ajax({
+		            		url:"file",
+		            		type:"post",
+		            		data:formDataimg,
+		            		processData:false,
+		    				contentType:false,
+		    				dataType:"json",
+		    				success:function(result){
+		    					console.log(result);
+		    					$.each(result,function(i,obj){
+		    						console.log(obj.url);
+		    						var dt=$("<img src='/"+obj.url+"' style='width: 100%; height: 100%;''>"+
+		    						"<input type='hidden' value='"+obj.url+"' name='url'><input type='hidden' value='1' name='typeid'>");
+		    						$(".img_div").append(dt);
+		    					}) 	
+		    				}
+		            }); 
 				})
-				if(fileArr.length>3){
-					alert("不好意思,最多选择三张图片");	
-				}else{
-					for(var i = 0;i < fileArr.length;i++){
-						formData.append("file",fileArr[i]);
-					}
-					console.log(fileArr)
-				 	/* var ilist=[]; */
+			})
+			
+			$("#insert_project").click(function(){
+				var formData = new FormData(); 
+					$("[name=url]").each(function(m,obj1){
+						formData.append("ilist["+m+"].url",$(this).val());
+						formData.append("ilist["+m+"].typeid",1);		
+					})	
 					$("#show_jd_table tr").each(function(i,obj){
 						formData.append("palist["+i+"].areaid",$(this).find("td:eq(0)").attr("id"));
 					})
-						var pj="-1";
+					var pj="0";
 					$("#show_zw_table tr").each(function(i,obj){
-						console.log($(this).find("td:eq(0)").attr("id"));
 						var id=$(this).find("td:eq(0)").attr("id");
 						pj+=","+id;
-						/* 
-						var name1;
-						for(var k=0;k<obj.length;k++){
-							name1=$(this).find("td:eq(0)").attr("id")+",";
-						}	
-						console.log(name1); */
 						
 					})
 					
@@ -317,10 +336,10 @@
 					var dt = new Date(now.replace(/-/,"/")) 
 					formData.append("pname",$("[name=name]").val());
 					formData.append("createtime",dt);
-					formData.append("tid",$("[name=ttype]").attr("id"));
+					formData.append("tid",$("[name=ttype]").val());
 					formData.append("description",$("[name=descirption]").val());
 					formData.append("remark",$("[name=remark]").val());
-					formData.append("leadingoffcial",$("[name=leadingofficial]").attr("sid"));
+					formData.append("leadingoffcial",$("[name=leadingofficial]").val());
 					formData.append("price",$("[name=price]").val());
 					formData.append("safetime",$("[name=safe_time]").val());
 					formData.append("needtime",$("[name=needTime]").val());
@@ -331,23 +350,31 @@
 					formData.append("mincrowd",$("[name=mincrowd]").val());
 					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
 					formData.append("name1",pj);
-				    $.ajax({
-						url:"file",
+					var a=pj.split(",");
+					for(var i=0;i<a.length;i++){
+						alert(a[i])
+					}
+					console.log(formData);
+				   /*  $.ajax({
+						url:"project_insert",
 						type:"post",
 						data:formData,
 						processData:false,
 						contentType:false,
 						dataType:"json",
 						success:function(result){
-							console.log(123);
-							console.log(result);
+							console.log(result)
+							if(result==0){
+								location.href="query";
+							}
+							
 						}
-					});      
-				}
+					});   */  
+				
 				 
 			})
 			
-			$("[name=leadingofficial]").change(function(){
+			/* $("[name=leadingofficial]").change(function(){
 				var name=$(this).val();
 				var th=this;
 				$.ajax({
@@ -363,7 +390,7 @@
 						}
 					}
 				})
-			})
+			}) */
 		});
 
 		function yc_xm(th) {
@@ -422,7 +449,7 @@
 		function hide_jd(th) {
 			$("#jd_tc").css("display", "none");
 			var show_jd_length = $("#show_jd_table").find("tr").length;
-			if (show_jd_length == 1) {
+			if (show_jd_length ==0) {
 				$("#show_jd").hide();
 			}
 		}
@@ -430,7 +457,7 @@
 		function hide_zw(th) {
 			$("#zw_tc").css("display", "none");
 			var show_zw_length = $("#show_zw_table").find("tr").length;
-			if (show_zw_length == 1) {
+			if (show_zw_length ==0) {
 				$("#show_zw").hide();
 			}
 		}

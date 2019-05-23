@@ -50,4 +50,7 @@ public interface staffMapper {
     int updateByPrimaryKey(staff record);
     
     List<staff> projectOrder_queryUser(Integer id);
+    
+    /*新增项目查询负责人*/
+    List<staff> ByProjectName();
 }

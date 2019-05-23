@@ -6,8 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface teammemberMapper {
+	Integer queryByteamId(Integer tid);
+	
+	List<teammember> queryBytid(Integer tid);
 	
 	public int insertBylist(@Param("teamId") Integer teamId,@Param("list") List<Integer> list);
+	
     int countByExample(teammemberExample example);
 
     int deleteByExample(teammemberExample example);

@@ -4,6 +4,7 @@ import com.accp.domain.project;
 import com.accp.domain.projectExample;
 import com.accp.domain.recommend;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -49,4 +50,6 @@ public interface projectMapper {
      * app项目查询详情
      */
     project AppProjectByid(@Param("id")Integer id);
+    
+    project querycountproject(@Param("starttime") Date starttime,@Param("endtime") Date endtime,@Param("id") Integer id);
 }

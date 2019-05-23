@@ -1,5 +1,8 @@
 package com.accp.domain;
 
+import java.util.List;
+import java.util.Map;
+
 public class areas {
     private Integer id;
 
@@ -16,8 +19,20 @@ public class areas {
     private String name4;
 
     private String name5;
+    
+    private Map<String,List<workTime>>worktimes;
+    
+    
 
-    public Integer getId() {
+    public Map<String, List<workTime>> getWorktimes() {
+		return worktimes;
+	}
+
+	public void setWorktimes(Map<String, List<workTime>> worktimes) {
+		this.worktimes = worktimes;
+	}
+
+	public Integer getId() {
         return id;
     }
 

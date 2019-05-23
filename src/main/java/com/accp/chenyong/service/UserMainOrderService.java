@@ -23,7 +23,7 @@ public interface UserMainOrderService {
 
     int updateByPrimaryKey(Usermainorder record);
     
-    List<Usermainorder> query(Integer id);
+    List<Usermainorder> query(Usermainorder record);
     
     Usermainorder QueryCunzai(Usermainorder o);
     

@@ -67,12 +67,14 @@ public class ProjectServiceshh {
 		List<project> list=mapper.queryprojectAll(project);
 		for (project p : list) {
 			List<images>  img=imapper.queryimg(p.getId(), 1);
-			p.setRecommend(mapper.recommendByidproject(p.getId()));
+			recommend rec=mapper.recommendByidproject(p.getId());
+			rec.setTid(1);
+			p.setRecommend(rec);
 			p.setIlist(img);
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 住宿查询全部
 	 * @param room
@@ -82,7 +84,9 @@ public class ProjectServiceshh {
 		List<room> list=rmapper.queryRoomAll(room);
 		for (room p : list) {
 			List<images>  img=imapper.queryimg(p.getId(), 3);
-			p.setRecommend(rmapper.recommendByidroom(p.getId()));
+			recommend rec=rmapper.recommendByidroom(p.getId());
+			rec.setTid(3);
+			p.setRecommend(rec);
 			p.setImgs(img);
 		}
 		return list;
@@ -97,7 +101,9 @@ public class ProjectServiceshh {
 		List<menu> list=mmapper.queryMenuAll(menu);
 		for (menu p : list) {
 			List<images>  img=imapper.queryimg(p.getId(), 2);
-			p.setRecommend(mmapper.recommendByidmenu(p.getId()));
+			recommend rec=mmapper.recommendByidmenu(p.getId());
+			rec.setTid(2);
+			p.setRecommend(rec);
 			p.setImgs(img);
 		}
 		return list;
@@ -124,6 +130,7 @@ public class ProjectServiceshh {
 			rec.setImgs(img);
 			rec.setPname(pname);
 			rec.setPrice(price);
+			rec.setTid(5);
 			p.setRecommend(rec);
 			
 		}
@@ -208,6 +215,9 @@ public class ProjectServiceshh {
 			m1.setList(mealix);
 			m1.setName5(7+"");
 			m1.setName2(name2.substring(0, name2.length()-1));
+			recommend r=mealmapper.recommendMealAll(m1.getId());
+			r.setTid(7);
+			m1.setRecommend(r);
 		}
 		return meal;
 	}
@@ -229,6 +239,7 @@ public class ProjectServiceshh {
 			b1.setBlist(menubind);
 			b1.setName5(4+"");
 			b1.setName2(name2.substring(0, name2.length()-1));
+			b1.setRecommend(bindmapper.recommendBind(b1.getId()));
 		}
 	
 		return binds;

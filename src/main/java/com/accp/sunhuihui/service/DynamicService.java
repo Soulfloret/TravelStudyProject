@@ -2,6 +2,7 @@ package com.accp.sunhuihui.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,24 @@ public class DynamicService {
 				}
 			return page;
 		}
+		
+		/**
+		 * 查询自己的动态
+		 * @param uid
+		 * @return
+		 */
+		public List<dynamics> DynamicUid(Integer uid){
+			List<dynamics> list=mapper.selectByExample(null);
+			for (dynamics d : list) {
+				List<images> img=imapper.queryimg(d.getId(), 6);
+				users u=umapper.selectByPrimaryKey(d.getUid());
+				d.setDzcountdt(stmapper.dzcountdt(d.getId(),uid));
+				d.setUser(u);
+				d.setImg(img);
+			}
+			return list;
+		}
+		
 		/**
 		 * 根据id查询单个动态
 		 * @param id

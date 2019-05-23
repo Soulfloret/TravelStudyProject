@@ -52,10 +52,20 @@ public class menu {
        
     private Double zgprice;
     
+    private int countnum;
     
     
     
-    public Double getZdprice() {
+    
+    public int getCountnum() {
+		return countnum;
+	}
+
+	public void setCountnum(int countnum) {
+		this.countnum = countnum;
+	}
+
+	public Double getZdprice() {
 		return zdprice;
 	}
 

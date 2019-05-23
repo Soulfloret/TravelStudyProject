@@ -106,6 +106,32 @@
 				width: 150px;
 				text-align: center;
 			}
+			[name='Hiddens']{
+				height:300px;
+				overflow: scroll;
+				overflow-x:hidden;
+			}
+			.divbutton{
+				display:inline-block;
+				border-radius: 10px;
+				height:50px;
+				line-height: 50px;
+				width:100px;
+				border:#f5a623;
+				color:white;
+				background-color: #f5a623
+			}
+			.table td{
+				 white-space: nowrap;  
+			}
+			#cardbox{
+				margin-top: 50px;
+				display: none;
+			}
+			#checkboxs{
+				margin-top: 50px;
+				margin-bottom: 50px;
+			}
 		</style>
 	</head>
 	<body id="reportsPage">
@@ -175,177 +201,149 @@
 					<div class="modal-dialog modal-lg" style="max-width: 80%;" role="document" > 
 						<div class="modal-content" style="background-color: #435c70;color: white;">
 							<div id="" class="modal-header">
-								订单详情
+								新增订单
 							</div>
 							<div class="modal-body" style="text-align: center;">
-									<div id="checkboxs">
+									<div>
+										<span style="margin-left: 50px;margin-bottom:30px;">个人</span>
+										<input type="radio" style="width: 15px;height: 15px;" name="usertype" attr="1" />
+										<span style="margin-left: 70px;">团队</span>
+										<input type="radio"  style="width: 15px;height: 15px;" name="usertype" attr="2"/>
+										<div id="cardbox">
+											<span style="margin-right: 30px;" id="idcard">请输入身份证号</span>
+											<input type="text"  style="margin-right: 30px;"/>
+											<button class="btn btn-info" id="queryUser">查询</button>
+										</div>
+									</div>
+									<div id="checkboxs" style="display:none">
 											<span style="margin-left: 50px;margin-bottom:30px" name="ckprojectproduct">选择活动</span>
-											<input type="radio" name="productOrProject" xz="1" style="width: 15px;height: 15px;" />
+											<input type="radio" name="productOrProject" style="width: 15px;height: 15px;" />
 											<span style="margin-left: 70px;" name="ckprojectproduct">选择项目</span>
-											<input type="radio" name="productOrProject" xz="2" style="width: 15px;height: 15px;" />
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
 											<span  style="margin-left: 50px;" name="checkgood">选择餐饮</span>
-											<input type="radio" name="productOrProject" xz="3" style="width: 15px;height: 15px;" />
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
 											<span style="margin-left: 70px;" name="checkhotel">选择住宿</span>
-											<input type="radio" name="productOrProject" xz="4" style="width: 15px;height: 15px;" />											
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkgoodmenu">选择餐饮套餐</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />
+											<span style="margin-left: 70px;" name="checkmeal">选择总套餐</span>
+											<input type="radio" name="productOrProject"  style="width: 15px;height: 15px;" />											
+											<div name="Hiddens" id="hd" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin:30px auto;">
+									                <thead>
+									                  <tr>
+									                    <th scope="col">&nbsp;</th>
+									                    <th scope="col">活动名称</th>
+									                    <th scope="col">活动详情</th>
+									                  </tr>
+									                </thead>
+									                <tbody>
+									                  	<tr th:each="item:${productlist}">
+									                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+									                  		<td scope="col" th:text="${item.pname}"></td>
+									                  		<td scope="col" th:text="${item.content}"></td>
+									                  	</tr>
+									        		</tbody>
+									             </table>
+											</div>
 											<div name="Hiddens" style="display: none;">
-											<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin:30px auto;">
-								                <thead>
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin: 30px auto;">
+								               		<thead>
+									                  <tr>
+									                    <th scope="col">&nbsp;</th>
+									                    <th scope="col">项目名称</th>
+									                     <th scope="col">描述</th>
+									                  </tr>
+								                  </thead>
+								                  <tbody class="xm">
+								                  	<tr th:each="item:${projectlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.pname}"></td>
+								                  		<td scope="col" th:text="${item.description}"></td>
+								                  	</tr>
+								                  	</tbody>
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" style="width:100%;margin: 30px auto;">
+								               	 <thead>
 								                  <tr>
 								                    <th scope="col">&nbsp;</th>
-								                    <th scope="col">活动名称</th>
-								                    <th scope="col">活动详情</th>
+								                    <th scope="col">餐品名称</th>
+								                     <th scope="col">描述</th>
+								                  </tr>
+								                  </thead>
+								                  <tbody>
+								                  	<tr th:each="item:${goodlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.mname}"></td>
+								                  		<td scope="col" th:text="${item.intorduce}"></td>
+								                  	</tr>
+								                  </tbody>
+								              </table>
+											</div>								
+											<div name="Hiddens" style="display: none;">
+												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
+								               	<thead>
+								                  <tr>
+								                    <th scope="col">&nbsp;</th>
+								                    <th scope="col">房间名称</th>
+								                     <th scope="col">描述</th>
 								                  </tr>
 								                </thead>
-								                <tbody class="proucttable" id="product_tbody">
-								                  
-								        		</tbody>
-								             </table>									
-											</div>
+								                <tbody>
+								                  	<tr th:each="item:${hotellist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.rname}"></td>
+								                  		<td scope="col" th:text="${item.introduce}"></td>
+								                  	</tr>
+								                </tbody>
+								              </table>
+										</div>								
 											<div name="Hiddens" style="display: none;">
 												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
-								               
+								               	<thead>
 								                  <tr>
 								                    <th scope="col">&nbsp;</th>
-								                    <th scope="col">项目名称</th>
-								                     <th scope="col">状态</th>
+								                    <th scope="col">餐饮套餐名称</th>
+								                     <th scope="col">描述</th>
 								                  </tr>
-								                  
+								                </thead>
+								                <tbody>
+								                  	<tr th:each="item:${bindlist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+								                  		<td scope="col" th:text="${item.mname}"></td>
+								                  		<td scope="col" th:text="${item.name1}"></td>
+								                  	</tr>
+								                </tbody>
 								              </table>
-											</div>								
+										</div>								
 											<div name="Hiddens" style="display: none;">
 												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
-								               
+								               	<thead>
 								                  <tr>
 								                    <th scope="col">&nbsp;</th>
-								                    <th scope="col">项目名称</th>
-								                     <th scope="col">状态</th>
+								                    <th scope="col">总套餐名称</th>
+								                     <th scope="col">描述</th>
 								                  </tr>
-								                  
+								                </thead>
+								                <tbody>
+								                  	<tr th:each="item:${meallist}">
+								                  		<td scope="col" ><input type="checkbox" name="productid" th:value="${item.id}"></td>
+ 								                  		<td scope="col" th:text="${item.name}"></td>
+								                  		<td scope="col" th:text="${item.name1}"></td>
+								                  	</tr>
+								                </tbody>
 								              </table>
-											</div>								
-											<div name="Hiddens" style="display: none;">
-												<table class="table table-hover tm-table-small tm-product-table" id="project-table" style="width:100%;margin: 30px auto;">
-								               
-								                  <tr>
-								                    <th scope="col">&nbsp;</th>
-								                    <th scope="col">项目名称</th>
-								                     <th scope="col">状态</th>
-								                  </tr>
-								                  
-								              </table>
-											</div>								
-											
-									</div>
-									<div id="hide_ry" style="display: none;margin-top: 30px;">
-											<div style="margin-top: 30px;">
-											<span>请输入身份证号</span>
-											<input  class="input-group-sm" style="width: 30%;" /><br>
-											<br>
-											</div>
-										</div>
-									<div id="hide_cc" style="display: none;margin-top: 30px">
-											<h5>活动项目</h5>
-											<table class="table table-hover tm-table-small tm-product-table" id="project_table"  style="margin-top: 20px;">
-								                <thead>
-								                  <tr>
-								                  	<th>
-								                  		项目名称
-								                  	</th>
-								                  	<th>状态</th>	
-								                  	<th></th>
-								                  	<th></th>
-								                  </tr>	
-								                 </thead>
-								               	<tbody class="pruduct_project_tbody">
-								               		
-								               	</tbody>
-								               
-							             	</table>
-										</div>
-									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-								<div class="col-lg-12">
-										<h4>安排人员</h4>
-										<select class="form-control-sm" style="width: 186px;">
-											<option>
-												教练
-											</option>
-											<option>
-												助理
-											</option>
-										</select>
-										<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-										<table class="table" style="margin-top: 20px;">
-											<thead>
-												<tr>
-													<th>人员名称</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody id="look_Staff_tbody">
-												
-											</tbody>
+										</div>								
+										<table class="table table-hover tm-table-small tm-product-table" id="boxorder" style="width:100%;margin: 30px auto;">
 										</table>
+										<input type="button" style="display:none;" class="addsorder btn btn-primary btn-block text-uppercase"
+							             value="生成排班"/>
 									</div>
-								</div>
-									<div class="hide_jd" style="margin-top: 50px;display: none;display: none;">
-												<div class="col-lg-12">
-													<h4>选择基地</h4>
-													<table class="table" style="margin-top: 20px;">
-														<thead>
-															<tr>
-																<th>基地名称</th>
-																<th></th>
-															</tr>
-														</thead>
-														<tbody id="project_jd_table">
-															
-														</tbody>
-													</table>
-												</div>
-												
-											</div>
-									<div id="hide_project_time" style="display: none;margin-top: 50px;">
-									<span style="margin-left: 100px;">筛选时间</span>
-									<input type="datetime-local" name="statrtime" placeholder="开始时间" style="margin-left: 20px;"/>
-						        	<span style="color: white;margin-left: 20px;">~</span>
-						        	<input type="datetime-local" name="endtime" placeholder="结束时间" style="margin-left: 20px;"/>
-						        	<input type="button" id="" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-									<table class="table" style="margin-top: 20px;width: 90%;margin-left: 5%;">
-										<thead>
-											<tr>
-												<th>开始时间</th>
-												<th>结束时间</th>
-												<th>空位</th>
-												<th>人数</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody id="time_tbody">
-											
-										</tbody>
-									</table>
-								
-								<div id="show_time_yy">
-									<button class="btn btn-primary" name="ap_user" style="margin-top: 20px;margin-left: 25px;border-radius: 30px;">
-												安排客户
-									</button>
-								</div>
-								<div style="margin: 30px auto;" hidden="hidden" class="infoss">
-											<span style="margin-left: 50px;">团队</span>
-											<input type="radio" name="dd_radio" data="dd_radio" class="" style="width: 15px;height: 15px;" />
-											<span style="margin-left: 70px;">个人</span>
-											<input type="radio" name="dd_radio" data="gr_radio" style="width: 15px;height: 15px;" />
-										</div>
-										<div id="hide_dd" style="display: none;">
-											<span style="margin-top: 20px;">请输入身份证号</span>
-											<input type="text" name="card" value="430424200106031438" style="margin-left: 20px;height: 30px;margin-top: 20px;width: 30%;" />
-											<input type="button" id="queryByFzr" style="border-radius: 30px 30px 30px 30px;width: 100px;margin-left: 100px;" class="btn-primary" value="查询" />
-											<br>
-								</div>
-								</div>
 							</div>
 							<div id="" class="modal-footer">
-								<a class="btn btn-dark">提交</a>
+								<a class="btn btn-dark" id="orderinsert">提交</a>
 								<a class="btn btn-primary" data-dismiss="modal">关闭</a>
 							</div>
 						</div>
@@ -436,7 +434,7 @@
 						count=data.name2;
 					}
 					var tr=$("<tr>"
-							+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+							+"<th scope='row'><img src='/"+data.ix.image.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
 							+"<td><b>"+data.ix.price+"</b></td>"
 							+"<td><b>"+data.ix.intorduce+"</b></td>"
 							+"<td><b>"+count+"</b></td>"
@@ -448,7 +446,7 @@
 					var h4=$("<h4>"+data.ix.mname+"</h4>");
 					$.each(data.ix.list,function(index3,item3){
 						var tr=$("<tr>"
-								+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+								+"<th scope='row'><b>"+item3.mname+"</b></th>"
 								+"<td><b>"+item3.price+"</b></td>"
 								+"<td><b>"+item3.intorduce+"</b></td>"
 								+"<td><b>1</b></td>"
@@ -475,7 +473,7 @@
 					type="总统套房";
 				}
 				var status;
-				if(data.ix.room.status==1){
+				if(data.ix.name1==1){
 					status="正在入住";
 				}else{
 					status="已退房";
@@ -566,7 +564,7 @@
 				var divbody=$("<tbody></tbody>");
 				if(data.typeid==2){
 				var tr=$("<tr>"
-						+"<th scope='row'><img src='/"+data.ix.image+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
+						+"<th scope='row'><img src='/"+data.ix.image.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.mname+"</b></th>"
 						+"<td><b>"+data.ix.price+"</b></td>"
 						+"<td><b>"+data.ix.intorduce+"</b></td>"
 						+"<td><b>"+count+"</b></td>"
@@ -578,7 +576,7 @@
 						var h4=$("<h4>"+data.ix.mname+"</h4>");
 						$.each(data.ix.list,function(index3,item3){
 							var tr=$("<tr>"
-									+"<th scope='row'><img src='/"+item3.image+"' width='50' height='50' alt='图片' /><b>"+item3.mname+"</b></th>"
+									+"<th scope='row'><b>"+item3.mname+"</b></th>"
 									+"<td><b>"+item3.price+"</b></td>"
 									+"<td><b>"+item3.intorduce+"</b></td>"
 									+"<td><b>1</b></td>"
@@ -597,31 +595,29 @@
 				var div=$("<div class='content col-md-11'></div>");
 				var table=$("<table class='table'><thead><th scope='col'>房间名称</th><th scope='col'>房间价格</th><th scope='col'>房间类型</th><th scope='col'>房间状态</th></thead></table>");
 				var tbody=$("<tbody></tbody>");
-				$.each(data.list,function(item3,index3){
-					var type="单人间";
-					if(item3.ix.room.typeid==2){
-						type="双人间";
-					}
-					if(item3.ix.room.typeid==3){
-						type="总统套房";
-					}
-					var status;
-					if(item3.ix.room.status==1){
-						status="正在入住";
-					}else{
-						status="已退房";
-					}
-					var tr=$("<tr>"
-							+"<th scope='row'><img src='/"+item3.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+item3.ix.room.rname+"</b></th>"
-							+"<td><b>"+item3.ix.room.price+"</b></td>"
-							+"<td><b>"+type+"</b></td>"
-							+"<td><b>"+status+"</b></td>"
-							+"</tr>");
+				var type="单人间";
+				if(data.ix.room.typeid==2){
+					type="双人间";
+				}
+				if(data.ix.room.typeid==3){
+					type="总统套房";
+				}
+				var status;
+				if(data.ix.name1==1){
+					status="正在入住";
+				}else{
+					status="已退房";
+				}
+				var tr=$("<tr>"
+					+"<th scope='row'><img src='/"+data.ix.room.img.url+"' width='50' height='50' alt='图片' /><b>"+data.ix.room.rname+"</b></th>"
+					+"<td><b>"+data.ix.room.price+"</b></td>"
+					+"<td><b>"+type+"</b></td>"
+					+"<td><b>"+status+"</b></td>"
+					+"</tr>");
 					$(tbody).append(tr);
-					price+=item3.ix.room.price;
-				})
 				$(table).append(tbody);
 				$(div).append(table);
+				price+=data.ix.room.price;
 				return div;
 			}
 			$(".info").click(function(){
@@ -702,7 +698,7 @@
 											$(divh1).append(teamMenu(item2,0));
 										}
 										if(item2.typeid==3){
-											$(divh1).append(div4);
+											$(divh1).append(teamRoom(item2));
 										}
 										if(item2.typeid==7){
 											var divs=$("<div class='content col-md-11'></div>")
@@ -711,7 +707,7 @@
 												 if(item3.typeid==1||item3.typeid==5){
 													$(divs).append(teamProject(item3,1));
 												}
-												if(itme3.typeid==2||item3.typeid==4){
+												if(item3.typeid==2||item3.typeid==4){
 													$(divs).append(teamMenu(item3));
 												}
 												if(item3.typeid==3){
@@ -768,580 +764,403 @@
 				}
 			})
 		</script>
-		<script>
-      $(function() {
-      	var pid;
-      	var ry_dt;
-      	var jd_name;
-      	var jd_id;
-        $("#expire_date").datepicker({
-          defaultDate: "10/22/2020"
-        });
-         $("[type=submit]").click(function(){
-			location.href="orders.html";
-		}) 
-		 $("#tj").click(function(){
-			var new_sj=$(this).parents("tr").clone(true);
-			new_sj.find("[type=text]").val("");
-			$("#ry_tb_body").append(new_sj);
-		}) 
-		$("#yc").click(function(){
-			var tr_length=$(".ry_tb_body_tr").length;
-			if(tr_length==1){
-				alert("已经是最后一个了,不能删除");
-			}else{
-				$(this).parents("tr").remove();
-			}
-		});
-         
-         /*显示团队*/
-		$("[data=dd_radio]").click(function(){
-			if(true){
-				$("#hide_dd").css("display","block");
-			}
-			$("#hide_ry").css("display","none");
-		});
-         
-         /*显示个人*/
-		$("[data=gr_radio]").click(function(){
-			if(true){
-				$("#hide_ry").css("display","block");
-			}
-			$("#hide_dd").css("display","none");
-		});
-		
-		
-		
-		/* $(".show_project_time").click(function(){
-			
-			
-		}) */
-		
-		/*显示个人与团队*/
-		$("[name=ap_user]").click(function(){
-			$(".infoss").removeAttr("hidden");
-		})
-		
-		
-		
-		var xzid;
-		
-		/*查询活动与项目如果xzid为1则查询活动为2则查询项目*/
-		$("[name=productOrProject]").click(function(){
-			xzid=$(this).attr("xz");
-			$("[name=Hiddens]").css('display','none');
-			$("[name=Hiddens]:eq("+(xzid-1)+")").css('display','block');
-			/*活动*/
-			if(xzid==1){
-				var product_name=$("[name=product_name]").val();
-				$.ajax({
-					url:"/xjb_projectOrderController/query_Product",
-					type:"post",
-					dataType:"json",
-					success:function(result){
-						$("#product_tbody").html(""); 
-						$.each(result,function(i,obj){
-							var dt=$("<tr>"+
-				                    "<th scope='row'><input pid='"+obj.id+"' type='radio' name='look_product'/></th>"+
-				                    "<td class='tm-product-name'>"+obj.pname+"</td>"+
-				                    "<td scope='roe'>"+obj.content+"</td>"+
-				                  "</tr>"+
-				                  "<tr hidden='hidden'>"+
-				                  "</tr>");
-							$("#product_tbody").append(dt);
-						})
-					}
-				});
-				/*项目*/
-			}else if(xzid==2){
-				var project_name=$("[name=project_name]").val();
-				$.ajax({
-					url:"/xjb_projectOrderController/query_Project",
-					type:"post",
-					dataType:"json",
-					success:function(result){
-						var dt;
-						$("#project-table").html(""); 
-						$.each(result,function(i,obj){
-							if(obj.pstatus==1){
-								dt=$("<tbody class='one_project_tbody'>"+
-										" <tr>"+
-											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
-					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
-					                    	"<td>开放</td>"+
-					                    	"<td></td>"+
-					                    "</tr>"+
-					                    "</tbody>")
-							}else if(obj.pstatus==2){
-								dt=$("<tbody class='one_project_tbody'>"+
-										" <tr>"+
-											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
-					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
-					                    	"<td>维修</td>"+
-					                    	"<td></td>"+
-					                    "</tr>"+
-					                    "</tbody>")
-							}else if(obj.pstatus==3){
-								dt=$("<tbody class='one_project_tbody'>"+
-										" <tr>"+
-											"<td scope='row'><input type='checkbox' pid='"+obj.id+"' class='show_jd'/></td>"+
-					                    	"<td class='tm-product-name'>"+obj.pname+"</td>"+
-					                    	"<td>检测</td>"+
-					                    	"<td></td>"+
-					                    "</tr>"+
-					                    "</tbody>")
-							}
-					       $("#project-table").append(dt);
-						})
-					}
-				});
-			}
-		})
-		/*活动查询项目*/
-		$("#product_tbody").on("click","[name=look_product]",function(){
-			if(xzid==2){
-				$("#hide_cc").css("display","block");
-			}else if(xzid==1){
-				$("#hide_cc").css("display","block");
-				var pid1=$(this).attr("pid");
-				$.ajax({
-					url:"/xjb_productController/queryByProdId?productId="+pid1,
-					type:"post",
-					dataType:"json",
-					success:function(result){
-						var product_project_dt;
-						$(".pruduct_project_tbody").html("");
-						$.each(result,function(i,obj){
-							if(obj.pro.pstatus==1){
-								product_project_dt=$("<tr id='each_project_tr'>"+
-					                    "<td scope='col' iid="+obj.pro.id+">"+obj.pro.pname+"</td>"+
-					                    "<td scope='col'>开放</td>"+
-					                    "<td scope='col'>"+
-					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
-					                    "</td>"+
-					                     "<td></td>"+				                     
-					                 "</tr>")
-		                    }else if(obj.pro.pstatus==2){
-		                    	product_project_dt=$("<tr id='each_project_tr'>"+
-		                    			"<div id='project_div'>"+
-					                    "<td scope='col'>"+obj.pro.pname+"</td>"+
-					                    "<td scope='col'>维修</td>"+
-					                    "<td scope='col'>"+
-					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
-					                    "</td>"+
-					                     "<td></td>"+
-					                     "</div>"+
-					                 "</tr>")
-		                    }else if(obj.pro.pstatus==3){
-		                    	product_project_dt=$("<tr id='each_project_tr'>"+
-		                    			"<div id='project_div'>"+
-					                    "<td scope='col'>"+obj.pro.pname+"</td>"+
-					                    "<td scope='col'>检测</td>"+
-					                    "<td scope='col'>"+
-					                    	"<input type='checkbox' pid='"+obj.pro.id+"' class='show_jd'>"+
-					                    "</td>"+
-					                     "<td></td>"+
-					                     "</div>"+
-					                 "</tr>")
-		                    }
-							$(".pruduct_project_tbody").append(product_project_dt);
-						})
-					}
-				});
-			}
-			
-		})
-		
-		
-		
-		/*选择活动点击项目查询基地与工作人员*/
-		$("#project_table").on("click",".show_jd",function(){
-					$(".hide_jd").css("display","flex");
-					pid=$(this).attr("pid");
-					$(this).html("-");
-					$.ajax({
-						url:"/xjb_projectController/queryJd?pid="+pid,
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							$("#project_jd_table").html("");
-							$.each(result,function(i,obj){
-								var jd_dt=$("<tr>"+
-										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
-										"<td scope='col'>"+
-						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-						                      "<a style='color: white;' class='show_project_time'>+</a>"+
-						                     "</div>"+
-						                   "</td>"+
-									"</tr>") 
-									
-								$("#project_jd_table").append(jd_dt);
-							})
-						}
-					});
-					$.ajax({
-						url:"/xjb_projectOrderController/projectOrder_queryStaff",
-						type:"psot",
-						dataType:"json",
-						success:function(result){
-							$("#look_Staff_tbody").html("");
-							$.each(result,function(i,obj){
-								$.each(obj.stalist,function(k,obj1){
-											var dt=$("<tr>"+
-													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
-													"<td scope='col'>"+
-								                    	 "<input type='checkbox' name='ck_ry'/>"+
-								                    "</td>"+
-												"</tr>")
-											$("#look_Staff_tbody").append(dt);
-								})
-							})
-						}
-					});
-		})
-		
-		
-		/*选择项目点击项目查询基地与工作人员*/
-		$("#project-table").on("click",".show_jd",function(){
-					$(".hide_jd").css("display","flex");
-					pid=$(this).attr("pid");
-					$(this).html("-");
-					$.ajax({
-						url:"/xjb_projectController/queryJd?pid="+pid,
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							$("#project_jd_table").html("");
-							$.each(result,function(i,obj){
-								var jd_dt=$("<tr>"+
-										"<td aid='"+obj.area.id+"'>"+obj.area.aname+"</td>"+
-										"<td scope='col'>"+
-						                    	"<div style='height: 20px;width: 20px;border-radius: 50%;"+
-						                      "border: 1px solid orange;background: orange;text-align: center;'>"+
-						                      "<a style='color: white;' class='show_project_time'>+</a>"+
-						                     "</div>"+
-						                   "</td>"+
-									"</tr>") 
-									
-								$("#project_jd_table").append(jd_dt);
-							})
-						}
-					});
-					$.ajax({
-						url:"/xjb_projectOrderController/projectOrder_queryStaff",
-						type:"psot",
-						dataType:"json",
-						success:function(result){
-							$("#look_Staff_tbody").html("");
-							$.each(result,function(i,obj){
-								$.each(obj.stalist,function(k,obj1){
-											var dt=$("<tr>"+
-													"<td staid='"+obj1.id+"'>"+obj1.user.uname+"</td>"+
-													"<td scope='col'>"+
-								                    	 "<input type='checkbox' name='ck_ry'/>"+
-								                    "</td>"+
-												"</tr>")
-											$("#look_Staff_tbody").append(dt);
-								})
-							})
-						}
-					});
-		})
-		
-		
-		
-		/*点击工作人员追加到项目下面*/
-		$("#look_Staff_tbody").on("click","[name=ck_ry]",function(){
-			
-			if (this.checked) {
-				var ry_name=$(this).parents("tr").find("td:eq(0)").html();
-				var ry_id=$(this).parents("tr").find("td:eq(0)").attr("staid");
-				/* ry_dt=$("<tr><td>"+ry_name+"</td></tr>");*/
-				if(document.querySelector("tr[pid='"+pid+"x']")==null){
-					ry_dt=$("<tr name='order_ry_tr'></tr>");
-					ry_dt.attr("pid",pid+"x");
-					ry_dt.append("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
-					$("[pid='"+pid+"']").parents("tr").after(ry_dt);
-				}else{
-					ry_dt=$("[pid='"+pid+"x']");
-					var td=$("<td ry_id='"+ry_id+"'>"+ry_name+"</td>");
-					ry_dt.append(td);
+		<script th:line="javascript">
+		function XmPb(id,pname,area,time,etime,pid,aid,typeid,sid) {
+			var div = document.createElement("tr");
+			div.classList.add("detail1");
+			div.setAttribute("seachid",id+""+typeid);
+			var p1 = document.createElement("td");
+			p1.innerHTML = pname;
+			div.appendChild(p1)
+			var inputp=document.createElement("input");
+			inputp.value=pid;
+			inputp.setAttribute("type","hidden");
+			inputp.classList.add("pid");
+			div.appendChild(inputp);
+			var inputs=document.createElement("input");
+			inputs.value=sid;
+			inputs.setAttribute("type","hidden");
+			inputs.classList.add("sid");
+			div.appendChild(inputs);
+			var p2 = document.createElement("td");
+			p2.innerHTML = area;
+			div.appendChild(p2)
+			var inputa=document.createElement("input");
+			inputa.value=aid;
+			inputa.setAttribute("type","hidden");
+			inputa.classList.add("aid");
+			div.appendChild(inputa);
+			var p3 = document.createElement("td");
+			var span1 = document.createElement("span");
+			span1.classList.add("startTime");
+			span1.innerHTML = time;
+			p3.appendChild(span1);
+			div.appendChild(p3);
+			var p4 = document.createElement("td");
+			var span2 = document.createElement("span");
+			span2.classList.add("endTime");
+			span2.innerHTML = etime;
+			p4.appendChild(span2);
+			div.appendChild(p4);
+			$.each($("#boxorder tr"),function(index,item){
+				if($(item).find("[name='productid']").val()==id&&$(item).find(".typeidss").val()==typeid)
+					$(item).after(div);
+			})
+		}
+		var pd=1;
+		var timelist=[];
+		var etimes=new Date();
+		var orderson1;
+		var hd = 0; 
+		var startTime=new Date();
+		var i=0;
+		var j=0;
+		function Xm(number1){
+				if(i%3==0&&i!=0){
+					j++;
 				}
-			}else{
-				
-			}
-			
-		})
-		
-		
-		/*根据基地id渲染排班时间*/
-		$("#project_jd_table").on("click",".show_project_time",function(){
-			var aid=$(this).parents("tr").find("td:eq(0)").attr("aid");
-			var start_time=$("[name=starttime]").val();
-			var end_time=$("[name=endtime]").val();
-			$.ajax({
-				url:"/qs/query",
-				data:{
-					areaid:aid,
-					starttime:start_time,
-					endtime:end_time
-				},
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					for(var val in result.worktimes){
-						$("#time_tbody").html("");
-						$.each(result.worktimes[val],function(i,obj){
-							/*结束时间*/
-							var endtime=new Date(obj.endTime);
-							var year=endtime.getFullYear();
-							var month=endtime.getMonth()+1;
-							var date=endtime.getDate(); 
-							var h=endtime.getHours();      
-							var m=endtime.getMinutes();     
-							var s=endtime.getSeconds();  
-							var end_time1=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+				var startTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+j)+" "+"7:30:00";
+				var endTime1=startTime.getFullYear()+"-"+(startTime.getMonth()+1)+"-"+(startTime.getDate()+i)+" "+"7:30:00";
+				i++;
+				$.ajax({
+						url:'/shopcartshh/query',
+				  		data:{"orderson":orderson1,"startTime":startTime1,"endTime":endTime1},
+				  		dataType:'json',//服务器返回json格式数据
+				  		type:'post',//HTTP请求类型
+				  		timeout:10000,//超时时间设置为10秒；
+				  		success:function(data){
+					  			DataXm(data,number1);
+					  			if(pd==1){
+					  				for (var m=0;m<timelist.length;m++) {
+					  						var times=new Date(timelist[m].time);
+					  						var time=(times.getFullYear())+"-"+(times.getMonth()+1)+"-"+times.getDate()+" "+times.getHours()+":"+times.getMinutes()+":"+times.getSeconds();
+					  						var etimes=new Date(timelist[m].etime);
+					  						var etime=(etimes.getFullYear())+"-"+(etimes.getMonth()+1)+"-"+etimes.getDate()+" "+etimes.getHours()+":"+etimes.getMinutes()+":"+etimes.getSeconds();
+						  					XmPb(timelist[m].id,timelist[m].pname,timelist[m].area,time,etime,timelist[m].pid,timelist[m].aid,timelist[m].typeid,timelist[m].sid)
+					  				}
+								}else{
+										Xm(number1);
+								};
+						}
+					});
+		}
+		function DataXm(data,number1) {
+			pd=1;
+			timelist=[];
+			hd=0;
+			$(".detail1").remove();
+			var etime1 = Date.parse(new Date());
+			for(var i = 0; i < data.length; i++) {
+				var be1 = 0;
+				if(data[i].ix != null) {
+					if(data[i].ix.length == undefined) {
+						for(var h = 0; h < data[i].ix.areas.length; h++) {
+							var indexss=0;
+							$.each(data[i].ix.areas[h].worktimes, function(index, item) {
+								$.each(item, function(index1, item1) {
+									var time3 = Date.parse(new Date(item1.startTime));
+									var pro = {};
+										if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 <= data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+										if(timelist[hd] == null && hd != 0 && timelist[hd - 1] != null && item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 <= data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										} else
+											if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 <= data[i].ix.galleryful) {
+											var index=Math.floor((Math.random()*item1.ulist.length));
+											if(item1.ulist[index].staff!=null){
+												pro.sid = item1.ulist[index].staff.id;
+											}
+											pro.time = item1.startTime;
+											pro.area = data[i].ix.areas[h].aname;
+											pro.pname = data[i].ix.pname;
+											pro.etime = item1.endTime;
+											pro.pid=data[i].ix.id;
+											pro.aid=data[i].ix.areas[h].id;
+											pro.id=data[i].iid;
+											pro.typeid=data[i].typeid;
+											timelist[hd] = pro;
+											be1++;
+											indexss=1;
+										}
+								})
+							})
 							
-							/*开始时间*/
-							var starttime=new Date(obj.startTime);
-							var year1=starttime.getFullYear();
-							var month1=starttime.getMonth()+1;
-							var date1=starttime.getDate(); 
-							var h1=starttime.getHours();      
-							var m1=starttime.getMinutes();     
-							var s1=starttime.getSeconds();  
-							var start_time1=year1+'-'+month1+"-"+date1+" "+h1+':'+m1+":"+s1;
-							
-							
-							var dt=$("<tr tid='"+i+"'>"+
-										"<td>"+start_time1+"</td>"+
-										"<td>"+end_time1+"</td>"+
-										"<td>"+obj.count+"</td>"+
-										"<td>"+
-											"<input type='number' placeholder='输入人数' value=''/>"+
-										"</td>"+
-										"<td><input type='checkbox' name='lr_time_ck'></td>"+
-									"</tr>");
-							$("#time_tbody").append(dt);
-						});
+							if(indexss==0){
+								pd=0;
+							}
+							if(be1 != 0) {
+								break;
+								be1 = 0;
+							}
+						}
+						hd++;
+					}else {
+						for(var j = 0; j < data[i].ix.length; j++) {
+							var be = 0;
+							for(var h = 0; h < data[i].ix[j].areas.length; h++) {
+								var indexss=0
+								$.each(data[i].ix[j].areas[h].worktimes, function(index, item) {
+									$.each(item, function(index1, item1) {
+										var time3 = Date.parse(new Date(item1.startTime));
+										var pro = {};
+												if(hd == 0 && timelist[hd] == null && time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+													}
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid=data[i].ix[j].areas[h].id;
+													pro.id=data[i].iid;
+													pro.typeid=data[i].typeid;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+												if(timelist[hd] == null && hd != 0 &&timelist[hd - 1]!=null&& item1.startTime > timelist[hd - 1].etime && time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
+													var index=Math.floor((Math.random()*item1.ulist.length));
+													if(item1.ulist[index].staff!=null){
+														pro.sid = item1.ulist[index].staff.id;
+													}
+													pro.time = item1.startTime;
+													pro.area = data[i].ix[j].areas[h].aname;
+													pro.pname = data[i].ix[j].pname;
+													pro.etime = item1.endTime;
+													pro.pid=data[i].ix[j].id;
+													pro.aid=data[i].ix[j].areas[h].id;
+													pro.id=data[i].iid;
+													pro.typeid=data[i].typeid;
+													timelist[hd] = pro;
+													be++;
+													indexss=1;
+												} else
+													if(timelist[hd] != null && timelist[hd].time > item1.startTime&&(timelist[hd - 1]!=null && timelist[hd - 1].etime < item1.startTime||hd==0)&& time3 > etime1 && number1 <= data[i].ix[j].galleryful) {
+														var index=Math.floor((Math.random()*item1.ulist.length));
+														if(item1.ulist[index].staff!=null){
+															pro.sid = item1.ulist[index].staff.id;
+														}
+														pro.time = item1.startTime;
+														pro.area = data[i].ix[j].areas[h].aname;
+														pro.pname = data[i].ix[j].pname;
+														pro.etime = item1.endTime;
+														pro.pid=data[i].ix[j].id;
+														pro.aid=data[i].ix[j].areas[h].id;
+														pro.id=data[i].iid;
+														pro.typeid=data[i].typeid;
+														timelist[hd] = pro;
+														be++;
+														indexss=1;
+													}
+									})
+								})
+								if(indexss==0){
+									pd=0;
+								}		
+								if(be != 0) {
+									break;
+									be = 0;
+								}
+							}
+							hd++;
+						}
 					}
+				}
+			}
+		}		
+		</script>
+		<script th:line="javascript">
+			var users=[];
+			var usertype=1;
+			var number=0;
+			$("#queryUser").click(function(){
+				var crarNo=$(this).prev().val();
+				$.ajax({
+					url:"/order/queryIdcard?uid="+crarNo+"&typeId="+usertype+"",
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						alert("此用户存在");
+						if(data.length>0){
+							users=data;
+							number=data.length;
+						}
+						if(data.length==0){
+							alert("还未录入团员信息哦");
+						}
+						$("#checkboxs").css("display","block");
+					},
+					error:function(data){
+						alert("此用户不存在，去注册吧");
+						location.href="/customer/toadd";
+					}
+				})
+			})
+			$("#orderinsert").click(function(){
+				var usermainorder={};
+				usermainorder.list=users;
+				var ordersons=[];
+				$.each($("#boxorder tr"),function(index1,item1){
+					if($(item1).hasClass("detail1")==false){
+						var orderson={};
+						var types=$(item1).find(".typeidss").val();
+						orderson.typeid=types;
+						var iid=$(item1).find("[name=productid]").val();
+						orderson.iid=iid;
+						if(types==1||types==5||types==7){
+							var orderwork={};
+							var orderproductwork=[];
+							var worduser=[];
+							$.each($("#boxorder tr"),function(index,item){
+								if($(item).attr("seachid")==iid+""+types){
+									var opw={};
+									opw.starttime=$(item).find(".startTime").text();
+									opw.endtime=$(item).find(".endTime").text();
+									opw.iid=$(item).find(".pid").val();
+									opw.name1=$(item).find(".aid").val();
+									var list=[];
+									$.each($(item).find(".sid"),function(ins,item2){
+										var s={};
+										s.productstaffid=$(item).find(".sid").val();
+										list.push(s);
+									})
+									opw.list=list;
+									orderproductwork.push(opw);	
+								}
+							})
+							orderwork.list=orderproductwork;	
+							orderson.ow=orderwork;
+						}
+						ordersons.push(orderson);
+					}
+				})
+				usermainorder.olist=ordersons;
+		 		 $.ajax({
+					url:"/order/insertOrder1",
+					type:"post",
+					dataType:"json",
+					data:JSON.stringify(usermainorder),
+					contentType:"application/json;charset:utf-8",
+					success:function(data){
+						location.href="/order/query";
+					},
+					error:function(){
+						location.href="/order/query";
+					}
+				}) 
+			})
+			$("[name='usertype']").click(function(){
+				usertype=$(this).attr("attr");
+				$("#cardbox").css("display","block");
+			})
+			function a(obj){
+				var index=$(obj).parent().find(".divbutton").index(obj);
+				$(obj).parent().next().find(".table").css("display","none");
+				$(obj).parent().next().find(".table:eq("+index+")").css("display","table");
+			}
+			var typeid=5;
+			$("#checkboxs>[type='radio']").click(function(){
+				var index=$("#checkboxs>[type='radio']").index($(this));
+				$("[name='Hiddens']").hide();
+				$("[name='Hiddens']:eq("+index+")").show();
+				if(index==1){
+					typeid=1;
+				}
+				if(index==2){
+					typeid=2;
+				}
+				if(index==3){
+					typeid=3;
+				}
+				if(index==0){
+					typeid=5;
+				}
+				if(index==4){
+					typeid=4;
+				}
+				if(index==5){
+					typeid=7;
 				}
 			});
-			
-			jd_name=$(this).parents("tr").find("td:eq(0)").html();
-			jd_id=$(this).parents("tr").find("td:eq(0)").attr("aid");
-			$("#hide_project_time").css("display","block");
-			$(this).html("-");
-		})
-		
-		/*点击排班复选框追加到项目下面*/
-		$("#time_tbody").on("click","[name=lr_time_ck]",function(){
-			var tid=$(this).parents("tr").attr("tid");
-			var thead=$("[pid='"+pid+"']").parents("thead"); 
-			var jia_tr=$(thead).find("tr [tid='"+tid+"']").html();
-			var zhen_tr=$(thead).find("tr[tid='"+tid+"']");
-			var rs=$(this).parents("tr").find("td:eq(3)").children("input").val();
-			
-			$($(this).parents("tr").find("td:eq(3)").children("input")).change(function(){
-				alert($(this).val());
-			})
-			
-			var kw=$(this).parents("tr").find("td:eq(2)").html();
-			var kw1=kw-rs;
-			var index=0;
-			$("[name=ck_ry]").each(function(){
-				if(this.checked){
-					index=1;
-				}
-			})
-			if(index==0){
-				alert("请先选择工作人员");
-			}
-			
-			if(index==1){
-				if($(this).parent("td").prev("td").find("input").val()==""){
-					alert("您还没有输入人数");
-					this.checked=false;
-				}else if(jia_tr==null){
-					if(kw1<0){
-						alert("人数不能大于空位");
-						this.checked=false;
-					}else{
-						$("[name=lr_time_ck]").each(function(i,obj){
-							if(obj.checked){
-								
-								$(this).parents("tr").find("td:eq(2)").html(kw1);
-								var dt=$("<tr tid='"+tid+"' name='order_time_tr'>"+
-										"<td style='color: orange;' order_pid='"+pid+"' jd_id='"+jd_id+"'>"+jd_name+"</td>"+
-					                	"<td>"+$(obj).parents("tr").find("td:eq(0)").html()+"</td>"+
-					                	"<td>"+$(obj).parents("tr").find("td:eq(1)").html()+"</td>"+
-					                	"<td>"+kw1+"</td>"+
-					                	"<td>"+rs+"</td>"+
-					                "</tr>");
-					       		if(document.querySelector("[pid='"+pid+"y']")==null){
-									var ry_dt1=$("<tr></tr>");
-									ry_dt1.attr("pid",pid+"y");
-									$("[pid='"+pid+"x']").after(ry_dt1);
-									$(ry_dt1).after(dt);
-								}else{
-									
-									var ry_dt1=$("[pid='"+pid+"y']");
-									$(ry_dt1).after(dt);
-								}
-					       		return;
-					       	}
-						})
-						
+			$("[name='Hiddens'] [type='checkbox']").click(function(){
+					$(".addsorder").css("display","block");
+					var tr=$(this).parent().parent().clone();
+					var type="活动";
+					if(typeid==1){
+						type="项目";
 					}
-				}
-			}else{
-				this.checked=false;
-			}
-			
-		})
-		$(".show_pb").click(function(){
-			
-			
-		})
-		
-		/*新增订单*/
-		$("[name=order_submit]").click(function(){
-			/*订单从表*/
-			var orderson=[];
-			var typeid;
-			var orderwork=[];
-			var opklist=[];
-			var wulist=[];
-			var iid;
-			if(xzid==1){
-				$("[name=look_product]").each(function(){
-					if(this.checked){
-						var odr = {};
-						typeid=5;
-						iid=$(this).attr("pid")
-						odr.typeid = typeid;
-						odr.iid = iid;
-						orderson.push(odr);
+					if(typeid==2){
+						type="餐饮";
 					}
-				})
-				var bl={};
-				$(".pruduct_project_tbody").each(function(){
-					/*订单项目排班表*/
-					var order_time_tr=$(this).find("[name=order_time_tr]");
-					$.each(order_time_tr,function(){
-						wulist=[];
-						$.each($(this).prev().prev().find("td"),function(){
-							var wuser={};
-							/*排班安排人员id*/
-							wuser.productstaffid=$(this).attr("ry_id");
-							wulist.push(wuser);
-						})
-						var ordertime={};
-						/*订单项目id*/
-						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
-						/*排班开始时间*/
-						ordertime.starttime=$(this).find("td:eq(1)").text();
-						/*排班结束时间*/
-						ordertime.endtime=$(this).find("td:eq(2)").text();
-						/*基地id*/
-						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
-						ordertime.list=wulist;
-						opklist.push(ordertime);
-				})
-				/* if(xzid==2){
-					
-				} */
-				orderwork.push({list:opklist});
-			})
-			}else if(xzid==2){
-				$(".show_jd").each(function(){
-					if(this.checked){
-						var odr1={};
-						typeid=1;
-						iid=$(this).parents("tr").find("td:eq(0)").attr("iid");
-						odr1.typeid = typeid;
-						odr1.iid = iid;
-						orderson.push(odr1);
+					if(typeid==3){
+						type="房间";
 					}
-				})
-				$(".one_project_tbody").each(function(){
-					/*订单项目排班表*/
-					var order_time_tr=$(this).find("[name=order_time_tr]");
-					$.each(order_time_tr,function(){
-						wulist=[];
-						$.each($(this).prev().prev().find("td"),function(){
-							var wuser={};
-							/*排班安排人员id*/
-							wuser.productstaffid=$(this).attr("ry_id");
-							wulist.push(wuser);
-						})
-						var ordertime={};
-						/*订单项目id*/
-						ordertime.iid=$(this).find("td:eq(0)").attr("order_pid");
-						/*排班开始时间*/
-						ordertime.starttime=$(this).find("td:eq(1)").text();
-						/*排班结束时间*/
-						ordertime.endtime=$(this).find("td:eq(2)").text();
-						/*基地id*/
-						ordertime.name1=$(this).find("td:eq(0)").attr("jd_id");
-						ordertime.list=wulist;
-						opklist.push(ordertime);
-				})
-				orderwork.push({list:opklist});
-				})
-			}
-			
-			var o={};
-			o.order_work=orderwork;
-			o.order_son=orderson;
-			o=JSON.stringify(o);
-			$.ajax({
-				url:"/xjb_projectOrderController/insert",
-				type:"post",
-				data:o,
-				processData:false, 
- 				contentType:"application/json;charset=UTF-8",
- 				dataType:"text",
-				success:function(result){
-					alert("新增成功")
-				}
-			}); 
-		})
-		$("#queryByFzr").click(function(){
-			var card=$("[name=card]").val();
-			$.ajax({
-				url:"/xjb_projectOrderController/queryByIdCard?card="+card,
-				type:"post",
-				dataType:"json",
-				success:function(result){
-					console.log(result);
-					var jia_name2;
-					if(result.typeid==1){
-						jia_name2="个人";
-					}else if(result.typeid==2){
-						jia_name2="团队";
+					if(typeid==5){
+						type="活动";
 					}
-					$.ajax({
-						url:"queryByFzr",
-						data:{
-							orderCustomer:card,
-							name2:jia_name2
-						},
-						type:"post",
-						dataType:"json",
-						success:function(result){
-							if(result==null){
-								
-							}
+					if(typeid==7){
+						type="总套餐";
+					}
+					var td=$("<td><input type='hidden' class='typeidss' value='"+typeid+"'>"+type+"</td>");
+					$(tr).append(td);
+					var index1=0;
+					$.each($("#boxorder").find("[name='productid']"),function(index,item){
+						if($(item).val()==$(tr).find("[name='productid']").val()&&typeid==$(item).parent().parent().find(".typeidss").val()){
+							$(item).parent().parent().remove();
+							index1=1;
 						}
 					})
-				}
-			});
-		}) 
-     });
-      
-    </script>
-	</body>
-
+					if(index1==0){
+						$("#boxorder").append(tr);
+					}
+			})
+			$(".addsorder").click(function(){
+				var a=[];
+				$.each($("#boxorder tr"),function(index,item){
+					if($(item).find("[name='productid']").prop("checked")){
+						var x={};
+						x.typeid=$(item).find(".typeidss").val();
+						x.iid=$(item).find("[name='productid']").val();
+						if(x.typeid==1||x.typeid==5);
+						a.push(x);			
+					}
+				})
+				var a1=JSON.stringify(a);
+				orderson1=a1;
+				Xm(number);
+			})
+		</script>
+		
+</body>
 </html>

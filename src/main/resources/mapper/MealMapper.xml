@@ -25,6 +25,10 @@
   		</where>
   </select>
   
+  <select id="recommendMealAll" resultType="com.accp.domain.recommend">
+  		SELECT `name` AS `name`,`price` AS price,`id` FROM `meal` where id=#{id}
+  </select>
+  
   <resultMap type="com.accp.domain.Meal" id="BaseResultMap1" extends="BaseResultMap">
   	<collection property="list" column="id" ofType="com.accp.domain.Mealix">
 	  	<id column="mxid" property="id" jdbcType="INTEGER" />

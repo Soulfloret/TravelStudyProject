@@ -29,7 +29,30 @@ public class orderson {
         
     private room rooms;
     
-    public room getRooms() {
+    private List<orderson> ordersons;
+    
+    private orderwork ow;
+    
+ 
+   
+
+	public orderwork getOw() {
+		return ow;
+	}
+
+	public void setOw(orderwork ow) {
+		this.ow = ow;
+	}
+
+	public List<orderson> getOrdersons() {
+		return ordersons;
+	}
+
+	public void setOrdersons(List<orderson> ordersons) {
+		this.ordersons = ordersons;
+	}
+
+	public room getRooms() {
 		return rooms;
 	}
 

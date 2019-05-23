@@ -17,7 +17,9 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
+  <resultMap type="com.accp.domain.menu" id="count" extends="BaseResultMap">
+  	<result column="countnum" property="countnum" jdbcType="INTEGER"/>
+  </resultMap>
   <resultMap id="BaseResultMap1" type="com.accp.domain.menu" extends="BaseResultMap" >
 	  	<association property="image"   javaType="com.accp.domain.images">
 	  		<id column="iiid" property="id" jdbcType="INTEGER" />
@@ -40,6 +42,17 @@
   		</collection>
   		
   </resultMap>
+  <select id="querycountmenu" resultMap="count">
+  	SELECT mu.*,COUNT(mu.id) as countnum FROM menu AS mu
+	LEFT JOIN ordershop AS os ON os.`menuId`=mu.`id`
+	LEFT JOIN menuorder AS mo ON mo.`id`=os.`orderId`
+	WHERE mo.`createTime` between #{starttime} and #{endtime}
+	and mu.id=#{id}
+	GROUP BY mu.`id`;
+ </select>
+  <select id="queryByiidAndMenuid" resultType="com.accp.domain.menu">
+  			SELECT m.* FROM menu AS m INNER JOIN itype AS i WHERE i.id=#{iid} AND m.id=#{typeid}
+  </select>
   
   <select id="selectmenuByid" resultMap="BaseResultMap2">
   		SELECT m.*,i.`id`AS iiid ,i.`iid`,i.`url`,i.`typeId` FROM `menu` m LEFT JOIN `images` i ON m.`id`=i.`iid` AND i.`typeId`=2

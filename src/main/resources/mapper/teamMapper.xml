@@ -18,9 +18,42 @@
   	</association>
   </resultMap>
   
+  <resultMap type="com.accp.domain.team" id="resultMap" extends="BaseResultMap">
+  	 <collection property="teams" column="id" ofType="com.accp.domain.teammember">
+  	 	<association property="user"  javaType="com.accp.domain.users">
+  	 		 <id column="id" property="id" jdbcType="INTEGER" />
+		    <result column="uName" property="uname" jdbcType="VARCHAR" />
+		    <result column="uPassword" property="upassword" jdbcType="VARCHAR" />
+		    <result column="idCardNo" property="idcardno" jdbcType="VARCHAR" />
+		    <result column="phone" property="phone" jdbcType="VARCHAR" />
+		    <result column="address" property="address" jdbcType="VARCHAR" />
+		    <result column="height" property="height" jdbcType="DOUBLE" />
+		    <result column="width" property="width" jdbcType="DOUBLE" />
+		    <result column="TypeId" property="typeid" jdbcType="INTEGER" />
+		    <result column="name1" property="name1" jdbcType="VARCHAR" />
+		    <result column="name2" property="name2" jdbcType="VARCHAR" />
+		    <result column="name3" property="name3" jdbcType="VARCHAR" />
+		    <result column="name4" property="name4" jdbcType="VARCHAR" />
+		    <result column="name5" property="name5" jdbcType="VARCHAR" />
+  	 	</association>
+  	 </collection>
+  </resultMap>
+  
+  <!-- 查询团体中的人 -->
+  <select id="QueryTidUsers" resultMap="resultMap">
+  		SELECT u.*,t.* FROM `team`  AS t 
+		JOIN `teammember` AS tm ON t.`id`=tm.`teamId`
+		JOIN `users` AS u ON  u.`id`=tm.`memberId`
+		WHERE t.id=#{id}
+  </select>
+  
   <select id="selectBymainiUserId" resultMap="BaseResultMap">
   		SELECT t.* FROM `team`  t INNER JOIN `usermainorder` um ON t.`id`=um.`orderCustomer`
 		WHERE t.`mainiUserId`=1 AND um.name2='团队' AND um.name1='正在进行中'
+  </select>
+  
+  <select id="queryByuid" resultMap="BaseResultMap">
+  		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
   </select>
   
   <select id="selectAllTeam" resultMap="MapYp">
@@ -33,6 +66,10 @@
   	 	 	and u.`uName` LIKE CONCAT('%',#{uname},'%')
   	 	</if>
   	 </where>
+  </select>
+  <!-- 查询最新的团队 -->
+  <select id="NewTid" resultType="com.accp.domain.team">
+  	SELECT * FROM `team` ORDER BY `id` DESC LIMIT 0,1
   </select>
   
   <sql id="Example_Where_Clause" >

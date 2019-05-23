@@ -5,21 +5,26 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class workTime {
 	@DateTimeFormat(pattern ="yyyy-MM-dd HH:mm:ss")
+	 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Date startTime;
 	@DateTimeFormat(pattern ="yyyy-MM-dd HH:mm:ss")
+	 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Date endTime;
 	
 	private Integer  count;
 	
-	private List<users> ulist;
+	private List<worduser> ulist;
 
-	public List<users> getUlist() {
+
+	public List<worduser> getUlist() {
 		return ulist;
 	}
 
-	public void setUlist(List<users> ulist) {
+	public void setUlist(List<worduser> ulist) {
 		this.ulist = ulist;
 	}
 

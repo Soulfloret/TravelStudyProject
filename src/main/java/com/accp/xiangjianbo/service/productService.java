@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.accp.domain.product;
+import com.accp.domain.productproject;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.productprojectMapper;
 
@@ -36,5 +37,18 @@ public class productService {
 	public product queryByXqById(Integer id) {
 		return prod.queryByXqById(id);
 	}
+	
+	/*前台查询活动推荐*/
+	public List<product> QueryQtproductByXq(){
+		List<product> list  = prod.QueryQtproductByXq();
+		for (product product : list) {
+			double sum=0;
+			for (productproject pro : product.getPplist()) {
+				sum+=pro.getPro().getPrice();
+			} 
+			product.setPrice(sum);
+		}
+    	return list;
+    }
 	
 }

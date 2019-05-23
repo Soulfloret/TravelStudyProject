@@ -2,6 +2,7 @@ package com.accp.yipeng.controller;
 
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,19 +13,29 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.chenyong.service.OrderSonService;
 import com.accp.chenyong.service.UserMainOrderService;
+import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
+import com.accp.domain.orderson;
 import com.accp.domain.users;
+import com.accp.renyuxuan.service.bindservice;
+import com.accp.xiangjianbo.service.productService;
+import com.accp.yipeng.service.ShopCareServcie;
 import com.accp.yipeng.service.TeamService;
 import com.accp.yipeng.service.TeammemberService;
+import com.accp.yipeng.service.UserMainOrderService1;
 import com.accp.yipeng.service.UserOrderService;
 import com.accp.yipeng.service.UserTypeService;
 import com.accp.yipeng.service.UsersService;
 import com.accp.yipeng.util.AgeUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -45,9 +56,19 @@ public class CustomerController {
 	TeammemberService TeammberService;
 	@Autowired
 	UserOrderService UseOrderService;
+	@Autowired
+	ShopCareServcie shopservice;
 	//陈勇 
 	@Autowired
 	UserMainOrderService UmoService;
+	@Autowired
+	OrderSonService ordersonservice;
+	@Autowired
+	UserMainOrderService1 umoService1;
+	@Autowired
+	bindservice service2;
+	@Autowired
+	productService prod;
 	
 	
 	/**
@@ -76,6 +97,8 @@ public class CustomerController {
 	 * 
 	 * @return 去客户新增页面 并查询出可以选择的客户类型
 	 */
+	 
+	 
 	@RequestMapping("toadd")
 	public String toadd(Model model) {
 		model.addAttribute("list",UsersType.selectByExample(null));
@@ -119,7 +142,7 @@ public class CustomerController {
 		
 		try {
 			//模版位置
-			FileInputStream fis=new FileInputStream("C:/Users/Administrator/Downloads/客户导入.xlsx");
+			FileInputStream fis=new FileInputStream("F:\\y2项目客户导入.xlsx");
 			byte [] bytes=new byte[fis.available()];
 			fis.read(bytes);
 			HttpHeaders headers= new HttpHeaders();
@@ -127,7 +150,6 @@ public class CustomerController {
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			return new ResponseEntity<byte[]>(bytes,headers,HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -155,7 +177,11 @@ public class CustomerController {
 	 * @return 去个人中心
 	 */
 	@RequestMapping("toPerson")
-	public  String toPerson() {
+	public  String toPerson(HttpSession session) {
+		users uses=(users)session.getAttribute("use");
+		if(uses==null) {
+			return "redirect:/Login/tologin";
+		}
 		return "Person";
 	}
 
@@ -164,9 +190,13 @@ public class CustomerController {
 	 * @return 首页
 	 */
 	@RequestMapping("topagehome")
-	public  String topagehome() {
+	public  String topagehome(Model model) {
+		
+		model.addAttribute("menulist", service2.selectByQtTj());
+		model.addAttribute("productlist", prod.QueryQtproductByXq());
 		return "pagehome";
 	}
+
 	
 	/**
 	 * 
@@ -225,6 +255,52 @@ public class CustomerController {
 		return "redirect:/customer/toPersonDetails";
 	}
 	
+	@RequestMapping("look")
+	public String look(Model model,HttpSession session){
+		users use=(users)session.getAttribute("use");
+		if(use==null) {
+			return "redirect:/Login/tologin";
+		}else {
+			List<Shopcart> list=  shopservice.queryAll(use.getId());
+			model.addAttribute("list",list);
+			return "cart";
+		}
+	}
+	
+	@RequestMapping("delshopCart")
+	@ResponseBody 
+	public int delshopCart(Integer id) {
+		return shopservice.deleteByPrimaryKey(id);
+	}
+	
+	@RequestMapping("addUserMainOrder")
+	@ResponseBody  
+	public String addUserMainOrder(@RequestBody Usermainorder umorder) {
+		 Usermainorder us= umoService1.addUserMainOrder(umorder);
+		 us.setOlist(umorder.getOlist());
+		 return JSON.toJSONString(us);
+	}
+	
+	
+	
+	@RequestMapping("buy")
+	public String buy(Model model, String data) {
+		Usermainorder umo=JSON.parseObject(data,Usermainorder.class);
+			List<orderson> list=umoService1.queryDetails(umo.getOlist());
+			int num=1;
+			if("团队".equals(umo.getName2())) {
+				num=TeammberService.queryByteamId(umo.getOrdercustomer());
+			}
+			model.addAttribute("list",list);
+			model.addAttribute("number1", num);
+			model.addAttribute("umo", umo);
+		return "buy";
+	}
+	@RequestMapping("insertOrder")
+	@ResponseBody
+	public int 	insertOrder(@RequestBody Usermainorder umo) {
+		return umoService1.insertOrderSonAndWork(umo);
+	}
 	
 	
 }

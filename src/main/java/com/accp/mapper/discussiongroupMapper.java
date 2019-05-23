@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface discussiongroupMapper {
+	public List<discussiongroup> selectByuidAndGroupName(@Param("name") String name,@Param("uid") int uid);
+	
 	public discussiongroup selectDisBysonUidAndDid(@Param("uid")Integer uid,@Param("did") Integer did);
 	
 	public int updateDisName(discussiongroup dis);

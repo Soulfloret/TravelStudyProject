@@ -2,12 +2,15 @@ package com.accp.mapper;
 
 import com.accp.domain.menu;
 import com.accp.domain.menuExample;
+import com.accp.domain.project;
 import com.accp.domain.recommend;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface menuMapper {
+	menu queryByiidAndMenuid(@Param("iid") Integer iid,@Param("iid") Integer typeid);
 	
 	List<menu> selectmenuByid(Integer id);
 	
@@ -38,6 +41,8 @@ public interface menuMapper {
     recommend recommendByidmenu(@Param("id")Integer id);
     
     List<menu> queryMenuAll(menu menu);
+    
+    menu querycountmenu(@Param("starttime") Date starttime,@Param("endtime") Date endtime,@Param("id") Integer id);
     
     
 }

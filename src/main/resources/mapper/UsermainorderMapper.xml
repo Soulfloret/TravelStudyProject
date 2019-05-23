@@ -14,7 +14,7 @@
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
   <select id="QueryCunzai" resultMap="BaseResultMap">
-  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and name1='正在进行中'
+  	select * from usermainorder where orderCustomer=#{ordercustomer} and name2=#{name2} and (name1='正在进行中' or name1='未付款')
   </select>
   
   <!-- 活动详情查询参加活动人员 -->
@@ -31,13 +31,15 @@
   		SELECT * FROM `usermainorder` WHERE `orderCustomer`=#{id}  AND name2=#{lb} and name1=#{name1}
   </select>
   
-  
   <select id="query" resultMap="BaseResultMap">
 		select * from usermainorder 
 		<where>
 		    <if test="id!=null">
 		  		and id=#{id}
-		  	</if>	
+		  	</if>
+		  	<if test="name1!=null">
+		  		and name1=#{name1}
+		  	</if>
 		</where>
   </select>
   <sql id="Example_Where_Clause" >

@@ -74,15 +74,19 @@
 	 os.`id` AS osid,os.`iid` AS osiid,os.`name1` AS osname1,os.`name2` AS osname2,os.`name3` AS osname3,
 	 os.`name4` AS osname4,os.`name5` AS osname5,os.`typeId` AS ostypeId
 	 FROM users AS u INNER JOIN userorder AS uo ON u.`id`=uo.`orderCustomer`
-	 INNER JOIN orderson AS os ON os.`name1`=uo.`id`
+	 left JOIN orderson AS os ON os.`name1`=uo.`id`
 	 <where>
 	 	<if test="id!=null">
 	 		and uo.`orderMainId`=#{id}		
 	 	</if>
 	 	<if test="uid!=null">
-	 		and u.id=#{id}
+	 		and u.id=#{uid}
 	 	</if>
 	   </where>
+  </select>
+  
+  <select id="queryIcarno" resultType="com.accp.domain.users">
+  		SELECT * FROM `users` WHERE `idCardNo`=#{idCardNo}
   </select>
 
   <resultMap id="MapOne" type="com.accp.domain.users" extends="BaseResultMap">

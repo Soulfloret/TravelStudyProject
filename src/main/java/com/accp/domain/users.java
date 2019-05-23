@@ -8,8 +8,20 @@ public class users {
     private String uname;
 
     private String upassword;
+    
+    private Integer muid;
+    
+    
 
-    public users() {
+    public Integer getMuid() {
+		return muid;
+	}
+
+	public void setMuid(Integer muid) {
+		this.muid = muid;
+	}
+
+	public users() {
 		super();
 	}
     private dynamics dynamic;
@@ -21,6 +33,28 @@ public class users {
 
 	public void setDynamic(dynamics dynamic) {
 		this.dynamic = dynamic;
+	}
+	//指退出 或解散讨论组
+	private Integer type;
+	//讨论组id 
+	private Integer did;
+	
+	
+	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getDid() {
+		return did;
+	}
+
+	public void setDid(Integer did) {
+		this.did = did;
 	}
 
 	public users(String uname, String idcardno, String phone, String address, Double height, Double width,

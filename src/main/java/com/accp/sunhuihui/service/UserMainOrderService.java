@@ -77,8 +77,9 @@ public class UserMainOrderService {
 	
 	
 	public List<Usermainorder> query(Integer id,Integer uid) {
-		// TODO Auto-generated method stub
-		List<Usermainorder> list=mapper.query(id);
+		Usermainorder u1=new Usermainorder();
+		u1.setId(id);
+		List<Usermainorder> list=mapper.query(u1);
 		List<Usermainorder> listss=new ArrayList<Usermainorder>();
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
@@ -138,6 +139,7 @@ public class UserMainOrderService {
 							if(orderson.getTypeid()==7) {
 								Meal m=new Meal();
 								m=mapper9.query(orderson.getIid()).get(0);
+								m.setImg(mapper6.queryimg(m.getId(), 7));
 								for (Mealix mx : m.getList()) {
 									if(mx.getTypeid()==1) {
 										orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -179,6 +181,7 @@ public class UserMainOrderService {
 										mx.setIx(mapper10.querybind(b).get(0));
 										umo.setPrice(umo.getPrice()+m.getPrice());
 									}
+									orderson.setIx(m);
 								}
 							}
 						}
@@ -243,6 +246,7 @@ public class UserMainOrderService {
 								if(orderson.getTypeid()==7) {
 									Meal m=new Meal();
 									m=mapper9.query(orderson.getIid()).get(0);
+									m.setImg(mapper6.queryimg(m.getId(), 7));
 									for (Mealix mx : m.getList()) {
 										if(mx.getTypeid()==1) {
 											orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -284,6 +288,7 @@ public class UserMainOrderService {
 											mx.setIx(mapper10.querybind(b).get(0));
 											umo.setPrice(umo.getPrice()+m.getPrice());
 										}
+										orderson.setIx(m);
 									}
 								}
 							}

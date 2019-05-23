@@ -15,7 +15,9 @@
     <result column="name4" property="name4" jdbcType="VARCHAR" />
     <result column="name5" property="name5" jdbcType="VARCHAR" />
   </resultMap>
-  
+  <resultMap type="com.accp.domain.room" id="count">
+  	    <result column="countnum" property="countnum" jdbcType="INTEGER" />
+  </resultMap>
   <resultMap type="com.accp.domain.room" id="BaseResultMap1" extends="BaseResultMap">
   		<association property="img" javaType="com.accp.domain.images">
   			<id column="iid" property="id" jdbcType="INTEGER" />
@@ -30,7 +32,13 @@
   		</collection>
   </resultMap>
   
-  
+  <select id="querycountroom" resultMap="count">
+  	SELECT r.*,COUNT(r.id) as countnum FROM roomdestine AS rd 
+  	INNER JOIN room AS r ON r.`id`=rd.`roomId`
+	WHERE rd.`begintime` BETWEEN #{starttime} AND #{endtime}
+	AND rd.`id`=#{id}
+	GROUP BY rd.`id`
+  </select>
   <select id="queryByroomid" resultMap="BaseResultMap2">
   		SELECT r.*,i.`id` AS iid,i.`url`
 		FROM `room` r 

@@ -13,6 +13,8 @@ public interface UsermainorderMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int updateByPrimaryKeySelective(Usermainorder record);
+    
     int insert(Usermainorder record);
 
     int insertSelective(Usermainorder record);
@@ -23,7 +25,7 @@ public interface UsermainorderMapper {
 
     int updateByPrimaryKey(Usermainorder record);
     
-    List<Usermainorder> query(@Param("id") Integer id);
+    List<Usermainorder> query(Usermainorder record);
     
     Usermainorder QueryCunzai(Usermainorder o);
 }

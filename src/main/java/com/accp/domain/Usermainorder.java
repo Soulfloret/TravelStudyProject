@@ -3,11 +3,18 @@ package com.accp.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 public class Usermainorder {
     private Integer id;
 
     private String orderno;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="GMT+8")
     private Date ordertime;
 
     private Integer orderuser;
@@ -26,7 +33,17 @@ public class Usermainorder {
     
     private users user;
     
-    private staff staff;
+    private List<orderson> olist;
+    
+    public List<orderson> getOlist() {
+		return olist;
+	}
+
+	public void setOlist(List<orderson> olist) {
+		this.olist = olist;
+	}
+
+	private staff staff;
         
     private List<users> list;
     

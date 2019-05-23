@@ -30,4 +30,6 @@ public interface positionsMapper {
     int updateByPrimaryKeySelective(positions record);
 
     int updateByPrimaryKey(positions record);
+    
+    List<positions> project_queryById(Integer pid);
 }

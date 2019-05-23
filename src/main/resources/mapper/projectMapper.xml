@@ -49,7 +49,7 @@
   		<result property="postionid" column="postionid"/>
   		<result property="state" column="state"/>
   	</collection>
-  	<collection property="use" column="id" ofType="com.accp.domain.users">
+  	<collection property="use" column="leadingoffcial" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.selectByPrimaryKey">
   		<id property="id"  column="id"/>
   		<result property="uname" column="uname"/>
   		<result property="upassword" column="upassword"/>
@@ -61,6 +61,16 @@
   		<result property="typeid" column="typeid"/>
   	</collection>
   </resultMap>
+  <resultMap type="com.accp.domain.project" id="count" extends="BaseResultMap">
+  	<result column="countnum" property="countnum"/>
+  </resultMap>
+  <select id="querycountproject" resultMap="count">
+  	SELECT p.*,COUNT(p.`id`) as countnum FROM project AS p
+	LEFT JOIN orderproductwork AS opw ON p.`id`=opw.`iid`
+	WHERE opw.`startTime` between #{starttime} and #{endtime}
+	and p.id=#{id}
+	GROUP BY p.`id` 
+  </select>
   <select id="queryAll" resultMap="queryAll_result">
   	SELECT *,`user`.`uName` AS `uname`,`pro`.`pName` AS `pname` FROM `project` AS `pro`
 	INNER JOIN `projecttype` AS `pt`
@@ -152,6 +162,10 @@
 	    <result column="star" property="star" jdbcType="INTEGER" />
 	    <result column="userid" property="userid" jdbcType="INTEGER" />
   	</collection>
+  <!-- <collection property="poslist" column="name1" ofType="com.accp.domain.positions" select="com.accp.mapper.positionsMapper.project_queryById">
+  		<id column="id" property="id" jdbcType="INTEGER" />
+   		<result column="postion" property="postion" jdbcType="VARCHAR" />
+  	</collection>  -->
   </resultMap>
   
   

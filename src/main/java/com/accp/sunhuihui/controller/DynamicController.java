@@ -118,6 +118,10 @@ public class DynamicController {
 				}
 		}
 		
+		@RequestMapping("DynamicUid")
+		public List<dynamics> DynamicUid(Integer uid){
+			return service.DynamicUid(uid);
+		}
 		
 		/*@RequestMapping("insertimglist")
 		public int insertimglist(@RequestBody dynamics dinameics) {

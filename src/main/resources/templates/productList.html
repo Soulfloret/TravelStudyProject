@@ -1,243 +1,207 @@
-
-<html class="noIE" lang="en-US" xmlns:th="http://www.themleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<title>GFashion - Responsive e-commerce HTML Template</title>
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="icon" href="img1/favicon/favicon.html" type="/image/x-icon" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img1/favicon/apple-touch-icon-144x144-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img1/favicon/apple-touch-icon-72x72-precomposed.html">
-		<link rel="apple-touch-icon-precomposed" href="/img1/favicon/apple-touch-icon-precomposed.html">
-		<link rel="stylesheet" href="/css1/minified.css">
-		<script>
-			window.jQuery || document.write('<script src="/js1/jquery.min.js"><\/script>');
-		</script>
-		<script src="/js1/modernizr.min.js"></script>
-		<link rel="stylesheet" href="/css1/jquery.nouislider.css">
-		<link rel="stylesheet" href="/css1/isotope.css">
-		<link rel="stylesheet" href="/css1/innerpage.css">
-		<link rel="stylesheet" href="/css1/responsive.css">
-	</head>
-
-	<body class="products-view">
-		<header id="site-header" role="banner">
-			<!-- HEADER TOP -->
-			<div class="header-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-7">
-							<!-- CONTACT INFO -->
-							<div class="contact-info">
-								<i class="iconfont-headphones round-icon"></i>
-								<strong>+444 (100) 1234</strong>
-								<span>(周一- 周五: 09.00 - 21.00)</span>
+<!DOCTYPE html>
+<html class="noIE" lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>GFashion - Responsive e-commerce HTML Template</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" th:href="@{/css1/minified.css}">
+	<script>window.jQuery || document.write('<script src="/js1/jquery.min.js"><\/script>');</script>
+	<script th:src="@{/js1/modernizr.min.js}"></script>	
+	<!-- PARTICULAR PAGES CSS FILES -->
+	<link rel="stylesheet" th:href="@{/css1/jquery.nouislider.css}">
+	<link rel="stylesheet" th:href="@{/css1/isotope.css}">
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
+</head>
+<body class="products-view">
+			
+<div id="page-wrapper">
+			<!--头部  -->
+			<header id="site-header" role="banner">
+				<!-- HEADER TOP -->
+				<div class="header-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-7">
+								<!-- CONTACT INFO -->
+								<div class="contact-info">
+									<i class="iconfont-headphones round-icon"></i>
+									<strong>+444 (100) 1234</strong>
+									<span>(周一- 周五: 09.00 - 21.00)</span>
+								</div>
+								<!-- // CONTACT INFO -->
 							</div>
-							<!-- // CONTACT INFO -->
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-5">
-							<ul class="actions unstyled clearfix">
-								<li>
-									<!-- SEARCH BOX -->
-									<div class="search-box">
-										<form action="#" method="post">
-											<div class="input-iconed prepend">
-												<button class="input-icon"><i class="iconfont-search"></i></button>
-												<label for="input-search" class="placeholder">在这里搜索</label>
-												<input type="text" name="q" id="input-search" class="round-input full-width" required />
-											</div>
-										</form>
-									</div>
-									<!-- // SEARCH BOX -->
-								</li>
-								<li data-toggle="sub-header" data-target="#sub-social">
-									<!-- SOCIAL ICONS -->
-									<a href="javascript:void(0);" id="social-icons">
-										<i class="iconfont-share round-icon"></i>
-									</a>
-
-									<div id="sub-social" class="sub-header">
-										<ul class="social-list unstyled text-center">
-											<li>
-												<a href="#"><i class="iconfont-facebook round-icon"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-twitter round-icon"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-google-plus round-icon"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-pinterest round-icon"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-rss round-icon"></i></a>
-											</li>
-										</ul>
-									</div>
-									<!-- // SOCIAL ICONS -->
-								</li>
-								<li data-toggle="sub-header" data-target="#sub-cart">
-									<!-- SHOPPING CART -->
-									<a href="javascript:void(0);" id="total-cart">
-										<i class="iconfont-shopping-cart round-icon"></i>
-									</a>
-
-									<div id="sub-cart" class="sub-header">
-										<div class="cart-header">
-											<span>你的购物车是空的</span>
-											<small><a href="">(See All)</a></small>
+							<div class="col-xs-12 col-sm-6 col-md-5">
+								<ul class="actions unstyled clearfix">
+									<li>
+										<!-- SEARCH BOX -->
+										<div class="search-box">
+											<form action="#" method="post">
+												<div class="input-iconed prepend">
+													<button class="input-icon"><i class="iconfont-search"></i></button>
+													<label for="input-search" class="placeholder">在这里搜索</label>
+													<input type="text" name="q" id="input-search" class="round-input full-width" required />
+												</div>
+											</form>
 										</div>
-										<ul class="cart-items product-medialist unstyled clearfix"></ul>
-										<div class="cart-footer">
-											<div class="cart-total clearfix">
-												<span class="pull-left uppercase">总计</span>
-												<span class="pull-right total">￥ 0</span>
-											</div>
-											<div class="text-right">
-												<a href="" class="btn btn-default btn-round view-cart">查看</a>
-											</div>
-										</div>
-									</div>
-									<!-- // SHOPPING CART -->
-								</li>
-							</ul>
+										<!-- // SEARCH BOX -->
+									</li>
+									<li data-toggle="sub-header" data-target="#sub-cart">
+										<!-- SHOPPING CART -->
+										<a th:href="@{/customer/look}" id="total-cart">
+											<i class="iconfont-shopping-cart round-icon"></i>
+										</a>
+										<!-- // SHOPPING CART -->
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
+
+					<!-- ADD TO CART MESSAGE -->
+					<div class="cart-notification">
+						<ul class="unstyled"></ul>
+					</div>
+					<!-- // ADD TO CART MESSAGE -->
 				</div>
-
-				<div class="cart-notification">
-					<ul class="unstyled"></ul>
-				</div>
-			</div>
-
-			<div class="main-header-wrapper">
-				<div class="container">
-					<div class="main-header">
-						<div class="actions">
-							<div class="center-xs">
-								<ul class="option-list unstyled">
-									<li class="active">
-										<a href="#" data-toggle="tooltip" title="人民币">￥</a>
-									</li>
-									<li>
-										<a href="#" data-toggle="tooltip" title="GBP - British Pound">£</a>
-									</li>
-									<li>
-										<a href="#" data-toggle="tooltip" title="EUR - Euro">€</a>
-									</li>
-								</ul>
-
-								<ul class="option-list unstyled">
-									<li class="active">
-										<a href="#" data-toggle="tooltip" title="中文">CH</a>
-									</li>
-									<li>
-										<a href="#" data-toggle="tooltip" title="French">FR</a>
-									</li>
-									<li>
-										<a href="#" data-toggle="tooltip" title="Deutsch">DE</a>
-									</li>
-								</ul>
-								<!-- // LANGUAGES -->
+				<!-- // HEADER TOP -->
+				<!-- MAIN HEADER -->
+				<div class="main-header-wrapper">
+					<div class="container">
+						<div class="main-header">
+							<!-- CURRENCY / LANGUAGE / USER MENU -->
+							<div class="actions">
+								<div class="center-xs">
+									<!-- CURRENCY -->
+									<ul class="option-list unstyled">
+										<li class="active">
+											<a href="#" data-toggle="tooltip" title="人民币">￥</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="GBP - British Pound">£</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="EUR - Euro">€</a>
+										</li>
+									</ul>
+									<!-- // CURRENCY -->
+									<!-- LANGUAGES -->
+									<ul class="option-list unstyled">
+										<li class="active">
+											<a href="#" data-toggle="tooltip" title="中文">CH</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="French">FR</a>
+										</li>
+										<li>
+											<a href="#" data-toggle="tooltip" title="Deutsch">DE</a>
+										</li>
+									</ul>
+									<!-- // LANGUAGES -->
+								</div>
+								<div class="clearfix"></div>
+								<!-- USER RELATED MENU -->
+								<nav id="tiny-menu" class="clearfix">
+									<ul class="user-menu">
+										<li>
+											<a th:href="@{/customer/toPerson}">我的账户</a>
+										</li>
+										<li>
+											<a th:href="@{/customer/toPerson}">查看</a>
+										</li>
+										<li>
+											<a th:href="@{/Login/back}">登出</a>
+										</li>
+									</ul>
+								</nav>
+								<!-- // USER RELATED MENU -->
 							</div>
-							<div class="clearfix"></div>
-							<!-- USER RELATED MENU -->
-							<nav id="tiny-menu" class="clearfix">
-								<ul class="user-menu">
-									<li>
-										<a href="Person.html">我的账户</a>
+							<!-- // CURRENCY / LANGUAGE / USER MENU -->
+							<!-- SITE LOGO -->
+							<div class="logo-wrapper">
+								<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
+									<img th:src="@{/images/logo2.png}" alt="Logo" />
+								</a>
+							</div>
+							<!-- // SITE LOGO -->
+							<!-- SITE NAVIGATION MENU -->
+							<nav id="site-menu" role="navigation">
+								<ul class="main-menu hidden-sm hidden-xs">
+									<li class="active">
+										<a th:href="@{/customer/topagehome}">首页</a>
 									</li>
 									<li>
-										<a href="Person.html">查看</a>
+										<a th:href="@{/xjb_projectController/query_Qt}">项目活动</a>
 									</li>
 									<li>
-										<a href="login-page.html">登出</a>
+										<a th:href="@{/menu/toquerymenu1}">餐饮</a>
+									</li>
+									<li>
+										<a th:href="@{/room/toqueryqtroom}">住宿</a>
+									</li>
+
+									<li>
+										<a th:href="@{/customer/toPerson}">个人中心</a>
 									</li>
 								</ul>
 							</nav>
-							<!-- // USER RELATED MENU -->
+							<!-- // SITE NAVIGATION MENU -->
 						</div>
-						<!-- // CURRENCY / LANGUAGE / USER MENU -->
-						<!-- SITE LOGO -->
-						<div class="logo-wrapper">
-							<a href="index-2.html" class="logo" title="GFashion - Responsive e-commerce HTML Template">
-								<img th:src="@{/images/logo2.png}" alt="Logo" />
-							</a>
-						</div>
-						<!-- // SITE LOGO -->
-						<!-- SITE NAVIGATION MENU -->
-						<nav id="site-menu" role="navigation">
-							<ul class="main-menu hidden-sm hidden-xs">
-								<li class="active">
-									<a href="pagehome.html">首页</a>
-								</li>
-								<li>
-									<a href="productList.html">活动</a>
-								</li>
-								<li>
-									<a href="menu1.html">餐饮</a>
-								</li>
-								<li>
-									<a href="hotel.html">住宿</a>
-								</li>
-
-								<li>
-									<a href="Person.html">个人中心</a>
-								</li>
-							</ul>
-
-						</nav>
-						<!-- // SITE NAVIGATION MENU -->
 					</div>
 				</div>
-			</div>
-		</header>
-		<div id="page-wrapper">
-			<div class="breadcrumb-container">
-				<div class="container">
-					<div class="relative">
-						<ul class="bc push-up unstyled clearfix">
-							<li>
-								<a href="pagehome.html">首页</a>
-							</li>
-							<li class="active">活动</li>
-						</ul>
-					</div>
+				<!-- // MAIN HEADER -->
+			</header>
+			
+		
+		<div class="breadcrumb-container">
+			<div class="container">
+				<div class="relative">
+					<ul class="bc push-up unstyled clearfix">
+						<li><a th:href="@{/customer/topagehome}">首页</a></li>
+						<li class="active" >个人中心</li>
+					</ul>
 				</div>
 			</div>
-			<main id="main-content" role="main">
-				<div class="container">
-					<div class="row">
-						<div class="m-t-b clearfix">
-							<aside class="col-xs-12 col-sm-4 col-md-3">
-								<section class="sidebar push-up">
-
-									<section class="side-section bg-white">
-										<header class="side-section-header">
-											<h3 class="side-section-title">项目</h3>
-										</header>
-										<div class="side-section-content">
-											<ul id="category-list" class="vmenu unstyled">
-												<li th:each="item : ${type_list}">
-													
-														<input type="checkbox" name="tid" id="check-women" data-labelPosition="right" th:id="${item.id}" style="border:1px solid #ddd;width: 15px;height: 15px;background: white;"/>
-														
-														<span th:text="${item.ptname}"></span>
-													
-												</li>
-											</ul>
-										</div>
-										<footer class="side-section-footer text-center hide">
-											<button type="button" id="btn-filter-cat" class="btn btn-primary btn-round uppercase">Clear Filters</button>
-										</footer>
-									</section>
+		</div>
+		
+		<main id="main-content" role="main">
+			<div class="container">
+				<div class="row">
+					<div class="m-t-b clearfix">
+						<aside class="col-xs-12 col-sm-4 col-md-3">
+							<section class="sidebar push-up">
+								<section class="side-section bg-white">
+									<header class="side-section-header">
+										<h3 class="side-section-title">类型</h3>
+									</header>
+									<div class="side-section-content">
+										<ul id="category-list" class="vmenu unstyled">
+											<li th:each="item:${type_list}">
+												<input type="checkbox" th:id="${item.id}" class="prettyCheckable" th:data-label="${item.ptname}" data-labelPosition="right" th:value="${item.id}" />
+											</li>
+										</ul>
+									</div>
+									<footer class="side-section-footer text-center hide">
+										<button type="button" id="btn-filter-cat" class="btn btn-primary btn-round uppercase">Clear Filters</button>
+									</footer>
 								</section>
-							</aside>
-							<section class="col-xs-12 col-sm-8 col-md-9">
-								<section class="products-wrapper">
-									<header class="products-header">
+								<div class="promo inverse-background" th:style="'background:url('+@{${list[0].ilist[0].url}}+') no-repeat; background-size: auto 100%;'">
+									<div class="inner text-center np">
+										<div class="ribbon">
+											<h6 class="nmb">项目推荐</h6>
+											<h5 class="text-semibold uppercase nmb">Leather Fashion</h5>
+											<div class="space10"></div>
+											<a th:href="@{/xjb_projectController/query_Qt}" class="with-icon prepend-icon"><i class="iconfont-caret-right"></i><span>前去选择</span></a>
+										</div>
+									</div>
+								</div>
+							</section>
+						</aside>
+						<section class="col-xs-12 col-sm-8 col-md-9">
+							<section class="products-wrapper">
+								<header class="products-header">
 									<div class="row">
 										<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
 											<!-- DISPLAY MODE -->
@@ -245,9 +209,7 @@
 												<li><a class="round-icon active" href="#" data-toggle="tooltip" data-layout="grid" data-title="Switch to List Grid Mode"><i class="iconfont-th"></i></a></li>
 												<li><a class="round-icon" href="#" data-toggle="tooltip" data-layout="list" data-title="Switch to List View Mode"><i class="iconfont-list"></i></a></li>
 											</ul>
-											<!-- // DISPLAY MODE -->
 											
-											<!-- NUMBER OF ITEMS TO BE DISPLAY -->
 											<div class="pull-right m-l-lg">
 												<span class="inline-middle m-r-sm text-xs">Show</span>
 												<div class="inline-middle styled-dd">
@@ -259,175 +221,167 @@
 													</select>
 												</div>
 											</div>
-											<!-- // NUMBER OF ITEMS TO BE DISPLAY -->
 										</div>
 										<div class="space30 visible-xs"></div>
 										<!-- PAGINATION -->
 										<div class="col-xs-12 col-sm-12 col-md-6 center-xs">
 											<ul class="paginator li-m-r-l pull-right">
-												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${page.prePage})}" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
-												<li><a href="#" th:text="${page.pagesize}"></a></li>
-												<li><a class="round-icon" th:href="@{query_Qt(currentPage=${next.prePage})}" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li> 
+												<li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Previous Page"><i class="iconfont-angle-left"></i></a></li>
+												<li><a href="#">1</a></li>
+												<li><a href="#">2</a></li>
+												<li><a href="#">3</a></li>
+												<li><a href="#">4</a></li>
+												<li><a href="#">5</a></li>
+												<li><a class="round-icon" href="#" data-toggle="tooltip" data-title="Next Page"><i class="iconfont-angle-right"></i></a></li>
 											</ul>
 										</div>
 										<!-- // PAGINATION -->
 									</div>
 								</header>
-									<div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
-										
-										<div th:each="item : ${list}" class="product" data-product-id="8" data-category="women|women-dresses|best" data-brand="brand4" data-price="350" data-colors="white|black" data-size="XS|S|L">
-											<div class="entry-media">
-												<img th:src="'/'+${item.ilist[0].url}" alt="" class="lazyLoad thumb" />
-												<div class="hover">
-													<a th:href="@{queryBy_Qt_Xq(id=${item.id})}" class="entry-url"></a>
-													<ul class="icons unstyled">
-														<li>
-															<a href="" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
-														</li>
-														<li>
-															<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart"></i></a>
-														</li>
-													</ul>
-													<div class="rate-bar">
-														<input type="range" value="5" step="0.5" id="backing8" />
-														<div class="rateit" data-rateit-backingfld="#backing8" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-resetable="false" data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5"></div>
-													</div>
-												</div>
-											</div>
-											<div class="entry-main">
-												<h5 class="entry-title">
-												<a href="" th:text="${item.pname}"></a>
-											</h5>
-												<div class="entry-description visible-list">
-													<p th:text="${item.description}"></p>
-												</div>
-												<div class="entry-price">
-													<strong class="price" th:text="'￥'+${item.price}"></strong>
-													<a href="#" class="btn btn-round btn-default add-to-cart visible-list">Add to Cart</a>
-												</div>
+								<div class="products-layout grid m-t-b add-cart" data-product=".product" data-thumbnail=".entry-media .thumb" data-title=".entry-title > a" data-url=".entry-title > a" data-price=".entry-price > .price">
+									<div th:each="item:${list}" class="product" th:data-product-id="${item.id}" th:data-category="${item.tid}">
+										<div class="entry-media">
+											<img th:data-src="'/'+${item.ilist[0].url}" alt=""  style="height:180px;" class="lazyLoad thumb"/>
+											<div class="hover">
+												<a th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.id})}" class="entry-url"></a>
+												<ul class="icons unstyled">
+													<li>
+														<div class="circle ribbon ribbon-sale">出售</div>
+													</li>
+													<li>
+														<a th:href="'/'+${item.ilist[0].url}" class="circle" data-toggle="lightbox"><i class="iconfont-search"></i></a>
+													</li>
+													<li>
+														<a href="#" class="circle add-to-cart"><i class="iconfont-shopping-cart lbshop" th:iid="${item.id}"></i></a>
+													</li>
+												</ul>
+												<!-- <div class="rate-bar">
+													<input type="range" value="4.5" step="0.5" id="backing1" />
+													<div class="rateit" data-rateit-backingfld="#backing1" data-rateit-starwidth="12" data-rateit-starheight="12" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5"></div>
+												</div> -->
 											</div>
 										</div>
-										
-										
-										
-										
-										
+										<div class="entry-main">
+											<h5 class="entry-title">
+												<a th:href="@{/xjb_projectController/queryBy_Qt_Xq(id=${item.id})}" th:text="${item.pname}"></a>
+
+											</h5>
+											<div class="entry-description visible-list">
+												<p th:text="${item.description}"></p>
+											</div>
+											<div class="entry-price">
+												<strong class="accent-color price" th:text="'￥'+${item.price}"></strong>
+												<!-- <a href="#" class="btn btn-round btn-default add-to-cart visible-list">Add to Cart</a> -->
+											</div>
+										</div>
 									</div>
-								</section>
+								</div>
 							</section>
-						</div>
+						</section>
 					</div>
 				</div>
-			</main>
-		</div>
+			</div>
+		</main>
+		
 		<footer class="page-footer">
-
+			
 			<!-- WIDGET AREA -->
 			<div class="widgets">
-
+			
 				<!-- FIRST ROW -->
 				<div class="section">
 					<div class="container">
 						<div class="row">
-
+							
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<section class="widget widget-text">
-									<h5 class="widget-title">研学旅行 </h5>
+									<h5 class="widget-title">our store</h5>
 									<div class="widget-content">
-										<p>研学旅行是由学校根据区域特色、学生年龄特点和各学科教学内容需要，组织学生通过集体旅行、集中食宿的方式走出校园，在与平常不同的生活中拓展视野、丰富知识，加深与自然和文化的亲近感，增加对集体生活方式和社会公共道德的体验。</p>
-										<p>研学旅行继承和发展了我国传统游学、“读万卷书，行万里路”的教育理念和人文精神，成为素质教育的新内容和新方式。提升中小学生的自理能力、创新精神和实践能力。</p>
+										<p>Sed ornare cras donec litora integer curabitur orci, at nullam aliquam libero nam himenaeos, amet massa amet ut ipsum viverra mauris rhoncus neque aenean rhoncus gravida orci facilisis quis dui consectetur.</p>
+										<p>Nisi porttitor inceptos consectetur donec orci, dui ipsum leo class gravida, felis primis viverra placerat.</p>
 									</div>
 								</section>
 							</div>
-
+							
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<section class="widget widget-text">
-									<h5 class="widget-title">营业时间</h5>
+									<h5 class="widget-title">Opening Time</h5>
 									<div class="widget-content">
-										<p>周一至周五:-------------------------9.00 至 18.00</p>
-										<p>星期六:--------------------------------10.00 至 16.00</p>
-										<p>星期天:----------------------------------10.00 至 16.00</p>
+										<p>Monday-Friday:-------------------------9.00 to 18.00</p>
+										<p>Saturday:--------------------------------10.00 to 16.00</p>
+										<p>Sunday:----------------------------------10.00 to 16.00</p>
 										<br/>
 										<p>Every 30 day of month Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
 									</div>
 								</section>
 							</div>
-
+							
 							<div class="space40 visible-sm clearfix"></div>
-
+							
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								<section class="widget widget-menu">
-									<h5 class="widget-title">信息</h5>
+									<h5 class="widget-title">information</h5>
 									<div class="widget-content">
 										<ul class="menu iconed-menu unstyled">
-											<li>
-												<a href="#"><i class="iconfont-circle-blank menu-icon"></i>加盟</a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-circle-blank menu-icon"></i>应聘</a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-circle-blank menu-icon"></i>了解我们</a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-circle-blank menu-icon"></i>常见问题</a>
-											</li>
-											<li>
-												<a href="#"><i class="iconfont-circle-blank menu-icon"></i>网站地址</a>
-											</li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Affiliate</a></li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Shipping</a></li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Shop support</a></li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Customer Service</a></li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Payment & Return</a></li>
+											<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>Terms & Conditions</a></li>
 										</ul>
 									</div>
 								</section>
 							</div>
-
+							
 							<div class="col-xs-12 col-sm-6 col-md-3">
 								facebook
 							</div>
-
+							
 						</div>
 					</div>
 				</div>
 				<!-- // FIRST ROW -->
-
+				
 				<!-- SECOND ROW -->
 				<div class="section">
 					<div class="container">
 						<div class="row">
-
+							
 							<div class="col-xs-12 col-sm-12 col-md-3">
 								<section class="widget widget-menu">
-									<h5 class="widget-title">联系信息</h5>
+									<h5 class="widget-title">Contact info</h5>
 									<div class="widget-content">
 										<ul class="menu iconed-list unstyled">
 											<li>
 												<span class="list-icon"><i class="round-icon iconfont-map-marker"></i></span>
-												<div class="list-content">XX省 XX市 XX区 XX街道XX XXX XXX</div>
+												<div class="list-content">Lorem ipsum maecenas dapibus luctus euismod 133/2 New York City</div>
 											</li>
 											<li>
 												<span class="list-icon"><i class="round-icon iconfont-phone"></i></span>
-												<div class="list-content">(+86)15847381748</div>
+												<div class="list-content">(+00)1344356-675</div>
 											</li>
 											<li>
 												<span class="list-icon"><i class="round-icon iconfont-envelope-alt"></i></span>
-												<div class="list-content">Travel study@qq.com</div>
+												<div class="list-content">support@themina.net</div>
 											</li>
 										</ul>
 									</div>
 								</section>
 							</div>
-
+							
 							<div class="col-xs-12 col-sm-12 col-md-6">
 								<section class="widget widget-ads">
 									<div class="widget-content">
 										<div class="center-xs">
 											<div class="ads">
 												<a href="#">
-													<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
-												</a>
+	 												<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
+	 											</a>
 												<div class="ads-caption bottom-right">
 													<a href="#" class="btn btn-default btn-round">
 														<i class="round-icon iconfont-angle-right"></i>
-														<span class="inline-middle">显示更多</span>
+														<span class="inline-middle">Show More</span>
 													</a>
 												</div>
 											</div>
@@ -435,62 +389,99 @@
 									</div>
 								</section>
 							</div>
-
+							
 							<div class="col-xs-12 col-sm-12 col-md-3">
 								<section class="widget widget-subscription">
-									<h5 class="widget-title">时事通讯</h5>
+									<h5 class="widget-title">Newletter</h5>
 									<div class="widget-content">
-										<p>订阅成为第一个了解销售，活动和独家优惠的人！</p>
+										<p>Subscribe to be the first to know about Sales, Events, and Exclusive Offers!</p>
 										<form action="#" method="post">
 											<div class="input-group">
-												<label for="subscription-email" class="placeholder">输入你的电子邮箱</label>
+												<label for="subscription-email" class="placeholder">Enter Your Email</label>
 												<input type="email" id="subscription-email" name="email" class="form-control" required />
 												<span class="input-group-btn">
-												<button class="btn btn-primary">订阅</button>
-											</span>
+													<button class="btn btn-primary">Subscribe</button>
+												</span>
 											</div>
 										</form>
 									</div>
 								</section>
 							</div>
-
+							
 						</div>
 					</div>
 				</div>
 				<!-- // SECOND ROW -->
-
+				
 			</div>
 			<!-- // WIDGET AREA -->
-
+			
+			<div class="footer-sub">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="footer-links center-xs clearfix">
+								<ul class="unstyled">
+									<li><a href="#">Site Map</a></li>
+									<li><a href="#">FAQ</a></li>
+									<li><a href="#">Work for us</a></li>
+									<li><a href="#">Contact Us</a></li>
+								</ul>
+							</div>
+							<div class="space10"></div>
+							<div class="copyright center-xs">
+							</div>
+						</div>
+						
+						<div class="space40 visible-xs"></div>
+						
+						<div class="col-xs-12 col-sm-6 center-xs">
+							<div class="pull-right">
+								<div class="vmid">
+									<span class="uppercase">Payment Accept&emsp;</span>
+									<a href="#"><img th:src="@{/img1/visacard.png}" alt="" width="40" /></a>
+									<a href="#"><img th:src="@{/img1/mastercard.png}" alt="" width="40" /></a>
+									<a href="#"><img th:src="@{/img1/paypal.png}" alt="" width="40" /></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		</footer>
-		<script src="/js1/minified.js"></script>
-		<script>
-			(function(i, s, o, g, r, a, m) {
-				i['GoogleAnalyticsObject'] = r;
-				i[r] = i[r] || function() {
-					(i[r].q = i[r].q || []).push(arguments)
-				}, i[r].l = 1 * new Date();
-				a = s.createElement(o),
-					m = s.getElementsByTagName(o)[0];
-				a.async = 1;
-				a.src = g;
-				m.parentNode.insertBefore(a, m)
-			})(window, document, 'script', '../../../www.google-analytics.com/analytics.js', 'ga');
+			
+</div>
 
-			ga('create', 'UA-27646173-3', 'themina.net');
-			ga('send', 'pageview');
-		</script>
-		<script src="/js1/jquery.nouislider.js"></script>
-		<script src="/js1/jquery.isotope.min.js"></script>
-		<script src="/js1/products.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				/* $("[name=query_ByTid]").click(function(){
-					var tid=$(this).attr("id");
-					location.href="query_Qt?tid="+tid;
-				}) */
-			}) 
-		</script>
-	</body>
-
+	<script th:src="@{/js1/minified.js}"></script>
+	<script th:src="@{/js1/jquery.nouislider.js}"></script>
+	<script th:src="@{/js1/jquery.isotope.min.js}"></script>
+	<script th:src="@{/js1/products.js}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".lbshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+			$(".xqshop").click(function(){
+				var iid=$(this).attr("iid");
+				alert(iid);
+				$.ajax({
+					url:"insert_shop",,
+					type:"post",
+					data:iid,
+					success:function(result){
+					}
+				})
+			})
+		})
+	</script>
+</body>
 </html>

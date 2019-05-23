@@ -47,7 +47,7 @@ public class LoginController {
 	
 	@RequestMapping("Applogin")
 	@ResponseBody
-	public boolean Applogin(String uname,String upassword,HttpSession session) {
+	public users Applogin(String uname,String upassword,HttpSession session) {
 		users use=sunService.queryByName(uname, upassword);
 		if(use!=null){
 			List<discussiongroup> list= disService.selectAllDiscussionGroup(use.getId());
@@ -56,9 +56,9 @@ public class LoginController {
 			}
 			use.setDlist(list);
 			session.setAttribute("user", use);
-			return true;
+			return use;
 		}else {
-			return false;
+			return null;
 		}
 	}
 	
@@ -74,12 +74,14 @@ public class LoginController {
 	}
 	@RequestMapping("toregister")
 	public String toregister(Model model) {
-		
 		model.addAttribute("list",UsersType.selectByExample(null));
 		return "register";
 	}
 	@RequestMapping("register")
 	public String register(users user,MultipartFile file,String team) {
-		Use.addcustomer(user, file, team);
-		return "redirect:/Login/tologin";
+		int num=Use.addcustomer(user, file, team);
+		if(num>0) {
+			return "redirect:/Login/tologin";
+		}
+		return "redirect:/Login/toregister";
 	}}

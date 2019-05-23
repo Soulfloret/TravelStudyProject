@@ -10,6 +10,8 @@ import com.accp.domain.teammemberExample;
 public interface TeammemberService {
 	public int insertBylist( Integer teamId,List<Integer> list);
 	
+	public int queryByteamId(Integer tid);
+	
 	int deleteByPrimaryKey(Integer id);
 
 	int insert(teammember record);
