@@ -48,7 +48,8 @@
   </select>
   
   <select id="selectBymainiUserId" resultMap="BaseResultMap">
-  		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
+  		SELECT t.* FROM `team`  t INNER JOIN `usermainorder` um ON t.`id`=um.`orderCustomer`
+		WHERE t.`mainiUserId`=1 AND um.name2='团队' AND um.name1='正在进行中'
   </select>
   
   <select id="queryByuid" resultMap="BaseResultMap">
