@@ -260,7 +260,7 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 						List<Mealix> list3=mapper21.queryTid(orderson.getIid());
 						for (Mealix mix : list3) {
 							if(mix.getTypeid()==2) {
-							 menuorder mo=new menuorder();
+								menuorder mo=new menuorder();
 								mo.setOrderrreference(sdf.format(new Date())+"yxlxcy");
 								mo.setCreatetime(new Date());
 								mo.setStatuss("正在进行中");

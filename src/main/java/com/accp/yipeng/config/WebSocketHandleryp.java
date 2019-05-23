@@ -42,7 +42,9 @@ public class WebSocketHandleryp extends TextWebSocketHandler {
 				}
 			}
 		}
-		map.put(use.getId()+"", session);
+		if(map.get( use.getId()+"")==null) {
+			map.put(use.getId()+"", session);
+		}
 		List<discussiongroup> list =use.getDlist();
 		for (discussiongroup discussiongroup : list) {
 			for (discussiongroupson discussiongroupson : discussiongroup.getDlist()) {
