@@ -148,6 +148,9 @@
 									<li>
 										<a th:href="@{/customer/toPerson}">个人中心</a>
 									</li>
+									<li>	
+										<a th:href="@{/customer/toOrders}">订单管理</a>
+									</li>
 								</ul>
 							</nav>
 							<!-- // SITE NAVIGATION MENU -->
@@ -156,8 +159,7 @@
 				</div>
 				<!-- // MAIN HEADER -->
 			</header>
-			
-	
+		
 		<!-- BREADCRUMB -->
 		<div class="breadcrumb-container">
 			<div class="container">
@@ -185,7 +187,6 @@
 								<ul class="nav nav-tabs nav-stacked">
 									<li><a th:href="@{/customer/toPersonDetails}" target="ifr">个人信息</a></li>															
 									<li><a th:href="@{/customer/updateinfo}" target="ifr">修改个人信息</a></li>															
-									<li><a th:href="@{/customer/toOrders}" target="ifr">订单管理</a></li>
 								</ul>
 							</section>
 								
@@ -216,175 +217,193 @@
 		</main>
 		<!-- // SITE MAIN CONTENT -->
 		
-	<!-- SITE FOOTER -->
-	<footer class="page-footer">
-		
-		<!-- WIDGET AREA -->
-		<div class="widgets">
-		
-			<!-- FIRST ROW -->
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						
-						<div class="col-xs-12 col-sm-6 col-md-3">
-							<section class="widget widget-text">
-								<h5 class="widget-title">研学旅行 </h5>
-								<div class="widget-content">
-									<p>研学旅行是由学校根据区域特色、学生年龄特点和各学科教学内容需要，组织学生通过集体旅行、集中食宿的方式走出校园，在与平常不同的生活中拓展视野、丰富知识，加深与自然和文化的亲近感，增加对集体生活方式和社会公共道德的体验。</p>
-									<p>研学旅行继承和发展了我国传统游学、“读万卷书，行万里路”的教育理念和人文精神，成为素质教育的新内容和新方式。提升中小学生的自理能力、创新精神和实践能力。</p>
+		<!-- 尾部 -->
+			<footer class="page-footer">
+
+				<!-- WIDGET AREA -->
+				<div class="widgets">
+
+					<!-- FIRST ROW -->
+					<div class="section">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-text">
+										<h5 class="widget-title">研学旅行 </h5>
+										<div class="widget-content">
+											<p>研学旅行是由学校根据区域特色、学生年龄特点和各学科教学内容需要，组织学生通过集体旅行、集中食宿的方式走出校园，在与平常不同的生活中拓展视野、丰富知识，加深与自然和文化的亲近感，增加对集体生活方式和社会公共道德的体验。</p>
+											<p>研学旅行继承和发展了我国传统游学、“读万卷书，行万里路”的教育理念和人文精神，成为素质教育的新内容和新方式。提升中小学生的自理能力、创新精神和实践能力。</p>
+										</div>
+									</section>
 								</div>
-							</section>
-						</div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-3">
-							<section class="widget widget-text">
-								<h5 class="widget-title">营业时间</h5>
-								<div class="widget-content">
-									<p>周一至周五:-------------------------9.00 至 18.00</p>
-									<p>星期六:--------------------------------10.00  至  16.00</p>
-									<p>星期天:----------------------------------10.00  至  16.00</p>
-									<br/>
-									<p>Every 30 day of month Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-text">
+										<h5 class="widget-title">营业时间</h5>
+										<div class="widget-content">
+											<p>周一至周五:-------------------------9.00 至 18.00</p>
+											<p>星期六:--------------------------------10.00 至 16.00</p>
+											<p>星期天:----------------------------------10.00 至 16.00</p>
+											<br/>
+											<p>Every 30 day of month Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+										</div>
+									</section>
 								</div>
-							</section>
-						</div>
-						
-						<div class="space40 visible-sm clearfix"></div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-3">
-							<section class="widget widget-menu">
-								<h5 class="widget-title">信息</h5>
-								<div class="widget-content">
-									<ul class="menu iconed-menu unstyled">
-										<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>加盟</a></li>
-										<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>应聘</a></li>
-										<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>了解我们</a></li>
-										<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>常见问题</a></li>
-										<li><a href="#"><i class="iconfont-circle-blank menu-icon"></i>网站地址</a></li>
-									</ul>
+
+								<div class="space40 visible-sm clearfix"></div>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<section class="widget widget-menu">
+										<h5 class="widget-title">信息</h5>
+										<div class="widget-content">
+											<ul class="menu iconed-menu unstyled">
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>加盟</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>应聘</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>了解我们</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>常见问题</a>
+												</li>
+												<li>
+													<a href="#"><i class="iconfont-circle-blank menu-icon"></i>网站地址</a>
+												</li>
+											</ul>
+										</div>
+									</section>
 								</div>
-							</section>
+
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									facebook
+								</div>
+
+							</div>
 						</div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-3">
-							facebook
-						</div>
-						
 					</div>
-				</div>
-			</div>
-			<!-- // FIRST ROW -->
-			
-			<!-- SECOND ROW -->
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						
-						<div class="col-xs-12 col-sm-12 col-md-3">
-							<section class="widget widget-menu">
-								<h5 class="widget-title">联系信息</h5>
-								<div class="widget-content">
-									<ul class="menu iconed-list unstyled">
-										<li>
-											<span class="list-icon"><i class="round-icon iconfont-map-marker"></i></span>
-											<div class="list-content">XX省 XX市 XX区  XX街道XX XXX XXX</div>
-										</li>
-										<li>
-											<span class="list-icon"><i class="round-icon iconfont-phone"></i></span>
-											<div class="list-content">(+86)15847381748</div>
-										</li>
-										<li>
-											<span class="list-icon"><i class="round-icon iconfont-envelope-alt"></i></span>
-											<div class="list-content">Travel study@qq.com</div>
-										</li>
-									</ul>
+					<!-- // FIRST ROW -->
+
+					<!-- SECOND ROW -->
+					<div class="section">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-xs-12 col-sm-12 col-md-3">
+									<section class="widget widget-menu">
+										<h5 class="widget-title">联系信息</h5>
+										<div class="widget-content">
+											<ul class="menu iconed-list unstyled">
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-map-marker"></i></span>
+													<div class="list-content">XX省 XX市 XX区 XX街道XX XXX XXX</div>
+												</li>
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-phone"></i></span>
+													<div class="list-content">(+86)15847381748</div>
+												</li>
+												<li>
+													<span class="list-icon"><i class="round-icon iconfont-envelope-alt"></i></span>
+													<div class="list-content">Travel study@qq.com</div>
+												</li>
+											</ul>
+										</div>
+									</section>
 								</div>
-							</section>
-						</div>
-						
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<section class="widget widget-ads">
-								<div class="widget-content">
-									<div class="center-xs">
-										<div class="ads">
-											<a href="#">
-												<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
-											</a>
-											<div class="ads-caption bottom-right">
-												<a href="#" class="btn btn-default btn-round">
-													<i class="round-icon iconfont-angle-right"></i>
-													<span class="inline-middle">显示更多</span>
-												</a>
+
+								<div class="col-xs-12 col-sm-12 col-md-6">
+									<section class="widget widget-ads">
+										<div class="widget-content">
+											<div class="center-xs">
+												<div class="ads">
+													<a href="#">
+														<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
+													</a>
+													<div class="ads-caption bottom-right">
+														<a href="#" class="btn btn-round">
+															<i class="round-icon iconfont-angle-right"></i>
+															<span class="inline-middle">显示更多</span>
+														</a>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
+									</section>
 								</div>
-							</section>
-						</div>
-						
-						<div class="col-xs-12 col-sm-12 col-md-3">
-							<section class="widget widget-subscription">
-								<h5 class="widget-title">Newletter</h5>
-								<div class="widget-content">
-									<p>订阅成为第一个了解销售，活动和独家优惠的人！</p>
-									<form action="#" method="post">
-										<div class="input-group">
-											<label for="subscription-email" class="placeholder">输入你的电子邮箱</label>
-											<input type="email" id="subscription-email" name="email" class="form-control" required />
-											<span class="input-group-btn">
+
+								<div class="col-xs-12 col-sm-12 col-md-3">
+									<section class="widget widget-subscription">
+										<h5 class="widget-title">时事通讯</h5>
+										<div class="widget-content">
+											<p>订阅成为第一个了解销售，活动和独家优惠的人！</p>
+											<form action="#" method="post">
+												<div class="input-group">
+													<label for="subscription-email" class="placeholder">输入你的电子邮箱</label>
+													<input type="email" id="subscription-email" name="email" class="form-control" required />
+													<span class="input-group-btn">
 												<button class="btn btn-primary">订阅</button>
 											</span>
+												</div>
+											</form>
 										</div>
-									</form>
+									</section>
 								</div>
-							</section>
+
+							</div>
 						</div>
-						
 					</div>
+					<!-- // SECOND ROW -->
+
 				</div>
-			</div>
-			<!-- // SECOND ROW -->
-			
-		</div>
-		<!-- // WIDGET AREA -->
-		
-		<div class="footer-sub">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6">
-						<div class="footer-links center-xs clearfix">
-							<ul class="unstyled">
-								<li><a href="#">网站地图</a></li>
-								<li><a href="#">常见问题</a></li>
-								<li><a href="#">为我们工作</a></li>
-								<li><a href="#">联系我们</a></li>
-							</ul>
-						</div>
-						<div class="space10"></div>
-						<div class="copyright center-xs">
-							<p>©2019页面版权所有归研学旅行所有</p>
-						</div>
-					</div>
-					
-					<div class="space40 visible-xs"></div>
-					
-					<div class="col-xs-12 col-sm-6 center-xs">
-						<div class="pull-right">
-							<div class="vmid">
-								<span class="uppercase">付款接受&emsp;</span>
-								<a href="#"><img th:src="@{/img1/visacard.png}" alt="" width="40" /></a>
-								<a href="#"><img th:src="@{/img1/mastercard.png}" alt="" width="40" /></a>
-								<a href="#"><img th:src="@{/img1/paypal.png}" alt="" width="40" /></a>
+				<!-- // WIDGET AREA -->
+
+				<div class="footer-sub">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="footer-links center-xs clearfix">
+									<ul class="unstyled">
+										<li>
+											<a href="#">网站地图</a>
+										</li>
+										<li>
+											<a href="#">常见问题</a>
+										</li>
+										<li>
+											<a href="#">为我们工作</a>
+										</li>
+										<li>
+											<a href="#">联系我们</a>
+										</li>
+									</ul>
+								</div>
+								<div class="space10"></div>
+								<div class="copyright center-xs">
+									<p>©2019页面版权所有归研学旅行所有</p>
+								</div>
+							</div>
+
+							<div class="space40 visible-xs"></div>
+
+							<div class="col-xs-12 col-sm-6 center-xs">
+								<div class="pull-right">
+									<div class="vmid">
+										<span class="uppercase">付款接受&emsp;</span>
+										<a href="#"><img th:src="@{/img1/visacard.png}" alt="" width="40" /></a>
+										<a href="#"><img th:src="@{/img1/mastercard.png}" alt="" width="40" /></a>
+										<a href="#"><img th:src="@{/img1/paypal.png}" alt="" width="40" /></a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+
+			</footer>
 		
-	</footer>
-	<!-- // SITE FOOTER -->
 		
 </div>
 <!-- // PAGE WRAPPER -->

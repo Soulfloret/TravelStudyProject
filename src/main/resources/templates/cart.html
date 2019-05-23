@@ -30,7 +30,7 @@
 	}
 </style>
 <body>
-		<!--头部  -->
+			<!--头部  -->
 			<header id="site-header" role="banner">
 				<!-- HEADER TOP -->
 				<div class="header-top">
@@ -156,6 +156,9 @@
 
 									<li>
 										<a th:href="@{/customer/toPerson}">个人中心</a>
+									</li>
+									<li>	
+										<a th:href="@{/customer/toOrders}">订单管理</a>
 									</li>
 								</ul>
 							</nav>
@@ -442,7 +445,7 @@
 														<img th:src="@{/images/demo/images-footer.jpg}" alt="" />
 													</a>
 													<div class="ads-caption bottom-right">
-														<a href="#" class="btn btn-default btn-round">
+														<a href="#" class="btn  btn-round">
 															<i class="round-icon iconfont-angle-right"></i>
 															<span class="inline-middle">显示更多</span>
 														</a>

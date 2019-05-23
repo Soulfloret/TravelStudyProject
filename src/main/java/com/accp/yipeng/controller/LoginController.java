@@ -64,7 +64,7 @@ public class LoginController {
 			session.setAttribute("use", use);
 			return "redirect:/customer/topagehome";
 		}else {
-			return "redirect/Login/tologin";
+			return "redirect:/Login/tologin";
 		}
 	}
 	@RequestMapping("toregister")

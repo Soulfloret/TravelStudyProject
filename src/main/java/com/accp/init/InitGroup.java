@@ -35,6 +35,8 @@ public class InitGroup implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		// TODO Auto-generated method stub
 		List<discussiongroup> list = disService.selectByExample(null);
-		webso.initGroup(list);
+		if(list.size()>0) {
+			webso.initGroup(list);
+		}
 	}
 }

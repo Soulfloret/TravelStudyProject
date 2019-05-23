@@ -142,7 +142,7 @@
       #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR}, 
       #{name5,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.accp.domain.discussiongroup" >
+  <insert id="insertSelective" parameterType="com.accp.domain.discussiongroup"  useGeneratedKeys="true" keyProperty="id">
     insert into discussiongroup
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

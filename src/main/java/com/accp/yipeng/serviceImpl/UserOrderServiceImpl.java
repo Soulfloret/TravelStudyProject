@@ -100,8 +100,8 @@ public class UserOrderServiceImpl implements UserOrderService{
 	public Usermainorder queryByUserOrderId(Integer id) {
 		userorder uor= mapper14.selectByPrimaryKey(id);
 		Usermainorder umo=mapper.selectByPrimaryKey(uor.getOrdermainid());
-			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
-			umo.setUser(mapper1.queryByMainOrderId(umo.getId(),uor.getOrdercustomer()).get(0));
+		umo.setStaff(mapper2.queryById(umo.getOrderuser()));
+			umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 			umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 			umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
 			for (userorder uo : umo.getUser().getOrders()) {
@@ -140,6 +140,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 							r.setId(ro.getRoomid());
 							ro.setRoom(mapper20.queryByroom(r).get(0));
 							ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+							ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 							orderson.setIx(ro);
 						}
 						if(orderson.getTypeid()==4) {
@@ -150,6 +151,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 						if(orderson.getTypeid()==7) {
 							Meal m=new Meal();
 							m=mapper9.query(orderson.getIid()).get(0);
+							m.setImg(mapper6.queryimg(m.getId(), 7));
 							for (Mealix mx : m.getList()) {
 								if(mx.getTypeid()==1) {
 									orderwork p=mapper3.queryByOrderId(orderson.getId());
@@ -173,9 +175,12 @@ public class UserOrderServiceImpl implements UserOrderService{
 								}
 								if(mx.getTypeid()==3) {
 									roomdestine ro=new roomdestine();
-									ro=mapper19.selectByPrimaryKey(orderson.getIid());
-									ro.setRoom(mapper20.selectByPrimaryKey(ro.getRoomid()));
+									ro=mapper19.selectByPrimaryKey(mx.getIid());
+									room r=new room();
+									r.setId(ro.getRoomid());
+									ro.setRoom(mapper20.queryByroom(r).get(0));
 									ro.setUser(mapper1.selectByPrimaryKey(ro.getUserid()));
+									ro.getRoom().setImg(mapper6.queryimg(ro.getRoomid(),3).get(0));
 									mx.setIx(ro);
 								}
 								if(mx.getTypeid()==4) {
@@ -184,6 +189,7 @@ public class UserOrderServiceImpl implements UserOrderService{
 									mx.setIx(mapper10.querybind(b).get(0));
 								}
 							}
+							orderson.setIx(m);
 						}
 					}
 			}

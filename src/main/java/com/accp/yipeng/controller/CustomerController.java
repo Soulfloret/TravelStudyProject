@@ -129,7 +129,8 @@ public class CustomerController {
 	@RequestMapping("queryById")
 	@ResponseBody
 	public Usermainorder queryById(Integer id) {
-		return UseOrderService.queryByUserOrderId(id);
+		Usermainorder umo =UseOrderService.queryByUserOrderId(id);
+		return umo;
 	}
 	
 	
@@ -204,6 +205,9 @@ public class CustomerController {
 	@RequestMapping("toOrders")
 	public  String toOrders(Model model,HttpSession session) {
 		users use=(users)session.getAttribute("use");
+		if(use==null) {
+			return "redirect:/Login/tologin";
+		}
 		model.addAttribute("list",UmoService.query(null));
 		model.addAttribute("olist",UseOrderService.selectAllUserOrderById(use.getId()));
 		model.addAttribute("user", use);
