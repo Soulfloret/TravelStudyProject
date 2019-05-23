@@ -19,6 +19,11 @@
   <select id="queryByTimeiid" resultType="com.accp.domain.orderproductwork">
   	SELECT * FROM orderproductwork WHERE startTime &gt; NOW() AND  startTime &lt; DATE_ADD(NOW(),INTERVAL 30 MINUTE)
   </select>
+  
+  <select id="queryByTimeEWM" resultType="com.accp.domain.orderproductwork">
+  	SELECT * FROM orderproductwork WHERE startTime=#{starttime} and endTime=#{endtime} and iid=#{iid}
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

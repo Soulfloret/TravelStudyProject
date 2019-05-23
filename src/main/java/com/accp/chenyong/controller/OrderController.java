@@ -101,6 +101,37 @@ public class OrderController {
 		service.insert(order1);
 		return "ss";
 	}
+	@RequestMapping("insertOrder")
+	public int insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
+		if(order.getList().size()>1) {
+			order.setName2("团队");
+		}else {
+			order.setName2("个人");
+		}
+		order.setOrdercustomer(order.getList().get(0).getId());
+//		staff f=(staff)req.getSession().getAttribute("staff");
+		order.setOrderuser(2);
+		Usermainorder order1=service.QueryCunzaiInsert(order);
+		if(order.getList().size()==1) {
+				order1.getUser().getOrders().get(0).setList(order.getOlist());
+				for (orderson os : order1.getUser().getOrders().get(0).getList()) {
+					os.setIx(os.getOw());
+				}
+		}else {
+			for (users u : order.getList()) {
+				for (users u1 : order1.getList()) {
+					if(u.getId()==u1.getId()) {
+						u1.getOrders().get(0).setList(order.getOlist());
+						for (orderson os : u1.getOrders().get(0).getList()) {
+							os.setIx(os.getOw());
+						}
+					}
+				}
+			}
+		}
+		service.insert(order1);
+		return 1;
+	}
 	@ResponseBody
 	@RequestMapping("queryIdcard")
 	public List<users> queryIdcar(String uid,Integer typeId,HttpServletRequest req){
@@ -113,7 +144,6 @@ public class OrderController {
 		}else {
 			list=service6.selectBymainiUserId(u.getId(),s.getId());
 		}
-		
 		return list;
 	}
 	

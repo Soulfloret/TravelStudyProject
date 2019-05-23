@@ -37,4 +37,6 @@ public interface orderproductworkMapper {
     int queryByTime(orderproductwork work);
     
     List<orderproductwork> queryByTimeiid();
+    
+    orderproductwork queryByTimeEWM(orderproductwork work);
 }

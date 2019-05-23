@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.accp.chenyong.service.ProductAreaService;
 import com.accp.domain.Meal;
 import com.accp.domain.Mealix;
+import com.accp.domain.orderproductwork;
 import com.accp.domain.orderson;
 import com.accp.domain.productarea;
 import com.accp.domain.productproject;
@@ -22,6 +23,7 @@ import com.accp.mapper.MealMapper;
 import com.accp.mapper.bindMapper;
 import com.accp.mapper.imagesMapper;
 import com.accp.mapper.menuMapper;
+import com.accp.mapper.orderproductworkMapper;
 import com.accp.mapper.ordersonMapper;
 import com.accp.mapper.productMapper;
 import com.accp.mapper.productareaMapper;
@@ -54,6 +56,8 @@ public class OrderSonServiceshh {
 		ProductAreaService service;
 		@Autowired
 		bindMapper bmapper;
+		@Autowired
+		orderproductworkMapper mapper3;
 		
 		public List<Object> recommdstatic(@Param("typeid")Integer typeid){
 			/**
@@ -193,6 +197,16 @@ public class OrderSonServiceshh {
 				o1.add(orderson);
 			}
 			return o1;
+		}
+		
+		public orderproductwork queryByTimeEWM(orderproductwork work) {
+			System.out.println(work.getEndtime());
+			orderproductwork o=mapper3.queryByTimeEWM(work);
+			if(o!=null) {
+				work.setName5(0+"");
+				mapper3.updateByPrimaryKey(work);
+			}
+			return o;
 		}
 		
 	}

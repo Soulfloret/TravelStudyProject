@@ -84,6 +84,7 @@ public class UserMainOrderService {
 		for (Usermainorder umo : list) {
 			umo.setStaff(mapper2.queryById(umo.getOrderuser()));
 			umo.setPrice(0.0);
+			System.out.println(umo.getName2().equals("个人")&&umo.getOrdercustomer()==uid);
 			if(umo.getName2().equals("个人")&&umo.getOrdercustomer()==uid) {
 				umo.setUser(mapper1.queryByMainOrderId(umo.getId(),umo.getOrdercustomer()).get(0));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
@@ -106,7 +107,9 @@ public class UserMainOrderService {
 										}
 									}
 								}
-								p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
+								if(orderson.getTypeid()==5) {
+									p.setName6(mapper11.selectByPrimaryKey(orderson.getIid()).getPname());
+								}
 								orderson.setIx(p);
 								for (orderproductwork opw : p.getList()) {
 									umo.setPrice(umo.getPrice()+opw.getProject().getPrice());
@@ -189,6 +192,8 @@ public class UserMainOrderService {
 				listss.add(umo);
 			}else {
 				umo.setList(mapper1.queryByMainOrderId(umo.getId(),null));
+//				umo.setUser(mapper1.selectByPrimaryKey(mapper12.selectByPrimaryKey(umo.getOrdercustomer()).getMainiuserid()));
+				System.out.println(umo.getOrdercustomer());
 				umo.setUser(mapper1.selectByPrimaryKey(mapper12.selectByPrimaryKey(umo.getOrdercustomer()).getMainiuserid()));
 				umo.setStaff(mapper2.selectByPrimaryKey(umo.getOrderuser()));
 				umo.getStaff().setUser(mapper1.selectByPrimaryKey(umo.getStaff().getUserid()));
