@@ -16,6 +16,7 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.orderson;
 import com.accp.domain.room;
 import com.accp.domain.roomdestine;
+import com.accp.domain.staff;
 import com.accp.domain.users;
 import com.accp.domain.team;
 import com.accp.domain.userorder;
@@ -121,7 +122,7 @@ public class roomcontroller {
 		if(us==null) {
 			return "redirect:/customer/toadd";
 		}
-		users xus= (users) session.getAttribute("staff");
+		staff xus= (staff) session.getAttribute("staff");
 		int xusid=2;
 		if(xus!=null) {
 			xusid=xus.getId();
@@ -142,6 +143,7 @@ public class roomcontroller {
 			ordersons.setIid(roo.getId());
 			ordersons.setTypeid(3);
 			ordersons.setName1(userorder.getId().toString());
+			ordersons.setName2("1");
 			o.insertSelective(ordersons);
 
 		}else {
@@ -157,6 +159,7 @@ public class roomcontroller {
 				ordersons.setIid(roo.getId());
 				ordersons.setTypeid(3);
 				ordersons.setName1(userorder.getId().toString());
+				ordersons.setName2("1");
 				o.insertSelective(ordersons);
 			}else {
 				//团队
@@ -173,6 +176,7 @@ public class roomcontroller {
 							ordersons.setIid(roo.getId());
 							ordersons.setTypeid(3);
 							ordersons.setName1(userorder.getId().toString());
+							ordersons.setName2("1");
 							o.insertSelective(ordersons);
 						}
 					}
@@ -219,15 +223,17 @@ public class roomcontroller {
 	//鍓嶅彴棰勮鎴块棿
 	@RequestMapping("/queryByroomdestineid")
 	@ResponseBody
-	public String queryByroomdestineid(roomdestine rrr) {
+	public String queryByroomdestineid(roomdestine rrr,HttpSession session) {
 		room rr= r.queryByroomdestineid(rrr);
 		if(rr==null) {
 			return "该时间段已经被预订";
 		}else{
+			users us=(users) session.getAttribute("use");
+			int uid=us.getId();//session里面的用户id
 			rrr.setName1("2");
-			rrr.setUserid(5);//鏍规嵁session鑾峰彇
+			rrr.setUserid(uid);//鏍规嵁session鑾峰彇
 			rd.insertSelective(rrr);
-			return "棰勮鎴愬姛锛岃鍦�10鍒嗛挓鍐呭幓浠樻锛�";
+			return "添加成功,请尽快付款！";
 		}
 	}
 	
@@ -235,18 +241,18 @@ public class roomcontroller {
 		@RequestMapping("/sjxj")
 		@ResponseBody
 		public String sjxj(String type,Integer id) {
-			if("鍙".equals(type)) {
+			if("1".equals(type)) {
 				room rooms=new room();
 				rooms.setId(id);
 				rooms.setState("2");
 				r.updateByPrimaryKeySelective(rooms);
-				return "淇敼鎴愬姛锛�";
-			}else if("缁翠慨涓�".equals(type)) {
-				room rooms=new room();
+				return "维修成功";
+			}else if("2".equals(type)) {
+				room rooms=new room(); 
 				rooms.setId(id);
-				rooms.setState("1");
+				rooms.setState("1"); 
 				r.updateByPrimaryKeySelective(rooms);
-				return "淇敼鎴愬姛锛�";
+				return "上架成功";
 			}
 			return "";
 		}
@@ -289,6 +295,7 @@ public class roomcontroller {
 					ordersons.setIid(roomdestines.getId());
 					ordersons.setTypeid(3);
 					ordersons.setName1(userorder.getId().toString());
+					ordersons.setName2("1");
 					o.insertSelective(ordersons);
 				}else {
 					team t= te.selectBymainiUserId(uid);
@@ -304,6 +311,7 @@ public class roomcontroller {
 							ordersons.setIid(roomdestines.getId());
 							ordersons.setTypeid(3);
 							ordersons.setName1(userorder.getId().toString());
+							ordersons.setName2("1");
 							o.insertSelective(ordersons);
 						}
 					}

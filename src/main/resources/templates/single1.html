@@ -131,11 +131,9 @@
 								
 							</script>
 							<div class="btn_form">
-							   <form>
 								 <input type="submit" class="jr" value="加入购物车" title="">
 								 <span style="display: none;" th:text="${typeid}"></span>
 								 <span style="display: none;" th:text="${item.id}"></span>
-							  </form>
 							</div>
 							<ul class="add-to-links">
     			              <li><img th:src="@{/images/wish.png}" alt=""><a href="javascript:void(0)"><span th:text="${item.likecount}"></span> 位用户赞了</a></li>
@@ -189,7 +187,7 @@
 						dataType:"text",
 						success:function(result){
 							alert(result);
-							window.location.href="toquerymenu1";
+							window.location.href="toquerymenu1"; 
 						}
 					}) 
 				})

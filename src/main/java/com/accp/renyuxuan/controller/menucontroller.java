@@ -29,6 +29,7 @@ import com.accp.domain.menuorder;
 import com.accp.domain.menutype;
 import com.accp.domain.ordershop;
 import com.accp.domain.orderson;
+import com.accp.domain.staff;
 import com.accp.domain.team;
 import com.accp.domain.userorder;
 import com.accp.domain.users;
@@ -240,7 +241,7 @@ public class menucontroller {
 			if(us==null) {
 				return "redirect:/customer/toadd";
 			}
-			users xus= (users) session.getAttribute("staff");
+			staff xus= (staff) session.getAttribute("staff");
 			int xusid=2;
 			if(xus!=null) {
 				xusid=xus.getId();
@@ -275,6 +276,7 @@ public class menucontroller {
 					ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));//类型id
 					ordersons.setIid(vps[i].getMenuid());//餐饮或餐饮套餐id
 					ordersons.setName1(userorder.getId().toString());//用户订单从表id
+					ordersons.setName2(vps[i].getNum().toString());
 					oo.insertSelective(ordersons);//添加总订单从表
 				}
 			}else{
@@ -309,6 +311,7 @@ public class menucontroller {
 							ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
 							ordersons.setIid(vps[i].getMenuid());
 							ordersons.setName1(userorder.getId().toString());
+							ordersons.setName2(vps[i].getNum().toString());
 							oo.insertSelective(ordersons);//添加总订单从表
 						}
 					}
