@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Shopcart;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.bind;
@@ -85,6 +86,8 @@ public class menucontroller {
 	teamserviceimpl te;
 	@Autowired
 	imagesserviceimpl im;
+	@Autowired
+	UserMainOrderService cyu;
 	
 	
 	//查询后台菜单
@@ -232,8 +235,16 @@ public class menucontroller {
 	
 	@ResponseBody
 	@RequestMapping("/orderadd")
-	public String orderadd(@RequestBody ordershop [] vps) {
-			String lb="";
+	public String orderadd(@RequestBody ordershop [] vps,HttpSession session) {
+			users us=u.queryByIdCard(vps[0].getName3());	
+			if(us==null) {
+				return "redirect:/customer/toadd";
+			}
+			users xus= (users) session.getAttribute("staff");
+			int xusid=2;
+			if(xus!=null) {
+				xusid=xus.getId();
+			}
 			if("1".equals(vps[0].getName4())) {
 				menuorder m=new menuorder();
 				SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
@@ -242,15 +253,16 @@ public class menucontroller {
 				m.setOrderrreference(datetime);
 				m.setCreatetime(new Date());
 				m.setStatuss("1");
-				//身份证
-				users us=u.queryByIdCard(vps[0].getName3());
 				m.setUserid(us.getId());
 				m.setPrice(Double.parseDouble(vps[0].getName2()));
 				//调方法添加订单
 				mo.insertSelective(m);
-				lb="个人";
-				Usermainorder  usermainorder=umo.queryorderCustomer(us.getId(),lb,"正在进行中");
-				userorder userorder=uo.selectByuid(usermainorder.getId());
+				Usermainorder usermainorders=new Usermainorder();
+				usermainorders.setOrdercustomer(us.getId());
+				usermainorders.setOrderuser(xusid);
+				usermainorders.setName2("个人");
+				Usermainorder Usermainorders =cyu.QueryCunzaiInsert(usermainorders);
+				userorder userorder=Usermainorders.getUser().getOrders().get(0);
 				for (int i = 0; i < vps.length; i++) {
 					ordershop o =new  ordershop();
 					o.setOrderid(m.getId());
@@ -260,45 +272,49 @@ public class menucontroller {
 					o.setPrice(vps[i].getPrice());
 					os.insertSelective(o);//添加餐饮订单从表
 					orderson ordersons=new orderson();
-					ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
-					ordersons.setIid(vps[i].getMenuid());
-					ordersons.setName1(userorder.getId().toString());
+					ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));//类型id
+					ordersons.setIid(vps[i].getMenuid());//餐饮或餐饮套餐id
+					ordersons.setName1(userorder.getId().toString());//用户订单从表id
 					oo.insertSelective(ordersons);//添加总订单从表
 				}
-			}else {
-				lb="团队";
-				//身份证
-				users us=u.queryByIdCard(vps[0].getName3());
-				team t=te.selectBymainiUserId(us.getId());
-				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
-				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
-				for (userorder userorder : list) {
-					menuorder m=new menuorder();
-					SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
-					String datetime = tempDate.format(new Date());
-					datetime=datetime+"cy";//订单编号
-					m.setOrderrreference(datetime);
-					m.setCreatetime(new Date());
-					m.setStatuss("1");
-					m.setUserid(userorder.getOrdercustomer());
-					m.setPrice(Double.parseDouble(vps[0].getName2()));
-					//调方法添加订单
-					mo.insertSelective(m);
-					for (int i = 0; i < vps.length; i++) {
-						ordershop o =new  ordershop();
-						o.setOrderid(m.getId());
-						o.setMenuid(vps[i].getMenuid());
-						o.setNum(vps[i].getNum());
-						o.setName1(vps[i].getName1());
-						o.setPrice(vps[i].getPrice());
-						os.insertSelective(o);//添加餐饮订单从表
-						orderson ordersons=new orderson();
-						ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
-						ordersons.setIid(vps[i].getMenuid());
-						ordersons.setName1(userorder.getId().toString());
-						oo.insertSelective(ordersons);//添加总订单从表
+			}else{
+				team t= te.selectBymainiUserId(us.getId());
+				Usermainorder usermainorders=new Usermainorder();
+				usermainorders.setOrdercustomer(t.getId());
+				usermainorders.setOrderuser(xus.getId());
+				usermainorders.setName2("团队");
+				Usermainorder  usermainorderser=cyu.QueryCunzaiInsert(usermainorders);
+				for (users u :usermainorderser.getList()) {
+					for (userorder userorder : u.getOrders()) {
+						menuorder m=new menuorder();
+						SimpleDateFormat tempDate = new SimpleDateFormat("yyyyMMddHHmmss");  
+						String datetime = tempDate.format(new Date());
+						datetime=datetime+"cy";//订单编号
+						m.setOrderrreference(datetime);
+						m.setCreatetime(new Date());
+						m.setStatuss("1");
+						m.setUserid(userorder.getOrdercustomer());
+						m.setPrice(Double.parseDouble(vps[0].getName2()));
+						//调方法添加订单
+						mo.insertSelective(m);
+						for (int i = 0; i < vps.length; i++) {
+							ordershop o =new  ordershop();
+							o.setOrderid(m.getId());
+							o.setMenuid(vps[i].getMenuid());
+							o.setNum(vps[i].getNum());
+							o.setName1(vps[i].getName1());
+							o.setPrice(vps[i].getPrice());
+							os.insertSelective(o);//添加餐饮订单从表
+							orderson ordersons=new orderson();
+							ordersons.setTypeid(Integer.parseInt(vps[i].getName1()));
+							ordersons.setIid(vps[i].getMenuid());
+							ordersons.setName1(userorder.getId().toString());
+							oo.insertSelective(ordersons);//添加总订单从表
+						}
 					}
 				}
+				
+				
 			}
 			
 		return "下单成功！";

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.accp.chenyong.service.UserMainOrderService;
 import com.accp.domain.Usermainorder;
 import com.accp.domain.images;
 import com.accp.domain.menu;
@@ -64,6 +65,8 @@ public class roomcontroller {
 	imagesserviceimpl im;
 	@Autowired
 	usersserviceimpl ru;
+	@Autowired
+	UserMainOrderService cyu;
 	
 	
 	
@@ -120,17 +123,27 @@ public class roomcontroller {
 	
 	
 	@RequestMapping("/RoomDestineadd")
-	public String RoomDestineadd(roomdestine roo,String sfz,Double price,String lx) {
+	public String RoomDestineadd(roomdestine roo,String sfz,Double price,String lx,HttpSession session) {
 		users us=u.queryByIdCard(sfz);
+		if(us==null) {
+			return "redirect:/customer/toadd";
+		}
+		users xus= (users) session.getAttribute("staff");
+		int xusid=2;
+		if(xus!=null) {
+			xusid=xus.getId();
+		}
 		Integer uid=us.getId();//数据库没有
 		roo.setUserid(uid);
 		roo.setName1("1");
 		rd.insertSelective(roo);//添加记录
-		String lb ="";
-		if(us.getTypeid()!=2) {
-			lb="个人";
-			Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
-			userorder userorder=uo.selectByuid(usermainorder.getId());
+		if("1".equals(lx)) {
+			Usermainorder usermainorders=new Usermainorder();
+			usermainorders.setOrdercustomer(uid);
+			usermainorders.setOrderuser(xusid);
+			usermainorders.setName2("个人");
+			Usermainorder Usermainorders =cyu.QueryCunzaiInsert(usermainorders);
+			userorder userorder=Usermainorders.getUser().getOrders().get(0);
 			//添加总订单从表
 			orderson ordersons=new orderson();
 			ordersons.setIid(roo.getId());
@@ -138,22 +151,41 @@ public class roomcontroller {
 			ordersons.setName1(userorder.getId().toString());
 			o.insertSelective(ordersons);
 		}else {
-			//团队
-			lb="团队";
-				team t= te.selectBymainiUserId(uid);
-				Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
-				List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
-				for (userorder userorder : list) {
-					//添加总订单从表
-					orderson ordersons=new orderson();
-					ordersons.setIid(roo.getId());
-					ordersons.setTypeid(3);
-					ordersons.setName1(userorder.getId().toString());
-					o.insertSelective(ordersons);
-				}
-			
-			
+			if(us.getTypeid()!=2) {
+				Usermainorder usermainorders=new Usermainorder();
+				usermainorders.setOrdercustomer(uid);
+				usermainorders.setOrderuser(xusid);
+				usermainorders.setName2("个人");
+				Usermainorder Usermainorders =cyu.QueryCunzaiInsert(usermainorders);
+				userorder userorder=Usermainorders.getUser().getOrders().get(0);
+				//添加总订单从表
+				orderson ordersons=new orderson();
+				ordersons.setIid(roo.getId());
+				ordersons.setTypeid(3);
+				ordersons.setName1(userorder.getId().toString());
+				o.insertSelective(ordersons);
+			}else {
+				//团队
+					team t= te.selectBymainiUserId(uid);
+					Usermainorder usermainorders=new Usermainorder();
+					usermainorders.setOrdercustomer(t.getId());
+					usermainorders.setOrderuser(xus.getId());
+					usermainorders.setName2("团队");
+					Usermainorder  usermainorderser=cyu.QueryCunzaiInsert(usermainorders);
+					for (users u :usermainorderser.getList()) {
+						for (userorder userorder : u.getOrders()) {
+							//添加总订单从表
+							orderson ordersons=new orderson();
+							ordersons.setIid(roo.getId());
+							ordersons.setTypeid(3);
+							ordersons.setName1(userorder.getId().toString());
+							o.insertSelective(ordersons);
+						}
+					}
+								
+			}
 		}
+		
 		return "redirect:/room/roomorder";
 	}
 	
@@ -252,29 +284,36 @@ public class roomcontroller {
 				roomdestines.setId(rid[i]);
 				roomdestines.setName1("1");
 				rd.updateByPrimaryKeySelective(roomdestines);//修改预订记录表状态
-				String lb="";
 				if("1".equals(lx)) {
-					lb="个人";
-					Usermainorder  usermainorder=umo.queryorderCustomer(uid,lb,"正在进行中");
-					userorder userorder=uo.selectByuid(usermainorder.getId());
+					Usermainorder usermainorders=new Usermainorder();
+					usermainorders.setOrdercustomer(uid);
+					usermainorders.setOrderuser(2);
+					usermainorders.setName2("个人");
+					Usermainorder Usermainorders =cyu.QueryCunzaiInsert(usermainorders);
+					userorder userorder=Usermainorders.getUser().getOrders().get(0);
 					orderson ordersons=new orderson();
 					ordersons.setIid(id[i]);
 					ordersons.setTypeid(3);
 					ordersons.setName1(userorder.getId().toString());
 					o.insertSelective(ordersons);
 				}else {
-					lb="团队";
-					team t=te.selectBymainiUserId(uid);
-					Usermainorder  usermainorder=umo.queryorderCustomer(t.getId(),lb,"正在进行中");
-					List<userorder> list=uo.selectByuidinlist(usermainorder.getId());
-					for (userorder userorder : list) {
-						//添加总订单从表
-						orderson ordersons=new orderson();
-						ordersons.setIid(id[i]);
-						ordersons.setTypeid(3);
-						ordersons.setName1(userorder.getId().toString());
-						o.insertSelective(ordersons);
+					team t= te.selectBymainiUserId(uid);
+					Usermainorder usermainorders=new Usermainorder();
+					usermainorders.setOrdercustomer(t.getId());
+					usermainorders.setOrderuser(2);
+					usermainorders.setName2("团队");
+					Usermainorder  usermainorderser=cyu.QueryCunzaiInsert(usermainorders);
+					for (users u :usermainorderser.getList()) {
+						for (userorder userorder : u.getOrders()) {
+							//添加总订单从表
+							orderson ordersons=new orderson();
+							ordersons.setIid(id[i]);
+							ordersons.setTypeid(3);
+							ordersons.setName1(userorder.getId().toString());
+							o.insertSelective(ordersons);
+						}
 					}
+					
 				}
 			}
 			return "redirect:/room/querydingdan";
