@@ -82,7 +82,7 @@ public class FriendCotrller {
 				d.setDid(Integer.parseInt(did));
 				d.setUserid(Integer.parseInt(uid));
 				num=DisSonService.insert(d);
-				session.setAttribute("user", sessionUser(uid));
+				webso.addGroupItem(did, uid);
 			}
 		}
 		return num;
@@ -131,8 +131,9 @@ public class FriendCotrller {
 				e.printStackTrace();
 			} 
 			discussiongroup dis=new discussiongroup(groupname, 30, groupdescribe, Integer.parseInt(uid));
+			DisService.insertSelective(dis);
 			DisService.add(dis,ids,list1);
-			session.setAttribute("user", sessionUser(uid));
+			webso.addGroup(dis.getId()+"");
 	}
 	
 	@RequestMapping("selectAllDiscussionGroup")
@@ -140,8 +141,10 @@ public class FriendCotrller {
 		return DisService.selectAllDiscussionGroup(uid);
 	}
 	@RequestMapping("queryById")
-	public discussiongroup queryById(Integer did) {
-		return DisService.queryById(did);
+	public discussiongroup queryById(Integer did,Integer uid) {
+		discussiongroup dis= DisService.queryById(did);
+		webso.addGroupItem(did+"", uid+"");
+		return dis;
 	}
 	
 	@RequestMapping("query")
@@ -184,18 +187,19 @@ public class FriendCotrller {
 	}
 
 	@RequestMapping("delDis")
-	public int delDis(String did,String uid,String typeId,HttpSession session ) {
+	public int delDis(String did,String uid,String typeId ) {
 		int typeid=Integer.parseInt(typeId);
 		int num=DisService.delDis(Integer.parseInt(did),Integer.parseInt(uid),typeid);
 		users use=sessionUser(uid);
 		if(typeid==1) {
 			use.setType(typeid);
 			use.setDid(Integer.parseInt(did));
+			webso.removeGroup(did);
 		}else {
 			use.setType(typeid);
 			use.setDid(Integer.parseInt(did));
+			webso.removeGroupItem(did, uid);
 		}
-		session.setAttribute("user", use);  
 		 return num;
 	}
 	 	

@@ -189,8 +189,8 @@
 						<tbody id="cart">
 							<tr th:each="item,index : ${list}"  th:if="${item.typeid==1}">
 								<td>
-									<a class="entry-thumbnail" th:href="${item.ix.ilist[0].url}" data-toggle="lightbox">
-										<img th:src="${item.ix.ilist[0].url}" alt="" class="img"/>
+									<a class="entry-thumbnail" th:href="'/'+${item.ix.ilist[0].url}" data-toggle="lightbox">
+										<img th:src="'/'+${item.ix.ilist[0].url}" alt="" class="img"/>
 									</a>
 									<a class="entry-title" href="javascript:void(0)" th:text="${item.ix.pname}"></a><span class="taocan">(项目)</span>
 								</td>
