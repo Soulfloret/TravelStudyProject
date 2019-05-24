@@ -21,12 +21,14 @@ import com.accp.domain.Usermainorder;
 import com.accp.domain.interested;
 import com.accp.domain.orderson;
 import com.accp.domain.staff;
+import com.accp.domain.team;
 import com.accp.domain.users;
 import com.accp.mapper.MealMapper;
 import com.accp.mapper.MealixMapper;
 import com.accp.renyuxuan.service.bindservice;
 import com.accp.renyuxuan.service.menuservice;
 import com.accp.renyuxuan.service.roomservice;
+import com.accp.sunhuihui.service.UserService;
 import com.accp.xiangjianbo.service.productService;
 import com.accp.xiangjianbo.service.projectService;
 
@@ -51,6 +53,9 @@ public class OrderController {
 	bindservice service7;
 	@Autowired
 	MealMapper mapper;
+	@Autowired
+	UserService shhservice;
+	
 	@RequestMapping("query")
 	public String query(Model mo) {
 		mo.addAttribute("list",service.query(null));
@@ -105,10 +110,13 @@ public class OrderController {
 	public int insertOrder(@RequestBody Usermainorder order,HttpServletRequest req) {
 		if(order.getList().size()>1) {
 			order.setName2("团队");
+			team t=shhservice.queryshh(order.getList().get(0).getId());
+			order.setOrdercustomer(t.getId());
+			
 		}else {
 			order.setName2("个人");
+			order.setOrdercustomer(order.getList().get(0).getId());
 		}
-		order.setOrdercustomer(order.getList().get(0).getId());
 //		staff f=(staff)req.getSession().getAttribute("staff");
 		order.setOrderuser(2);
 		Usermainorder order1=service.QueryCunzaiInsert(order);

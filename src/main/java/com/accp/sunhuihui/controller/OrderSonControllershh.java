@@ -56,8 +56,8 @@ public class OrderSonControllershh {
 		Date d1=new Date("2019-5-24 13:30:0");
 		orderproductwork work=new orderproductwork();
 		work.setIid(1);
-		/*work.setStarttime();
-		work.setEndtime(d1);*/
+		work.setStarttime(d);
+		work.setEndtime(d1);
 		orderproductwork o=service.queryByTimeEWM(work);
 		return o;
 	}

@@ -52,8 +52,12 @@
 		WHERE t.`mainiUserId`=1 AND um.name2='团队' AND um.name1='正在进行中'
   </select>
   
-  <select id="queryByuid" resultMap="BaseResultMap">
+  <select id="queryByuid" resultType="com.accp.domain.teammember">
   		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
+  </select>
+  
+    <select id="queryshh" resultMap="BaseResultMap">
+  		SELECT * FROM `team` WHERE `mainiUserId`=#{userid}
   </select>
   
   <select id="selectAllTeam" resultMap="MapYp">
