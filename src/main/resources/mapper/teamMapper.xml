@@ -51,8 +51,12 @@
   		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
   </select>
   
-  <select id="queryByuid" resultMap="BaseResultMap">
+  <select id="queryByuid" resultType="com.accp.domain.teammember">
   		SELECT * FROM `team` WHERE `mainiUserId`=#{id}
+  </select>
+  
+    <select id="queryshh" resultMap="BaseResultMap">
+  		SELECT * FROM `team` WHERE `mainiUserId`=#{userid}
   </select>
   
   <select id="selectAllTeam" resultMap="MapYp">

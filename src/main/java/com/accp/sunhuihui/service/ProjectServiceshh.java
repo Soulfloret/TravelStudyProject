@@ -239,7 +239,9 @@ public class ProjectServiceshh {
 			b1.setBlist(menubind);
 			b1.setName5(4+"");
 			b1.setName2(name2.substring(0, name2.length()-1));
-			b1.setRecommend(bindmapper.recommendBind(b1.getId()));
+			recommend r=bindmapper.recommendBind(b1.getId());
+			r.setTid(4);
+			b1.setRecommend(r);
 		}
 	
 		return binds;

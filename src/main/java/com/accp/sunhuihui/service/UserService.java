@@ -129,4 +129,9 @@ public class UserService {
 	public List<users> queryIcarno(String idCardNo){
 		return mapper.queryIcarno(idCardNo);
 	}
+	
+	public team queryshh(Integer userid) {
+		team t=TeamMapper.queryshh(userid);
+		return t;
+	}
 }

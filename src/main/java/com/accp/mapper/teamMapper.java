@@ -10,6 +10,8 @@ public interface teamMapper {
 	
 	team selectBymainiUserId(Integer id);
 	
+	team queryshh(Integer id);
+	
     List<team> selectAllTeam(@Param("uname") String uname,@Param("tname") String tname);
 	
     int countByExample(teamExample example);
