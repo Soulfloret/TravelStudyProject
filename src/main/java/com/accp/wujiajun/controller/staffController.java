@@ -26,11 +26,12 @@ public class staffController {
 	positionsServiceImpl positions;
 	
 	@RequestMapping("/staffupdate")
+	@ResponseBody
 	public String staffupdate(staff sta) {
 		Date date=new Date();
 		sta.setDeparturetime(date);
 		service.staffupdate(sta);
-		return "JJ_customer";
+		return "离职成功!";
 	}
 	
 	@RequestMapping("/insert")
@@ -45,7 +46,7 @@ public class staffController {
 		st.getUlist().setUname(account+"yx");
 		st.getUlist().setUpassword(account+"yx");
 		service.insert(st);
-		return "JJ_customer";
+		return "录入成功!";
 	}
 	
 	@RequestMapping("/queryLike")
@@ -70,8 +71,6 @@ public class staffController {
 	@ResponseBody
 	public staff queryById(Integer id,Model model) {
 		staff lists=service.queryById(id);
-		
-		/*model.addAttribute(lists);*/
 		return lists;
 	}
 	

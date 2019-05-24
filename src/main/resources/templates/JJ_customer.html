@@ -90,6 +90,53 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="modal fade bs-example-modal-lg" id="JJ_zhiwei"
+				tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<form action="#" method="post">
+							<div id="" class="modal-header JJ_shang">
+								<span class="closeModal">
+									<h2>录入员工</h2>
+									<label>员工:</label> <select class="zhi1">
+									
+									<!-- 	<option th:each="item1:${lists}" th:value="${item1.id}" th:text="${item1.postion}"></option>
+								 --></select>
+								</span> <span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<!-- <div id="" class="modal-body">
+								<table class="table tables">
+
+									<tr>
+										<td>姓名</td>
+										<td colspan=""><input type="text" name="name1" /></td>
+										<td>电话号码</td>
+										<td colspan="3"><input type="text" name="phone1" /></td>
+									</tr>
+									<tr>
+										<td>住址</td>
+										<td colspan="3"><input type="text" name="address1" /></td>
+										<td>体重</td>
+										<td><input type="text" name="width1" /></td>
+									</tr>
+									<tr>
+										<td>身份证号</td>
+										<td colspan="3"><input type="text" name="idCardNo1" /></td>
+										<td>身高</td>
+										<td><input type="text" name="height1" /></td>
+									</tr>
+								</table>
+							</div> -->
+							<div id="" class="modal-footer">
+								<input class="btn" type="reset" /> <a class="btn lr">录入</a> <a
+									class="btn" data-dismiss="modal">关闭</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
 			<div class="row tm-content-row">
 				<div class="col-12 tm-block-col">
 					<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
@@ -147,8 +194,10 @@
 							</tbody>
 						</table>
 						
-						<button class="btn JJ_addyg" data-target="#JJ_addygtan"
-							data-toggle="modal">录入员工</button>
+							<button class="btn JJ_addyg" data-target="#JJ_addygtan"
+								data-toggle="modal">添加员工</button>
+							<button class="btn JJ_addyg" data-target="#JJ_zhiwei"
+								data-toggle="modal">录入职位</button>
 							<button class="btn JJ_plsc">批量删除</button>
 							<button class="btn JJ_sc">删除</button>
 					</div>
@@ -265,7 +314,6 @@
 							sta.postionid=position1;
 							sta.ulist=ulist;
 							var st=JSON.stringify(sta);
-							alert(st);
 							$.ajax({
 								url:"/staff/insert",
 								data:st,
@@ -292,16 +340,20 @@
 							
 							$(".JJ_delete").click(function(){
 								var h = $(this).parent().parent().parent().find(".uids").html();
-								alert(h);
-								$.ajax({
-									url:"/staff/staffupdate?id="+h,
-									type : "POST",
-									dataType : "json",
-									contentType : "application/json;charset=utf-8",
-									success:function(data2){
-										alert("离职成功!");
-									}
-								})
+								var res = confirm("是否离职?");
+								if(res==true){
+									$.ajax({
+										url:"/staff/staffupdate?id="+h,
+										type : "POST",
+										dataType : "json",
+										contentType : "application/json;charset=utf-8",
+										success:function(data2){
+											alert(data2);
+										}
+									})
+								}else{
+									return false;
+								}
 							})
 					
 		})

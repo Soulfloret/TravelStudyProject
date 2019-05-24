@@ -23,9 +23,49 @@ public class Meal {
     
     private List<Mealix> list;
     
-   private recommend recommend;
+    private recommend recommend;
    
-   
+    private List<project> plist;
+
+	private List<room> rlist;
+	
+	private List<bind> blist;
+	
+	private List<menu> mlist;
+
+	public List<menu> getMlist() {
+		return mlist;
+	}
+
+	public void setMlist(List<menu> mlist) {
+		this.mlist = mlist;
+	}
+
+	public List<bind> getBlist() {
+		return blist;
+	}
+
+	public void setBlist(List<bind> blist) {
+		this.blist = blist;
+	}
+
+	public List<project> getPlist() {
+		return plist;
+	}
+
+	public void setPlist(List<project> plist) {
+		this.plist = plist;
+	}
+
+	public List<room> getRlist() {
+		return rlist;
+	}
+
+	public void setRlist(List<room> rlist) {
+		this.rlist = rlist;
+	}
+
+    
 
     public recommend getRecommend() {
 	return recommend;

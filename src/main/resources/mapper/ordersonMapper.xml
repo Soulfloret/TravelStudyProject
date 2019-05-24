@@ -58,6 +58,8 @@
   </select>
   
   
+  
+  
    <!--  查询所有类型推荐-->
   <select id="recommdstatic" resultType="com.accp.domain.orderson">
   		SELECT COUNT(iid) as tjcount,iid,typeid FROM `orderson` WHERE typeid=#{typeid}

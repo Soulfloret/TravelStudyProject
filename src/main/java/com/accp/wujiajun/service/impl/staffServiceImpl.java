@@ -2,6 +2,7 @@ package com.accp.wujiajun.service.impl;
 
 import java.util.List;
 
+import com.accp.domain.commission;
 import com.accp.domain.signin;
 import com.accp.domain.staff;
 import com.accp.domain.staffExample;
@@ -27,5 +28,9 @@ public interface staffServiceImpl {
 	staff loginByuserid(Integer userid);
 	
 	List<staff> staffquery(staff sta);
+	
+	commission commissionQuery(Integer stid);
+	
+	List<staff> mySalary(Integer id);
 	
 }

@@ -58,52 +58,79 @@
 			<result column="pid" property="pid" jdbcType="INTEGER" />
 		</association>
 	</resultMap>
-<select id="staffquery" resultMap="Map">
-	SELECT staff.id,users.uname FROM staff
-	JOIN users ON
-	staff.userid=users.id
-	GROUP BY staff.`id`
-</select>	
 
-	
-<select id="accountsQuery" resultMap="Map">
-	SELECT users.*,staff.userid AS userid,staff.id as uid FROM staff
-	JOIN users ON staff.userid=users.id
-	where staff.id=#{id}
-</select>
+	<select id="mySalary" resultMap="Map">
+		SELECT
+		st.`id`,us.`uName`,po.`postion`,sa.`BaseSalary`,COUNT(st.`id`) AS stid
+		FROM
+		staff AS st
+		INNER JOIN users AS us ON us.`id`=st.`userId`
+		INNER JOIN
+		positions AS po ON po.`id`=st.`PostionId`
+		INNER JOIN salary AS sa ON
+		sa.`pid`=po.`id`
+		INNER JOIN signin AS si ON si.`staffId`=st.`id`
+		WHERE
+		st.`id`=#{id}
+		GROUP
+		BY st.`id`
+	</select>
 
-<select id="loginByuserid" resultMap="Map">
-select * from staff where userid=#{userid}
-</select>
+	<select id="staffquery" resultMap="Map">
+		SELECT staff.id,users.uname
+		FROM staff
+		JOIN users ON
+		staff.userid=users.id
+		GROUP BY staff.`id`
+	</select>
+
+
+	<select id="accountsQuery" resultMap="Map">
+		SELECT users.*,staff.userid
+		AS userid,staff.id as uid FROM staff
+		JOIN users ON
+		staff.userid=users.id
+		where staff.id=#{id}
+	</select>
+
+	<select id="loginByuserid" resultMap="Map">
+		select * from staff where
+		userid=#{userid}
+	</select>
 
 	<!-- 根据usersid查询员工薪资 、打卡次数 -->
 	<select id="salaryQueryId" resultMap="Map">
 		SELECT
-		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS stid,salary.BaseSalary FROM
+		users.`uName`,positions.`postion`,COUNT(signin.`staffId`) AS
+		stid,salary.BaseSalary FROM
 		staff
-		JOIN signin ON signin.`staffId`=staff.`id`
+		JOIN signin ON
+		signin.`staffId`=staff.`id`
 		JOIN users ON
 		users.`id`=staff.`userId`
-		JOIN positions ON
+		JOIN
+		positions ON
 		positions.`id`=staff.`PostionId`
-		join salary on positions.id=salary.pid
+		join salary on
+		positions.id=salary.pid
 		WHERE signin.`staffId`=#{id}
 	</select>
 	<!-- 查询员工薪资列表 -->
 	<select id="salaryQuery" resultMap="Map">
 		SELECT
-		staff.*,users.*,positions.`postion`,COUNT(*) AS
-		stid,salary.`BaseSalary` FROM staff
-		JOIN
-		users ON
-		users.`id`=staff.`userId`
-		JOIN positions ON
-		positions.`id`=staff.`PostionId`
-		JOIN signin ON
-		signin.`staffId`=staff.`id`
-		JOIN salary ON salary.`pid`=positions.`id`
-		GROUP BY staff.`id`
+		st.`id`,us.`uName`,po.`postion`,sa.`BaseSalary`,COUNT(st.`id`) AS stid
+		FROM
+		staff AS st
+		INNER JOIN users AS us ON us.`id`=st.`userId`
+		INNER JOIN
+		positions AS po ON po.`id`=st.`PostionId`
+		INNER JOIN salary AS sa ON
+		sa.`pid`=po.`id`
+		INNER JOIN signin AS si ON si.`staffId`=st.`id`
+		GROUP
+		BY st.`id`
 	</select>
+
 	<!-- 模糊查询员工 -->
 	<select id="queryLike" resultMap="Map">
 		SELECT users.id AS uid,users.`uName`,users.`idCardNo`,
@@ -117,14 +144,17 @@ select * from staff where userid=#{userid}
 			<if test="postionid!=null">
 				AND staff.`PostionId`=#{postionid}
 			</if>
-			<!-- <if test="name1!=null"> AND uname LIKE CONCAT('%',#{name1},'%') </if> -->
+			<if test="name1!=null">
+				AND uname LIKE CONCAT('%',#{name1},'%')
+			</if>
 		</where>
 		ORDER BY staff.state ASC,
 		staff.id
 	</select>
 	<!-- 员工离职 -->
 	<update id="staffupdate">
-		update staff set state=1,departuretime=#{departuretime} where id=#{id}
+		update staff set
+		state=1,departuretime=#{departuretime} where id=#{id}
 	</update>
 	<!-- 查询员工资料 -->
 	<select id="queryById" resultMap="Map">
@@ -132,10 +162,12 @@ select * from staff where userid=#{userid}
 		uid,users.`uName`,users.`idCardNo`,
 		users.`phone`,users.`address`,users.`height`,users.`width`,
 		staff.*,positions.`id` AS pid,positions.`postion`,staff.`state`
-		FROM users inner JOIN
+		FROM
+		users inner JOIN
 		staff
 		ON staff.`userId`=users.`id`
-		left JOIN positions ON
+		left JOIN positions
+		ON
 		positions.`id`=staff.`PostionId`
 		WHERE staff.`id`=#{id}
 	</select>
@@ -158,12 +190,16 @@ select * from staff where userid=#{userid}
 
 
 	<!-- 新增项目订单查询安排人员 -->
-	<resultMap type="com.accp.domain.staff" id="result_projectOrder_queryUser" extends="BaseResultMap">
-		<collection property="user" column="userid" ofType="com.accp.domain.users" select="com.accp.mapper.usersMapper.queryProjectOrderByUserId"></collection>
+	<resultMap type="com.accp.domain.staff"
+		id="result_projectOrder_queryUser" extends="BaseResultMap">
+		<collection property="user" column="userid"
+			ofType="com.accp.domain.users"
+			select="com.accp.mapper.usersMapper.queryProjectOrderByUserId"></collection>
 	</resultMap>
-	
-	
-	<select id="projectOrder_queryUser" resultMap="result_projectOrder_queryUser">
+
+
+	<select id="projectOrder_queryUser"
+		resultMap="result_projectOrder_queryUser">
 		select * from `staff` where id=#{id}
 	</select>
 	

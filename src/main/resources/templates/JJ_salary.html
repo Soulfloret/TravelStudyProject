@@ -43,7 +43,7 @@ a {
 					</div>
 				</div>
 				<div id="" class="modal-footer">
-					<a class="btn">提交</a> <a class="btn" data-dismiss="modal">关闭</a>
+					<a class="btn" data-dismiss="modal">关闭</a>
 				</div>
 			</div>
 		</div>
@@ -51,89 +51,9 @@ a {
 
 	<div class="" id="home">
 		<div class="container">
-			<div class="modal fade bs-example-modal-lg" id="JJ_jbgz"
-				tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div id="" class="modal-header JJ_shang">
-							<span class="closeModal">
-								<h3>基本工资</h3>
-							</span> <span class="close" data-dismiss="modal">&times;</span>
-						</div>
-						<div id="" class="modal-body">
-							<h4>餐饮工资</h4>
-							<table class="table tables">
-								<tr>
-									<td>职位</td>
-									<td>底薪</td>
-								</tr>
-								<tr>
-									<td>餐饮员工</td>
-									<td class="JJ_gz">2000</td>
-								</tr>
-								<tr>
-									<td>餐饮管理员</td>
-									<td class="JJ_gz">3000</td>
-								</tr>
-							</table>
-							<h4 style="margin-top: 10px;">酒店工资</h4>
-							<table class="table tables">
-								<tr>
-									<td>职位</td>
-									<td>底薪</td>
-								</tr>
-								<tr>
-									<td>酒店员工</td>
-									<td class="JJ_gz">2200</td>
-								</tr>
-								<tr>
-									<td>酒店管理员</td>
-									<td class="JJ_gz">3100</td>
-								</tr>
-							</table>
-							<h4 style="margin-top: 10px;">项目与活动工资</h4>
-							<table class="table tables">
-								<tr>
-									<td>职位</td>
-									<td>底薪</td>
-								</tr>
-								<tr>
-									<td>项目员工</td>
-									<td class="JJ_gz">2000</td>
-								</tr>
-								<tr>
-									<td>项目管理员</td>
-									<td class="JJ_gz">3500</td>
-								</tr>
-								<tr>
-									<td>活动员工</td>
-									<td class="JJ_gz">2000</td>
-								</tr>
-								<tr>
-									<td>活动管理员</td>
-									<td class="JJ_gz">3500</td>
-								</tr>
-								<tr>
-									<td>活动教官</td>
-									<td class="JJ_gz">2500</td>
-								</tr>
-								<tr>
-									<td>领队</td>
-									<td class="JJ_gz">2500</td>
-								</tr>
-							</table>
-						</div>
-						<div id="" class="modal-footer">
-							<a class="btn">提交</a> <a class="btn" data-dismiss="modal">关闭</a>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 				<h2 class="tm-block-title">薪资列表</h2>
 				<div class="JJ_feileiselect">
-					<a data-target="#JJ_jbgz" data-toggle="modal"
-						href="javascript:void(0)" style="/* margin-left: 170px; */ color: red;">基本工资</a>
 				</div>
 				<table class="table JJ_tables">
 					<thead>
@@ -141,6 +61,7 @@ a {
 							<th scope="col">员工ID</th>
 							<th scope="col">员工姓名</th>
 							<th scope="col">员工类型</th>
+							<th scope="col">底薪</th>
 							<th scope="col">打卡次数</th>
 							<th scope="col">操作</th>
 						</tr>
@@ -153,6 +74,7 @@ a {
 								<div class="tm-status-circle moving"></div> <!--普通员工--> <b
 								th:text="${item.plist.postion}"></b>
 							</td>
+							<td><b th:text="${item.salist.basesalary}"></b></td>
 							<td><b th:text="${item.slist.staffid}"></b></td>
 							<td><b> <a data-target="#JJ_xztan" data-toggle="modal"
 									href="javascript:void(0)"
@@ -173,33 +95,28 @@ a {
 </body>
 <script type="text/javascript">
 	$(function() {
-		$(".salary")
-				.click(
-						function() {
-							var h = $(this).parent().parent().parent().find(
-									".said").html();
+		$(".salary").click(function() {
+							var xz=0;
+							var h = $(this).parent().parent().parent().find(".said").html();
 							var tabs="";
 							$(".salaryzhi").html("");
 							$(".tab1").html("");
 							$(".tab2").html("");
 							$(".tab3").html("");
-								$.ajax({
-										url : "/salary/salaryQueryId?id=" + h,
-										type : "POST",
-										dataTyoe : "json",
-										contentType : "application/json;charset=utf-8",
-										success : function(data) {
-											console.log(data);
-													var zhi = "<label>姓名:</label>&nbsp;<span>"
+							$.ajax({
+								url : "/salary/salaryQueryId?id=" + h,
+								type : "POST",
+								dataType : "json",
+								contentType : "application/json;charset=utf-8",
+								success : function(data) {
+										var zhi = "<label>姓名:</label>&nbsp;<span>"
 															+ data[0].ulist.uname
 															+ "</span>&nbsp;&nbsp;"
 															+ "<label>职位:</label>&nbsp;<span>"
 															+ data[0].plist.postion
 															+ "</span>";
 														$(".salaryzhi").append(zhi);
-
-														
-											var tab1 = "<table class='table tables'>"
+										var tab1 = "<table class='table tables'>"
 													+ "<tr>"
 													+ "<td>打卡次数</td>"
 													+ "</tr>"
@@ -208,32 +125,40 @@ a {
 													+ "</tr>"
 													+ "</table><br><br>";
 													$(".tab1").append(tab1);
-													
-													var tab3="<label>个人工资:</label><span>"+data[0].salist.basesalary+"</span>";
-													$(".tab3").append(tab3);
+													xz+=data[0].salist.basesalary;
+													var tab3="<label>个人工资:</label>";
+													$(".tab3").append(tab3);	
+								$.ajax({
+													url : "/salary/commissionQueryById?stid=" + h,
+													type : "POST",
+													dataType : "json",
+													contentType : "application/json;charset=utf-8",
+													success:function(cdata){
+														if(cdata!=null&&cdata.royaltyamount!=null&&cdata.royaltyamount!="")
+														xz+=cdata.royaltyamount;
+														var ki="<span>"+xz+"</span>";
+														$(".tab3").append(ki);
+													}
+								})
 								$.ajax({
 									url : "/salary/signinQuery?id=" + h,
 										type : "POST",
-										dataTyoe : "json",
+										dataType : "json",
 										contentType : "application/json;charset=utf-8",
 										success : function(data1) {
 											$(data1).each(function(i,obj){
-											var ri=new Date(obj.signintime).getDate();
-											var yue=new Date(obj.signintime).getMonth();
-											var nian=new Date(obj.signintime).getFullYear();
-											var shi=new Date(obj.signintime).getHours();
-											var fen=new Date(obj.signintime).getMinutes();
-											var miao=new Date(obj.signintime).getSeconds();
-											var dates=nian+"-"+yue+"-"+ri+" "+shi+":"+fen+":"+miao;
-												var tr="<tr><td>"+(i+1)+"</td>"
-												+"<td>"+dates+"</td>"
-												+"</tr>";
-											tabs+=tr;
-											
-											
+												var ri=new Date(obj.signintime).getDate();
+												var yue=new Date(obj.signintime).getMonth();
+												var nian=new Date(obj.signintime).getFullYear();
+												var shi=new Date(obj.signintime).getHours();
+												var fen=new Date(obj.signintime).getMinutes();
+												var miao=new Date(obj.signintime).getSeconds();
+												var dates=nian+"-"+yue+"-"+ri+" "+shi+":"+fen+":"+miao;
+													var tr="<tr><td>"+(i+1)+"</td>"
+													+"<td>"+dates+"</td>"
+													+"</tr>";
+												tabs+=tr;
 											})
-											
-											
 											var tab2="<table class='table tables ta'>"
 											+"<tr>"
 											+"<td>次数</td>"
@@ -246,14 +171,10 @@ a {
 								})						
 												
 											
-										}
-
-									})
+							}
+							})
 						})
-						
-						
-
-	})
+			})
 </script>
 
 </html>

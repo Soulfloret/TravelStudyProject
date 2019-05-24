@@ -32,62 +32,70 @@ table td {
 							<table class="table" style="table-layout: fixed;">
 								<thead>
 									<tr>
-										<th scope="col">编号</th>
 										<th scope="col">发送人</th>
 										<th scope="col">内容</th>
-										<th scope="col">收件人</th>
+										<th scope="col">文件</th>
+										<th scope="col">收件职位</th>
 										<th scope="col">发送时间</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="item : ${list}">
-										<th scope="row"><b th:text="${item.id}">#122349</b></th>
-										<td scope="row"><b>张三</b></td>
+										<td scope="row"><b th:text="${item.user.uname}">张三</b></td>
 										<td scope="row" th:text="${item.content}">
 											睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉
 											睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉睡觉</td>
-										<td scope="row"><b th:text="${item.user.uname}">李四</b></td>
+										<td scope="row"><img th:src="${item.images.url}" /><!-- </b> --></td>
+										<td scope="row"><b th:text="${item.pos.postion}">李四</b></td>
 										<td scope="row"><b
-											th:text="${#dates.format(item.time,'yyyy-MM-dd HH:mm')}">2018-5-5</b></td>
+											th:text="${#dates.format(item.time,'yyyy-MM-dd')}">2018-5-5</b></td>
 									</tr>
-
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<form action="/notice/addmessage" method="post"
-						enctype="multipart/form-data" class="tm-signup-form row">
+						 class="tm-signup-form row" enctype="multipart/form-data">
 						<div class="form-group col-lg-12">
 							<label for="name">文件</label><br>
 							<P>
-								<input type="file" name="file"><input type="file"
-									name="file">
-							</P>
-							<P>
-								<input type="file" name="file"><input type="file"
-									name="file">
+								<input type="file" name="files" multiple="multiple">
 							</P>
 						</div>
 						<div class="form-group col-lg-12">
 							<label for="name">消息内容</label>
-							<textarea name="content" class="form-control validate">
-                			</textarea>
-						</div>
-						<div class="form-group col-lg-12 zhi">
-							<label for="name">职位</label><br> <span
-								th:each="item2 : ${pos}"> <label
-								th:text="${item2.postion}"> </label> <input type="checkbox"
-								th:value="${item2.id}">&nbsp;&nbsp;&nbsp;&nbsp;
-							</span>
+							<textarea name="content" class="form-control validate"></textarea>
 						</div>
 						<div class="form-group col-lg-12">
-							<a class="n btn btn-primary btn-block" nei="0">内部发送</a>
+							<a data-target="#zw" data-toggle="modal"
+								class="n btn btn-primary btn-block" nei="0">内部发送</a>
+						</div>
+						<div class="modal fade bs-example-modal-lg" id="zw" tabindex="-1"
+							role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div id="" class="modal-header JJ_shang">
+										<span class="closeModal"><label for="name">职位</label><br>
+											<span th:each="item2 : ${pos}"> <label
+												th:text="${item2.postion}"> </label> <input type="checkbox"
+												th:value="${item2.id}" name="pid">&nbsp;&nbsp;&nbsp;&nbsp;
+										</span> </span> <span class="close" data-dismiss="modal">&times;</span>
+									</div>
+									<div id="" class="modal-body appe"></div>
+									<div id="" class="modal-footer">
+										<button type="" class="btn nb">提交</button> <a class="btn" data-dismiss="modal">关闭</a>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-12">
 							<button type="submit"
 								class="btn btn-primary btn-block text-uppercase" wai="1">外部发送</button>
 						</div>
 					</form>
+
+
+
 				</div>
 			</div>
 		</div>
@@ -104,10 +112,22 @@ table td {
 			$(".zhi").hide();
 			$(".n").click(function() {
 				$(".zhi").show();
-
 			})
+			
+			$(".nb").click(function(){
+				var file=$("[name=file]").val();
+				var content=$("[name=content]").val();
+				var pid=$("[name=pid]").val();
+				
+			})
+			
 
 			$("body").on("click", "table tr td:nth-of-type(2)", function() {
+				$(this).css("overflow", "initial")
+				$(this).css("white-space", "initial");
+				$(this).css("text-overflow", "initial");
+			})
+			$("body").on("click", "table tr td:nth-of-type(3)", function() {
 				$(this).css("overflow", "initial")
 				$(this).css("white-space", "initial");
 				$(this).css("text-overflow", "initial");

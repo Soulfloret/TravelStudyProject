@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.accp.domain.commission;
 import com.accp.domain.signin;
 import com.accp.domain.staff;
 import com.accp.domain.staffExample;
+import com.accp.mapper.commissionMapper;
 import com.accp.mapper.positionsMapper;
 import com.accp.mapper.signinMapper;
 import com.accp.mapper.staffMapper;
@@ -29,8 +31,8 @@ public class staffService implements staffServiceImpl{
 	@Autowired
 	positionsMapper pmapper;
 	
-	
-	
+	@Autowired
+	commissionMapper cmapper;
 	
 	@Override
 	public List<staff> query(staff sta) {
@@ -95,6 +97,18 @@ public class staffService implements staffServiceImpl{
 	public List<staff> staffquery(staff sta) {
 		// TODO Auto-generated method stub
 		return mapper.staffquery(sta);
+	}
+
+	@Override
+	public commission commissionQuery(Integer stid) {
+		// TODO Auto-generated method stub
+		return cmapper.commissionQuery(stid);
+	}
+
+	@Override
+	public List<staff> mySalary(Integer id) {
+		// TODO Auto-generated method stub
+		return mapper.mySalary(id);
 	}
 
 	

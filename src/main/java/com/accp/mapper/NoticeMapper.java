@@ -2,12 +2,18 @@ package com.accp.mapper;
 
 import com.accp.domain.Notice;
 import com.accp.domain.NoticeExample;
+import com.accp.domain.images;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface NoticeMapper {
 	
-	Notice noticeQuery(Integer id);
+	int noticeImages(Notice noti);
+	
+	int noticeInsert(Notice record);
+	
+	List<Notice> noticeQuery(Integer id);
 	
     int countByExample(NoticeExample example);
 

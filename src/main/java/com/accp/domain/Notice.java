@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Notice {
     private Integer id;
@@ -43,8 +44,39 @@ public class Notice {
 
     private staff sta;
     
+    private positions pos;
     
-    public users getUser() {
+    private images images;
+    
+    private List<images> ilist;
+    
+    
+    
+    public List<images> getIlist() {
+		return ilist;
+	}
+
+	public void setIlist(List<images> ilist) {
+		this.ilist = ilist;
+	}
+
+	public images getImages() {
+		return images;
+	}
+
+	public void setImages(images images) {
+		this.images = images;
+	}
+
+	public positions getPos() {
+		return pos;
+	}
+
+	public void setPos(positions pos) {
+		this.pos = pos;
+	}
+
+	public users getUser() {
 		return user;
 	}
 
