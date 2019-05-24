@@ -115,11 +115,11 @@ public class UserMainOrderServiceImpl1 implements UserMainOrderService1{
 	public Usermainorder addUserMainOrder(Usermainorder o) {
 		
 		if(o.getName2().equals("个人")) {
-			//mapper22.deleteUserid(o.getOrdercustomer());
+			mapper22.deleteUserid(o.getOrdercustomer());
 		}
 		if(o.getName2().equals("团队")) {
 			team t=mapper12.selectByPrimaryKey(o.getOrdercustomer());
-			//mapper22.deleteUserid(t.getMainiuserid());
+			mapper22.deleteUserid(t.getMainiuserid());
 			List<users> list1= new ArrayList<users>();
 			List<teammember> list= mapper13.queryBytid(o.getOrdercustomer());
 			for (teammember teammember : list) {

@@ -84,7 +84,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 	/**
 	 * 拦截器
 	 */
-	/*protected void addInterceptors(InterceptorRegistry registry) {
+	protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(my).addPathPatterns("/**")
 		.excludePathPatterns("/login/mode")
 		.excludePathPatterns("/js/**")
@@ -117,6 +117,7 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/xjb_projectController/query_Qt")
 		.excludePathPatterns("/xjb_projectController/queryBy_Qt_Xq")
 		.excludePathPatterns("/xjb_projectController/insert_shop")
+		.excludePathPatterns("/xjb_projectController/queryJd")
 		.excludePathPatterns("/menu/toquerymenu1")
 		.excludePathPatterns("/menu/toquerymenu1Byid")
 		.excludePathPatterns("/menu/shopcartadd")
@@ -146,10 +147,17 @@ public class WebMvcConfigruation extends WebMvcConfigurationSupport {
 		.excludePathPatterns("/error/**")
 		.excludePathPatterns("/team/queryAllteamByuid")
 		.excludePathPatterns("/customer/queryById")
-		.excludePathPatterns("/*.ico");
+		.excludePathPatterns("/*.ico")
+		.excludePathPatterns("/xjb_projectController/**")
+		.excludePathPatterns("/xjb_productController/**")
+		.excludePathPatterns("/xjb_projectOrderController/**")
+		.excludePathPatterns("/order/query")
+		.excludePathPatterns("/order/queryIdcard")
+		.excludePathPatterns("/order/insertOrder")
+		.excludePathPatterns("/order/insertOrder1");
 		super.addInterceptors(registry);
 	}
-*/
+
 	@Override
 	protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());

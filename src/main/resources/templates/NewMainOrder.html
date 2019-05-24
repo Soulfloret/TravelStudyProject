@@ -605,9 +605,7 @@
 				if(data.typeid==1){
 					var fzr;
 					$.each(data.ix.list[0].list,function(indexs,is){
-						if(is.staff.postionid==1){
 							fzr=is.staff.user.uname;
-						}
 					})
 					var timestamp4= new Date(data.ix.list[0].starttime);
 					timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
@@ -626,9 +624,7 @@
 					$.each(data.ix.list,function(index3,item3){
 						var fzr;
 						$.each(item3.list,function(indexs,is){
-							if(is.staff.postionid==1){
 								fzr=is.staff.user.uname;
-							}
 						})
 						var timestamp4= new Date(item3.starttime);
 						timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 
@@ -735,9 +731,7 @@
 				if(data.typeid==1){
 					var fzr;
 					$.each(data.ix.list[0].list,function(indexs,is){
-						if(is.staff.postionid==1){
 							fzr=is.staff.user.uname;
-						}
 					})
 					price+=data.ix.list[0].project.price;
 					var timestamp4= new Date(data.ix.list[0].starttime);
@@ -756,9 +750,7 @@
 					$.each(data.ix.list,function(index3,item3){
 						var fzr;
 						$.each(item3.list,function(indexs,is){
-							if(is.staff.postionid==1){
 								fzr=is.staff.user.uname;
-							}
 						})
 						var timestamp4= new Date(item3.starttime);
 						timestamp4=timestamp4.toLocaleDateString().replace(/\//g, "-")+ " " + timestamp4.toTimeString().substr(0, 8); 

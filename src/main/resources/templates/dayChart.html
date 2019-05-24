@@ -19,12 +19,7 @@
 				</div>
 				<!-- row -->
 				<div class="row tm-content-row">
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block">
-							<h2 class="tm-block-title">项目收入图</h2>
-							<canvas id="barChart"></canvas>
-						</div>
-					</div>
+	
 					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 						<div class="tm-bg-primary-dark tm-block tm-block-taller">
 							<h2 class="tm-block-title">项目选购图</h2>
@@ -33,24 +28,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block">
-							<h2 class="tm-block-title">餐饮收入图</h2>
-							<canvas id="Food1"></canvas>
-						</div>
-					</div>
+
 					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
 						<div class="tm-bg-primary-dark tm-block tm-block-taller">
 							<h2 class="tm-block-title">餐饮选购图</h2>
 							<div id="pieChartContainer1">
 								<canvas id="pieChart1" class="chartjs-render-monitor" width="200" height="200"></canvas>
 							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-						<div class="tm-bg-primary-dark tm-block">
-							<h2 class="tm-block-title">酒店收入图</h2>
-							<canvas id="Hotel"></canvas>
 						</div>
 					</div>
 					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -80,70 +64,7 @@
 		    })(Math, '0123456789abcdef', 5)
 			}
 			Chart.defaults.global.defaultFontColor = 'white';
-			var newlinedatasets = [{
-				label: "项目一",
-				data: [80, 70, 90, 10, 50, 40, 10, 500, 750, 600, 750],
-				fill: false,
-				borderColor: "rgb(75, 192, 192)",
-				cubicInterpolationMode: "monotone",
-				pointRadius: 0
-			}, {
-				label: "项目二",
-				data: [50, 150, 900, 10, 500, 400, 100, 20, 150, 600, 70],
-				fill: false,
-				borderColor: "rgb(0,0,0)",
-				cubicInterpolationMode: "monotone",
-				pointRadius: 0
-			}];
-			var bartitle="项目收入统计图"
-			var newbarlables = ["","项目一", "项目二", "项目三", "项目四", "项目五", "项目六", "项目七"];
-			var newbardatasets = [{
-				label: "项目收入统计",
-				data: [0,100, 140, 150, 120, 130, 140, 150],
-				backgroundColor: [
-					"#F7604D",
-					"#4ED6B8",
-					"#A8D582",
-					"#D7D768",
-					"#9D66CC",
-					"#DB9C3F",
-					"#dddddd",
-					"#ffffff"
-				],
-				borderWidth: 0
-			}];
-			var bartitle1="餐饮收入统计图"
-			var newbarlables1 = ["餐饮一", "餐饮二", "餐饮三", "餐饮四", "餐饮五", "餐饮六", "餐饮七"];
-			var newbardatasets1 = [{
-				label: "餐饮收入统计",
-				data: [100, 140, 150, 120, 130, 140, 150],
-				backgroundColor: [
-					"#F7604D",
-					"#4ED6B8",
-					"#A8D582",
-					"#D7D768",
-					"#9D66CC",
-					"#DB9C3F",
-					"#3889FC",
-				],
-				borderWidth: 0
-			}];
-			var bartitle2="酒店收入统计图"
-			var newbarlables2 = ["房间一", "房间二", "房间三", "房间四", "房间五", "房间六", "房间七"];
-			var newbardatasets2 = [{
-				label: "酒店收入统计",
-				data: [100, 140, 150, 120, 130, 140, 150],
-				backgroundColor: [
-					"#F7604D",
-					"#4ED6B8",
-					"#A8D582",
-					"#D7D768",
-					"#9D66CC",
-					"#DB9C3F",
-					"#3889FC",
-				],
-				borderWidth: 0
-			}];
+			
 			 
 			var newpielable=[]
 			var newpiedatasets =[]
@@ -196,8 +117,7 @@
 				newLine,
 				configBar,
 				configPie,
-				lineChart;
-			barChart, pieChart;
+				 pieChart;
 			// DOM is ready
 			$(function() {
 				var barname = "barChart";
@@ -209,12 +129,12 @@
 				var piecontainer = "pieChartContainer";
 				var piecontainer1="pieChartContainer1";
 				var piecontainer2="pieChartContainer2";
-				drawBarChart(bartitle,newbarlables, newbardatasets, barname); // Bar Chart
-				drawPieChart(newpielable, newpiedatasets, piechart, piecontainer); // Pie Chart
-				drawBarChart(bartitle1,newbarlables1,newbardatasets1,barname1);
-				drawPieChart(newpielable1,newpiedatasets1,piechart1,piecontainer1);
-				drawBarChart(bartitle2,newbarlables2,newbardatasets2,barname2)
-				drawPieChart(newpielable2,newpiedatasets2,piechart2,piecontainer2);
+/* 				drawBarChart(bartitle,newbarlables, newbardatasets, barname); // Bar Chart
+ */				drawPieChart(newpielable, newpiedatasets, piechart, piecontainer); // Pie Chart
+/* 				drawBarChart(bartitle1,newbarlables1,newbardatasets1,barname1);
+ */				drawPieChart(newpielable1,newpiedatasets1,piechart1,piecontainer1);
+/* 				drawBarChart(bartitle2,newbarlables2,newbardatasets2,barname2)
+ */				drawPieChart(newpielable2,newpiedatasets2,piechart2,piecontainer2);
 				$(window).resize(function() {
 					updateLineChart();
 					updateBarChart();

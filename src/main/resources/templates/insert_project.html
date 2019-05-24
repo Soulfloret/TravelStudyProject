@@ -351,10 +351,6 @@
 					formData.append("maxcrowd",$("[name=maxcrowd]").val()); 
 					formData.append("name1",pj);
 					var a=pj.split(",");
-					for(var i=0;i<a.length;i++){
-						alert(a[i])
-					}
-					console.log(formData);
 				   $.ajax({
 						url:"project_insert",
 						type:"post",

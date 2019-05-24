@@ -33,10 +33,9 @@ public class orderProjecrService {
 	
 	/*新增订单*/
 	public int insert_Order(Order_workAndOrderSon order_work) {
-		System.out.println(JSON.toJSONString(order_work));
-		System.out.println(JSON.toJSONString(order_work.getOrder_son()));
-		System.out.println(JSON.toJSONString(order_work.getOrder_work()));
 		for(int k=0;k<order_work.getOrder_son().size();k++) {
+			order_work.getOrder_son().get(k).setName1(18+"");
+			order_work.getOrder_son().get(k).setName2(1+"");
 			osmapper.insert_project(order_work.getOrder_son().get(k));
 		}
 		int i=0;
