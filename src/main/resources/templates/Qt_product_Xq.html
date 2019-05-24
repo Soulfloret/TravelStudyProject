@@ -17,7 +17,13 @@
 		<script th:src="@{/js1/jquery.min.js}"></script>
 		<link th:href="@{/css1/flexslider.css}" rel="stylesheet" />
 		<link rel="stylesheet" th:href="@{/css1/responsive.css}">
-		
+		<link rel="stylesheet" th:href="@{/css1/minified.css}">
+	<script th:src="@{/js1/modernizr.min.js}"></script>	
+	<!-- PARTICULAR PAGES CSS FILES -->
+	<link rel="stylesheet" th:href="@{/css1/jquery.nouislider.css}">
+	<link rel="stylesheet" th:href="@{/css1/isotope.css}">
+	<link rel="stylesheet" th:href="@{/css1/innerpage.css}">
+	<link rel="stylesheet" th:href="@{/css1/responsive.css}">
 		<style type="text/css">
 			
 		</style>
@@ -171,7 +177,7 @@
 		<div class=" owl-theme" data-visible-items="4" data-navigation="true" data-lazyload="true">
 									<div class="product" data-product-id="1" th:each="item : ${product.pplist}">
 										<div class="entry-media">
-											<img th:src="'/'+${item.pro.ilist[0].url}" alt="" class="lazyOwl thumb" />
+											<img th:src="'/'+${item.pro.ilist[0].url}" style="width: 300px;height: 250px;" alt="" class="lazyOwl thumb" />
 											<div class="hover">
 												<ul class="icons unstyled">
 													<li>
@@ -194,11 +200,13 @@
 
 										</div>
 									</div>
-
+			
 									
-
 								</div>
+								<input type="button" value="加入购物车" class="btn" id="lbshop" th:iid="${product.id}">
 			</div>
+			
+			
 		<!-- SITE FOOTER -->
 	<footer class="page-footer">
 		
@@ -368,4 +376,27 @@
 		
 	</footer>
 </body>
+
+<script type="text/javascript">
+
+	$(function(){
+		$("#lbshop").click(function(){
+			var iid=$(this).attr("iid");
+			var i={};
+			i.iid=iid;
+			var a=JSON.stringify(i);
+			$.ajax({
+				url:"/xjb_projectController/hdinsert_shop",
+				type:"post",
+				data:a,
+				dataType:"json",
+				processData:false,
+				contentType:"application/json;charset=UTF-8",
+				success:function(result){
+				}
+			})
+		})
+	})
+	
+</script>
 </html>

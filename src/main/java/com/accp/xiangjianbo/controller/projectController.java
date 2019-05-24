@@ -216,4 +216,17 @@ public class projectController {
 		return "asdas";
 	}
 
+	
+	/*活动加入购物车*/
+	@RequestMapping("/hdinsert_shop")
+	@ResponseBody
+	public String hdinsert_shop(@RequestBody Shopcart record,HttpSession session) {
+		users user=(users) session.getAttribute("use");
+		record.setUserid(user.getId());
+		record.setTypeid(5);
+		System.out.println("asdasdasd");
+		System.out.println(JSON.toJSONString(record));
+		int i=shopservice.insert(record);
+		return "asdas";
+	}
 }

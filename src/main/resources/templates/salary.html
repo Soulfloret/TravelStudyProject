@@ -51,54 +51,7 @@ td {
 								</tr>
 							</thead>
 							<tbody class="td">
-								<!-- <tr th:each="item:${list}">
-									<th scope="row"><input type="checkbox" /></th>
-									<td><b th:text="${item.ulist.uname}"></b></td>
-									<td>
-										<div class="tm-status-circle moving"></div>
-										<b th:text="${item.plist.postion}"></b>
-									</td>
-									<td><b th:text="${item.salist.basesalary}"></b></td>
-									<td><b th:text="${item.slist.staffid}"></b></td>
-									<td><b> <a data-target="#JJ_xztan" data-toggle="modal"
-											href="javascript:void(0)"
-											class="tm-product-delete-link JJ_delete salary"> <i
-												class="fa fa-info"></i>
-										</a></b></td>
-									<td><a href="#" class="tm-product-delete-link"> <i
-											class="far fa-trash-alt tm-product-delete-icon"></i>
-									</a></td>
-								</tr> -->
-								<!-- <tr>
-									<th scope="row"><input type="checkbox" /></th>
-									<td class="tm-product-name">1月份</td>
-									<td>1500</td>
-									<td>100</td>
-									<td>200</td>
-									<td>￥1400</td>
-									<td><a href="salaryInfo.html"
-										class="tm-product-delete-link"> <i class="fa fa-info"
-											style="color: white;"></i>
-									</a></td>
-									<td><a href="#" class="tm-product-delete-link"> <i
-											class="far fa-trash-alt tm-product-delete-icon"></i>
-									</a></td>
-								</tr>
-								<tr>
-									<th scope="row"><input type="checkbox" /></th>
-									<td class="tm-product-name">1月份</td>
-									<td>1500</td>
-									<td>100</td>
-									<td>200</td>
-									<td>￥1400</td>
-									<td><a href="salaryInfo.html"
-										class="tm-product-delete-link"> <i class="fa fa-info"
-											style="color: white;"></i>
-									</a></td>
-									<td><a href="#" class="tm-product-delete-link"> <i
-											class="far fa-trash-alt tm-product-delete-icon"></i>
-									</a></td>
-								</tr> -->
+								
 							</tbody>
 						</table>
 						<br>
@@ -118,12 +71,12 @@ td {
 	<!-- https://jquery.com/download/ -->
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<!-- https://getbootstrap.com/ -->
-	<script>
+	<script th:inline="javascript">
 		$(function() {
-			var id=2;
+			var id=[[${session.staff.id}]];
 			var si;
 			var xz=0;
-			var tabs;
+			var tabs=0;
 			$.ajax({
 				url : "/mySalary/queryById?id=" + id,
 				type : "POST",
@@ -138,14 +91,7 @@ td {
 						"<td class='jj'></td>"+
 						"<td><b>"+obj.slist.staffid+"</b></td>"+
 						"<td class='zj'></td>"+
-						/* "<td><b> <a data-target='#JJ_xztan' data-toggle='modal'"+
-								"href='javascript:void(0)'"+
-								"class='tm-product-delete-link JJ_delete salary'> <i"+
-									"class='fa fa-info'></i>"+
-							"</a></b></td>"+
-						"<td><a href='#' class='tm-product-delete-link'> <i"+
-								"class='far fa-trash-alt tm-product-delete-icon'></i>"+
-						"</a></td>"+ */
+						
 					"</tr>";
 					xz+=obj.salist.basesalary;
 					$(".td").append(di);

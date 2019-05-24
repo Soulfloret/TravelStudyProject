@@ -93,19 +93,6 @@
 			<result column="mprice" property="price" />
 		</collection>
 	</resultMap>
-	<select id="query" resultMap="BaseResultMap1">
-		select m.*,mx.`id` as mxid,mx.`iid`,mx.`tid`,mx.`typeId`,mx.`name1` as
-		mxname1,mx.`name2` as mxname2,
-		mx.`name3` as mxname3,mx.`name4` as
-		mxname4,mx.`name5` as mxname5 from meal as
-		m,mealix as mx where
-		m.`id`=mx.`tid`
-		<if test="id!=null">
-			and m.id=#{id}
-		</if>
-	</select>
-
-
 	<select id="menuAjaxQuery" resultMap="Map">
 		SELECT
 		me.`name`,me.`price`,me.`name1`,b.`mName` AS
